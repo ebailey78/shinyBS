@@ -89,12 +89,13 @@ bsNavButton <- function(inputId, label) {
   tags$li(tags$button(id = inputId, class="btn", label))
 }
 
-bsNavSliderInput <- function(inputId, label, min, max, value, step = NULL,
-                             round = FALSE, format = "#,##0.#####", locale = "us",
-                             ticks = TRUE) {
-
-  tags$li(style="width: 10%", shiny:::slider(inputId, min = min, max = max, value = value, step = step, 
-                 round = round, locale = locale, format = format, ticks = ticks,
-                 animate = FALSE))
-  
-}
+# # This causes lots of formatting issues, will probabily have to redo slider function to get it working
+# bsNavSliderInput <- function(inputId, label, min, max, value, step = NULL,
+#                              round = FALSE, format = "#,##0.#####", locale = "us",
+#                              ticks = TRUE, width = 100) {
+# 
+#   tags$li(class="navbar-form", style=paste0("width: ", width, "%; display: inline-block;"), shiny:::slider(inputId, min = min, max = max, value = value, step = step, 
+#                  round = round, locale = locale, format = format, ticks = ticks,
+#                  animate = FALSE))
+#   
+# }
