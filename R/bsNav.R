@@ -21,7 +21,7 @@ bsNavLink <- function(inputId, label, active=FALSE, href="#", ...) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  tags$li(tags$a(id = inputId, href = href, label))
+  tags$li(tags$a(id = inputId, href = href, label, ...))
   
 }
 

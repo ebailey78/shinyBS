@@ -2,7 +2,7 @@ library(shiny)
 library(shinyBS)
 
 shinyUI(basicPage(bsNavBar("navBar", "IDEM", 
-                           leftItems = list(bsNavLink("link1", "Link #1"),
+                           leftItems = list(bsNavLink("link1", "Link #1", href="#modal", "data-toggle"="modal"),
                                             bsNavDivider(),
                                             bsNavLink("link2", "Link #2"),
                                             bsNavDateRangeInput("dateRange"),
@@ -18,7 +18,8 @@ shinyUI(basicPage(bsNavBar("navBar", "IDEM",
                   numericInput("numInput", "Num", 5)
                   , bsTooltip("link1", "This is a tooltip"), bsTooltip("text1", "This is a text input", "right"),
                     bsPopover("numInput", "Number Input", 
-                              "This is a box for entering numeric input. It looks just like a text input in Firefox but will have little arrows for selecting a number in some other browsers.", trigger="hover")
+                              "This is a box for entering numeric input. It looks just like a text input in Firefox but will have little arrows for selecting a number in some other browsers.", trigger="hover"),
+                  bsModal("modal", "Test Modal", "This is a test modal. It doesn't do anything except prove that my code works.")
 
                   
                   

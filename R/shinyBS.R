@@ -26,3 +26,15 @@ bsAlert <- function(id, text, type="warn", dismiss=TRUE) {
            )
   
 }
+
+bsModal <- function(inputId, title, content) {
+  
+  tags$div(id = inputId, class="modal hide fade",
+           tags$div(class="modal-header",
+                    tags$button(type="button", class="close", "data-dismiss"="modal", "aria-hidden"="true", HTML("&times;")),
+                    tags$h4(title)),
+           tags$div(class="modal-body", HTML(content)),
+           tags$div(class="modal-footer", tags$a(href="#", "data-dismiss"="modal", "aria-hidden"="true", class="btn btn-primary", "Close"))
+           )
+  
+}
