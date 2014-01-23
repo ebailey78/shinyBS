@@ -8,43 +8,58 @@ bsNavBar <- function(inputId, brand, leftItems, rightItems, fixed=FALSE, bottom=
     class <- paste(class, "navbar-fixed-top")
   }
   
-  tags$div(id = inputId, class = class,
-           tags$div(class = "navbar-inner",
-                    tags$a(class="brand", href="#", brand),
-                    tags$ul(class="nav pull-left", leftItems),
-                    tags$ul(class="nav pull-right", rightItems)
-                    )
-           )
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$div(id = inputId, class = class,
+                   tags$div(class = "navbar-inner",
+                   tags$a(class="brand", href="#", brand),
+                   tags$ul(class="nav pull-left", leftItems),
+                   tags$ul(class="nav pull-right", rightItems)
+                   )
+          )
+  )
+
 }
 
 bsNavLink <- function(inputId, label, active=FALSE, href="#", ...) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  tags$li(tags$a(id = inputId, href = href, label, ...))
-  
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                    tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(tags$a(id = inputId, href = href, label, ...))
+  )
 }
 
 bsNavDivider <- function() {
-  tags$li(class="divider-vertical")
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(class="divider-vertical")
+  )
 }
 
-bsNavText <- function(inputId, value) {
-  tags$li(tags$p(class="navbar-text", value))
+bsNavText <- function(inputId, value=NULL) {
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(tags$p(id = inputId, class="navbar-text shiny-text-output", value))
+  )
 }
 
-bsNavDropDown <- function(inputId, label, choices, selected = NULL) {
+bsNavDropDown <- function(inputId, label, choices, selected = "") {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
   choices <- lapply(choices, function(choice) tags$li(tags$a(tabindex="-1", href="#", HTML(choice))))
   
-  tags$li(id=inputId, class="dropdown",
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(id=inputId, class="dropdown shiny-dropdown", "data-value"=selected,
           tags$a(href="#", class="dropdown-toggle", "data-toggle"="dropdown", label, tags$b(class="caret")),
           tags$ul(class = "dropdown-menu",
                   choices
                   )
           )
+  )
   
 }
 
@@ -62,8 +77,9 @@ bsNavDateRangeInput <- function(inputId, start = NULL, end = NULL,
     max <- format(max, "%Y-%m-%d")
   
   tagList(singleton(tags$head(tags$script(src = "shared/datepicker/js/bootstrap-datepicker.min.js"), 
-          tags$link(rel = "stylesheet", type = "text/css", href = "shared/datepicker/css/datepicker.css"),
-          tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "shared/datepicker/css/datepicker.css"))),
+          singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
           tags$li(tags$form(class="navbar-form", 
                             tags$div(id = inputId, class = "shiny-date-range-input input-daterange",
                                      tags$input(type = "text", `data-date-language` = language, 
@@ -80,13 +96,19 @@ bsNavDateRangeInput <- function(inputId, start = NULL, end = NULL,
 
 bsNavTextInput <- function(inputId, label="", value="") {
   
-  tags$li(label, class="navbar-form", tags$input(id = inputId, type="text", value = value))
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(tags$form(label, class="navbar-form", tags$input(id = inputId, type="text", value = value)))
+  )
   
 }
 
 bsNavButton <- function(inputId, label) {
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
-  tags$li(tags$button(id = inputId, class="btn", label))
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(tags$button(id = inputId, class="btn", label))
+  )
 }
 
 # # This causes lots of formatting issues, will probabily have to redo slider function to get it working

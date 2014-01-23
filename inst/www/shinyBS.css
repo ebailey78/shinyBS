@@ -1,3 +1,25 @@
 .shiny-date-range-input > input {
-  width: 90px;
+  width: 90px !important;
+}
+
+#col2content {
+  font-size: 16px;
+}
+
+#col2content ul.dropdown-menu > li > a {
+
+  font-size: 0.9em;
+  line-height: 1em;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-top: 6px;
+  
+}
+
+#col2content ul.dropdown-menu > li {
+  
+  border-bottom-color: rgb(225, 223, 219);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  
 }
