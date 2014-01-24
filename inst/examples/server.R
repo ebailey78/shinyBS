@@ -18,4 +18,18 @@ shinyServer(function(input, output, session) {
     
     }, width=600)
   
+  output$hist1 <- renderPlot({
+    hist(rnorm(500))
+  })
+  
+  output$box1 <- renderPlot({
+    a <- rnorm(100, 5, 2)
+    b <- rnorm(100, 2, 1)
+    c <- rnorm(100, 10, 3)
+    boxplot(list(a,b,c))
+  })
+  
+  outputOptions(output, "hist1", suspendWhenHidden=FALSE)
+  outputOptions(output, "box1", suspendWhenHidden=FALSE)
+  
 })

@@ -19,19 +19,62 @@ shinyUI(basicPage(
              bsNavTextInput("textInput1"),
              bsNavButton("button1", "<b>Hello</b>") 
              )),
-  bsAlert("alert", "This is an alert box. It is dismissable", type="error", dismiss=TRUE),
-  bsCollapse(inputId = "ac1", autocollapse=TRUE,
-             bsCollapsePanel("ap1", "Accordion #1", "This is an accordion panel. It lets you segment content and free up room on your page."),
-             bsCollapsePanel("ap2", "Accordion #2", "Only one panel is visible at a time. You could use these to make room for options or instructions or whatever you wanted.", open=TRUE),
-             bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))),
-  bsTypeAhead("ta1", pollutants),
+  tabsetPanel(id = "tabset", type="tabs", position="left",
+              tabPanel("Introduction", tagList(tags$h3("Welcome!"), 
+                                               tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. shinyBS was developed with shiny version 0.8, but looks better with the development version of shiny that has incorporated Bootstrap version 2.3.2.")),
+                                               tags$p(HTML("One of the first things you may notice is the navigation bar above. A navigation bar can be a space-efficient ways to collect various shiny inputs. They are created with the <code>bsNavBar</code> function. They can be customized with several arguments that will affect their positioning, color, and movement during scrolling. In additonal to the normal shiny inputs, <code>bsNavLink</code> can be used to create links that either link to other pages, work like <code>actionButton</code> in your shiny app or open modal dialogs or invoke other bootstap functionality. <code>bsNavDropDown</code> can be used to create dropdown menus in the navigation bar that return the selected item to shiny in much the same way that <code>selectInput</code> does.")),
+                                               tags$p(HTML("Please use the tabs at the left to explore other shinyBS functionality."))
+                                               )),
+              tabPanel("Collapse",
+             
+                       bsCollapse(inputId = "ac1", autocollapse=TRUE,
+                                  bsCollapsePanel("ap1", "Accordion #1", HTML("This is an accordion panel (Also called a collapse). It lets you segment content and free up room on your page. By default, when one panel is opened all other panels in the group will close, though this behavior can be changed by setting the <code>autocollapse</code> arguement to <code>FALSE</code>."), open=TRUE),
+                                  bsCollapsePanel("ap2", "Accordion #2", HTML("Collapse panels work much the same way that tab panels work in regular shiny. <code>bsCollapse</code> creates the collapse group, then you provide that function with a series of <code>bsCollapsePanel</code>'s to populate it.")),
+                                  bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))
+                       )),
+              tabPanel("Carousel",
+                       bsCarousel(inputId = "c1", interval = 5000,
+                                  bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
+                                  bsCarouselSlide("cs2", plotOutput("box1"))
+                       )
+              ),
+              tabPanel("Alerts",
+                       tagList(bsAlert("a1", "This is an alert box. It is of the default 'warn' variety and is dismissible. (Click the 'x' on the far right.)"),
+                               bsAlert("a2", HTML("By setting <code>dismiss = FALSE</code> you remove the 'x' and make the alert permanent, like this one."), dismiss=FALSE),
+                               tags$p("There are several different color options:"),
+                               bsAlert("a3", type = "error", "This is an 'error' alert."),
+                               bsAlert("a4", type = "info", "This is an 'info' alert."),
+                               bsAlert("a5", type = "success", "This is a 'success' alert."),
+                               tags$p(HTML("Future updates to shinyBS may incorporate some sort of <code>updatebsAlert</code> function that would allow you to change the alerts programatically."))
+                               )
+                       ),
+              tabPanel("New Inputs",
+                       bsTypeAhead("ta1", pollutants),
+                       HTML("This is a typeahead box. It works just like a text box in shiny but allows you to lead the user to specific inputs. Start typing to see how it works.")
+              ),
+              tabPanel(HTML("Tooltips & <br/>Popovers"),
+                       tags$p(HTML("Tooltips and popovers can be added to any element with an <code>inputId</code> by using <code>bsTooltip</code> or <code>bsPopover</code>, respectively.")),
+                       tags$p(HTML("They can be set to appear <a href='#' id='tt1'>above</a>, <a href='#' id='tt2'>below</a>, to the <a href='#' id='tt3'>left</a>, or the <a href='#' id='tt4'>right</a>.")),
+                       tags$p(HTML("They can be set to appear on <a href='#' id='tt5'>hover</a> or <a href='#' id='tt6'>click</a>.")),
+                       tags$p(HTML("Popovers work the same way as tooltips, they just allow more information to be <a href='#' id='po1'>displayed</a>.")),
+                       bsTooltip("tt1", "This is above", placement="top", trigger="hover"),
+                       bsTooltip("tt2", "This is below", placement="bottom", trigger="hover"),
+                       bsTooltip("tt3", "This is to the left", placement="left", trigger="hover"),
+                       bsTooltip("tt4", "This is to the right", placement="right", trigger="hover"),
+                       bsTooltip("tt5", "This is from hovering", trigger="hover"),
+                       bsTooltip("tt6", "This is from clicking", trigger="click"),
+                       bsPopover("po1", "A Generic Popover", content=HTML("You can add anything to this box, even shiny outputs, if you wanted to."), placement="left")
+              ),
+              tabPanel("Progress Bars",
+                       tags$p(HTML("Coming Soon"))
+              )
+  ),
+  
+  
   bsTooltip("link1", "Click Me!"), 
   bsTooltip("dd1", "NavBar Dropdown", "bottom", "hover"),
   bsTooltip("dateRange", "dateRangeInput", "bottom", "hover"),
   bsTooltip("textInput1", "textInput", "right"),
-  bsPopover("ta1", "TypeAhead", placement="right",
-            "This is a typeahead box. It works just like a text box in shiny but allows you to lead the user to specific inputs. Start typing to see how it works.", trigger="hover")
-  ,
-  bsModal("modal", "link1", "Modal", "This was made using the bsModal function. It could display help text or even shiny outputs like maps, graphs, or tables.")
+  bsModal("modal", "link1", "Modal", HTML("This was made using the <code>bsModal</code> function. It could display help text or even shiny outputs like maps, graphs, or tables."))
 
 ))
