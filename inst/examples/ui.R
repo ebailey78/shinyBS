@@ -19,14 +19,17 @@ shinyUI(basicPage(
              bsNavTextInput("textInput1"),
              bsNavButton("button1", "<b>Hello</b>") 
              )),
-  
   bsAlert("alert", "This is an alert box. It is dismissable", type="error", dismiss=TRUE),
+  bsCollapse(inputId = "ac1", autocollapse=TRUE,
+             bsCollapsePanel("ap1", "Accordion #1", "This is an accordion panel. It lets you segment content and free up room on your page."),
+             bsCollapsePanel("ap2", "Accordion #2", "Only one panel is visible at a time. You could use these to make room for options or instructions or whatever you wanted.", open=TRUE),
+             bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))),
   bsTypeAhead("ta1", pollutants),
   bsTooltip("link1", "Click Me!"), 
   bsTooltip("dd1", "NavBar Dropdown", "bottom", "hover"),
   bsTooltip("dateRange", "dateRangeInput", "bottom", "hover"),
   bsTooltip("textInput1", "textInput", "right"),
-  bsPopover("ta1", "TypeAhead", placement="bottom",
+  bsPopover("ta1", "TypeAhead", placement="right",
             "This is a typeahead box. It works just like a text box in shiny but allows you to lead the user to specific inputs. Start typing to see how it works.", trigger="hover")
   ,
   bsModal("modal", "link1", "Modal", "This was made using the bsModal function. It could display help text or even shiny outputs like maps, graphs, or tables.")

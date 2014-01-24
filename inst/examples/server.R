@@ -13,4 +13,9 @@ shinyServer(function(input, output, session) {
  
   })
   
+  output$hist <- renderPlot({
+    hist(rnorm(400))
+    
+    }, width=600)
+  
 })
