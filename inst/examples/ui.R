@@ -18,7 +18,6 @@ shinyUI(basicPage(
              bsNavTextInput("textInput1"),
              bsNavButton("button1", "Hello") 
              )),
-  
   tabsetPanel(id = "tabset", 
               tabPanel("Introduction", tagList(tags$h3("Welcome!"), 
                                                tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. shinyBS was developed with shiny version 0.8, but looks better with the development version of shiny that has incorporated Bootstrap version 2.3.2.")),
@@ -39,14 +38,15 @@ shinyUI(basicPage(
                        )
               ),
               tabPanel("Alerts",
-                       tagList(bsAlert("a1", "This is an alert box. It is of the default 'warn' variety and is dismissible. (Click the 'x' on the far right.)"),
-                               #bsAlert("a2", HTML("By setting <code>dismiss = FALSE</code> you remove the 'x' and make the alert permanent, like this one."), dismiss=FALSE),
-                               tags$p("There are several different color options:"),
-                               bsAlert("a3", type = "error", "This is an 'error' alert."),
-                               bsAlert("a4", type = "info", "This is an 'info' alert."),
-                               bsAlert("a5", type = "success", "This is a 'success' alert."),
-                               tags$p(HTML("Future updates to shinyBS may incorporate some sort of <code>updatebsAlert</code> function that would allow you to change the alerts programatically."))
-                       )
+                       tags$p(HTML("You can create bootstrap style alerts by first creating an alert anchor with the <code>bsAlert</code> function. Then, from server.R you can create alerts at that achor point using the <code>createAlert</code> function. By default, shiny will continue to add new alerts to the under the old ones unless you set <code>append=FALSE</code>, which will cause all previous alerts to be destroyed and replaced with the new alert. You can set <code>type</code> equal to <code>error</code>, <code>info</code>, or <code>success</code> for different types of information.")),
+                       bsAlert("alert_anchor"),
+                       tags$p(HTML("By default, the user can dismiss an alert by clicking the &times; at the far right of the alert box, but by setting <code>dismiss=FALSE</code> the user won't be able to close the alert, but you can.")),
+                       bsAlert("alert_anchor2"),
+                       actionButton("ac", "Close Alert"),
+                       tags$p(HTML("You can add a title to an alert by setting the <code>title</code> argument")),
+                       bsAlert("alert_anchor3"),
+                       tags$p(HTML("Setting <code>block=TRUE</code> will add some additional padding and may be useful when you have a large amount of text in the message.")),
+                       bsAlert("alert_anchor4")
               ),
               tabPanel("New Inputs",
                        bsTypeAhead("ta1", pollutants),
@@ -70,7 +70,6 @@ shinyUI(basicPage(
               )
    ),
    
-   bsTooltip("link1", "Click Me!"), 
    bsTooltip("dd1", "NavBar Dropdown", "bottom", "hover"),
    bsTooltip("dateRange", "dateRangeInput", "bottom", "hover"),
    bsTooltip("textInput1", "textInput", "right"),

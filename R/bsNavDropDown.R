@@ -15,3 +15,19 @@ bsNavDropDown <- function(inputId, label, choices, selected = "") {
   )
   
 }
+
+updateBSNavDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
+  
+  choices <- shiny:::choicesWithNames(choices)
+  if (!is.null(selected)) 
+    selected <- shiny:::validateSelected(selected, choices, inputId)
+  options <- if (length(choices)) 
+    mapply(choices, names(choices), SIMPLIFY = FALSE, USE.NAMES = FALSE, 
+           FUN = function(value, name) {
+             list(value = value, label = name)
+           })
+  message <- shiny:::dropNulls(list(label = label, options = options, 
+                            value = selected))
+  session$sendInputMessage(inputId, message)
+  
+}

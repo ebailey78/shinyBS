@@ -1,5 +1,5 @@
+//Creates and input binding for the bsNavDropdown object 
 var dropdownBinding = new Shiny.InputBinding();
-
 $.extend(dropdownBinding, {
   find: function(scope) {
     return $(scope).find(".shiny-dropdown");
@@ -11,10 +11,11 @@ $.extend(dropdownBinding, {
     $(el).attr("data-value", value);
   },
   receiveMessage: function(el, data) {
-    if(data.hasOwnProperty('options')) {
-      $(el).children("ul").empty();
-      
-      
+    if(data.hasOwnProperty('selected')) {
+      $(el).attr("data-value", data.selected)
+    }
+    if(data.hasOwnProperty('label')) {
+      $(el).children("a").html(data.label+"<b class='caret'></b>");
     }
   },
   subscribe: function(el, callback) {
@@ -22,33 +23,88 @@ $.extend(dropdownBinding, {
       callback();
     });
   },
+  initialize: function(el) {
+    $(el).find("li").click(function() {
+      $(this).parents(".shiny-dropdown").attr("data-value", $(this).text().trim());
+      $(this).parents(".shiny-dropdown").removeClass("open");
+    });
+  },
   unsubscribe: function(el) {
     $(el).off(".dropdownBinding");
   }
-  
 });
 
 Shiny.inputBindings.register(dropdownBinding);
 
-$(document).ready(function() {
 
-  $(".shiny-dropdown").find("li").click(function() {
+Shiny.addCustomMessageHandler("createalert",
+  function(data) {
 
-    $(this).parents(".shiny-dropdown").attr("data-value", $(this).text().trim());
-    $(this).parents(".shiny-dropdown").removeClass("open");
-  
-  });
+    var cl = "alert";
+    if(data.hasOwnProperty('type')) {
+      cl = cl+" alert-"+data.type;
+    };
+    if(data.hasOwnProperty('block')) {
+      if(data.block == true) {
+        cl = cl+" alert-block";
+      }
+    }
+    
+    al = "<div class='"+cl+"'"
+    
+    if(data.hasOwnProperty('alertId')) {
+      al = al + " id=" + data.alertId
+    }
+    
+    al = al+">"
+    
+    if(data.dismiss == true) {
+      al = al+"<button type='button' class='close' data-dismiss='alert'>&times;</button>";
+    }
+    
+    if(data.hasOwnProperty('title')) {
+      al = al+"<h4>"+data.title+"</h4>";
+    }
+    
+    al = al + data.message + "</div>";
+    
+    if(data.append == true) {
+      $(al).appendTo("#"+data.id);
+    } else {
+      $("#"+data.id).html(al);
+    }
+    
+  }
+);
 
-});
-
+Shiny.addCustomMessageHandler("closealert",
+  function(alertId) {
+    $("#"+alertId).alert('close');
+  }
+);
 
 function addTooltip(id, title, placement, trigger) {
-  $("#"+id).tooltip({title: title,
-                    placement: placement,
-                    trigger: trigger,
-                    html: true
-  });  
-}
+  
+    $("#"+id).tooltip('destroy');
+    $("#"+id).tooltip({title: title,
+                      placement: placement,
+                      trigger: trigger,
+                      html: true
+    }); 
+    
+};
+
+Shiny.addCustomMessageHandler("addtooltip", 
+  function(data) {
+    addTooltip(id=data.id, title=data.title, placement=data.placement, trigger=data.trigger);
+  }
+);
+
+
+
+
+
+
 
 function addPopover(id, title, content, placement, trigger) {
   
@@ -57,8 +113,13 @@ function addPopover(id, title, content, placement, trigger) {
                      title: title,
                      content: content
                    });
-                   
-}
+
+};
+
+
+
+
+
 
 function addModal(id, target) {
   
@@ -66,4 +127,4 @@ function addModal(id, target) {
                   "data-toggle" : "modal"
   });
   
-}
+};
