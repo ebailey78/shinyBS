@@ -63,6 +63,25 @@ bsNavDropDown <- function(inputId, label, choices, selected = "") {
   
 }
 
+updateBsNavDropDown <- function (session, inputId, label = NULL, choices = NULL, selected = NULL) 
+{
+  choices <- choicesWithNames(choices)
+  if (!is.null(selected)) 
+    selected <- validateSelected(selected, choices, inputId)
+  options <- if (length(choices)) 
+    mapply(choices, names(choices), SIMPLIFY = FALSE, USE.NAMES = FALSE, 
+           FUN = function(value, name) {
+             list(value = value, label = name)
+           })
+  message <- dropNulls(list(label = label, options = options, 
+                            value = selected))
+  session$sendInputMessage(inputId, message)
+}
+
+
+
+
+
 bsNavDateRangeInput <- function(inputId, start = NULL, end = NULL,
                                 min = NULL, max = NULL, format = "yyyy-mm-dd",
                                 startview = "month", weekstart = 0, language = "en") {

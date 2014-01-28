@@ -10,6 +10,13 @@ $.extend(dropdownBinding, {
   setValue: function(el, value) {
     $(el).attr("data-value", value);
   },
+  receiveMessage: function(el, data) {
+    if(data.hasOwnProperty('options')) {
+      $(el).children("ul").empty();
+      
+      
+    }
+  },
   subscribe: function(el, callback) {
     $(el).on("click.dropdownBinding", function(e) {
       callback();

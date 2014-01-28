@@ -13,8 +13,7 @@ shinyUI(basicPage(
              bsNavDivider(),
              bsNavDropDown("dd1", bsGlyph("icon-question-sign"), c("Apple", "Pear", "Lemon", "Orange", "Strawberry")),
              bsNavDivider(),
-             bsNavText("text1","")),
-              
+             bsNavText("text1","")),        
            rightItems = list(
              bsNavTextInput("textInput1"),
              bsNavButton("button1", "<b>Hello</b>") 
