@@ -23,7 +23,7 @@ shinyUI(basicPage(
               tabPanel("Introduction", tagList(tags$h3("Welcome!"), 
                                                tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. shinyBS was developed with shiny version 0.8, but looks better with the development version of shiny that has incorporated Bootstrap version 2.3.2.")),
                                                tags$p(HTML("One of the first things you may notice is the navigation bar above. A navigation bar can be a space-efficient ways to collect various shiny inputs. They are created with the <code>bsNavBar</code> function. They can be customized with several arguments that will affect their positioning, color, and movement during scrolling. In additonal to the normal shiny inputs, <code>bsNavLink</code> can be used to create links that either link to other pages, work like <code>actionButton</code> in your shiny app or open modal dialogs or invoke other bootstap functionality. <code>bsNavDropDown</code> can be used to create dropdown menus in the navigation bar that return the selected item to shiny in much the same way that <code>selectInput</code> does.")),
-                                               tags$p(HTML("Please use the tabs at the left to explore other shinyBS functionality."))
+                                               tags$p(HTML("Please use the tabs to explore other shinyBS functionality."))
                                                )),
               tabPanel("Collapse",
                        bsCollapse(inputId = "ac1", autocollapse=TRUE,
@@ -35,7 +35,7 @@ shinyUI(basicPage(
               tabPanel("Carousel",
                        bsCarousel(inputId = "c1", interval = 5000,
                                   bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
-                                  bsCarouselSlide("cs2", plotOutput("box1"))
+                                  bsCarouselSlide("cs2", plotOutput("box1"), caption=c("Boxplot", "This is a boxplot."))
                        )
               ),
               tabPanel("Alerts",
@@ -68,12 +68,12 @@ shinyUI(basicPage(
               tabPanel("Progress Bars",
                        tags$p(HTML("Coming Soon"))
               )
-   )
-#   
-#   bsTooltip("link1", "Click Me!"), 
-#   bsTooltip("dd1", "NavBar Dropdown", "bottom", "hover"),
-#   bsTooltip("dateRange", "dateRangeInput", "bottom", "hover"),
-#   bsTooltip("textInput1", "textInput", "right"),
-#   bsModal("modal", "link1", "Modal", HTML("This was made using the <code>bsModal</code> function. It could display help text or even shiny outputs like maps, graphs, or tables."))
+   ),
+   
+   bsTooltip("link1", "Click Me!"), 
+   bsTooltip("dd1", "NavBar Dropdown", "bottom", "hover"),
+   bsTooltip("dateRange", "dateRangeInput", "bottom", "hover"),
+   bsTooltip("textInput1", "textInput", "right"),
+   bsModal("modal", "link1", "Modal", HTML("This was made using the <code>bsModal</code> function. It could display help text or even shiny outputs like maps, graphs, or tables."))
 
 ))
