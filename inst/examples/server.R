@@ -9,14 +9,6 @@ lorem5 = "Morbi ultricies quam sit amet tellus vehicula, vitae vulputate felis c
 shinyServer(function(input, output, session) {
   
   addTooltip(session, "link1", title="Click Me!")
-  createAlert(session, "alert_anchor", message="This is a standard alert.")
-  createAlert(session, "alert_anchor", message="This is an error alert.", type="error")
-  createAlert(session, "alert_anchor", message="This is an info alert.", type="info")
-  createAlert(session, "alert_anchor", message="This is a success alert.", type="success")
-  createAlert(session, "alert_anchor2", alertId="dismiss_ex", message="This alert cannot be dismissed by the user.", dismiss=FALSE)
-  createAlert(session, "alert_anchor3", title="This is the title", message="And this is the message.")
-  createAlert(session, "alert_anchor4", title="This is the title", message=lorem1, block = TRUE)
-  createAlert(session, "alert_anchor4", message=lorem2, block = TRUE)
   
   output$pbCode <- renderText({
     
@@ -41,6 +33,17 @@ shinyServer(function(input, output, session) {
     if(input$ac > 0) {
       closeAlert(session, "dismiss_ex")
     }
+  })
+  
+  output$alCode <- renderText({
+    
+    txt = "createAlert(session, inputId = \"alert_anchor\", "
+    if(input$alTitle != "") txt = paste0(txt, " title = \"", input$alTitle, "\", ")
+    txt = paste0(txt, " message=\"", input$alMessage, "\"")
+    txt = paste0(txt, " dismiss = ", input$alDis, ", block = ", input$alBlock, ", append = ", input$alAppend, ")")
+    
+    return(txt)
+    
   })
   
   output$text1 <- renderText({
