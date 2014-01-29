@@ -24,6 +24,17 @@ shinyUI(basicPage(
                                                tags$p(HTML("One of the first things you may notice is the navigation bar above. A navigation bar can be a space-efficient ways to collect various shiny inputs. They are created with the <code>bsNavBar</code> function. They can be customized with several arguments that will affect their positioning, color, and movement during scrolling. In additonal to the normal shiny inputs, <code>bsNavLink</code> can be used to create links that either link to other pages, work like <code>actionButton</code> in your shiny app or open modal dialogs or invoke other bootstap functionality. <code>bsNavDropDown</code> can be used to create dropdown menus in the navigation bar that return the selected item to shiny in much the same way that <code>selectInput</code> does.")),
                                                tags$p(HTML("Please use the tabs to explore other shinyBS functionality."))
                                                )),
+              tabPanel("Alerts",
+                       tags$p(HTML("You can create bootstrap style alerts by first creating an alert anchor with the <code>bsAlert</code> function. Then, from server.R you can create alerts at that achor point using the <code>createAlert</code> function. By default, shiny will continue to add new alerts to the under the old ones unless you set <code>append=FALSE</code>, which will cause all previous alerts to be destroyed and replaced with the new alert. You can set <code>type</code> equal to <code>error</code>, <code>info</code>, or <code>success</code> for different types of information.")),
+                       bsAlert("alert_anchor"),
+                       tags$p(HTML("By default, the user can dismiss an alert by clicking the &times; at the far right of the alert box, but by setting <code>dismiss=FALSE</code> the user won't be able to close the alert, but you can.")),
+                       bsAlert("alert_anchor2"),
+                       actionButton("ac", "Close Alert"),
+                       tags$p(HTML("You can add a title to an alert by setting the <code>title</code> argument")),
+                       bsAlert("alert_anchor3"),
+                       tags$p(HTML("Setting <code>block=TRUE</code> will add some additional padding and may be useful when you have a large amount of text in the message.")),
+                       bsAlert("alert_anchor4")
+              ),
               tabPanel("Collapse",
                        bsCollapse(inputId = "ac1", autocollapse=TRUE,
                                   bsCollapsePanel("ap1", "Accordion #1", HTML("This is an accordion panel (Also called a collapse). It lets you segment content and free up room on your page. By default, when one panel is opened all other panels in the group will close, though this behavior can be changed by setting the <code>autocollapse</code> arguement to <code>FALSE</code>."), open=TRUE),
@@ -37,16 +48,16 @@ shinyUI(basicPage(
                                   bsCarouselSlide("cs2", plotOutput("box1"), caption=c("Boxplot", "This is a boxplot."))
                        )
               ),
-              tabPanel("Alerts",
-                       tags$p(HTML("You can create bootstrap style alerts by first creating an alert anchor with the <code>bsAlert</code> function. Then, from server.R you can create alerts at that achor point using the <code>createAlert</code> function. By default, shiny will continue to add new alerts to the under the old ones unless you set <code>append=FALSE</code>, which will cause all previous alerts to be destroyed and replaced with the new alert. You can set <code>type</code> equal to <code>error</code>, <code>info</code>, or <code>success</code> for different types of information.")),
-                       bsAlert("alert_anchor"),
-                       tags$p(HTML("By default, the user can dismiss an alert by clicking the &times; at the far right of the alert box, but by setting <code>dismiss=FALSE</code> the user won't be able to close the alert, but you can.")),
-                       bsAlert("alert_anchor2"),
-                       actionButton("ac", "Close Alert"),
-                       tags$p(HTML("You can add a title to an alert by setting the <code>title</code> argument")),
-                       bsAlert("alert_anchor3"),
-                       tags$p(HTML("Setting <code>block=TRUE</code> will add some additional padding and may be useful when you have a large amount of text in the message.")),
-                       bsAlert("alert_anchor4")
+              tabPanel("Progress Bars",
+                       tags$p(HTML("Progress bars are created with the <code>bsProgressBar</code> function in UI.R and then modified with <code>updateProgressBar</code> in server.R. Below is a live demonstration of the progress bar functionality.")),
+                       bsProgressBar("pb1", 0, color="success", animate=TRUE),
+                       tags$div(style="margin-left: 20px; width: 320px;",
+                                checkboxInput("pbcb", "Hidden", FALSE),
+                                sliderInput("pbnumb", "Percent Complete", 0, min=0, max=100),
+                                selectInput("pbselect", "Color", c("standard", "warning", "info", "danger", "success")),
+                                radioButtons("pbradio", "Style", c("none", "striped", "animated"))
+                                
+                       )
               ),
               tabPanel("New Inputs",
                        bsTypeAhead("ta1", pollutants),
@@ -64,9 +75,6 @@ shinyUI(basicPage(
                        bsTooltip("tt5", "This is from hovering", trigger="hover"),
                        bsTooltip("tt6", "This is from clicking", trigger="click"),
                        bsPopover("po1", "A Generic Popover", content=HTML("You can add anything to this box, even shiny outputs, if you wanted to."), placement="left")
-              ),
-              tabPanel("Progress Bars",
-                       tags$p(HTML("Coming Soon"))
               )
    ),
    

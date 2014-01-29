@@ -18,6 +18,21 @@ shinyServer(function(input, output, session) {
   createAlert(session, "alert_anchor4", title="This is the title", message=lorem1, block = TRUE)
   createAlert(session, "alert_anchor4", message=lorem2, block = TRUE)
   
+  pb <- observe({
+    if(input$pbradio == "none") {
+      striped=FALSE
+      animate=FALSE
+    } else if(input$pbradio == "striped") {
+      striped=TRUE
+      animate=FALSE
+    } else {
+      striped=TRUE
+      animate=TRUE
+    }
+    updateProgressBar(session, "pb1", value=input$pbnumb, visible=!input$pbcb, color=input$pbselect, striped=striped, animate=animate)
+
+  })
+  
   to <- observe({
     if(input$ac > 0) {
       closeAlert(session, "dismiss_ex")

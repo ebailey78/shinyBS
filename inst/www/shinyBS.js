@@ -83,6 +83,28 @@ Shiny.addCustomMessageHandler("closealert",
   }
 );
 
+Shiny.addCustomMessageHandler("updateprogress",
+  function(data) {
+    $el = $("#"+data.id);
+    if(data.hasOwnProperty('value')) {
+      $el.find("div.bar").width(data.value+"%");
+    };
+    if(data.hasOwnProperty('visible')) {
+      $el.toggleClass("hidden", !data.visible);
+    };
+    if(data.hasOwnProperty('color')) {
+      $el.removeClass("progress-standard progress-info progress-success progress-danger progress-warning")
+      $el.addClass("progress-"+data.color)
+    };
+    if(data.hasOwnProperty('striped')) {
+      $el.toggleClass('progress-striped', data.striped);
+    };
+    if(data.hasOwnProperty('animate')) {
+      $el.toggleClass('active', data.animate);
+    } 
+  }
+);
+
 function addTooltip(id, title, placement, trigger) {
   
     $("#"+id).tooltip('destroy');
