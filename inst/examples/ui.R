@@ -1,18 +1,18 @@
 library(shiny)
 library(shinyBS)
-
 pollutants <- c('Acetone', 'Acrolein', 'Benzene', 'Benzyl Chloride', 'Bromodichloromethane', 'Bromoform', 'Bromomethane', '1,3-Butadiene', 'Carbon Disulfide', 'Carbon Tetrachloride', 'Chlorobenzene', 'Chloroethane', 'Chloroform', 'Chloromethane', 'Cyclohexane', 'Dibromochloromethane', '1,2-Dibromoethane', 'm-Dichlorobenzene', 'p-Dichlorobenzene', 'o-Dichlorobenzene', 'Dichlorodifluoromethane (F-12)', '1,1-Dichloroethane', '1,2-Dichloroethane', 't-1,2-Dichloroethene', 'c-1,2-Dichloroethene', 'Dichloromethane', '1,2-Dichloropropane', 'c-1,3-Dichloropropene', 't-1,3-Dichloropropene', 'Dichloro-Tetrafluoroethane (F-114)', '1,4-Dioxane', 'Ethanol', 'Ethyl Acetate', 'Ethylbenzene', 'p-Ethyltoluene', 'Heptane', 'Hexachlorobutadiene', 'Hexane', 'Isopropanol', 'Methyl Ethyl Ketone (MEK)', 'Methyl Isobutyl Ketone (MIBK)', 'Methyl n-Butyl Ketone (MBK)', 'Methyl Tert-Butyl Ether (MTBE)', 'Propene', 'Styrene', '1,1,2,2-Tetrachloroethane', 'Tetrachloroethene (PCE)', 'Tetrahydrofuran (THF)', 'Toluene', 'Trichlorotrifluoroethane (F-113)', '1,2,4-Trichlorobenzene', '1,1,1-Trichloroethane', '1,1,2-Trichloroethane', 'Trichloroethene (TCE)', 'Trichlorofluoromethane (F-11)', '1,3,5-Trimethylbenzene', '1,2,4-Trimethylbenzene', 'Vinyl Acetate', 'Vinyl Chloride', 'Vinylidene Chloride', 'o-Xylene', 'm+p-Xylenes')
 
 demoPanel <- function(title, intro, controls, example, codeId) {
   tabPanel(title,
-           tags$p(HTML(intro)),
            tags$div(class="row-fluid",
-                    tags$div(class="span3 well",
+                    tags$div(class="span2 well", style="height: 100%",
+                             tags$h5("Control Panel"),
                              controls
                     ),
-                    tags$div(class="span8",
-                             tags$div(tags$div(style="padding-left: 10px; font-weight: bold;", "Example Code:"), textOutput(codeId)),
-                             tags$div(tags$div(style="padding-left: 10px; font-weight: bold;", "Example:"), example)
+                    tags$div(class="span10",
+                             tags$p(HTML(intro)),
+                             tags$div(tags$h5(style="padding-left: 10px;", "Example Code:"), textOutput(codeId)),
+                             tags$div(tags$h5(style="padding-left: 10px;", "Example:"), example)
                     )
            )
            
@@ -26,21 +26,36 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                                tags$p(HTML("One of the first things you may notice is the navigation bar above. A navigation bar can be a space-efficient ways to collect various shiny inputs. They are created with the <code>bsNavBar</code> function. They can be customized with several arguments that will affect their positioning, color, and movement during scrolling. In additonal to the normal shiny inputs, <code>bsNavLink</code> can be used to create links that either link to other pages, work like <code>actionButton</code> in your shiny app or open modal dialogs or invoke other bootstap functionality. <code>bsNavDropDown</code> can be used to create dropdown menus in the navigation bar that return the selected item to shiny in much the same way that <code>selectInput</code> does.")),
                                                tags$p(HTML("Please use the tabs to explore other shinyBS functionality."))
                                                )),
-              tabPanel("Navbar", 
-                       bsNavBar("navBar", "shinyBS", 
-                                leftItems = list(
-                                  bsNavLink("link1", "Link", href="#"), 
-                                  bsNavDivider(), 
-                                  bsNavDateRangeInput("dateRange"), 
-                                  bsNavDivider(),
-                                  bsNavDropDown("dd1", bsGlyph("icon-question-sign"), c("Apple", "Pear", "Lemon", "Orange", "Strawberry")),
-                                  bsNavDivider(),
-                                  bsNavText("text1","")),        
-                                rightItems = list(
-                                  bsNavTextInput("textInput1"),
-                                  bsNavButton("button1", "Hello") 
-                                ))
-                       ),
+              demoPanel(title = "Navbar",
+                        intro = paste0("<p>Navbars offer an attractive and space-effient way to group you inputs together in your shiny app. Most of the customizations in Twitter Bootstrap are available as arguments in the <code>bsNavBar()</code> function. You add elements to the left and right of the navbar by adding them to the <code>leftitems</code> and <code>rightitems</code> arguements, respectivly.</p>",
+                                       "<p>Several of shiny's default inputs have been reformatted to look better in the navbar. For example, <code>textInput</code> has had its label changed to a placeholder to help save room. New versions of inputs have been had <code>bsNav</code> prepended to their names.</p>",
+                                       "<p>Available Inputs for navbars include:",
+                                       "<ul><li><code>bsNavLink()</code>: Provides a basic link. Can be used as a link or as an <code>actionButton()</code>.</li>",
+                                       "<li><code>bsNavDropdown()</code>: Basic dropdown menu. Works similarly to <code>selectInput</code>. Its value equals that of the last dropdown item clicked.</li>",
+                                       "<li><code>bsNavDivider()</code>: Adds a faint vertical line between elements</li>",
+                                       "<li><code>bsNavButton()</code>: Works similarly to <code>actionButton</code> or can be used to trigger modals or popovers.</li>",
+                                       "<li><code>bsNavDateRangeInput()</code>: Same as original, but with slightly more efficient use of space.</li>",
+                                       "<li><code>bsNavText()</code>: Same as <code>textOutput()</code> but for the navbar.</li>",
+                                       "<li><code>bsNavTextInput()</code>: Same as original, but label has been replaced with placeholder to save space.</li>",
+                                       "</ul></p>"
+                                       ),
+                        controls = tagList(checkboxInput("nbInvert", "Invert", FALSE),
+                                           checkboxInput("nbFixed", "Fixed", FALSE)
+                                   ),
+                        example = bsNavBar("navBar", "shinyBS", 
+                                           leftItems = list(
+                                             bsNavLink("link1", "Link", href="#"), 
+                                             bsNavDivider(), 
+                                             bsNavDivider(),
+                                             bsNavDropDown("dd1", bsGlyph("icon-question-sign"), c("Apple", "Pear", "Lemon", "Orange", "Strawberry")),
+                                             bsNavDivider(),
+                                             bsNavText("text1","")),        
+                                           rightItems = list(
+                                             bsNavTextInput("textInput1", label = "Enter Text"),
+                                             bsNavButton("button1", "Hello") 
+                                           )
+                                  ),
+                        codeId = "nbCode"),
               demoPanel(title = "Alerts",
                         intro = "Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>",
                         controls = tagList(selectInput("alType", "Type", c("warning", "info", "danger", "success")),
@@ -49,20 +64,25 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                            checkboxInput("alBlock", "Block", FALSE),
                                            checkboxInput("alAppend", "Append", TRUE),
                                            actionButton("alCreate", "Create Alert")
-                                           ),
+                                   ),
                         example = bsAlert("alert_anchor"),
                         codeId = "alCode"
                         ),
-              tabPanel("Alerts",
-                       tags$p(HTML("You can create bootstrap style alerts by first creating an alert anchor with the <code>bsAlert</code> function. Then, from server.R you can create alerts at that achor point using the <code>createAlert</code> function. By default, shiny will continue to add new alerts to the under the old ones unless you set <code>append=FALSE</code>, which will cause all previous alerts to be destroyed and replaced with the new alert. You can set <code>type</code> equal to <code>error</code>, <code>info</code>, or <code>success</code> for different types of information.")),
-                       bsAlert("alert_anchor1"),
-                       tags$p(HTML("By default, the user can dismiss an alert by clicking the &times; at the far right of the alert box, but by setting <code>dismiss=FALSE</code> the user won't be able to close the alert, but you can.")),
-                       bsAlert("alert_anchor2"),
-                       actionButton("ac", "Close Alert"),
-                       tags$p(HTML("You can add a title to an alert by setting the <code>title</code> argument")),
-                       bsAlert("alert_anchor3"),
-                       tags$p(HTML("Setting <code>block=TRUE</code> will add some additional padding and may be useful when you have a large amount of text in the message.")),
-                       bsAlert("alert_anchor4")
+              demoPanel(title = "Progress Bars",
+                        intro = "Progress bars are created with the <code>bsProgressBar</code> function in UI.R and then modified with <code>updateProgressBar</code> in server.R. Below is a live demonstration of the progress bar functionality. Use the inputs to modify the example progress bar. The example code will shows the code necessary to replicate the current progress bar.",
+                        controls = tagList(sliderInput("pbnumb", "Percent Complete", 0, min=0, max=100),
+                                           selectInput("pbselect", "Color", c("standard", "warning", "info", "danger", "success")),
+                                           radioButtons("pbradio", "Style", c("none", "striped", "animated")),
+                                           checkboxInput("pbcb", "Hidden", FALSE)),
+                        example = bsProgressBar("pb1", 0, color="success", animate=TRUE),
+                        codeId = "pbCode"),
+              demoPanel(title = "TypeAhead",
+                        intro = "TypeAhead boxes are special versions of textboxes that help lead the user to acceptable inputs. They are created with the <code>bsTypeAhead()</code> function and can be updated with <code>updateTypeAhead()</code>. You can set the minimum match length and number of items to display at creation but these properties cannot be changed by <code>updateTypeAhead()</code>.",
+                        controls = tagList(textInput("taLabel", "Label", "TypeAhead:"),
+                                           selectInput("taChoice", "Choices", c("Pollutants", "Fruits and Vegetables", "Animals"))
+                                           ),
+                        example = bsTypeAhead("ta1", label = "TypeAhead:", choices = pollutants, items=4),
+                        codeId = "taCode"
               ),
               tabPanel("Collapse",
                        bsCollapse(inputId = "ac1", autocollapse=TRUE,
@@ -76,18 +96,6 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                   bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
                                   bsCarouselSlide("cs2", plotOutput("box1"), caption=c("Boxplot", "This is a boxplot."))
                        )
-              ),
-              demoPanel(title = "Progress Bars",
-                        intro = "Progress bars are created with the <code>bsProgressBar</code> function in UI.R and then modified with <code>updateProgressBar</code> in server.R. Below is a live demonstration of the progress bar functionality. Use the inputs to modify the example progress bar. The example code will shows the code necessary to replicate the current progress bar.",
-                        controls = tagList(sliderInput("pbnumb", "Percent Complete", 0, min=0, max=100),
-                                           selectInput("pbselect", "Color", c("standard", "warning", "info", "danger", "success")),
-                                           radioButtons("pbradio", "Style", c("none", "striped", "animated")),
-                                           checkboxInput("pbcb", "Hidden", FALSE)),
-                        example = bsProgressBar("pb1", 0, color="success", animate=TRUE),
-                        codeId = "pbCode"),
-              tabPanel("New Inputs",
-                       bsTypeAhead("ta1", pollutants),
-                       HTML("This is a typeahead box. It works just like a text box in shiny but allows you to lead the user to specific inputs. Start typing to see how it works.")
               ),
               tabPanel(HTML("Tooltips & Popovers"),
                        tags$p(HTML("Tooltips and popovers can be added to any element with an <code>inputId</code> by using <code>bsTooltip()</code> or <code>bsPopover()</code>, respectively.")),
