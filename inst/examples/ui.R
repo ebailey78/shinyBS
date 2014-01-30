@@ -11,16 +11,15 @@ demoPanel <- function(title, intro, controls, example, codeId) {
                              controls
                     ),
                     tags$div(class="span8",
-                             tags$div(tags$div(style="padding-left: 10px; font-weight: bold;", "Example:"), example),
-                             tags$div(tags$div(style="padding-left: 10px; font-weight: bold;", "Example Code:"), textOutput(codeId))
+                             tags$div(tags$div(style="padding-left: 10px; font-weight: bold;", "Example Code:"), textOutput(codeId)),
+                             tags$div(tags$div(style="padding-left: 10px; font-weight: bold;", "Example:"), example)
                     )
            )
            
   )
-
 }
 
-shinyUI(basicPage(title = "shinyBS Demo Page",
+shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
   tabsetPanel(id = "tabset",
               tabPanel("Introduction", tagList(tags$h3("Welcome!"), 
                                                tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. shinyBS was developed with shiny version 0.8, but looks better with the development version of shiny that has incorporated Bootstrap version 2.3.2.")),
@@ -44,13 +43,12 @@ shinyUI(basicPage(title = "shinyBS Demo Page",
                        ),
               demoPanel(title = "Alerts",
                         intro = "Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>",
-                        controls = tagList(textInput("alTitle", "Title"),
-                                           tags$textarea(type="text", rows=5, id="alMessage"),
-                                           selectInput("alType", "Type", c("warning", "info", "danger", "success")),
+                        controls = tagList(selectInput("alType", "Type", c("warning", "info", "danger", "success")),
+                                           checkboxInput("alTitle", "Title", FALSE),
                                            checkboxInput("alDis", "Dismissable", TRUE),
-                                           checkboxInput("alBlock", "Block", TRUE),
+                                           checkboxInput("alBlock", "Block", FALSE),
                                            checkboxInput("alAppend", "Append", TRUE),
-                                           actionButton("alcreate", "Create Alert")
+                                           actionButton("alCreate", "Create Alert")
                                            ),
                         example = bsAlert("alert_anchor"),
                         codeId = "alCode"

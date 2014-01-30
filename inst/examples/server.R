@@ -8,8 +8,6 @@ lorem5 = "Morbi ultricies quam sit amet tellus vehicula, vitae vulputate felis c
 
 shinyServer(function(input, output, session) {
   
-  addTooltip(session, "link1", title="Click Me!")
-  
   output$pbCode <- renderText({
     
     if(input$pbradio == "none") {
@@ -25,30 +23,56 @@ shinyServer(function(input, output, session) {
     
     txt <- paste0("updateProgressBar(session, inputId = \"pb1\", value = ", input$pbnumb, ", visible = ", !input$pbcb,", color = \"", input$pbselect, "\", striped = ", striped, ", animate = ", animate, ")")
     eval(parse(text=txt))
-#    updateProgressBar(session, "pb1", value=input$pbnumb, visible=!input$pbcb, color=input$pbselect, striped=striped, animate=animate)
     return(txt)
-  })
-  
-  to <- observe({
-    if(input$ac > 0) {
-      closeAlert(session, "dismiss_ex")
-    }
   })
   
   output$alCode <- renderText({
     
     txt = "createAlert(session, inputId = \"alert_anchor\", "
-    if(input$alTitle != "") txt = paste0(txt, " title = \"", input$alTitle, "\", ")
-    txt = paste0(txt, " message=\"", input$alMessage, "\"")
+    if(input$alTitle) txt = paste0(txt, " title = \"...\", ")
+    txt = paste0(txt, " message = \"...\",")
+    txt = paste0(txt, " type = \"", input$alType, "\", ")
     txt = paste0(txt, " dismiss = ", input$alDis, ", block = ", input$alBlock, ", append = ", input$alAppend, ")")
     
     return(txt)
     
   })
   
+  alCreate <- observe({
+
+    input$alCreate
+    
+      title <- isolate(input$alTitle)
+      dismiss <- isolate(input$alDis)
+      type <- isolate(input$alType)
+      block <- isolate(input$alBlock)
+      append <- isolate(input$alAppend)
+      
+      message <- includeHTML("http://www.gameofipsum.com/api/?type=html&paragraphs=1&percent=0")
+      message <- as.vector(substr(message, 4, nchar(message) - 4))
+      
+      if(title) {
+        tt <- switch(type,
+                     "warning" = "Warning!",
+                     "danger" = "Danger!",
+                     "info" = "Just so you know...",
+                     "success" = "Congratulations!")
+      }
+          
+      txt <- "createAlert(session, \"alert_anchor\","
+      if(title) txt <- paste0(txt, " title = \"", tt, "\",")
+      txt <- paste0(txt, " message = \"", message, "\",")
+      txt <- paste0(txt, " type = \"", type, "\",")
+      txt <- paste0(txt, " dismiss = ", dismiss, ",")
+      txt <- paste0(txt, " block = ", block, ",")
+      txt <- paste0(txt, " append = ", append, ")")
+      
+      eval(parse(text=txt))
+    
+  })
+  
   output$text1 <- renderText({
     
-   # updateBSNavDropDown(session, "dd1", label="What")
     if(input$dd1=="") {
       return("What is your favorite fruit?")
     } else {    
@@ -60,7 +84,7 @@ shinyServer(function(input, output, session) {
   output$hist <- renderPlot({
     hist(rnorm(400))
     
-    }, width=600)
+  }, width=600)
   
   output$hist1 <- renderPlot({
     hist(rnorm(500))
@@ -72,8 +96,5 @@ shinyServer(function(input, output, session) {
     c <- rnorm(100, 10, 3)
     boxplot(list(a,b,c))
   })
-  
-  outputOptions(output, "hist1", suspendWhenHidden=FALSE)
-  outputOptions(output, "box1", suspendWhenHidden=FALSE)
   
 })
