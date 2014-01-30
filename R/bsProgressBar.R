@@ -1,4 +1,4 @@
-bsProgressBar <- function(inputId, initial.value = 0, visible=TRUE, 
+bsProgressBar <- function(inputId, value = 0, visible=TRUE, 
                           color, striped=FALSE, animate=FALSE) {
   
   class = "progress"
