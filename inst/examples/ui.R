@@ -44,16 +44,17 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                    ),
                         example = bsNavBar("navBar", "shinyBS", 
                                            leftItems = list(
-                                             bsNavLink("link1", "Link", href="#"), 
+                                             bsNavLink("nbLink1", "Link", href="#"),
+                                             bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
                                              bsNavDivider(), 
-                                             bsNavDivider(),
-                                             bsNavDropDown("dd1", bsGlyph("icon-question-sign"), c("Apple", "Pear", "Lemon", "Orange", "Strawberry")),
-                                             bsNavDivider(),
-                                             bsNavText("text1","")),        
+                                             bsNavToggleLink("nbLink2", "Toggle", value=TRUE),
+                                             bsNavButton("nbButton", "Button"),
+                                             bsNavTextInput("nbText", "Text Input")),        
                                            rightItems = list(
-                                             bsNavTextInput("textInput1", label = "Enter Text"),
-                                             bsNavButton("button1", "Hello") 
-                                           )
+                                             bsNavTypeAhead("nbTA", "Pollutants", choices=pollutants),
+                                             bsNavDateInput("nbDate", "Enter Date"),
+                                             bsNavDateRangeInput("nbDateRange", "Date Range")
+                                             )
                                   ),
                         codeId = "nbCode"),
               demoPanel(title = "Alerts",

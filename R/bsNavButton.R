@@ -1,7 +1,0 @@
-bsNavButton <- function(inputId, label) {
-  if(!inherits(label, "shiny.tag")) label <- HTML(label)
-  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
-                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
-          tags$li(tags$button(id = inputId, class="btn", label))
-  )
-}
