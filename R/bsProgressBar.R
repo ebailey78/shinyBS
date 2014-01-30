@@ -17,7 +17,7 @@ bsProgressBar <- function(inputId, value = 0, visible=TRUE,
   tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
                               tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
                               tags$div(class=class, id=inputId,
-                                tags$div(class="bar", style=paste0("width: ", initial.value, "%;"))
+                                tags$div(class="bar", style=paste0("width: ", value, "%;"))
                               )
   )
 
