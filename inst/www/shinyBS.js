@@ -1,8 +1,11 @@
-//Creates and input binding for the bsNavDropdown object 
+//Creates an input binding for the bsNavDropdown object 
 var dropdownBinding = new Shiny.InputBinding();
 $.extend(dropdownBinding, {
   find: function(scope) {
     return $(scope).find(".shiny-dropdown");
+  },
+  getId: function(el) {
+    return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
   },
   getValue: function(el) {
     return $(el).attr("data-value");
@@ -35,6 +38,80 @@ $.extend(dropdownBinding, {
 });
 
 Shiny.inputBindings.register(dropdownBinding);
+
+
+//Creates input binding for TypeAhead Objects
+var typeAheadBinding = new Shiny.InputBinding();
+
+$.extend(typeAheadBinding, {
+  
+    find: function(scope) {
+      return $(scope).find('.shiny-typeahead');
+    },
+    getId: function(el) {
+      return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
+    },
+    getValue: function(el) {
+      return el.value;
+    },
+    setValue: function(el, value) {
+      el.value = value;
+    },
+    subscribe: function(el, callback) {
+      $(el).on('keyup.textInputBinding input.textInputBinding', function(event) {
+        callback(true);
+      });
+      $(el).on('change.textInputBinding', function(event) {
+        callback(false);
+      });
+    },
+    unsubscribe: function(el) {
+      $(el).off('.textInputBinding');
+    },
+    receiveMessage: function(el, data) {
+      
+      if (data.hasOwnProperty('value')) {
+        this.setValue(el, data.value);
+      };
+      if (data.hasOwnProperty('label')) {
+        $(el).parent().find('label[for=' + el.id + ']').text(data.label);
+      };
+      if (data.hasOwnProperty('choices')) {
+        $(el).data('typeahead').source = data.choices;
+      };
+      
+      $(el).trigger('change');
+      
+    },
+    getState: function(el) {
+      return {
+        label: $(el).parent().find('label[for=' + el.id + ']').text(),
+        value: el.value
+      };
+    },
+    getRatePolicy: function() {
+      return {
+        policy: 'debounce',
+        delay: 250
+      };
+    }
+
+});
+
+Shiny.inputBindings.register(typeAheadBinding);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Shiny.addCustomMessageHandler("createalert",
@@ -104,6 +181,23 @@ Shiny.addCustomMessageHandler("updateprogress",
     } 
   }
 );
+/*
+Shiny.addCustomMessageHandler("modifynavbar",
+  function(data) {
+    $el = $('#'+data.id);
+    if(data.hasOwnProperty('brand')) {
+      $el.find('.brand').html(data.brand);
+    };
+    if(data.hasOwnProperty('fixed')) {
+      $el.toggleClass('navbar-fixed-top', data.fixed);
+    };
+    if(data.hasOwnProperty('inverse')) {
+      $el.toggleClass('navbar-inverse', data.inverse);
+    }
+  };
+
+);
+*/
 
 function addTooltip(id, title, placement, trigger) {
   
