@@ -101,7 +101,51 @@ $.extend(typeAheadBinding, {
 Shiny.inputBindings.register(typeAheadBinding);
 
 
+//Create Input Binding for bsNavtoggleLink Objects
+var tLinkBinding = new Shiny.InputBinding();
 
+$.extend(tLinkBinding, {
+  find: function(scope) {
+    return $(scope).find(".toggle-link");
+  },
+  getValue: function(el) {
+    return $(el).parent().hasClass("active");
+  },
+  setValue: function(el, value) {
+    $(el).parent().toggleClass("active", value);
+  },
+  getState: function(el) {
+    return {
+      label: $(el).text(),
+      value: $(el).parent().hasClass("active")
+    };
+  },
+  receiveMessage: function(el, data) {
+    if(data.hasOwnProperty("value")) {
+      $(el).parent().toggleClass("active", data.value);
+    };
+    if(data.hasOwnProperty("label")) {
+      $(el).html(data.label);
+    };
+  },
+  initialize: function(el) {
+    $(el).click(function() {
+      $(this).parent().toggleClass("active");
+    })
+  },
+
+  subscribe: function(el, callback) {
+    $(el).on("click.toggleLinkBinding", function(event) {
+      callback();
+    })  
+  },
+  unsubscribe: function(el) {
+    $(el).off(".toggleLinkBinding");
+  }
+
+});
+
+Shiny.inputBindings.register(tLinkBinding);
 
 
 

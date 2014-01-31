@@ -12,11 +12,18 @@ bsNavToggleLink <- function(inputId, label, value=FALSE, ...) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  class = "bs-toggle-link"
-  liclass = ""
-  if(value) liclass = "active"
+  class = ""
+  if(value) class = "active"
   
-  tags$li(class = liclass, tags$a(id = inputId, href="#", class = class, "data-value" = value, label, ...))
+  tags$li(class = class, tags$a(id = inputId, href="#", class = "toggle-link", label, ...))
+  
+}
+
+# Update a toggleLink object
+updateToggleLink <- function(session, inputId, label=NULL, value=NULL) {
+  data <- shiny:::dropNulls(label=label, value = value)
+  
+  session$sendInputMessage(inputId, data)
   
 }
 
@@ -26,9 +33,9 @@ bsNavDivider <- function() {
 }
 
 # Wraps actionbutton in a li so it works with bsNavBar
-bsNavButton <- function(inputId, label, icon = NULL) {
+bsNavButton <- function(inputId, label) {
   
-  tags$li(class="navbar-form", actionButton(inputId, label, icon))
+  tags$li(tags$form(style="margin-left: 5px; margin-right: 5px;", class="navbar-form", actionButton(inputId, label)))
   
 }
 

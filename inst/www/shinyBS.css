@@ -26,6 +26,11 @@
 }
 */
 
+.navbar-form{
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 #pbCode, #alCode, #taCode, #nbCode{
   
   display: block;

@@ -42,7 +42,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                         controls = tagList(checkboxInput("nbInvert", "Invert", FALSE),
                                            checkboxInput("nbFixed", "Fixed", FALSE)
                                    ),
-                        example = bsNavBar("navBar", "shinyBS", 
+                        example = tags$div(style="height: 500px;", bsNavBar("navBar", "shinyBS", 
                                            leftItems = list(
                                              bsNavLink("nbLink1", "Link", href="#"),
                                              bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
@@ -55,7 +55,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                              bsNavDateInput("nbDate", "Enter Date"),
                                              bsNavDateRangeInput("nbDateRange", "Date Range")
                                              )
-                                  ),
+                                  )),
                         codeId = "nbCode"),
               demoPanel(title = "Alerts",
                         intro = "Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>",

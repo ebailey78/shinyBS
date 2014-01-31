@@ -24,7 +24,9 @@ shinyServer(function(input, output, session) {
     eval(parse(text=txt))
     return(txt)
   })
-  
+  ttt <- observe({
+    print(input$nbLink2)
+  })
   #TypeAhead Demo
   output$taCode <- renderText({
     
