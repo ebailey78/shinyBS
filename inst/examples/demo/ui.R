@@ -5,11 +5,11 @@ pollutants <- c('Acetone', 'Acrolein', 'Benzene', 'Benzyl Chloride', 'Bromodichl
 demoPanel <- function(title, intro, controls, example, codeId) {
   tabPanel(title,
            tags$div(class="row-fluid",
-                    tags$div(class="span2 well", style="height: 100%",
+                    tags$div(class="span3 well", style="height: 100%",
                              tags$h5("Control Panel"),
                              controls
                     ),
-                    tags$div(class="span10",
+                    tags$div(class="span9",
                              tags$p(HTML(intro)),
                              tags$div(tags$h5(style="padding-left: 10px;", "Example Code:"), textOutput(codeId)),
                              tags$div(tags$h5(style="padding-left: 10px;", "Example:"), example)
@@ -21,10 +21,9 @@ demoPanel <- function(title, intro, controls, example, codeId) {
 
 shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
   tabsetPanel(id = "tabset",
-              tabPanel("Introduction", tagList(tags$h3("Welcome!"), 
-                                               tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. shinyBS was developed with shiny version 0.8, but looks better with the development version of shiny that has incorporated Bootstrap version 2.3.2.")),
-                                               tags$p(HTML("One of the first things you may notice is the navigation bar above. A navigation bar can be a space-efficient ways to collect various shiny inputs. They are created with the <code>bsNavBar</code> function. They can be customized with several arguments that will affect their positioning, color, and movement during scrolling. In additonal to the normal shiny inputs, <code>bsNavLink</code> can be used to create links that either link to other pages, work like <code>actionButton</code> in your shiny app or open modal dialogs or invoke other bootstap functionality. <code>bsNavDropDown</code> can be used to create dropdown menus in the navigation bar that return the selected item to shiny in much the same way that <code>selectInput</code> does.")),
-                                               tags$p(HTML("Please use the tabs to explore other shinyBS functionality."))
+              tabPanel("Introduction", tagList(tags$h3("shinyBS Demo"), 
+                                               tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. ")),
+                                               tags$p(HTML("Please use the tabs above to explore shinyBS functionality."))
                                                )),
               demoPanel(title = "Navbar",
                         intro = paste0("<p>Navbars offer an attractive and space-effient way to group you inputs together in your shiny app. Most of the customizations in Twitter Bootstrap are available as arguments in the <code>bsNavBar()</code> function. You add elements to the left and right of the navbar by adding them to the <code>leftitems</code> and <code>rightitems</code> arguements, respectivly.</p>",
@@ -104,11 +103,5 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                        bsTooltip("tt6", "This is from clicking", trigger="click"),
                        bsPopover("po1", "A Generic Popover", content=HTML("You can add anything to this box, even shiny outputs, if you wanted to."), placement="left")
               )
-   ),
-   
-   bsTooltip("dd1", "NavBar Dropdown", "bottom", "hover"),
-   bsTooltip("dateRange", "dateRangeInput", "bottom", "hover"),
-   bsTooltip("textInput1", "textInput", "right"),
-   bsModal("modal", "link1", "Modal", HTML("This was made using the <code>bsModal</code> function. It could display help text or even shiny outputs like maps, graphs, or tables."))
-
+   )
 ))

@@ -11,7 +11,7 @@ $(document).ready(function() {
 var dropdownBinding = new Shiny.InputBinding();
 $.extend(dropdownBinding, {
   find: function(scope) {
-    return $(scope).find(".shiny-dropdown");
+    return $(scope).find(".sbs-dropdown");
   },
   getId: function(el) {
     return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
@@ -37,8 +37,8 @@ $.extend(dropdownBinding, {
   },
   initialize: function(el) {
     $(el).find("li").click(function() {
-      $(this).parents(".shiny-dropdown").attr("data-value", $(this).text().trim());
-      $(this).parents(".shiny-dropdown").removeClass("open");
+      $(this).parents(".sbs-dropdown").attr("data-value", $(this).text().trim());
+      $(this).parents(".sbs-dropdown").removeClass("open");
     });
   },
   unsubscribe: function(el) {
@@ -55,7 +55,7 @@ var typeAheadBinding = new Shiny.InputBinding();
 $.extend(typeAheadBinding, {
   
     find: function(scope) {
-      return $(scope).find('.shiny-typeahead');
+      return $(scope).find('.sbs-typeahead');
     },
     getId: function(el) {
       return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
@@ -115,7 +115,7 @@ var tLinkBinding = new Shiny.InputBinding();
 
 $.extend(tLinkBinding, {
   find: function(scope) {
-    return $(scope).find(".toggle-link");
+    return $(scope).find(".sbs-toggle");
   },
   getValue: function(el) {
     return $(el).parent().hasClass("active");
@@ -276,12 +276,6 @@ Shiny.addCustomMessageHandler("addtooltip",
   }
 );
 
-
-
-
-
-
-
 function addPopover(id, title, content, placement, trigger) {
   
   $("#"+id).popover({placement: placement,
@@ -292,7 +286,11 @@ function addPopover(id, title, content, placement, trigger) {
 
 };
 
-
+Shiny.addCustomMessageHandler("addpopover",
+  function(data) {
+    addPopover(id=data.id, title=data.title, content=data.content, placement=data.placmenet, trigger=data.trigger)
+  }
+)
 
 
 

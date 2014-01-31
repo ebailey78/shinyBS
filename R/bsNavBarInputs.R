@@ -15,7 +15,7 @@ bsNavToggleLink <- function(inputId, label, value=FALSE, ...) {
   class = ""
   if(value) class = "active"
   
-  tags$li(class = class, tags$a(id = inputId, href="#", class = "toggle-link", label, ...))
+  tags$li(class = class, tags$a(id = inputId, href="#", class = "sbs-toggle", label, ...))
   
 }
 
@@ -35,10 +35,11 @@ bsNavDivider <- function() {
 # Wraps actionbutton in a li so it works with bsNavBar
 bsNavButton <- function(inputId, label) {
   
-  tags$li(tags$form(style="margin-left: 5px; margin-right: 5px;", class="navbar-form", actionButton(inputId, label)))
+  tags$li(tags$form(class="navbar-form", actionButton(inputId, label)))
   
 }
 
+# Same as textInput but with label and a placeholder and optional width argument to save space
 bsNavTextInput <- function(inputId, label, value = "", width=NULL) {
   
   style = ""
@@ -74,6 +75,7 @@ bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
           )
 }
 
+# Same as dateRangeInput with slight formatting modification. Would like to figure out how to remove space from between date inputs
 bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
                                 min = NULL, max = NULL, format = "yyyy-mm-dd",
                                 startview = "month", weekstart = 0, language = "en", width=NULL) {
@@ -112,24 +114,23 @@ bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
   
 }
 
+# Creates a dropdown shiny input that returns the value of the last dropdown element clicked
 bsNavDropDown <- function(inputId, label, choices, selected="") {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
   choices <- lapply(choices, function(choice) tags$li(tags$a(tabindex="-1", href="#", HTML(choice))))
   
-  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
-                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
-          tags$li(id=inputId, class="dropdown shiny-dropdown", "data-value"=selected,
-                  tags$a(href="#", class="dropdown-toggle", "data-toggle"="dropdown", label, tags$b(class="caret")),
-                  tags$ul(class = "dropdown-menu",
-                          choices
-                  )
+  tags$li(id=inputId, class="dropdown sbs-dropdown", "data-value"=selected,
+          tags$a(href="#", class="dropdown-toggle", "data-toggle"="dropdown", label, tags$b(class="caret")),
+          tags$ul(class = "dropdown-menu",
+                  choices
           )
   )
-    
+  
 }
 
+# Allows updating out navbar dropdowns.
 updateBSNavDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
   
   choices <- shiny:::choicesWithNames(choices)
