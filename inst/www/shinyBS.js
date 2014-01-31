@@ -1,3 +1,12 @@
+//Makes it so clicking on an <a> tag such as bsNavLink won't return you to the top of the page.
+$(document).ready(function() {
+
+  $('a[href="#"]').click(function(e){
+    e.preventDefault();
+  })
+
+})
+
 //Creates an input binding for the bsNavDropdown object 
 var dropdownBinding = new Shiny.InputBinding();
 $.extend(dropdownBinding, {
@@ -225,23 +234,30 @@ Shiny.addCustomMessageHandler("updateprogress",
     } 
   }
 );
-/*
+
 Shiny.addCustomMessageHandler("modifynavbar",
   function(data) {
-    $el = $('#'+data.id);
-    if(data.hasOwnProperty('brand')) {
-      $el.find('.brand').html(data.brand);
+    $el = $("#"+data.id);
+    if(data.hasOwnProperty("brand")) {
+      $el.find(".brand").text(data.brand);
     };
-    if(data.hasOwnProperty('fixed')) {
-      $el.toggleClass('navbar-fixed-top', data.fixed);
+    if(data.hasOwnProperty("fixed")) {
+      var f = $el.hasClass("navbar-fixed-top")
+      $el.toggleClass("navbar-fixed-top", data.fixed);
+      if($el.hasClass("navbar-fixed-top") && !f) {
+        $("body").css("padding-top", function(i, oV) {
+          return (parseInt(oV)+50)+"px";
+        })
+      } else if(!$el.hasClass("navbar-fixed-top") && f){
+        $("body").css("padding-top", function(i, oV) {
+          return (parseInt(oV)-50)+"px";
+        })
+      }
     };
-    if(data.hasOwnProperty('inverse')) {
-      $el.toggleClass('navbar-inverse', data.inverse);
-    }
-  };
-
-);
-*/
+    if(data.hasOwnProperty("inverse")) {
+      $el.toggleClass("navbar-inverse", data.inverse);
+    };
+  });
 
 function addTooltip(id, title, placement, trigger) {
   

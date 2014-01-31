@@ -28,34 +28,27 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                                )),
               demoPanel(title = "Navbar",
                         intro = paste0("<p>Navbars offer an attractive and space-effient way to group you inputs together in your shiny app. Most of the customizations in Twitter Bootstrap are available as arguments in the <code>bsNavBar()</code> function. You add elements to the left and right of the navbar by adding them to the <code>leftitems</code> and <code>rightitems</code> arguements, respectivly.</p>",
-                                       "<p>Several of shiny's default inputs have been reformatted to look better in the navbar. For example, <code>textInput</code> has had its label changed to a placeholder to help save room. New versions of inputs have been had <code>bsNav</code> prepended to their names.</p>",
-                                       "<p>Available Inputs for navbars include:",
-                                       "<ul><li><code>bsNavLink()</code>: Provides a basic link. Can be used as a link or as an <code>actionButton()</code>.</li>",
-                                       "<li><code>bsNavDropdown()</code>: Basic dropdown menu. Works similarly to <code>selectInput</code>. Its value equals that of the last dropdown item clicked.</li>",
-                                       "<li><code>bsNavDivider()</code>: Adds a faint vertical line between elements</li>",
-                                       "<li><code>bsNavButton()</code>: Works similarly to <code>actionButton</code> or can be used to trigger modals or popovers.</li>",
-                                       "<li><code>bsNavDateRangeInput()</code>: Same as original, but with slightly more efficient use of space.</li>",
-                                       "<li><code>bsNavText()</code>: Same as <code>textOutput()</code> but for the navbar.</li>",
-                                       "<li><code>bsNavTextInput()</code>: Same as original, but label has been replaced with placeholder to save space.</li>",
-                                       "</ul></p>"
+                                       "<p>Several of shiny's default inputs have been reformatted to look better in the navbar. For example, <code>textInput</code> has had its label changed to a placeholder and has an added 'width' attribute to help save room. New versions of inputs have been had <code>bsNav</code> prepended to their names.</p>",
+                                       "<p>Refer to the help files for shinyBS for additional information about navBar inputs.</p>"
                                        ),
-                        controls = tagList(checkboxInput("nbInvert", "Invert", FALSE),
-                                           checkboxInput("nbFixed", "Fixed", FALSE)
+                        controls = tagList(textInput("nbBrand", "Brand", "shinyBS"),
+                                           checkboxInput("nbInvert", "Inverse", FALSE),
+                                           checkboxInput("nbFixed", "Fixed to Top", FALSE)
                                    ),
-                        example = tags$div(style="height: 500px;", bsNavBar("navBar", "shinyBS", 
+                        example = tags$div(style="height: 800px;", bsNavBar("navBar", "shinyBS", 
                                            leftItems = list(
                                              bsNavLink("nbLink1", "Link", href="#"),
                                              bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
                                              bsNavDivider(), 
-                                             bsNavToggleLink("nbLink2", "Toggle", value=TRUE),
-                                             bsNavButton("nbButton", "Button"),
-                                             bsNavTextInput("nbText", "Text Input")),        
+                                             bsNavToggleLink("nbLink2", "Toggle", value=TRUE)
+),        
                                            rightItems = list(
-                                             bsNavTypeAhead("nbTA", "Pollutants", choices=pollutants),
-                                             bsNavDateInput("nbDate", "Enter Date"),
-                                             bsNavDateRangeInput("nbDateRange", "Date Range")
+                                             bsNavTypeAhead("nbTA", "TypeAhead", choices=pollutants),
+                                             bsNavDateRangeInput("nbDateRange", "Date Range"),
+                                             bsNavButton("nbButton", "Button"),
+                                             bsNavTextInput("nbText", "Text Input", width=40)
                                              )
-                                  )),
+                                  ), tableOutput("nbDemo")),
                         codeId = "nbCode"),
               demoPanel(title = "Alerts",
                         intro = "Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>",
@@ -92,12 +85,12 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                   bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))
                        )
               ),
-              tabPanel("Carousel",
-                       bsCarousel(inputId = "c1", interval = 5000,
-                                  bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
-                                  bsCarouselSlide("cs2", plotOutput("box1"), caption=c("Boxplot", "This is a boxplot."))
-                       )
-              ),
+#               tabPanel("Carousel",
+#                        bsCarousel(inputId = "c1", interval = 5000,
+#                                   bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
+#                                   bsCarouselSlide("cs2", plotOutput("box1"), caption=c("Boxplot", "This is a boxplot."))
+#                        )
+#               ),
               tabPanel(HTML("Tooltips & Popovers"),
                        tags$p(HTML("Tooltips and popovers can be added to any element with an <code>inputId</code> by using <code>bsTooltip()</code> or <code>bsPopover()</code>, respectively.")),
                        tags$p(HTML("They can be set to appear <a href='#' id='tt1'>above</a>, <a href='#' id='tt2'>below</a>, to the <a href='#' id='tt3'>left</a>, or the <a href='#' id='tt4'>right</a>.")),

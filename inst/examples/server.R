@@ -24,9 +24,7 @@ shinyServer(function(input, output, session) {
     eval(parse(text=txt))
     return(txt)
   })
-  ttt <- observe({
-    print(input$nbLink2)
-  })
+
   #TypeAhead Demo
   output$taCode <- renderText({
     
@@ -36,7 +34,7 @@ shinyServer(function(input, output, session) {
                      "Fruits and Vegetables" = "fruits",
                      "Animals" = "animals")
     
-    txt <- paste0("updateTypeAhead(session, inputId = \"ta1\", label = \"", input$taLabel, "\", choices = ", choice, ", items = ", input$taItems, ", minLength = ", input$taLength, ")")
+    txt <- paste0("updateTypeAhead(session, inputId = \"ta1\", label = \"", input$taLabel, "\", choices = ", choice, ")")
     
     eval(parse(text=txt))
     
@@ -53,6 +51,12 @@ shinyServer(function(input, output, session) {
     txt = paste0(txt, " dismiss = ", input$alDis, ", block = ", input$alBlock, ", append = ", input$alAppend, ")")
     
     return(txt)
+    
+  })
+  
+  nbOb <- observe({
+    
+    modifyNavBar(session, "navBar", brand=input$nbBrand, fixed = input$nbFixed, inverse = input$nbInvert)
     
   })
   
@@ -89,15 +93,24 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$text1 <- renderText({
+  output$nbDemo <- renderTable({
     
-    if(input$dd1=="") {
-      return("What is your favorite fruit?")
-    } else {    
-      return(paste0("Your favorite fruit is ", input$dd1, "."))
-    }
- 
-  })
+    tb <- rbind(
+      c("Link as ActionButton", input$nbLink1),
+      c("Dropdown", input$nbdd),
+      c("Toggle Link", input$nbLink2),
+      c("Button", input$nbButton),
+      c("Text Input", input$nbText),
+      c("TypeAhead", input$nbTA),
+      c("Date Input", as.character(input$nbDate)),
+      c("Date Range Input", paste(input$nbDateRange[1], "-", input$nbDateRange[2])))
+    
+    colnames(tb) <- c("Input", "Value")
+    
+    return(tb)
+    
+  }, include.rownames=FALSE)
+  
   
   output$hist <- renderPlot({
     hist(rnorm(400))
