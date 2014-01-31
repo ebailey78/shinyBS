@@ -3,7 +3,7 @@ bsNavLink <- function(inputId, label, href="#", ...) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  tags$li(tags$a(id = inputId, href = href, class="action-button", label, ...))
+  tags$li(tags$a(id = inputId, type="button", href = href, class="action-button", label, ...))
   
 }
 
@@ -39,16 +39,19 @@ bsNavButton <- function(inputId, label) {
   
 }
 
-bsNavTextInput <- function(inputId, label, value = "") {
+bsNavTextInput <- function(inputId, label, value = "", width=NULL) {
   
-  tags$li(tags$form(class="navbar-form", tags$input(id = inputId, type = "text", value = value, placeholder=label)))
+  style = ""
+  if(!is.null(width)) style = paste0("width: ", width, "px;")
+  
+  tags$li(tags$form(class="navbar-form", tags$input(id = inputId, style=style, type = "text", value = value, placeholder=label)))
   
 }
 
 # dateInput element for navbars
 bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
                            max = NULL, format = "yyyy-mm-dd", startview = "month",
-                           weekstart = 0, language = "en") {
+                           weekstart = 0, language = "en", width = NULL) {
   
   if (inherits(value, "Date")) 
     value <- format(value, "%Y-%m-%d")
@@ -57,9 +60,12 @@ bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
   if (inherits(max, "Date")) 
     max <- format(max, "%Y-%m-%d")
   
+  style = ""
+  if(!is.null(width)) style = paste0("width: ", width, "px;")
+    
   tagList(singleton(tags$head(tags$script(src = "shared/datepicker/js/bootstrap-datepicker.min.js"), 
                               tags$link(rel = "stylesheet", type = "text/css", href = "shared/datepicker/css/datepicker.css"))), 
-          tags$li(tags$form(id = inputId, class = "shiny-date-input navbar-form", tags$input(type = "text", class = "input-medium datepicker", placeholder = label,
+          tags$li(tags$form(id = inputId, class = "shiny-date-input navbar-form", tags$input(type = "text", style = style, class = "input-medium datepicker", placeholder = label,
                                                                        `data-date-language` = language, `data-date-weekstart` = weekstart, 
                                                                        `data-date-format` = format, `data-date-start-view` = startview, 
                                                                        `data-min-date` = min, `data-max-date` = max, `data-initial-date` = value)
@@ -70,7 +76,7 @@ bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
 
 bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
                                 min = NULL, max = NULL, format = "yyyy-mm-dd",
-                                startview = "month", weekstart = 0, language = "en") {
+                                startview = "month", weekstart = 0, language = "en", width=NULL) {
   
   if (inherits(start, "Date")) 
     start <- format(start, "%Y-%m-%d")
@@ -81,17 +87,20 @@ bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
   if (inherits(max, "Date")) 
     max <- format(max, "%Y-%m-%d")
   
+  style = ""
+  if(!is.null(width)) style = paste0("width: ", width, "px;")
+  
   x <- label # Just a placeholder
   
   tagList(singleton(tags$head(tags$script(src = "shared/datepicker/js/bootstrap-datepicker.min.js"), 
                               tags$link(rel = "stylesheet", type = "text/css", href = "shared/datepicker/css/datepicker.css"))), 
           tags$li(tags$form(id = inputId, class = "shiny-date-range-input input-daterange navbar-form", 
-                   tags$input(class = "input-small", placeholder="Start Date",
+                   tags$input(class = "input-small", style = style, placeholder="Start Date",
                               type = "text", `data-date-language` = language, 
                               `data-date-weekstart` = weekstart, `data-date-format` = format, 
                               `data-date-start-view` = startview, `data-min-date` = min, 
                               `data-max-date` = max, `data-initial-date` = start), 
-                   tags$input(class = "input-small", placeholder="End Date",
+                   tags$input(class = "input-small", style = style, placeholder="End Date",
                               type = "text", `data-date-language` = language, 
                               `data-date-weekstart` = weekstart, `data-date-format` = format, 
                               `data-date-start-view` = startview, `data-min-date` = min, 
@@ -100,5 +109,39 @@ bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
                   )
           )
   
+  
+}
+
+bsNavDropDown <- function(inputId, label, choices, selected="") {
+  
+  if(!inherits(label, "shiny.tag")) label <- HTML(label)
+  
+  choices <- lapply(choices, function(choice) tags$li(tags$a(tabindex="-1", href="#", HTML(choice))))
+  
+  tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
+                              tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
+          tags$li(id=inputId, class="dropdown shiny-dropdown", "data-value"=selected,
+                  tags$a(href="#", class="dropdown-toggle", "data-toggle"="dropdown", label, tags$b(class="caret")),
+                  tags$ul(class = "dropdown-menu",
+                          choices
+                  )
+          )
+  )
+    
+}
+
+updateBSNavDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
+  
+  choices <- shiny:::choicesWithNames(choices)
+  if (!is.null(selected)) 
+    selected <- shiny:::validateSelected(selected, choices, inputId)
+  options <- if (length(choices)) 
+    mapply(choices, names(choices), SIMPLIFY = FALSE, USE.NAMES = FALSE, 
+           FUN = function(value, name) {
+             list(value = value, label = name)
+           })
+  message <- shiny:::dropNulls(list(label = label, options = options, 
+                                    value = selected))
+  session$sendInputMessage(inputId, message)
   
 }

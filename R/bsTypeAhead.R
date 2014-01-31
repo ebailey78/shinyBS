@@ -4,7 +4,7 @@ bsTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=
   
   tagList(singleton(tags$head(tags$script(src = "tbs/shinyBS.js"),
                               tags$link(rel = "stylesheet", type = "text/css", href = "tbs/shinyBS.css"))),
-          tagList(tags$label(label, `for` = inputId), tags$input(id = inputId, type="text", class="shiny-typeahead",
+          tagList(tags$label(label, `for` = inputId), tags$input(id = inputId, type="text", class="shiny-typeahead", 
                                                                  "data-provide"="typeahead", "data-source"=choices,
                                                                  "data-items"=items, "data-minLength"=minLength, autocomplete="off",
                                                                  value = value))
@@ -12,12 +12,16 @@ bsTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=
   
 }
 
-bsNavTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=1) {
+bsNavTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=1, width = NULL) {
   
   choices <- paste0("[\"", paste0(choices, collapse="\", \"") , "\"]")
-
+  
+  style = ""
+  if(!is.null(width)) style = paste0("width: ", width, "px;")
+  
+  
   tags$li(tags$form(class="navbar-form", tags$input(id = inputId, type="text", class="shiny-typeahead",
-                     "data-provide"="typeahead", "data-source"=choices,
+                     "data-provide"="typeahead", "data-source"=choices, style=style,
                      "data-items"=items, "data-minLength"=1, autocomplete="off",
                      placeholder=label, value = value)))
   
