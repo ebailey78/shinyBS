@@ -78,13 +78,13 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                         example = bsTypeAhead("ta1", label = "TypeAhead:", choices = pollutants, items=4),
                         codeId = "taCode"
               ),
-              tabPanel("Collapse",
-                       bsCollapse(inputId = "ac1", autocollapse=TRUE,
-                                  bsCollapsePanel("ap1", "Accordion #1", HTML("This is an accordion panel (Also called a collapse). It lets you segment content and free up room on your page. By default, when one panel is opened all other panels in the group will close, though this behavior can be changed by setting the <code>autocollapse</code> arguement to <code>FALSE</code>."), open=TRUE),
-                                  bsCollapsePanel("ap2", "Accordion #2", HTML("Collapse panels work much the same way that tab panels work in regular shiny. <code>bsCollapse</code> creates the collapse group, then you provide that function with a series of <code>bsCollapsePanel</code>'s to populate it.")),
-                                  bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))
-                       )
-              ),
+#               tabPanel("Collapse",
+#                        bsCollapse(inputId = "ac1", autocollapse=TRUE,
+#                                   bsCollapsePanel("ap1", "Accordion #1", HTML("This is an accordion panel (Also called a collapse). It lets you segment content and free up room on your page. By default, when one panel is opened all other panels in the group will close, though this behavior can be changed by setting the <code>autocollapse</code> arguement to <code>FALSE</code>."), open=TRUE),
+#                                   bsCollapsePanel("ap2", "Accordion #2", HTML("Collapse panels work much the same way that tab panels work in regular shiny. <code>bsCollapse</code> creates the collapse group, then you provide that function with a series of <code>bsCollapsePanel</code>'s to populate it.")),
+#                                   bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))
+#                        )
+#               ),
 #               tabPanel("Carousel",
 #                        bsCarousel(inputId = "c1", interval = 5000,
 #                                   bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
