@@ -8,7 +8,7 @@
   Create and modify a shell for a Twitter Bootstrap navbar that can hold shiny input (and output) elements.
 }
 \usage{
-bsNavBar(inputId, brand, leftItems, rightItems, fixed = FALSE, bottom = FALSE, inverse = FALSE)
+bsNavBar(inputId, brand, leftItems, rightItems, fixed = FALSE, inverse = FALSE)
 modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -35,16 +35,17 @@ modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
     Should the inverse navbar style be used? \code{logical}
 }
 }
-\details{
-  
-}
+
 \references{
-  \href{http://getbootstrap.com/2.3.2/components.html#navbar}{Navbars for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/components.html\#navbar}{Navbars for Twitter Bootstrap 2.3.2}
 }
 \author{
   Eric Bailey
 }
 
 \examples{
+\dontrun{
+bsNavBar()
 
+}
 }

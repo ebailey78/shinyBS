@@ -1,6 +1,7 @@
 \name{bsTypeAhead}
 \alias{bsTypeAhead}
 \alias{updateTypeAhead}
+\alias{bsNavTypeAhead}
 \title{
   Twitter Bootstrap TypeAhead
 }
@@ -8,8 +9,8 @@
   Functions to add and update Twitter Bootstrap TypeAhead text inputs in shiny.
 }
 \usage{
-bsTypeAhead(inputId, label, value = "", choices, items = 4, minLength = 1)
-bsNavTypeAhead(inputId, label, value = "", choices, items = 4, minLength = 1)
+bsTypeAhead(inputId, label, value = "", choices, items = 8, minLength = 1)
+bsNavTypeAhead(inputId, label, value = "", choices, items = 8, minLength = 1, width = NULL)
 updateTypeAhead(session, inputId, label=NULL, value=NULL, choices=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -35,6 +36,9 @@ updateTypeAhead(session, inputId, label=NULL, value=NULL, choices=NULL)
   \item{minLength}{
     The minimum number of characters the user must type before the typeahead choices appear.
 }
+  \item{width}{
+    The width, in pixels, of the text input
+  }
 }
 \details{
   \code{bsTypeAhead} creates a text box that will start displaying items in \code{choices} as the user types similar inputs. It looks and behaves as a \code{textInput} object otherwise.\cr\cr
@@ -42,7 +46,7 @@ updateTypeAhead(session, inputId, label=NULL, value=NULL, choices=NULL)
   \code{updateNavBar} will update a \code{bsTypeAhead} or \code{bsNavTypeAhead} object, allowing the user to change the label, value, or choices.
 }
 \references{
-  \href{http://getbootstrap.com/2.3.2/javascript.html#typeahead}{Typeahead for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/javascript.html\#typeahead}{Typeahead for Twitter Bootstrap 2.3.2}
 }
 \author{
 Eric Bailey

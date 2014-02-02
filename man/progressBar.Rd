@@ -43,7 +43,7 @@ updateProgressBar(session, inputId, value=NULL, visible=NULL,
   When using \code{updateProgressBar} only specify those arguments that you want to change. If you call \code{updateProgressBar(value = 25)} then only the value will be updated and they other options will remain unchanged.
 }
 \references{
-  \href{http://getbootstrap.com/2.3.2/components.html#progress}{Progress Bars for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/components.html\#progress}{Progress Bars for Twitter Bootstrap 2.3.2}
 }
 \author{
 Eric Bailey

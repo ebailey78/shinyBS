@@ -8,8 +8,8 @@
   Functions to add Twitter Bootstrap popovers in Shiny.
 }
 \usage{
-  addPopover(session, id, title, placement = "bottom", trigger = "hover")
-  bsPopover(id, title, placement = "bottom", trigger = "hover")
+  addPopover(session, id, title = "", content, placement = "right", trigger = "click")
+  bsPopover(id, title = "", content, placement = "right", trigger = "click")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,7 +38,7 @@
 }
 
 \references{
-  \href{http://getbootstrap.com/2.3.2/javascript.html#popovers}{Popovers for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/javascript.html\#popovers}{Popovers for Twitter Bootstrap 2.3.2}
 }
 
 \author{

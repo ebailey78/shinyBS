@@ -1,21 +1,21 @@
 # Create a link input for a navbar that acts like an actionButton
-bsNavLink <- function(inputId, label, href="#", ...) {
+bsNavLink <- function(inputId, label, href="#") {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  tags$li(tags$a(id = inputId, type="button", href = href, class="action-button", label, ...))
+  tags$li(tags$a(id = inputId, type="button", href = href, class="action-button", label))
   
 }
 
 # Create a link input for a navbar that acts like a checkboxInput
-bsNavToggleLink <- function(inputId, label, value=FALSE, ...) {
+bsNavToggleLink <- function(inputId, label, value=FALSE) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
   class = ""
   if(value) class = "active"
   
-  tags$li(class = class, tags$a(id = inputId, href="#", class = "sbs-toggle", label, ...))
+  tags$li(class = class, tags$a(id = inputId, href="#", class = "sbs-toggle", label))
   
 }
 
