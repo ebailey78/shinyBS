@@ -1,17 +1,13 @@
 \name{bsNavDivider}
 \alias{bsNavDivider}
 \title{
-  Twitter Bootstrap NavBar Divider
+  Twitter Bootstrap Navbar Divider
 }
 \description{
   Adds a vertical line to navbar to help set off other navbar elements
 }
 \usage{
 bsNavDivider()
-}
-
-\details{
-  Works as an \link{actionButton} but can also be used as a regular web link.
 }
 
 \references{
@@ -22,5 +18,9 @@ Eric Bailey
 }
 
 \examples{
-  \dontrun{Coming Soon}
+\dontrun{
+
+  ##In ui.R
+  bsNavDivider()
+  }
 }

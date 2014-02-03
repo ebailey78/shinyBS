@@ -1,4 +1,4 @@
-\name{bsDemo}
+\name{shinyBS Examples}
 \alias{bsDemo}
 \alias{bsShowcase}
 \title{

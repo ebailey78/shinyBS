@@ -5,23 +5,25 @@
   Twitter Bootstrap Popovers
 }
 \description{
-  Functions to add Twitter Bootstrap popovers in Shiny.
+  Functions to add Twitter Bootstrap popovers in shiny.
 }
 \usage{
-  addPopover(session, id, title = "", content, placement = "right", trigger = "click")
-  bsPopover(id, title = "", content, placement = "right", trigger = "click")
+  addPopover(session, id, title = "", content, 
+             placement = "right", trigger = "click")
+  bsPopover(id, title = "", content, 
+            placement = "right", trigger = "click")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{session}{
-    The \code{session} object passed to function given to \code{shinyServer}.
-}
+    The \code{session} object passed to function given to \code{shinyServer}
+  }
   \item{id}{
     The \code{inputId} of the object to add the popover to
-}
+  }
   \item{title}{
     The title of the popover
-}
+  }
   \item{content}{
     The main content of the popover
   }
@@ -41,6 +43,10 @@
   \href{http://getbootstrap.com/2.3.2/javascript.html\#popovers}{Popovers for Twitter Bootstrap 2.3.2}
 }
 
+\note{
+  Run \code{bsDemo()} for a live example of popovers.
+}
+
 \author{
 Eric Bailey
 }
@@ -48,6 +54,7 @@ Eric Bailey
 \examples{
 
 \dontrun{
+
   ## From ui.R: Adds a popover to element with inputId = "someInput" 
   ## with title, "Popover", and text, "This is an input.", that appears to the left on click.
   bsPopover(id = "someInput", title="Popover", content = "This is an input", 
@@ -55,6 +62,7 @@ Eric Bailey
   
   ## From server.R: Add the same popover as above
   addPopover(session, id="someInput", title="popover", content = "This is an input.",
-             placement = "left", trigger = "click")}
+             placement = "left", trigger = "click")
+}
 
 }

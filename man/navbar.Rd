@@ -2,10 +2,10 @@
 \alias{bsNavBar}
 \alias{modifyNavBar}
 \title{
-  Twitter Bootstrap NavBar for Shiny
+  Twitter Bootstrap Navbar
 }
 \description{
-  Create and modify a shell for a Twitter Bootstrap navbar that can hold shiny input (and output) elements.
+  Create and modify a shell for a Twitter Bootstrap Navbar that can hold shiny input (and output) elements.
 }
 \usage{
 bsNavBar(inputId, brand, leftItems, rightItems, fixed = FALSE, inverse = FALSE)
@@ -14,13 +14,14 @@ modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{session}{
-    The \code{session} object passed to function given to \code{shinyServer}.
+    The \code{session} object passed to function given to \code{shinyServer}
   }
+
   \item{inputId}{
-    The id of the navbar object.
-}
+    Input variable to assign the control's value to
+  }
   \item{brand}{
-    A word or two that will appear at the left of the navbar.
+    A word or two that will appear at the left of the navbar
 }
   \item{leftItems}{
     A list of items that will appear on the left of the navbar
@@ -29,10 +30,10 @@ modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
     A list of items that will appear on the right of the navbar
 }
   \item{fixed}{
-    Should the navbar be fixed to the top of the page? \code{logical}
+    Should the navbar be fixed to the top of the page \code{logical}
 }
   \item{inverse}{
-    Should the inverse navbar style be used? \code{logical}
+    Should the inverse navbar style be used \code{logical}
 }
 }
 
@@ -42,10 +43,21 @@ modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
 \author{
   Eric Bailey
 }
+\note{
+  Run \code{bsDemo()} for a live example of navBars.
+}
 
 \examples{
 \dontrun{
-bsNavBar()
 
+  ## In ui.R
+  ## Create a navBar with the brand "shinyBS" that is fixed to the top of the page
+  bsNavBar("nb1", brand="shinyBS", fixed=TRUE, 
+           leftItems = list(<misc navbar elements>),
+           rightItems = list(<more navbar elements>))
+           
+  ## In server.R
+  ## Change to the inverse style of navBar
+  modifyNavBar(session, inputId="nb1", inverse=TRUE)
 }
 }

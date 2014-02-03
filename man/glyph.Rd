@@ -2,7 +2,7 @@
 \alias{bsGlyph}
 
 \title{
-  Glyphicons for shiny applications
+  Glyphicons
 }
 \description{
    Add glyphicons to shiny applications
@@ -10,10 +10,9 @@
 \usage{
 bsGlyph(name, white = FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{name}{
-    The name of the icon
+    The name of the glyphicon to be used
 }
   \item{white}{
     Should the white version be used. (\code{logical})

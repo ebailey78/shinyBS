@@ -5,7 +5,7 @@
   Twitter Bootstrap Tooltips
 }
 \description{
-  Functions to add Twitter Bootstrap tooltips in Shiny.
+  Functions to add Twitter Bootstrap tooltips in shiny.
 }
 \usage{
 addTooltip(session, id, title, placement = "bottom", trigger = "hover")
@@ -14,7 +14,7 @@ bsTooltip(id, title, placement = "bottom", trigger = "hover")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{session}{
-    The \code{session} object passed to function given to \code{shinyServer}.
+    The \code{session} object passed to function given to \code{shinyServer}
 }
   \item{id}{
     The \code{inputId} of the object to add the tooltip to
@@ -42,9 +42,14 @@ bsTooltip(id, title, placement = "bottom", trigger = "hover")
 Eric Bailey
 }
 
+\note{
+  Run \code{bsDemo()} for a live example of popovers.
+}
+
 \examples{
 
 \dontrun{
+
   ## From ui.R: Adds a tooltip to element with inputId = "someInput" 
   ## with text, "This is an input.", that appears to the left on hover.
   bsTooltip(id = "someInput", title = "This is an input", 
@@ -52,6 +57,7 @@ Eric Bailey
   
   ## From server.R: Add the same tooltip as above
   addTooltip(session, id="someInput", title = "This is an input.",
-             placement = "left", trigger = "hover")}
+             placement = "left", trigger = "hover")
+}
 
 }

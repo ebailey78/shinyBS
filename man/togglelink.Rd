@@ -2,40 +2,58 @@
 \alias{bsNavToggleLink}
 \alias{updateToggleLink}
 \title{
-  Twitter Bootstrap NavBar Toggle Link
+  Twitter Bootstrap Navbar Toggle Link
 }
 \description{
-  A navbar link that works like a checkbox input, with an on and off state.
+  A Navbar link that works like a checkbox input, with an on and off state.
 }
 \usage{
 bsNavToggleLink(inputId, label, value = FALSE)
 updateToggleLink(session, inputId, label = NULL, value = NULL)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{session}{
-The \code{session} object passed to function given to \code{shinyServer}.
-}
+    The \code{session} object passed to function given to \code{shinyServer}
+  }
+
   \item{inputId}{
-The id of the input object.
-}
+    Input variable to assign the control's value to
+  }
+
   \item{label}{
-The label that will appear on the link.
-}
+    The label that will appear on the object
+  }
+
   \item{value}{
-  Initial value of the toggle link. \code{logical}
+    The value to set for the input object \code{logical}
+  }
 }
-}
+
 \details{
   The toggle link is meant as an alternative to checkboxes in a navbar. It will toggle between \code{TRUE} and \code{FALSE} when clicked.
 }
+
 \references{
 \href{http://getbootstrap.com/2.3.2/components.html\#navbar}{Navbars for Twitter Bootstrap 2.3.2}
 }
+
 \author{
 Eric Bailey
 }
 
+\note{
+  Run \code{bsDemo()} for a live example of alerts.
+}
+
 \examples{
-  \dontrun{Coming Soon}
+\dontrun{
+  ## In ui.R
+  ## Add a toggleLink to a navbar
+  bsNavToggleLink(inputId="tl1", label="Log Scale", value = FALSE)
+  
+  ## In server.R
+  ## Change the value of the created toggleLink to TRUE
+  updateToggleLink(session, inputId="tl1", value = TRUE)
+}
 }

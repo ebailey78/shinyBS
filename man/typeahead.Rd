@@ -3,30 +3,34 @@
 \alias{updateTypeAhead}
 \alias{bsNavTypeAhead}
 \title{
-  Twitter Bootstrap TypeAhead
+  Twitter Bootstrap TypeAheads
 }
 \description{
   Functions to add and update Twitter Bootstrap TypeAhead text inputs in shiny.
 }
 \usage{
 bsTypeAhead(inputId, label, value = "", choices, items = 8, minLength = 1)
-bsNavTypeAhead(inputId, label, value = "", choices, items = 8, minLength = 1, width = NULL)
+bsNavTypeAhead(inputId, label, value = "", choices, 
+               items = 8, minLength = 1, width = NULL)
 updateTypeAhead(session, inputId, label=NULL, value=NULL, choices=NULL)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{session}{
-    The \code{session} object passed to function given to \code{shinyServer}.
+    The \code{session} object passed to function given to \code{shinyServer}
   }
+
   \item{inputId}{
-    The id of the input object.
-}
+    Input variable to assign the control's value to
+  }
+
   \item{label}{
-    The label for the \code{bsTypeAhead} object.
-}
+    The label that will appear on the object
+  }
+
   \item{value}{
-    The current value of the \code{bsTypeAhead} object
-}
+    The value to set for the input object
+  }
   \item{choices}{
     A list of choices that will appear as the user types.
 }
@@ -51,9 +55,23 @@ updateTypeAhead(session, inputId, label=NULL, value=NULL, choices=NULL)
 \author{
 Eric Bailey
 }
+\note{
+  Run \code{bsDemo()} for a live example of typeAheads.
+}
 
 \examples{
+\dontrun{
 
-  \dontrun{bsTypeAhead("ta1", label="Favorite Breakfast:", choices = c("Waffles", "Eggs", "Bacon", "Cereal", "Oatmeal"), items=3, minLength=2)}
+  ## In ui.R
+  ## Create a standalone typeahead that contains a predefined list of fruits
+  ## as choices
+  bsTypeAhead(inputId = "ta1", label = "Choose a fruit", choices = fruits)
+  ## Create the same typeahead in a navbar, with a width of 100px.
+  bsNavTypeAhead(inputId = "ta2", label = "Fruits", choices = fruits, width = 100)
+  
+  ## In server.R
+  ## Update the second typeAhead to a list of vegetables, update label to reflect change
+  updateTypeAhead("ta2", choices=veggies, label="Vegetables")
+}
 
 }
