@@ -24,3 +24,12 @@ modifyNavBar <- function(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
   session$sendCustomMessage(type="modifynavbar", data)
   
 }
+
+# Wrapper for creating a page with a navbar
+pageWithNavBar <- function(title = "", navbar, mainContent) {
+  
+  basicPage(tags$head(tags$title(title)),
+            navbar,
+            mainContent)
+  
+}

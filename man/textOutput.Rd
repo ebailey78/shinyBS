@@ -7,7 +7,7 @@ Text Output
 Create text outputs for Twitter Bootstrap navBar in shiny
 }
 \usage{
-bsNavTextOutput(inputId)
+bsNavTextOutput(outputId)
 }
 \arguments{
   \item{outputId}{
