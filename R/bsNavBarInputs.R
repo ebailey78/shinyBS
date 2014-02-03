@@ -131,7 +131,7 @@ bsNavDropDown <- function(inputId, label, choices, selected="") {
 }
 
 # Allows updating out navbar dropdowns.
-updateBSNavDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
+updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
   
   choices <- shiny:::choicesWithNames(choices)
   if (!is.null(selected)) 
