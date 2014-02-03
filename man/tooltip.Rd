@@ -35,7 +35,7 @@ bsTooltip(id, title, placement = "bottom", trigger = "hover")
 }
 
 \references{
-  \href{http://getbootstrap.com/2.3.2/javascript.html#tooltips}{Tooltips for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/javascript.html\#tooltips}{Tooltips for Twitter Bootstrap 2.3.2}
 }
 
 \author{

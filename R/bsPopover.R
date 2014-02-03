@@ -7,7 +7,7 @@ bsPopover <- function(id, title, content, placement="right", trigger="click") {
 }
 
 # Used to dynamically create popovers in server.R
-addPopover <- function(session, id, title="", content, placement="bottom", trigger="click") {
+addPopover <- function(session, id, title="", content, placement="right", trigger="click") {
   
   data <- list(id = id, title = title, content = content, 
                placement = placement, trigger = trigger)
