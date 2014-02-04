@@ -15,3 +15,10 @@ addPopover <- function(session, id, title="", content, placement="right", trigge
   session$sendCustomMessage(type="addpopover", data)
   
 }
+
+#Remove popover
+removePopover <- function(session, id) {
+  
+  session$sendCustomMessage(type="removepopover", id)
+  
+}

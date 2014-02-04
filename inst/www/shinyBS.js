@@ -220,6 +220,18 @@ Shiny.addCustomMessageHandler("closealert",
   }
 );
 
+Shiny.addCustomMessageHandler("removetooltip",
+  function(tooltipid) {
+    $("#"+tooltipid).tooltip("destroy");
+  }
+);
+
+Shiny.addCustomMessageHandler("removepopover",
+  function(popoverid) {
+    $("#"+popoverid).popover("destroy");
+  }
+);
+
 Shiny.addCustomMessageHandler("updateprogress",
   function(data) {
     $el = $("#"+data.id);

@@ -1,6 +1,7 @@
 \name{addPopover}
 \alias{addPopover}
 \alias{bsPopover}
+\alias{removePopover}
 \title{
   Twitter Bootstrap Popovers
 }
@@ -12,6 +13,7 @@
              placement = "right", trigger = "click")
   bsPopover(id, title = "", content, 
             placement = "right", trigger = "click")
+  removePopover(session, id)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

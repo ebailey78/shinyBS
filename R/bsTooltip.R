@@ -14,3 +14,10 @@ addTooltip <- function(session, id, title, placement = "bottom", trigger = "hove
   session$sendCustomMessage(type="addtooltip", data)
   
 }
+
+# Remove Tooltip from object
+removeTooltip <- function(session, id) {
+  
+  session$sendCustomMessage(type="removetooltip", id)
+  
+}

@@ -1,6 +1,7 @@
 \name{addTooltip}
 \alias{addTooltip}
 \alias{bsTooltip}
+\alias{removeTooltip}
 \title{
   Twitter Bootstrap Tooltips
 }
@@ -10,6 +11,7 @@
 \usage{
 addTooltip(session, id, title, placement = "bottom", trigger = "hover")
 bsTooltip(id, title, placement = "bottom", trigger = "hover")
+removeTooltip(session, id)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
