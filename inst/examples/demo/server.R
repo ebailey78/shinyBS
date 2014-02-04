@@ -6,8 +6,6 @@ animals <- c("Cat", "Dog", "Mouse", "Rat", "Opossum", "Raccoon", "Fox", "Deer", 
 
 shinyServer(function(input, output, session) {
   
-  updateDropDown(session, "nbdd", choices = c("Apricot", "Lemon", "Blueberry", "Tangarine"))
-  
   #Navbar Updater
   nbOb <- observe({
     
