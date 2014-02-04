@@ -113,5 +113,26 @@ shinyServer(function(input, output, session) {
       eval(parse(text=txt))
     
   })
+  
+  # Tooltip creator
+  ttCreate <- observe({
+    
+    if(input$ttAdd > 0) {
+    
+    target <- isolate(input$ttTarget)
+    title <- isolate(input$ttTitle)
+    placement <- isolate(input$ttPlacement)
+    trigger <- isolate(input$ttTrigger)
+    
+    if(target == "button") {
+      target = "button1"
+    } else {
+      target = "text1"
+    }
+    
+    removeTooltip(session, target)
+    addTooltip(session, target, title, placement, trigger)
+    }
+  })
     
 })
