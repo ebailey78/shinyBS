@@ -114,6 +114,7 @@ shinyServer(function(input, output, session) {
     
   })
   
+<<<<<<< HEAD
   output$ttCode <- renderText({
     
     if(input$ttTarget == "button") {
@@ -130,6 +131,8 @@ shinyServer(function(input, output, session) {
     
   })
   
+=======
+>>>>>>> b073a2915f99151d45940c6b9f10cc5791eb1ae9
   # Tooltip creator
   ttCreate <- observe({
     
@@ -148,6 +151,7 @@ shinyServer(function(input, output, session) {
     
     removeTooltip(session, target)
     addTooltip(session, target, title, placement, trigger)
+<<<<<<< HEAD
     
     }
     
@@ -171,6 +175,10 @@ shinyServer(function(input, output, session) {
   
   # popover creator
   poCreate <- observe({
+=======
+    }
+  })
+>>>>>>> b073a2915f99151d45940c6b9f10cc5791eb1ae9
     
     if(input$poAdd > 0) {
       
