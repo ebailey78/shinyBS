@@ -113,5 +113,84 @@ shinyServer(function(input, output, session) {
       eval(parse(text=txt))
     
   })
+  
+  output$ttCode <- renderText({
     
+    if(input$ttTarget == "button") {
+      target="button1"
+    } else {
+      target = "text1"
+    }
+    
+    txt <- "## In ui.R: <br />"
+    txt <- paste0(txt, "bsTooltip(id = \"", target, "\", title = \"", input$ttTitle, "\", placement = \"", input$ttPlacement, "\", trigger = ", deparse(input$ttTrigger), ")")
+    txt <- paste0(txt, "<br /><br /> ## In server.R: <br />")
+    txt <- paste0(txt, "addTooltip(session, id = \"", target, "\", title = \"", input$ttTitle, "\", placement = \"", input$ttPlacement, "\", trigger = ", deparse(input$ttTrigger), ")")
+    return(HTML(txt))
+    
+  })
+  
+  # Tooltip creator
+  ttCreate <- observe({
+    
+    if(input$ttAdd > 0) {
+    
+    target <- isolate(input$ttTarget)
+    title <- isolate(input$ttTitle)
+    placement <- isolate(input$ttPlacement)
+    trigger <- isolate(input$ttTrigger)
+    
+    if(target == "button") {
+      target = "button1"
+    } else {
+      target = "text1"
+    }
+    
+    removeTooltip(session, target)
+    addTooltip(session, target, title, placement, trigger)
+    
+    }
+    
+  })
+    
+  output$poCode <- renderText({
+    
+    if(input$poTarget == "button") {
+      target="button2"
+    } else {
+      target = "text2"
+    }
+    
+    txt <- "## In ui.R: <br />"
+    txt <- paste0(txt, "bsPopover(id = \"", target, "\", title = \"", input$ttTitle, "\", content = \"", input$poContent, "\", placement = \"", input$poPlacement, "\", trigger = ", deparse(input$poTrigger), ")")
+    txt <- paste0(txt, "<br /><br /> ## In server.R: <br />")
+    txt <- paste0(txt, "addPopover(session, id = \"", target, "\", title = \"", input$ttTitle, "\", content = \"", input$poContent, "\", placement = \"", input$poPlacement, "\", trigger = ", deparse(input$poTrigger), ")")
+    return(HTML(txt))
+    
+  })
+  
+  # popover creator
+  poCreate <- observe({
+    
+    if(input$poAdd > 0) {
+      
+      target <- isolate(input$poTarget)
+      title <- isolate(input$poTitle)
+      content <- isolate(input$poContent)
+      placement <- isolate(input$poPlacement)
+      trigger <- isolate(input$poTrigger)
+    
+      if(target == "button") {
+        target = "button2"
+      } else {
+        target = "text2"
+      }
+
+      removePopover(session, target)
+      addPopover(session, target, title, content, placement, trigger)
+      
+    }
+    
+  })
+  
 })

@@ -307,7 +307,7 @@ function addPopover(id, title, content, placement, trigger) {
 
 Shiny.addCustomMessageHandler("addpopover",
   function(data) {
-    addPopover(id=data.id, title=data.title, content=data.content, placement=data.placmenet, trigger=data.trigger)
+    addPopover(id=data.id, title=data.title, content=data.content, placement=data.placement, trigger=data.trigger)
   }
 )
 

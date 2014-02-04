@@ -25,4 +25,6 @@ bsTooltip,
 addTooltip,
 bsTypeAhead,
 bsNavTypeAhead,
-updateTypeAhead)
+updateTypeAhead,
+removeTooltip,
+removePopover)

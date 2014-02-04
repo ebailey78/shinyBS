@@ -11,7 +11,7 @@ demoPanel <- function(title, intro, controls, example, codeId) {
                     ),
                     tags$div(class="span9",
                              tags$p(HTML(intro)),
-                             tags$div(tags$h5(style="padding-left: 10px;", "Example Code:"), textOutput(codeId)),
+                             tags$div(tags$h5(style="padding-left: 10px;", "Example Code:"), htmlOutput(codeId)),
                              tags$div(tags$h5(style="padding-left: 10px;", "Example:"), example)
                     )
            )
@@ -68,7 +68,8 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                            radioButtons("pbradio", "Style", c("none", "striped", "animated")),
                                            checkboxInput("pbcb", "Hidden", FALSE)),
                         example = bsProgressBar("pb1", 50, color="success", animate=TRUE),
-                        codeId = "pbCode"),
+                        codeId = "pbCode"
+              ),
               demoPanel(title = "TypeAhead",
                         intro = "TypeAhead boxes are special versions of textboxes that help lead the user to acceptable inputs. They are created with the <code>bsTypeAhead()</code> function and can be updated with <code>updateTypeAhead()</code>. You can set the minimum match length and number of items to display at creation but these properties cannot be changed by <code>updateTypeAhead()</code>.",
                         controls = tagList(textInput("taLabel", "Label", "TypeAhead:"),
@@ -77,43 +78,32 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                         example = bsTypeAhead("ta1", label = "TypeAhead:", choices = pollutants, items=4),
                         codeId = "taCode"
               ),
-#               tabPanel("Collapse",
-#                        bsCollapse(inputId = "ac1", autocollapse=TRUE,
-#                                   bsCollapsePanel("ap1", "Accordion #1", HTML("This is an accordion panel (Also called a collapse). It lets you segment content and free up room on your page. By default, when one panel is opened all other panels in the group will close, though this behavior can be changed by setting the <code>autocollapse</code> arguement to <code>FALSE</code>."), open=TRUE),
-#                                   bsCollapsePanel("ap2", "Accordion #2", HTML("Collapse panels work much the same way that tab panels work in regular shiny. <code>bsCollapse</code> creates the collapse group, then you provide that function with a series of <code>bsCollapsePanel</code>'s to populate it.")),
-#                                   bsCollapsePanel("ap3", "Accordion #3", tags$div("You can also put shiny outputs in collapses", plotOutput("hist")))
-#                        )
-#               ),
-#               tabPanel("Carousel",
-#                        bsCarousel(inputId = "c1", interval = 5000,
-#                                   bsCarouselSlide("cs1", plotOutput("hist1"), caption=c("Histogram", "This is a histogram")),
-#                                   bsCarouselSlide("cs2", plotOutput("box1"), caption=c("Boxplot", "This is a boxplot."))
-#                        )
-#               ),
-              demoPanel(title = "Tooltips & Popovers",
-                        intro = "Tooltips and popovers can be added to any element with an <code>inputId</code> by using <code>bsTooltip()</code> or <code>bsPopover()</code> in ui.R, or <code>addTooltip()</code> or <code>addPopover()</code> in server.R.",
+              demoPanel(title = "Tooltips",
+                        intro = "Tooltips and popovers are added in very similar ways. Tooltips can be added to any element with an <code>inputId</code> or an <code>outputId</code> by using <code>bsTooltip()</code> in ui.R, or <code>addTooltip()</code> in server.R.",
                         controls = tagList(selectInput("ttTarget", "Target", c("button", "text input")),
                                            textInput("ttTitle", "Title", "A tooltip"),
                                            selectInput("ttPlacement", "Placement", c("top", "bottom", "left", "right")),
-                                           selectInput("ttTrigger", "Trigger", c("hover", "click")),
+                                           #selectInput("ttTrigger", "Trigger", c("hover", "click", "focus", "manual")),
+                                           checkboxGroupInput("ttTrigger", "Triggers", choices = c("click", "hover", "focus", "manual"), selected="hover"),
                                            tags$br(),
                                            actionButton("ttAdd", "Add Tooltip")),
-                        example = tagList(actionButton("button1", "A Button"),
+                        example = tagList(actionButton("button1", "A Button"), tags$br(),
                                           textInput("text1", "Text Input")
                                           ),
                         codeId = "ttCode"),
-              tabPanel(HTML("Tooltips & Popovers"),
-                       tags$p(HTML("Tooltips and popovers can be added to any element with an <code>inputId</code> by using <code>bsTooltip()</code> or <code>bsPopover()</code>, respectively.")),
-                       tags$p(HTML("They can be set to appear <a href='#' id='tt1'>above</a>, <a href='#' id='tt2'>below</a>, to the <a href='#' id='tt3'>left</a>, or the <a href='#' id='tt4'>right</a>.")),
-                       tags$p(HTML("They can be set to appear on <a href='#' id='tt5'>hover</a> or <a href='#' id='tt6'>click</a>.")),
-                       tags$p(HTML("Popovers work the same way as tooltips, they just allow more information to be <a href='#' id='po1'>displayed</a>.")),
-                       bsTooltip("tt1", "This is above", placement="top", trigger="hover"),
-                       bsTooltip("tt2", "This is below", placement="bottom", trigger="hover"),
-                       bsTooltip("tt3", "This is to the left", placement="left", trigger="hover"),
-                       bsTooltip("tt4", "This is to the right", placement="right", trigger="hover"),
-                       bsTooltip("tt5", "This is from hovering", trigger="hover"),
-                       bsTooltip("tt6", "This is from clicking", trigger="click"),
-                       bsPopover("po1", "A Generic Popover", content=HTML("You can add anything to this box, even shiny outputs, if you wanted to."), placement="left")
-              )
+              demoPanel(title = "Popovers",
+                        intro = "Tooltips and popovers are added in very similar ways. Popovers can be added to any element with an <code>inputId</code> or an <code>outputId</code> by using <code>bsPopover()</code> in ui.R, or <code>addPopover()</code> in server.R.",
+                        controls = tagList(selectInput("poTarget", "Target", c("button", "text input")),
+                                           textInput("poTitle", "Title", "A Popover"),
+                                           textInput("poContent", "Content", "This is content. Isn't it <b>great!</b>"),
+                                           selectInput("poPlacement", "Placement", c("top", "bottom", "left", "right")),
+                                           selectInput("poTrigger", "Trigger", c("click", "hover", "focus", "manual")),
+                                           tags$br(),
+                                           actionButton("poAdd", "Add Popover")),
+                        example = tagList(actionButton("button2", "A Button"), tags$br(),
+                                          textInput("text2", "Text Input")
+                        ),
+                        codeId = "poCode")
+              
    )
 ))
