@@ -21,10 +21,9 @@ library(shinyBS)
 bsDemo()
 ```
 
-Whats New
----------
+###Whats New
 
-### Version 0.10 (Initial Release)
+#### Version 0.10 (Initial Release)
 
 * **Alerts** - Create alert anchors in your `ui.R` script and add alerts from `server.R`
 * **Tooltips** - Add and configure tooltips on any element with an `inputId` with `bsTooltip()` from the ui or with `addToolTip()` from the server.
