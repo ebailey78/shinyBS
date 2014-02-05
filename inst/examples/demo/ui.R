@@ -40,7 +40,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                              bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
                                              bsNavDivider(), 
                                              bsNavToggleLink("nbLink2", "Toggle", value=TRUE)
-),        
+                                             ),        
                                            rightItems = list(
                                              bsNavTypeAhead("nbTA", "TypeAhead", choices=pollutants),
                                              bsNavDateRangeInput("nbDateRange", "Date Range"),
@@ -53,7 +53,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                         intro = "Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>",
                         controls = tagList(selectInput("alType", "Type", c("warning", "info", "danger", "success")),
                                            checkboxInput("alTitle", "Title", FALSE),
-                                           checkboxInput("alDis", "Dismissable", TRUE),
+                                           checkboxInput("alDis", "Dismissible", TRUE),
                                            checkboxInput("alBlock", "Block", FALSE),
                                            checkboxInput("alAppend", "Append", TRUE),
                                            actionButton("alCreate", "Create Alert")
@@ -78,7 +78,6 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                         example = bsTypeAhead("ta1", label = "TypeAhead:", choices = pollutants, items=4),
                         codeId = "taCode"
               ),
-<<<<<<< HEAD
               demoPanel(title = "Tooltips",
                         intro = "Tooltips and popovers are added in very similar ways. Tooltips can be added to any element with an <code>inputId</code> or an <code>outputId</code> by using <code>bsTooltip()</code> in ui.R, or <code>addTooltip()</code> in server.R.",
                         controls = tagList(selectInput("ttTarget", "Target", c("button", "text input")),
@@ -86,20 +85,11 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                            selectInput("ttPlacement", "Placement", c("top", "bottom", "left", "right")),
                                            #selectInput("ttTrigger", "Trigger", c("hover", "click", "focus", "manual")),
                                            checkboxGroupInput("ttTrigger", "Triggers", choices = c("click", "hover", "focus", "manual"), selected="hover"),
-=======
-              demoPanel(title = "Tooltips & Popovers",
-                        intro = "Tooltips and popovers can be added to any element with an <code>inputId</code> by using <code>bsTooltip()</code> or <code>bsPopover()</code> in ui.R, or <code>addTooltip()</code> or <code>addPopover()</code> in server.R.",
-                        controls = tagList(selectInput("ttTarget", "Target", c("button", "text input")),
-                                           textInput("ttTitle", "Title", "A tooltip"),
-                                           selectInput("ttPlacement", "Placement", c("top", "bottom", "left", "right")),
-                                           selectInput("ttTrigger", "Trigger", c("hover", "click", "focus", "manual")),
->>>>>>> b073a2915f99151d45940c6b9f10cc5791eb1ae9
                                            tags$br(),
                                            actionButton("ttAdd", "Add Tooltip")),
                         example = tagList(actionButton("button1", "A Button"), tags$br(),
                                           textInput("text1", "Text Input")
                                           ),
-<<<<<<< HEAD
                         codeId = "ttCode"),
               demoPanel(title = "Popovers",
                         intro = "Tooltips and popovers are added in very similar ways. Popovers can be added to any element with an <code>inputId</code> or an <code>outputId</code> by using <code>bsPopover()</code> in ui.R, or <code>addPopover()</code> in server.R.",
@@ -114,9 +104,5 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page")),
                                           textInput("text2", "Text Input")
                         ),
                         codeId = "poCode")
-              
-=======
-                        codeId = "ttCode")
->>>>>>> b073a2915f99151d45940c6b9f10cc5791eb1ae9
    )
 ))
