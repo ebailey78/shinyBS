@@ -279,7 +279,7 @@ Shiny.addCustomMessageHandler("modifynavbar",
   });
 
 function addTooltip(id, title, placement, trigger) {
-  
+    alert(trigger);
     $("#"+id).tooltip('destroy');
     $("#"+id).tooltip({title: title,
                       placement: placement,

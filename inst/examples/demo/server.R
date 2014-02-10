@@ -7,9 +7,13 @@ animals <- c("Cat", "Dog", "Mouse", "Rat", "Opossum", "Raccoon", "Fox", "Deer", 
 shinyServer(function(input, output, session) {
   
   #Navbar Updater
-  nbOb <- observe({
+  output$nbCode <- renderText({
     
-    modifyNavBar(session, "navBar", brand=input$nbBrand, fixed = input$nbFixed, inverse = input$nbInvert)
+    txt <- paste0("modifyNavBar(session, \"navBar\", brand = \"", input$nbBrand, "\", fixed = ", input$nbFixed, ", inverse = ", input$nbInvert, ")")
+    eval(parse(text=txt))
+    return(txt)
+    
+    #modifyNavBar(session, "navBar", brand=input$nbBrand, fixed = input$nbFixed, inverse = input$nbInvert)
     
   })
   
