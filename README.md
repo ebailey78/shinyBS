@@ -21,11 +21,7 @@ library(shinyBS)
 bsDemo()
 ```
 
-<<<<<<< HEAD
 ### What's New
-=======
-### Whats New
->>>>>>> 9a42339622d40e2a25d32624f2e83458ec4c2458
 
 #### Version 0.10 (Initial Release)
 
