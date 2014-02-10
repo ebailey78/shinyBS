@@ -1,16 +1,13 @@
 \name{shinyBS Examples}
 \alias{bsDemo}
-\alias{bsShowcase}
 \title{
   Examples of shinyBS functionality
 }
 \description{
-  Example apps that show functionality of shinyBS. \code{bsDemo} has an example of every function with some explanation. \code{bsShowcase} is an example app that shows possible real-world usage of shinyBS functions.
+  Example app that shows functionality of shinyBS. 
 }
 \usage{
     bsDemo(port = NULL, 
-           launch.browser = getOption("shiny.launch.browser", interactive()))
-bsShowcase(port = NULL, 
            launch.browser = getOption("shiny.launch.browser", interactive()))
 }
 \arguments{
@@ -36,6 +33,5 @@ bsShowcase(port = NULL,
 \examples{
 
 \dontrun{
-  bsDemo()
-  bsShowcase()}
+  bsDemo()}
 }
