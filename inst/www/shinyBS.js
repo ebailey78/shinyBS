@@ -7,6 +7,39 @@ $(document).ready(function() {
 
 })
 
+//Creates an input binding for bsCollapse objects
+
+var collapseBinding = new Shiny.InputBinding();
+$.extend(collapseBinding, {
+  find: function(scope) {
+    return $(scope).find(".accordion");
+  },
+  getId: function(el) {
+    return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
+  },
+  getValue: function(el) {
+    return $(el).find(".in").attr("data-value");
+  },
+  receiveMessage: function(el, data) {
+    if(data.hasOwnProperty("open")) {
+      $(el).find("div.accordion-body[id='" + data.open + "']").collapse("show");
+      $(el).find("div.accordion-body").filter(":not([id='" + data.open + "'])").collapse("hide");
+    }
+  },
+  subscribe: function(el, callback) {
+    $(el).find("div.accordion-body").on("shown", function(e) {
+      callback();
+    });
+  },
+  unsubscribe: function(el) {
+    $(el).off(".dropdownBinding");
+  }
+
+});
+
+Shiny.inputBindings.register(collapseBinding);
+
+
 //Creates an input binding for the bsNavDropdown object 
 var dropdownBinding = new Shiny.InputBinding();
 $.extend(dropdownBinding, {
@@ -279,7 +312,7 @@ Shiny.addCustomMessageHandler("modifynavbar",
   });
 
 function addTooltip(id, title, placement, trigger) {
-    alert(trigger);
+
     $("#"+id).tooltip('destroy');
     $("#"+id).tooltip({title: title,
                       placement: placement,

@@ -155,16 +155,28 @@ bsNavBar("navBar", "shinyBS",
     
     ft <- '# This code, placed inside ui.R, creates the collapse group below (text has been truncated):
 bsCollapse(multiple = TRUE, open = col1, id = "collapse1",
-           bsCollapsePanel("Collapse #1", tags$p("Cell treachery spearwife night\'s watch, tower suckling ..."), id="col1", value="test1"),
+           bsCollapsePanel("Collapse #1", "Cell treachery spearwife night\'s watch, tower suckling ...", id="col1", value="test1"),
            bsCollapsePanel("Collapse #2", actionButton("btn123", "A Button"), textInput("txt1234", "A Text Input"), id="col2", value="test2"),
            bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value="test3")) 
 
 # This code, placed in server.R, will change the appearance of the navbar as selected to the left:
 '
     
-    ut <- paste0("updateCollapse(session, \"collapse1\", multiple = ", input$coMultiple, ", open = ", deparse(input$coOpen), ")")
+    ut <- paste0("updateCollapse(session, \"collapse1\", open = ", deparse(input$coOpen), ")")
     
     return(paste(ft, ut))
+  })
+  
+  output$coValue <- renderText({paste("Current value is", input$collapse1)})
+  
+  observe({
+    
+    if(input$coUpdate >0) {
+
+      updateCollapse(session, "collapse1", isolate(input$coOpen))
+      
+    }
+    
   })
   
   # Tooltip creator

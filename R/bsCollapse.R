@@ -31,14 +31,32 @@ bsCollapsePanel <- function(title, ..., id = NULL, value = NULL) {
   
   content <- list(...)
   
-  if(is.null(id)) id = paste("collapse", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
+  if(is.null(value)) {
+    if(is.null(id)) {
+      value = id
+    } else {
+      value = title
+    }
+  }
   
+  if(is.null(id)) {id = paste("collapse", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))}
+
   tags$div(class = "accordion-group",
            tags$div(class = "accordion-heading",
-                    tags$a(class = "accordion-toggle", "data-toggle" = "collapse", "data-value" = value, href = paste0("#", id), title)),
-           tags$div(class = "accordion-body collapse", id = id,
+                    tags$a(class = "accordion-toggle", "data-toggle" = "collapse", href = paste0("#", id), title)),
+           tags$div(class = "accordion-body collapse", id = id, "data-value" = value,
                     tags$div(class = "accordion-inner", content)
                     )
            )
+  
+}
+
+updateCollapse <- function(session, id, open = NULL) {
+  
+  if(length(open) > 1) stop("Must select one panel to open")
+  
+  data <- shiny:::dropNulls(list(open = open))
+  
+  session$sendInputMessage(id, data)
   
 }
