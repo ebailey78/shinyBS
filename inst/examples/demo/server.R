@@ -9,9 +9,25 @@ shinyServer(function(input, output, session) {
   #Navbar Updater
   output$nbCode <- renderText({
     
-    txt <- paste0("modifyNavBar(session, \"navBar\", brand = \"", input$nbBrand, "\", fixed = ", input$nbFixed, ", inverse = ", input$nbInvert, ")")
+    ft <- '# This code, placed inside ui.R, creates the navbar below:
+bsNavBar("navBar", "shinyBS", 
+         bsNavLink("nbLink1", "Link", href="#"),
+         bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
+         bsNavDivider(), 
+         bsNavToggleLink("nbLink2", "Toggle", value=TRUE),        
+         rightItems = list(
+              bsNavTypeAhead("nbTA", "TypeAhead", choices=pollutants),
+              bsNavDateRangeInput("nbDateRange", "Date Range"),
+              bsNavButton("nbButton", "Button"),
+              bsNavTextInput("nbText", "Text Input", width=40)
+         )
+    
+# This code, placed in server.R, will change the appearance of the navbar as selected to the left:
+    '
+    
+    txt <- paste0("updateNavBar(session, \"navBar\", brand = \"", input$nbBrand, "\", fixed = ", input$nbFixed, ", inverse = ", input$nbInvert, ")")
     eval(parse(text=txt))
-    return(txt)
+    return(paste(ft, txt))
     
     #modifyNavBar(session, "navBar", brand=input$nbBrand, fixed = input$nbFixed, inverse = input$nbInvert)
     

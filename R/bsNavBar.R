@@ -1,9 +1,11 @@
 # Creates the shell of a navbar that can have navbar elements added to it.
-bsNavBar <- function(inputId, brand, leftItems, rightItems, fixed=FALSE, inverse=FALSE) {
+bsNavBar <- function(inputId, brand, ..., rightItems, fixed=FALSE, inverse=FALSE) {
   
   class <- "navbar"
   if(inverse) class <- paste(class, "navbar-inverse")
   if(fixed)  class <- paste(class, "navbar-fixed-top")
+  
+  leftItems <- list(...)
     
   sbsHead(tags$div(id = inputId, class = class,
                    tags$div(class = "navbar-inner",
@@ -17,7 +19,7 @@ bsNavBar <- function(inputId, brand, leftItems, rightItems, fixed=FALSE, inverse
 }
 
 # Allows the user to change some aspects of th navbar from the server.
-modifyNavBar <- function(session, inputId, brand=NULL, fixed=NULL, inverse=NULL) {
+updateNavBar <- function(session, inputId, brand=NULL, fixed=NULL, inverse=NULL) {
   
   data <- shiny:::dropNulls(list(id=inputId, brand=brand, fixed=fixed, inverse=inverse))
   

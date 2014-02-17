@@ -46,22 +46,23 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), HTML("<style type='
                                        ),
                         controls = tagList(textInput("nbBrand", "Brand", "shinyBS"),
                                            checkboxInput("nbInvert", "Inverse", FALSE),
-                                           checkboxInput("nbFixed", "Fixed to Top", FALSE)
+                                           checkboxInput("nbFixed", "Fixed to Top", FALSE), 
+                                           tags$hr(),
+                                           tags$h5("Current Navbar Element Values"),
+                                           tableOutput("nbDemo")
                                    ),
                         example = tags$div(style="height: 800px;", bsNavBar("navBar", "shinyBS", 
-                                           leftItems = list(
-                                             bsNavLink("nbLink1", "Link", href="#"),
-                                             bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
-                                             bsNavDivider(), 
-                                             bsNavToggleLink("nbLink2", "Toggle", value=TRUE)
-                                             ),        
+                                           bsNavLink("nbLink1", "Link", href="#"),
+                                           bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
+                                           bsNavDivider(), 
+                                           bsNavToggleLink("nbLink2", "Toggle", value=TRUE),        
                                            rightItems = list(
                                              bsNavTypeAhead("nbTA", "TypeAhead", choices=pollutants),
                                              bsNavDateRangeInput("nbDateRange", "Date Range"),
                                              bsNavButton("nbButton", "Button"),
                                              bsNavTextInput("nbText", "Text Input", width=40)
                                              )
-                                  ), tableOutput("nbDemo")),
+                                  )),
                         codeId = "nbCode"),
               demoPanel(title = "Alerts",
                         intro = "Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>",
