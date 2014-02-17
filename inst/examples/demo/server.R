@@ -21,6 +21,7 @@ bsNavBar("navBar", "shinyBS",
               bsNavButton("nbButton", "Button"),
               bsNavTextInput("nbText", "Text Input", width=40)
          )
+)
     
 # This code, placed in server.R, will change the appearance of the navbar as selected to the left:
     '
