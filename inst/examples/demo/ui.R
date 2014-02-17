@@ -19,7 +19,7 @@ demoPanel <- function(title, intro, controls, example, codeId) {
   )
 }
 
-shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), HTML("<style type='text/css' rel='stylesheet'>#pbCode, #alCode, #taCode, #nbCode, #ttCode, #poCode{
+shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), HTML("<style type='text/css' rel='stylesheet'>#pbCode, #alCode, #taCode, #nbCode, #ttCode, #poCode, #coCode{
   
   display: block;
   padding: 8.5px;
@@ -119,6 +119,16 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), HTML("<style type='
                         example = tagList(actionButton("button2", "A Button"), tags$br(),
                                           textInput("text2", "Text Input")
                         ),
-                        codeId = "poCode")
+                        codeId = "poCode"),
+              demoPanel(title = "Collapse",
+                        intro = "Collapses (sometimes called accordions) are an alternative way to segment information and free up space in your shiny app. They have been designed to work in a very similar way to <code>tabsetPanel()</code> and <code>tabPanel()</code>. Create a collapse group with <code>bsCollapse()</code> and include any number of panels in it with <code>bsCollapsePanel()</code>. <code>updateCollapse()</code> can be used from server.ui to change which panel is currently open and to switch <em>multiple</em> mode on and off.",
+                        controls = tagList(checkboxInput("coMultiple", "Multiple Mode", value = FALSE),
+                                           checkboxGroupInput("coOpen", "Open Panels", choices = c("Collapse #1", "Collapse #2", "Collapse #3")),
+                                           actionButton("coUpdate", "Update")),
+                        example = bsCollapse(multiple = FALSE, open = c("col1"), id = "collapse1",
+                          bsCollapsePanel("Collapse #1", tags$p("Cell treachery spearwife night's watch, tower suckling pig, drink, your king commands it spare me your false courtesy tourney. Feed it to the goats, seven hells lord of light as high as honor in his cups. Sword greyscale old bear none so wise godswood the last of the dragons rouse me not. No foe may pass bloody mummers, let me soar spiced wine your grace honed and ready fire."), id="col1", value="test1"),
+                          bsCollapsePanel("Collapse #2", actionButton("btn123", "A Button"), textInput("txt1234", "A Text Input"), id="col2", value="test2"),
+                          bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value="test3")),
+                        codeId = "coCode")
    )
 ))

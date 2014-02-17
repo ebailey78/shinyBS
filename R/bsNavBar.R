@@ -6,6 +6,7 @@ bsNavBar <- function(inputId, brand, ..., rightItems, fixed=FALSE, inverse=FALSE
   if(fixed)  class <- paste(class, "navbar-fixed-top")
   
   leftItems <- list(...)
+  if(missing(rightItems)) rightItems = list("")
     
   sbsHead(tags$div(id = inputId, class = class,
                    tags$div(class = "navbar-inner",
