@@ -8,8 +8,8 @@
   Create and modify a shell for a Twitter Bootstrap Navbar that can hold shiny input (and output) elements.
 }
 \usage{
-bsNavBar(inputId, brand, leftItems, rightItems, fixed = FALSE, inverse = FALSE)
-modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
+bsNavBar(inputId, brand, ..., rightItems, fixed = FALSE, inverse = FALSE)
+updateNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,11 +23,11 @@ modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
   \item{brand}{
     A word or two that will appear at the left of the navbar
 }
-  \item{leftItems}{
-    A list of items that will appear on the left of the navbar
+  \item{\dots{}}{
+    UI elements to include within the navbar. These will align to the left
 }
   \item{rightItems}{
-    A list of items that will appear on the right of the navbar
+    a \code{list} of UI elements you wish to align to the right
 }
   \item{fixed}{
     Should the navbar be fixed to the top of the page \code{logical}
@@ -35,10 +35,11 @@ modifyNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
   \item{inverse}{
     Should the inverse navbar style be used \code{logical}
 }
+
 }
 
 \references{
-  \href{http://getbootstrap.com/2.3.2/components.html\#navbar}{Navbars for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/components.html#navbar}{Navbars for Twitter Bootstrap 2.3.2}
 }
 \author{
   Eric Bailey
