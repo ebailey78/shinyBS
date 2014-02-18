@@ -8,7 +8,7 @@ bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
 
     x <- panel$children[[1]]$children[[1]]
     
-    if(!multiple) panel$children[[1]]$children[[1]]$attribs["data-parent"] = paste0("#", id)
+    #if(!multiple) panel$children[[1]]$children[[1]]$attribs["data-parent"] = paste0("#", id)
     
     if(x$attribs["data-value"] %in% open | x$children[[1]] %in% open | panel$children[[2]]$attribs$id %in% open) {
       panel$children[[2]]$attribs$class = paste(panel$children[[2]]$attribs$class, "in")
@@ -51,12 +51,12 @@ bsCollapsePanel <- function(title, ..., id = NULL, value = NULL) {
   
 }
 
-updateCollapse <- function(session, id, open = NULL) {
-  
-  if(length(open) > 1) stop("Must select one panel to open")
-  
-  data <- shiny:::dropNulls(list(open = open))
-  
-  session$sendInputMessage(id, data)
-  
-}
+# # I can't seem to get this working right now...
+# updateCollapse <- function(session, id, open = NULL) {
+#   
+#   if(length(open) > 1) stop("Must select one panel to open")
+#   
+#   data <- shiny:::dropNulls(list(open = open))
+#   session$sendInputMessage(id, data)
+#   
+# }

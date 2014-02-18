@@ -33,7 +33,7 @@ bsNavBar("navBar", "shinyBS",
     #modifyNavBar(session, "navBar", brand=input$nbBrand, fixed = input$nbFixed, inverse = input$nbInvert)
     
   })
-  
+  observe(print(input$collapse1))
   #Navbar demo table generator
   output$nbDemo <- renderTable({
     
@@ -157,27 +157,14 @@ bsNavBar("navBar", "shinyBS",
 bsCollapse(multiple = TRUE, open = col1, id = "collapse1",
            bsCollapsePanel("Collapse #1", "Cell treachery spearwife night\'s watch, tower suckling ...", id="col1", value="test1"),
            bsCollapsePanel("Collapse #2", actionButton("btn123", "A Button"), textInput("txt1234", "A Text Input"), id="col2", value="test2"),
-           bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value="test3")) 
-
-# This code, placed in server.R, will change the appearance of the navbar as selected to the left:
-'
+           bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value="test3"))'
     
     ut <- paste0("updateCollapse(session, \"collapse1\", open = ", deparse(input$coOpen), ")")
     
-    return(paste(ft, ut))
+    return(paste(ft))
   })
   
-  output$coValue <- renderText({paste("Current value is", input$collapse1)})
-  
-  observe({
-    
-    if(input$coUpdate >0) {
-
-      updateCollapse(session, "collapse1", isolate(input$coOpen))
-      
-    }
-    
-  })
+  output$coValue <- renderText({paste("input$collapse1 = ", input$collapse1)})
   
   # Tooltip creator
   ttCreate <- observe({
