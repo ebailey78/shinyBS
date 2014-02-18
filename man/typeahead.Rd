@@ -50,7 +50,7 @@ updateTypeAhead(session, inputId, label=NULL, value=NULL, choices=NULL)
   \code{updateNavBar} will update a \code{bsTypeAhead} or \code{bsNavTypeAhead} object, allowing the user to change the label, value, or choices.
 }
 \references{
-  \href{http://getbootstrap.com/2.3.2/javascript.html\#typeahead}{Typeahead for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/javascript.html}{Typeahead for Twitter Bootstrap 2.3.2}
 }
 \author{
 Eric Bailey

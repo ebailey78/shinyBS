@@ -35,7 +35,7 @@ updateToggleLink(session, inputId, label = NULL, value = NULL)
 }
 
 \references{
-\href{http://getbootstrap.com/2.3.2/components.html\#navbar}{Navbars for Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/components.html}{Navbars for Twitter Bootstrap 2.3.2}
 }
 
 \author{

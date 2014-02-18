@@ -1,6 +1,6 @@
 \name{bsNavBar}
 \alias{bsNavBar}
-\alias{modifyNavBar}
+\alias{updateNavBar}
 \title{
   Twitter Bootstrap Navbar
 }
@@ -23,7 +23,7 @@ updateNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
   \item{brand}{
     A word or two that will appear at the left of the navbar
 }
-  \item{\dots{}}{
+  \item{\dots}{
     UI elements to include within the navbar. These will align to the left
 }
   \item{rightItems}{
@@ -39,7 +39,7 @@ updateNavBar(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
 }
 
 \references{
-  \href{http://getbootstrap.com/2.3.2/components.html#navbar}{Navbars for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/components.html}{Navbars for Twitter Bootstrap 2.3.2}
 }
 \author{
   Eric Bailey

@@ -37,8 +37,8 @@ updateDropDown(session, inputId, label = NULL, choices = NULL, selected = NULL)
 }
 
 \references{
-\href{http://getbootstrap.com/2.3.2/components.html\#navbar}{Navbars for Twitter Bootstrap 2.3.2}
-\href{http://getbootstrap.com/2.3.2/components.html\#dropdowns}{Dropdowns for Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/components.html}{Navbars for Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/components.html}{Dropdowns for Twitter Bootstrap 2.3.2}
 }
 \author{
   Eric Bailey

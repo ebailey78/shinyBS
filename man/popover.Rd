@@ -42,7 +42,7 @@
 }
 
 \references{
-  \href{http://getbootstrap.com/2.3.2/javascript.html\#popovers}{Popovers for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/javascript.html}{Popovers for Twitter Bootstrap 2.3.2}
 }
 
 \note{

@@ -22,7 +22,7 @@ bsGlyph(name, white = FALSE)
   See the references to find names of available icons
 }
 \references{
-  \href{http://getbootstrap.com/2.3.2/base-css.html\#icons}{Glyphicons for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/base-css.html}{Glyphicons for Twitter Bootstrap 2.3.2}
   \href{http://glyphicons.com/}{Glyphicons}
 }
 \author{

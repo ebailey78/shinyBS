@@ -37,7 +37,7 @@ removeTooltip(session, id)
 }
 
 \references{
-  \href{http://getbootstrap.com/2.3.2/javascript.html\#tooltips}{Tooltips for Twitter Bootstrap 2.3.2}
+  \href{http://getbootstrap.com/2.3.2/javascript.html}{Tooltips for Twitter Bootstrap 2.3.2}
 }
 
 \author{
@@ -45,7 +45,7 @@ Eric Bailey
 }
 
 \note{
-  Run \code{bsDemo()} for a live example of popovers.
+  Run \code{bsDemo()} for a live example of tooltips.
 }
 
 \examples{

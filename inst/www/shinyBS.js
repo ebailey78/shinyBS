@@ -18,27 +18,34 @@ $.extend(collapseBinding, {
     return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
   },
   getValue: function(el) {
-    return $(el).find(".in").attr("data-value");
+    var v = $(el).find(".in").attr("data-value");
+    if(v == undefined) {
+      v = null;  
+    }
+    return v;
   },
   receiveMessage: function(el, data) {
     if(data.hasOwnProperty("open")) {
-      $(el).find("div.accordion-body").each(function(i){
-        alert($(this).attr("id"));
+      $(el).children("div.accordion-group").children("div.accordion-body").each(function() {
         if($(this).attr("id") == data.open) {
-          $(this).collapse("show");
+          $(this).addClass("in");
         } else {
-       /*   $(this).collapse("hide"); */
-        }
+          $(this).removeClass("in");
+        }      
+        
       });
     }
   },
+  initialize: function(el) {
+    $(el).children(".accordion-group").children(".accordion-body").collapse({"toggle": false, 'parent': "#"+$(el).attr("id")});
+  },
   subscribe: function(el, callback) {
-    $(el).find("div.accordion-body").on("shown", function(e) {
+    $(el).find("div.accordion-body").on("shown hidden", function(e) {
       callback();
     });
   },
   unsubscribe: function(el) {
-    $(el).find("div.accordion-body").off("shown");
+    $(el).find("div.accordion-body").off("shown hidden");
   }
 
 });
