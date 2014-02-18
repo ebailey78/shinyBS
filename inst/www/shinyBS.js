@@ -22,8 +22,14 @@ $.extend(collapseBinding, {
   },
   receiveMessage: function(el, data) {
     if(data.hasOwnProperty("open")) {
-      $(el).find("div.accordion-body[id='" + data.open + "']").collapse("show");
-      $(el).find("div.accordion-body").filter(":not([id='" + data.open + "'])").collapse("hide");
+      $(el).find("div.accordion-body").each(function(i){
+        alert($(this).attr("id"));
+        if($(this).attr("id") == data.open) {
+          $(this).collapse("show");
+        } else {
+       /*   $(this).collapse("hide"); */
+        }
+      });
     }
   },
   subscribe: function(el, callback) {
@@ -32,7 +38,7 @@ $.extend(collapseBinding, {
     });
   },
   unsubscribe: function(el) {
-    $(el).off(".dropdownBinding");
+    $(el).find("div.accordion-body").off("shown");
   }
 
 });

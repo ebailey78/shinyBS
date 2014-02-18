@@ -37,10 +37,10 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), HTML("<style type='
   tabsetPanel(id = "tabset",
               tabPanel("Introduction", tagList(tags$h3("shinyBS Demo"), 
                                                tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny users without the need to make custom <code>html</code> user interfaces. ")),
-                                               tags$p(HTML("Please use the tabs above to explore shinyBS functionality."))
+                                               tags$p(HTML("Please use the tabs above to explore shinyBS functionality. Each tab has a sidebar on the left which will allow you to experiment with some of the options for that UI element. On the top right is some explanatory text, followed by example code that, when possible, will reflect the options you selected on the left. Below the example code is an example UI element to changes based on your selections on the left."))
                                                )),
               demoPanel(title = "Navbar",
-                        intro = paste0("<p>Navbars offer an attractive and space-effient way to group you inputs together in your shiny app. Most of the customizations in Twitter Bootstrap are available as arguments in the <code>bsNavBar()</code> function. You add elements to the left and right of the navbar by adding them to the <code>leftitems</code> and <code>rightitems</code> arguments, respectivly.</p>",
+                        intro = paste0("<p>Navbars offer a space-efficient way to group your inputs together in your shiny app. Most of the customizations in Twitter Bootstrap are available as arguments in the <code>bsNavBar()</code> function. Any element you add to the navbar will align to the left, unless you add them to the <code>rightitems</code> arguments, which will cause them to align to the right.</p>",
                                        "<p>Several of shiny's default inputs have been reformatted to look better in the navbar. For example, <code>textInput</code> has had its label changed to a placeholder and has an added 'width' attribute to help save room. New versions of inputs have been had <code>bsNav</code> prepended to their names.</p>",
                                        "<p>Refer to the help files for shinyBS for additional information about navBar inputs.</p>"
                                        ),
