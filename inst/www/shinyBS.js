@@ -31,7 +31,6 @@ $.extend(collapseBinding, {
         } else {
           $(this).removeClass("in");
         }      
-        
       });
     }
   },
@@ -323,12 +322,16 @@ Shiny.addCustomMessageHandler("modifynavbar",
 
 function addTooltip(id, title, placement, trigger) {
 
-    $("#"+id).tooltip('destroy');
-    $("#"+id).tooltip({title: title,
-                      placement: placement,
-                      trigger: trigger,
-                      html: true
-    }); 
+  var $id = $("#"+id)
+  if($id.attr("type") == "slider") {
+    $id = $id.parent()
+  }
+  $id.tooltip('destroy');
+  $id.tooltip({title: title,
+               placement: placement,
+               trigger: trigger,
+               html: true
+  }); 
     
 };
 
@@ -340,17 +343,24 @@ Shiny.addCustomMessageHandler("addtooltip",
 
 function addPopover(id, title, content, placement, trigger) {
   
-  $("#"+id).popover({placement: placement,
-                     trigger: trigger,
-                     title: title,
-                     content: content
-                   });
+  var $id = $("#"+id)
+  if($id.attr("type") == "slider") {
+    $id = $id.parent()
+  }
+  $id.popover('destroy');
+  $id.popover({html: true,
+              placement: placement,
+              trigger: trigger,
+              title: title,
+              content: content
+              });
 
 };
 
 Shiny.addCustomMessageHandler("addpopover",
   function(data) {
-    addPopover(id=data.id, title=data.title, content=data.content, placement=data.placement, trigger=data.trigger)
+    addPopover(id=data.id, title=data.title, content=data.content, placement=data.placement, trigger=data.trigger);
+    
   }
 )
 
