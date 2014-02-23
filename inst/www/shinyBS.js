@@ -340,7 +340,8 @@ Shiny.addCustomMessageHandler("addtooltip",
 
 function addPopover(id, title, content, placement, trigger) {
   
-  $("#"+id).popover({placement: placement,
+  $("#"+id).popover({html: true,
+                     placement: placement,
                      trigger: trigger,
                      title: title,
                      content: content
