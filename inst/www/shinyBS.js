@@ -8,7 +8,6 @@ $(document).ready(function() {
 })
 
 //Creates an input binding for bsCollapse objects
-
 var collapseBinding = new Shiny.InputBinding();
 $.extend(collapseBinding, {
   find: function(scope) {
@@ -49,9 +48,7 @@ $.extend(collapseBinding, {
   }
 
 });
-
 Shiny.inputBindings.register(collapseBinding);
-
 
 //Creates an input binding for the bsNavDropdown object 
 var dropdownBinding = new Shiny.InputBinding();
@@ -98,9 +95,7 @@ $.extend(dropdownBinding, {
     $(el).off(".dropdownBinding");
   }
 });
-
 Shiny.inputBindings.register(dropdownBinding);
-
 
 //Creates input binding for TypeAhead Objects
 var typeAheadBinding = new Shiny.InputBinding();
@@ -116,14 +111,17 @@ $.extend(typeAheadBinding, {
     getValue: function(el) {
       return el.value;
     },
-    setValue: function(el, value) {
+    setValue: function(el, value) {                                                                                                                                                                                                                
       el.value = value;
     },
-    subscribe: function(el, callback) {
-      $(el).on('keyup.textInputBinding input.textInputBinding', function(event) {
+    initialize: function(el) {
+      $(el).typeahead();
+    },
+    subscribe: function(el, callback) {                                               
+      $(el).on('keyup.typeAheadBinding input.typeAheadBinding', function(event) {
         callback(true);
       });
-      $(el).on('change.textInputBinding', function(event) {
+      $(el).on('change.typeAheadBinding', function(event) {
         callback(false);
       });
     },
@@ -195,7 +193,6 @@ $.extend(tLinkBinding, {
       $(this).parent().toggleClass("active");
     })
   },
-
   subscribe: function(el, callback) {
     $(el).on("click.toggleLinkBinding", function(event) {
       callback();
