@@ -326,11 +326,20 @@ function addTooltip(id, title, placement, trigger) {
   if($id.attr("type") == "slider") {
     $id = $id.parent()
   }
+  var $par = $id.parent();
+  if($par.is('[id]')) {
+    var par = $par.attr("id");
+  } else {
+    var par = "par" + parseInt(Math.random()*1000000);
+    $par.attr("id", par);
+  }
+
   $id.tooltip('destroy');
   $id.tooltip({title: title,
                placement: placement,
                trigger: trigger,
-               html: true
+               html: true,
+               container: "#"+par
   }); 
     
 };
@@ -347,12 +356,21 @@ function addPopover(id, title, content, placement, trigger) {
   if($id.attr("type") == "slider") {
     $id = $id.parent()
   }
+  var $par = $id.parent();
+  if($par.is('[id]')) {
+    var par = $par.attr("id");
+  } else {
+    var par = "par" + parseInt(Math.random()*1000000);
+    $par.attr("id", par);
+  }
+
   $id.popover('destroy');
   $id.popover({html: true,
               placement: placement,
               trigger: trigger,
               title: title,
-              content: content
+              content: content,
+              container: '#' + par
               });
 };
 
@@ -362,9 +380,6 @@ Shiny.addCustomMessageHandler("addpopover",
     
   }
 )
-
-
-
 
 function addModal(id, target) {
   
