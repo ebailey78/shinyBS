@@ -49,14 +49,8 @@ shinyServer(function(input, output, session) {
     bsNavDivider(), 
     bsNavToggleLink(\"nbLink2\", \"Toggle\", value=TRUE),        
     rightItems = list(
-<<<<<<< HEAD
       bsNavTextInput(\"nbText\", \"Text Input\", width=75),
       bsNavButton(\"nbButton\", \"Button\")
-=======
-      bsNavDateInput(\"nbDate\", \"Date\"),
-      bsNavButton(\"nbButton\", \"Button\"),
-      bsNavTextInput(\"nbText\", \"Text Input\", width=40)
->>>>>>> 780e4925b60f43f9495cfb96ce1dd575010d4473
     )
   )
 "       
@@ -83,12 +77,7 @@ paste0("  observe({
       c("Dropdown", input$nbdd),
       c("Toggle Link", input$nbLink2),
       c("Button", input$nbButton),
-<<<<<<< HEAD
       c("Text Input", input$nbText))
-=======
-      c("Text Input", input$nbText),
-      c("Date Input", as.character(input$nbDate)))
->>>>>>> 780e4925b60f43f9495cfb96ce1dd575010d4473
     
     colnames(tb) <- c("Input", "Value")
     
@@ -218,16 +207,10 @@ paste0("  observe({
     
   })
 
-<<<<<<< HEAD
-###### CODE TO CONTROL TOOLTIPS AND POPOVERS DEMO ######
 
-  # Code to control Tooltips and Popovers example page mockup
-=======
 ###### CODE TO CONTROL TYPEAHEAD DEMO ######
 
   # Code to control Tooltips and Popovers example page mockup
-  
->>>>>>> 780e4925b60f43f9495cfb96ce1dd575010d4473
   randData <- reactive({
     
     rfunc <- switch(input$tpdist,
@@ -239,7 +222,7 @@ paste0("  observe({
     rfunc(input$tpobs)
     
   })
-<<<<<<< HEAD
+
   output$tpplot <- renderPlot({hist(randData(), main=input$tptitle)})
 
   # Generates text for serverside tooltip and/or popover add.
@@ -311,167 +294,5 @@ paste0("  observe({
   output$coValue <- renderText({paste("input$collapse1 = ", input$collapse1)})
     
   output$testPlot1 <- renderPlot({plot(rnorm(1000))})
-
-=======
-
-  output$tpplot <- renderPlot({hist(randData(), main=input$tptitle)})
-  output$tpboxplot <- renderPlot({boxplot(randData(), main="")})
-
-  tpObs <- observe({
-    
-    target <- switch(isolate(input$ttTarget),
-                    "link" = "tplink",
-                    "slider" = "tpobs",
-                    "select" = "tpdist",
-                    "text" = "tptitle")
-    
-    
-    
-  })
-
-#   
-#   # Alert Code Generator
-#   output$alCode <- renderText({
-#     
-#     txt = "createAlert(session, inputId = \"alert_anchor\", "
-#     if(input$alTitle) txt = paste0(txt, " title = \"...\", ")
-#     txt = paste0(txt, " message = \"...\",")
-#     txt = paste0(txt, " type = \"", input$alType, "\", ")
-#     txt = paste0(txt, " dismiss = ", input$alDis, ", block = ", input$alBlock, ", append = ", input$alAppend, ")")
-#     
-#     return(txt)
-#     
-#   })
-#   
-#   #Alert Creator
-#   alCreate <- observe({
-# 
-#     input$alCreate
-#     
-#       title <- isolate(input$alTitle)
-#       dismiss <- isolate(input$alDis)
-#       type <- isolate(input$alType)
-#       block <- isolate(input$alBlock)
-#       append <- isolate(input$alAppend)
-#       
-#       message <- includeHTML("http://www.gameofipsum.com/api/?type=html&paragraphs=1&percent=0")
-#       message <- as.vector(substr(message, 4, nchar(message) - 4))
-#       
-#       if(title) {
-#         tt <- switch(type,
-#                      "warning" = "Warning!",
-#                      "danger" = "Danger!",
-#                      "info" = "Just so you know...",
-#                      "success" = "Congratulations!")
-#       }
-#           
-#       txt <- "createAlert(session, \"alert_anchor\","
-#       if(title) txt <- paste0(txt, " title = \"", tt, "\",")
-#       txt <- paste0(txt, " message = \"", message, "\",")
-#       txt <- paste0(txt, " type = \"", type, "\",")
-#       txt <- paste0(txt, " dismiss = ", dismiss, ",")
-#       txt <- paste0(txt, " block = ", block, ",")
-#       txt <- paste0(txt, " append = ", append, ")")
-#       
-#       eval(parse(text=txt))
-#     
-#   })
-#   
-#   output$ttCode <- renderText({
-#     
-#     if(input$ttTarget == "button") {
-#       target="button1"
-#     } else {
-#       target = "text1"
-#     }
-#     
-#     txt <- "## In ui.R: <br />"
-#     txt <- paste0(txt, "bsTooltip(id = \"", target, "\", title = \"", input$ttTitle, "\", placement = \"", input$ttPlacement, "\", trigger = ", deparse(input$ttTrigger), ")")
-#     txt <- paste0(txt, "<br /><br /> ## In server.R: <br />")
-#     txt <- paste0(txt, "addTooltip(session, id = \"", target, "\", title = \"", input$ttTitle, "\", placement = \"", input$ttPlacement, "\", trigger = ", deparse(input$ttTrigger), ")")
-#     return(HTML(txt))
-#     
-#   })
-#   
-#   output$coCode <- renderText({
-#     
-#     ft <- '# This code, placed inside ui.R, creates the collapse group below (text has been truncated):
-# bsCollapse(multiple = TRUE, open = col1, id = "collapse1",
-#            bsCollapsePanel("Collapse #1", "Cell treachery spearwife night\'s watch, tower suckling ...", id="col1", value="test1"),
-#            bsCollapsePanel("Collapse #2", actionButton("btn123", "A Button"), textInput("txt1234", "A Text Input"), id="col2", value="test2"),
-#            bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value="test3"))'
-#     
-#     ut <- paste0("updateCollapse(session, \"collapse1\", open = ", deparse(input$coOpen), ")")
-#     
-#     return(paste(ft))
-#   })
-#   
-#   output$coValue <- renderText({paste("input$collapse1 = ", input$collapse1)})
-#   
-#   # Tooltip creator
-#   ttCreate <- observe({
-#     
-#     if(input$ttAdd > 0) {
-#     
-#     target <- isolate(input$ttTarget)
-#     title <- isolate(input$ttTitle)
-#     placement <- isolate(input$ttPlacement)
-#     trigger <- isolate(input$ttTrigger)
-#     
-#     if(target == "button") {
-#       target = "button1"
-#     } else {
-#       target = "text1"
-#     }
-#     
-#     removeTooltip(session, target)
-#     addTooltip(session, target, title, placement, trigger)
-#     
-#     }
-#     
-#   })
-#     
-#   output$testPlot1 <- renderPlot({plot(rnorm(1000))})
-#   
-#   output$poCode <- renderText({
-#     
-#     if(input$poTarget == "button") {
-#       target="button2"
-#     } else {
-#       target = "text2"
-#     }
-#     
-#     txt <- "## In ui.R: <br />"
-#     txt <- paste0(txt, "bsPopover(id = \"", target, "\", title = \"", input$ttTitle, "\", content = \"", input$poContent, "\", placement = \"", input$poPlacement, "\", trigger = ", deparse(input$poTrigger), ")")
-#     txt <- paste0(txt, "<br /><br /> ## In server.R: <br />")
-#     txt <- paste0(txt, "addPopover(session, id = \"", target, "\", title = \"", input$ttTitle, "\", content = \"", input$poContent, "\", placement = \"", input$poPlacement, "\", trigger = ", deparse(input$poTrigger), ")")
-#     return(HTML(txt))
-#     
-#   })
-#   
-#   # popover creator
-#   poCreate <- observe({
-#     
-#     if(input$poAdd > 0) {
-#       
-#       target <- isolate(input$poTarget)
-#       title <- isolate(input$poTitle)
-#       content <- isolate(input$poContent)
-#       placement <- isolate(input$poPlacement)
-#       trigger <- isolate(input$poTrigger)
-#     
-#       if(target == "button") {
-#         target = "button2"
-#       } else {
-#         target = "text2"
-#       }
-# 
-#       removePopover(session, target)
-#       addPopover(session, target, title, content, placement, trigger)
-#       
-#     }
-#     
-#   })
->>>>>>> 780e4925b60f43f9495cfb96ce1dd575010d4473
   
 })

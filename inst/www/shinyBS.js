@@ -342,8 +342,7 @@ Shiny.addCustomMessageHandler("addtooltip",
 );
 
 function addPopover(id, title, content, placement, trigger) {
-  
-<<<<<<< HEAD
+
   var $id = $("#"+id)
   if($id.attr("type") == "slider") {
     $id = $id.parent()
@@ -355,15 +354,6 @@ function addPopover(id, title, content, placement, trigger) {
               title: title,
               content: content
               });
-=======
-  $("#"+id).popover({html: true,
-                     placement: placement,
-                     trigger: trigger,
-                     title: title,
-                     content: content
-                   });
->>>>>>> 780e4925b60f43f9495cfb96ce1dd575010d4473
-
 };
 
 Shiny.addCustomMessageHandler("addpopover",
