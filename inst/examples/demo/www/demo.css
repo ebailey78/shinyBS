@@ -43,7 +43,11 @@
   font-weight: bold;
 }
 
+<<<<<<< HEAD
 .control-panel > input, .control-panel > select, .control-panel > div > input, .control-panel > div > select {
+=======
+.control-panel > input, .control-panel > select {
+>>>>>>> 780e4925b60f43f9495cfb96ce1dd575010d4473
   width: 95%
 }
 
