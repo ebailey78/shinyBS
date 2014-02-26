@@ -279,7 +279,7 @@ paste0("  observe({
 
   output$coUICode <- renderText({
     
-    ft <- '\tbsCollapse(multiple = TRUE, open = col1, id = "collapse1",\n'
+    ft <- '\tbsCollapse(multiple = TRUE, open = "col1", id = "collapse1",\n'
     ft <- paste0(ft, '\t\tbsCollapsePanel("Collapse #1", "Cell treachery spearwife night\'s watch, tower suckling ...", id="col1", value="test1"),\n')
     ft <- paste0(ft, '\t\tbsCollapsePanel("Collapse #2", actionButton("btn123", "A Button"), textInput("txt1234", "A Text Input"), id="col2", value="test2"),\n')
     ft <- paste0(ft, '\t\tbsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value="test3")\n')
