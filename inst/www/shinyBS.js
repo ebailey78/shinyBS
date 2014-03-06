@@ -372,6 +372,7 @@ function addPopover(id, title, content, placement, trigger) {
               content: content,
               container: '#' + par
               });
+  $id.data("popover")
 };
 
 Shiny.addCustomMessageHandler("addpopover",

@@ -208,7 +208,7 @@ paste0("  observe({
   })
 
 
-###### CODE TO CONTROL TYPEAHEAD DEMO ######
+###### CODE TO CONTROL TOOLTIPS AND POPOVERS DEMO ######
 
   # Code to control Tooltips and Popovers example page mockup
   randData <- reactive({
