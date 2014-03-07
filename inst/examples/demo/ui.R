@@ -50,11 +50,7 @@ pollutants <- c('Acetone', 'Acrolein', 'Benzene', 'Benzyl Chloride', 'Bromodichl
 shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), 
                             tags$link(type = "text/css", rel = "stylesheet", href="demo.css")
                             ),
-<<<<<<< HEAD
             tabsetPanel(id = "tabset", selected = "Introduction",
-=======
-            tabsetPanel(id = "tabset", selected = "Collapse",
->>>>>>> d873e4df74fdc4e415c7195109cd32da03270598
               tabPanel("Introduction", tags$div(class = "row-fluid", tags$div(class = "span12", tags$h3("shinyBS Demo"))),
                                        tags$div(class = "row-fluid", tags$div(class = "span6",
                                                                               tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny programmers without the need to make custom html user interfaces. It began as a project to help me better understand how shiny works but I hope it will be useful to others. </p><p>I've created <code>bsDemo()</code> to hopefully help reduce the learning curve for using shinyBS by allowing you to interact with new components directly within a shiny application rather than having to have to rely soley on the help files in R. Each added component is represented by a tab above. Clicking a tab will display a demonstration panel for the component. Each panel is laid out like the example on the right. A brief explanation of a panel follows:")),
