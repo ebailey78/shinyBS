@@ -1,6 +1,7 @@
 \name{collapse}
 \alias{bsCollapse}
 \alias{bsCollapsePanel}
+\alias{updateCollapse}
 \title{
 Twitter Bootstrap Collapse Panels
 }
@@ -10,6 +11,7 @@ Create Twitter Boostrap-style collapse panels (sometimes called accordion panels
 \usage{
 bsCollapse(..., id = NULL, multiple = FALSE, open = NULL)
 bsCollapsePanel(title, ..., id = NULL, value = NULL)
+updateCollapse(session, id, open = NULL, close = NULL, multiple = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,7 +26,10 @@ bsCollapsePanel(title, ..., id = NULL, value = NULL)
     if \code{TRUE} then opening one panel will not close other panels 
 }
   \item{open}{
-    The id of the panel you want open initially
+    The id of the panel(s) you want to open
+}
+  \item{close}{
+    The id of the panel(s) you want to close
 }
   \item{title}{
     The title to appear at the top of the panel
@@ -32,9 +37,13 @@ bsCollapsePanel(title, ..., id = NULL, value = NULL)
   \item{value}{
     The value that is returned by the \code{bsCollapse} object when this panel is open  
 }
+  \item{session}{
+    The \code{session} object passed to function given to \code{shinyServer}
+  }
 }
 \details{
-  \code{bsCollapse} works very similarly to \code{tabsetPanel} and may be useful in similare situations.
+  \code{bsCollapse} works very similarly to \code{tabsetPanel} and may be useful in similar situations.\cr\cr
+  Like \code{tabsetPanel}s, \code{bsCollapse} can return values indicating which panels are open or \code{NULL} if no panels are open.
   
 }
 \references{
@@ -57,5 +66,8 @@ bsCollapsePanel(title, ..., id = NULL, value = NULL)
                             id="col2", value="test2"),
             bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), 
                             id="col3", value="test3")
-            )                
+            ) 
+  
+  ## This code, placed inside server.R, will change multiple to TRUE and open the first and third panels:
+  updateCollapse(session, "collapse1", multiple = TRUE, open = c("col1", "col2"))
 }}

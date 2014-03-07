@@ -28,4 +28,5 @@ updateTypeAhead,
 removeTooltip,
 removePopover,
 bsCollapse,
-bsCollapsePanel)
+bsCollapsePanel,
+updateCollapse)

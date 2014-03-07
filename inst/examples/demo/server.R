@@ -289,9 +289,17 @@ paste0("  observe({
     
   })
   
-  output$coServerCode <- renderText({"There are currently no server-side functions for Collapse Panels."})
+  coObs <- observe({
+    if(input$coUpdate > 0) {
+      updateCollapse(session, "collapse1", multiple = isolate(input$coMult), open = isolate(input$coOpen), close = isolate(input$coClose))
+    }
+  })
 
-  output$coValue <- renderText({paste("input$collapse1 = ", input$collapse1)})
+  output$coServerCode <- renderText({
+    baseServer(paste0("updateCollapse(session, id = \"collapse1\", multiple = ", deparse(input$coMult), ", open = ", deparse(input$coOpen), ", close = ", deparse(input$coClose), ")"))
+  })
+
+  output$coValue <- renderText({paste("input$collapse1 = ", deparse(input$collapse1))})
     
   output$testPlot1 <- renderPlot({plot(rnorm(1000))})
   
