@@ -12,10 +12,14 @@
 }
 \arguments{
   \item{port}{
-    The TCP port that the application should listen on. Defaults to choosing a random port.
+    The TCP port that the application should listen on. Defaults to choosing a 
+    random port.
 }
   \item{launch.browser}{
-    If true, the system's default web browser will be launched automatically after the app is started. Defaults to true in interactive sessions only. This value of this parameter can also be a function to call with the application's URL.
+    If true, the system's default web browser will be launched automatically 
+    after the app is started. Defaults to true in interactive sessions only. 
+    This value of this parameter can also be a function to call with the 
+    application's URL.
 }
 }
 \author{

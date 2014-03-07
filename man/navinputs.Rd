@@ -7,11 +7,16 @@
   NavBar Versions of Shiny Inputs
 }
 \description{
-  These are stanard shiny inputs that have been slightly reworked to fit better into navBars
+  These are stanard shiny inputs that have been slightly reworked to fit better 
+  into navBars
 }
 \usage{
-bsNavDateRangeInput(inputId, label, start = NULL, end = NULL, min = NULL, max = NULL, format = "yyyy-mm-dd", startview = "month", weekstart = 0, language = "en", width = NULL)
-bsNavDateInput(inputId, label, value = NULL, min = NULL, max = NULL, format = "yyyy-mm-dd", startview = "month", weekstart = 0, language = "en", width = NULL)
+bsNavDateRangeInput(inputId, label, start = NULL, end = NULL, min = NULL, 
+                    max = NULL, format = "yyyy-mm-dd", startview = "month", 
+                    weekstart = 0, language = "en", width = NULL)
+bsNavDateInput(inputId, label, value = NULL, min = NULL, max = NULL, 
+               format = "yyyy-mm-dd", startview = "month", weekstart = 0, 
+               language = "en", width = NULL)
 bsNavTextInput(inputId, label, value = "", width=NULL)
 bsNavButton(inputId, label)
 }
@@ -55,8 +60,12 @@ bsNavButton(inputId, label)
 }
 }
 \details{
-  These are identical to the regular shiny inputs with the exception of an added 'width' arguement that allows the designer more control over their size and removal of labels in favor of 'placeholder' text which also saves room in the navbar. \cr \cr
-  The update functions for the standard inputs also work for their navBar versions.
+  These are identical to the regular shiny inputs with the exception of an 
+  added 'width' arguement that allows the designer more control over their 
+  size and removal of labels in favor of 'placeholder' text which also saves 
+  room in the navbar. \cr \cr
+  The update functions for the standard inputs also work for their navBar 
+  versions.
 }
 
 \author{
