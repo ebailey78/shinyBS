@@ -17,26 +17,74 @@ $.extend(collapseBinding, {
     return Shiny.InputBinding.prototype.getId.call(this, el) || el.name;
   },
   getValue: function(el) {
-    var v = $(el).find(".in").attr("data-value");
-    if(v == undefined) {
-      v = null;  
-    }
-    return v;
+    var op = $(el).find(".in").map(function() {
+      var v = $(this).attr("data-value");
+      if(v == undefined) {
+        v = null;  
+      };
+      return v;
+    }).get();
+    console.log(op)
+    return op;  
   },
+  
   receiveMessage: function(el, data) {
-    if(data.hasOwnProperty("open")) {
-      $(el).children("div.accordion-group").children("div.accordion-body").each(function() {
-        if($(this).attr("id") == data.open) {
-          $(this).addClass("in");
-        } else {
-          $(this).removeClass("in");
-        }      
-      });
+    if(data.hasOwnProperty('multiple')) {
+      if(data.multiple == false) {
+        $(el).find('.collapse').each(function(i, e) {
+          $(this).data('collapse').$parent = $("#" + $(el).attr("id"));
+        })
+      } else {
+        $(el).find('.collapse').each(function(i, e) {
+          $(this).data('collapse').$parent = false;
+        })
+      }
     }
+    if(data.hasOwnProperty('open')) {
+      if(data.open instanceof Array) {
+        $.each(data.open, function(i, e) {
+          if($("#" + e).data('collapse').$parent == false) {
+            if(!$("#" + e).hasClass("in")) {
+              $("#" + e).collapse('show');
+            }
+          } else {
+            if(!$("#" + data.open[0]).hasClass("in")) {
+              $("#" + data.open[0]).collapse('show');
+            }
+          }
+        })
+      } else {
+        if(!$("#" + data.open).hasClass("in")) {
+          $("#" + data.open).collapse('show');
+        }
+      }
+    }
+    if(data.hasOwnProperty('close')) {
+      if(data.close instanceof Array) {
+        $.each(data.close, function(i, e) {
+          if($("#" + e).hasClass("in")) {
+            $("#" + e).collapse('hide');
+          }
+        })
+      } else {
+        if($("#" + data.close).hasClass("in")) {
+          $("#" + data.close).collapse('hide');
+        }
+      }
+    }
+
   },
+  
   initialize: function(el) {
-    $(el).children(".accordion-group").children(".accordion-body").collapse({"toggle": false, 'parent': "#"+$(el).attr("id")});
+
+    if($(el).attr('data-multiple') == 'false') {
+      $(el).find(".collapse").each(function(i, e) {
+        $(this).collapse({parent: "#"+$(el).attr("id"), toggle: false});
+      })
+    }
+    
   },
+  
   subscribe: function(el, callback) {
     $(el).find("div.accordion-body").on("shown hidden", function(e) {
       callback();
