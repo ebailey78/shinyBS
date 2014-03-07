@@ -2,9 +2,18 @@ bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
 
   if(is.null(id)) id = paste0("accordion", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
   
-  panels <- tagList(...)
-      
-  sbsHead(tags$div(class="accordion", id = id, "data-multiple" = multiple, "data-open" = open, panels))
+  if(!multiple & length(open) > 1) {
+    open <- open[1]
+  }
+  
+  panels <- list(...)
+  for(i in seq(length(panels))) {
+    if(panels[[i]]$children[[2]]$attribs$id %in% open) {
+      panels[[i]]$children[[2]]$attribs$class <- paste(panels[[i]]$children[[2]]$attribs$class, "in")
+    }
+  }
+
+  sbsHead(tags$div(class="accordion", id = id, "data-multiple" = multiple, panels))
   
 }
 

@@ -24,7 +24,6 @@ $.extend(collapseBinding, {
       };
       return v;
     }).get();
-    console.log(op)
     return op;  
   },
   
@@ -78,10 +77,13 @@ $.extend(collapseBinding, {
   initialize: function(el) {
 
     if($(el).attr('data-multiple') == 'false') {
-      $(el).find(".collapse").each(function(i, e) {
-        $(this).collapse({parent: "#"+$(el).attr("id"), toggle: false});
-      })
+      var par = "#"+$(el).attr("id")
+    } else {
+      var par = false;
     }
+    $(el).find(".collapse").each(function(i, e) {
+        $(this).collapse({parent: par, toggle: false});
+    })
     
   },
   
