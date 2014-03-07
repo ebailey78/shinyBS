@@ -59,6 +59,7 @@ updateCollapse(session, id, open = NULL, close = NULL, multiple = NULL)
   Eric Bailey
 }
 \note{
+  Collapse panels didn't render properly when bsDemo() was run in Internet Explorer 10.\cr\cr
   Run \code{bsDemo()} for a live example of collapse panels.
 }
 \examples{
