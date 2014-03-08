@@ -8,7 +8,7 @@ bsAlert <- function(inputId) {
 # Adds and alert to an alert anchor.
 createAlert <- function(session, inputId, alertId = NULL, title=NULL, message=NULL, type=NULL, dismiss=TRUE, block=NULL, append=TRUE) {
   
-  data <- shiny:::dropNulls(list(id=inputId, alertId = alertId, title=title, message=message, type=type, dismiss=dismiss, block=block, append=append))
+  data <- dropNulls(list(id=inputId, alertId = alertId, title=title, message=message, type=type, dismiss=dismiss, block=block, append=append))
 
   session$sendCustomMessage(type="createalert", data)
   

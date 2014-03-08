@@ -1,7 +1,7 @@
 .onAttach <- function(...) {
   
   # Create link to javascript and css files for package
-  shiny::addResourcePath("sbs", system.file("www", package="shinyBS"))
+  addResourcePath("sbs", system.file("www", package="shinyBS"))
   
 }
 
@@ -15,3 +15,6 @@ sbsHead <- function(...) {
   
 }
 
+dropNulls <- function(x) {
+    x[!vapply(x, is.null, FUN.VALUE = logical(1))]
+}

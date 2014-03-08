@@ -32,7 +32,7 @@ bsNavTypeAhead <- function(inputId, label, value = "", choices, items=8, minLeng
 # Update a typeahead element from server.R
 updateTypeAhead <- function(session, inputId, label=NULL, value=NULL, choices=NULL) {
   
-  data <- shiny:::dropNulls(list(label=label, value=value, choices=choices))
+  data <- dropNulls(list(label=label, value=value, choices=choices))
 
   session$sendInputMessage(inputId, data)
   

@@ -25,7 +25,7 @@ bsProgressBar <- function(inputId, value = 0, visible=TRUE,
 # Update the progress bar from server.R
 updateProgressBar <- function(session, inputId, value=NULL, visible=NULL, color=NULL, striped=NULL, animate=NULL) {
   
-  data <- shiny:::dropNulls(list(id=inputId, value=value, visible=visible, 
+  data <- dropNulls(list(id=inputId, value=value, visible=visible, 
                                  color=color, striped=striped, animate=animate))
   
   session$sendCustomMessage("updateprogress", data)

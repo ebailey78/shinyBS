@@ -21,7 +21,7 @@ bsNavToggleLink <- function(inputId, label, value=FALSE) {
 
 # Update a toggleLink object
 updateToggleLink <- function(session, inputId, label=NULL, value=NULL) {
-  data <- shiny:::dropNulls(label=label, value = value)
+  data <- dropNulls(list(label=label, value = value))
   
   session$sendInputMessage(inputId, data)
   
@@ -133,7 +133,7 @@ bsNavDropDown <- function(inputId, label, choices, selected="") {
 # Allows updating out navbar dropdowns.
 updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
   
-  message <- shiny:::dropNulls(list(label = label, options = choices, 
+  message <- dropNulls(list(label = label, options = choices, 
                                     value = selected))
   
   session$sendInputMessage(inputId, message)

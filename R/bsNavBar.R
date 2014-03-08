@@ -22,7 +22,7 @@ bsNavBar <- function(inputId, brand, ..., rightItems, fixed=FALSE, inverse=FALSE
 # Allows the user to change some aspects of th navbar from the server.
 updateNavBar <- function(session, inputId, brand=NULL, fixed=NULL, inverse=NULL) {
   
-  data <- shiny:::dropNulls(list(id=inputId, brand=brand, fixed=fixed, inverse=inverse))
+  data <- dropNulls(list(id=inputId, brand=brand, fixed=fixed, inverse=inverse))
   
   session$sendCustomMessage(type="modifynavbar", data)
   

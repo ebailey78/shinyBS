@@ -30,3 +30,4 @@ removePopover,
 bsCollapse,
 bsCollapsePanel,
 updateCollapse)
+import(shiny)

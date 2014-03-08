@@ -5,6 +5,6 @@ Version: 0.10
 Date: 2014-03-06
 Author: Eric Bailey
 Maintainer: Eric Bailey <ebailey@idem.in.gov>
-Depends: shiny
 Description: Adds more Twitter Bootstrap components to the shiny interface
+Imports: shiny (>= 0.8.0)
 License: GPL-3

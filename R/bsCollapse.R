@@ -42,7 +42,7 @@ bsCollapsePanel <- function(title, ..., id = NULL, value = NULL) {
 
 updateCollapse <- function(session, id, open = NULL, close = NULL, multiple = NULL) {
   
-  data <- shiny:::dropNulls(list(open = open, close = close, multiple = multiple))
+  data <- dropNulls(list(open = open, close = close, multiple = multiple))
   session$sendInputMessage(id, data)
   
 }
