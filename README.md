@@ -32,4 +32,6 @@ bsDemo()
 * **Progress Bars** - Fully configurable Progress bars that can be updated and changed from `server.R`.
 * **Navigation Bars** - Create Bootstrap style navigation bars with buttons, links, dropdowns, etc that control your shiny app.
 * **Collapse Panels** - Create collapsable panels that allow you to remove some clutter from your app.
+* **Buttons Groups** - Create button groups that behave like radio buttons or checkbox groups
+* **Buttons** - Access Twitter Bootstrap styles and sizes for action buttons and toggle buttons
 

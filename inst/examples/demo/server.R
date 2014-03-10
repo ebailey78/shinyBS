@@ -37,6 +37,13 @@ baseServer <- function(main.code = "") {
 
 shinyServer(function(input, output, session) {
   
+  observe({
+    if(input$bsClose > 0) {
+      stopApp()
+      message("bsDemo() stopped. You can now close the browser window.")
+    }
+  })
+  
 ###### CODE TO CONTROL NAVBAR DEMO ######
   
   # Navbar UI Code Example

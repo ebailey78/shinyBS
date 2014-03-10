@@ -21,7 +21,7 @@ bsButton <- function(inputId, label, value, style = NULL, size = NULL,
 bsToggleButton <- function(inputId, label, value = FALSE, style = NULL, 
                            size = NULL, disabled = FALSE) {
   
-  btn <- bsButton(inputId, label, style, size, disabled)
+  btn <- bsButton(inputId, label=label, style=style, size=size, disabled=disabled)
   
   btn <- removeClass(btn, "sbs-btn")
   btn <- addClass(btn, "sbs-toggle-button")
@@ -38,7 +38,7 @@ bsToggleButton <- function(inputId, label, value = FALSE, style = NULL,
 bsActionButton <- function(inputId, label, style = NULL, size = NULL, 
                            disabled = FALSE) {
   
-  btn <- bsButton(inputId, label, style, size, disabled)
+  btn <- bsButton(inputId, label, style = style, size=size, disabled=disabled)
   
   btn <- removeClass(btn, "sbs-btn")
   btn <- addClass(btn, "sbs-action-button")
@@ -47,16 +47,19 @@ bsActionButton <- function(inputId, label, style = NULL, size = NULL,
   
 }
 
-updateButton <- function(session, id, label = NULL, value = NULL, style = NULL, size = NULL, disabled = NULL) {
+updateButton <- function(session, id, label = NULL, value = NULL, style = NULL, 
+                         size = NULL, disabled = NULL) {
   
-  data <- dropNulls(list(label = label, value = value, style = style, size = size, disabled = disabled))
+  data <- dropNulls(list(label = label, value = value, style = style, 
+                         size = size, disabled = disabled))
   
   session$sendInputMessage(id, data)
   
 }
 
 # Creates a button group
-bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size, value = NULL, disabled = FALSE) {
+bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size, 
+                          value = NULL, disabled = FALSE) {
     
   # Start the button group tag
   btngrp <- tags$div(id = inputId, class = "btn-group sbs-button-group")
@@ -98,7 +101,8 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
     }
     
     if(!missing(style)) {
-      btn <- removeClass(btn, "btn-primary btn-info btn-success btn-warning btn-danger btn-inverse btn-link")
+      styles <- "btn-primary btn-info btn-success btn-warning btn-danger btn-inverse btn-link"
+      btn <- removeClass(btn, styles)
       btn <- addClass(btn, style)
     }
     
@@ -114,9 +118,11 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
 
 }
 
-updateButtonGroup <- function(session, id, toggle = NULL, style = NULL, size = NULL, disabled = NULL, value = NULL) {
+updateButtonGroup <- function(session, id, toggle = NULL, style = NULL, 
+                              size = NULL, disabled = NULL, value = NULL) {
   
-  data <- dropNulls(list(toggle = toggle, style = style, size = size, disabled = disabled, value = value))
+  data <- dropNulls(list(toggle = toggle, style = style, size = size, 
+                         disabled = disabled, value = value))
   session$sendInputMessage(id, data)
   
 }

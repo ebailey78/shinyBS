@@ -48,8 +48,10 @@ demoPanel <- function(title, intro, controls, example, uiCode, serverCode) {
 pollutants <- c('Acetone', 'Acrolein', 'Benzene', 'Benzyl Chloride', 'Bromodichloromethane', 'Bromoform', 'Bromomethane', '1,3-Butadiene', 'Carbon Disulfide', 'Carbon Tetrachloride', 'Chlorobenzene', 'Chloroethane', 'Chloroform', 'Chloromethane', 'Cyclohexane', 'Dibromochloromethane', '1,2-Dibromoethane', 'm-Dichlorobenzene', 'p-Dichlorobenzene', 'o-Dichlorobenzene', 'Dichlorodifluoromethane (F-12)', '1,1-Dichloroethane', '1,2-Dichloroethane', 't-1,2-Dichloroethene', 'c-1,2-Dichloroethene', 'Dichloromethane', '1,2-Dichloropropane', 'c-1,3-Dichloropropene', 't-1,3-Dichloropropene', 'Dichloro-Tetrafluoroethane (F-114)', '1,4-Dioxane', 'Ethanol', 'Ethyl Acetate', 'Ethylbenzene', 'p-Ethyltoluene', 'Heptane', 'Hexachlorobutadiene', 'Hexane', 'Isopropanol', 'Methyl Ethyl Ketone (MEK)', 'Methyl Isobutyl Ketone (MIBK)', 'Methyl n-Butyl Ketone (MBK)', 'Methyl Tert-Butyl Ether (MTBE)', 'Propene', 'Styrene', '1,1,2,2-Tetrachloroethane', 'Tetrachloroethene (PCE)', 'Tetrahydrofuran (THF)', 'Toluene', 'Trichlorotrifluoroethane (F-113)', '1,2,4-Trichlorobenzene', '1,1,1-Trichloroethane', '1,1,2-Trichloroethane', 'Trichloroethene (TCE)', 'Trichlorofluoromethane (F-11)', '1,3,5-Trimethylbenzene', '1,2,4-Trimethylbenzene', 'Vinyl Acetate', 'Vinyl Chloride', 'Vinylidene Chloride', 'o-Xylene', 'm+p-Xylenes')
 
 shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), 
-                            tags$link(type = "text/css", rel = "stylesheet", href="demo.css")
+                            tags$link(type = "text/css", rel = "stylesheet", href="demo.css"),
+                            tags$script(src = "demo.js")
                             ),
+            tags$div(class="pull-right", style="padding-top: 5px;", bsActionButton("bsClose", label = "Stop Demo", style = "primary")),
             tabsetPanel(id = "tabset", selected = "Introduction",
               tabPanel("Introduction", tags$div(class = "row-fluid", tags$div(class = "span12", tags$h3("shinyBS Demo"))),
                                        tags$div(class = "row-fluid", tags$div(class = "span6",
@@ -61,6 +63,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                                                                                       tags$li("The lower-right section contains a control panel that allows you to see how changes to the arguments of the component affect the appearance and/or behavior in the example component. The code contained in the ui.R and server.R scripts will also update to reflect the changes you make in the control panel.")
                                                                                       ),
                                                                               tags$p(HTML("Please use the tabs above to explore shinyBS functionality. I have made great efforts to make sure that the code all works under multiple use scenarios but if you find a bug, or if you have suggestions for additional functionality, please contact me at <a href='mailto:ebailey@idem.in.gov'>ebailey@idem.in.gov</a>."))
+                                                                              
                                                                      ),
                                                                      tags$div(class = "span6", tags$img(src="expic.png")))),
               demoPanel(title = "Navbar",
