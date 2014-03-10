@@ -29,5 +29,7 @@ removeTooltip,
 removePopover,
 bsCollapse,
 bsCollapsePanel,
-updateCollapse)
+updateCollapse,
+bsButtonGroup,
+bsButton)
 import(shiny)

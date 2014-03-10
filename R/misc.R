@@ -12,9 +12,52 @@ sbsHead <- function(...) {
                               tags$link(rel = "stylesheet", type = "text/css", href = "sbs/shinyBS.css"))),
           ...
           )
+}
+
+# Copy of dropNulls function for shiny to avoid using shiny:::dropNulls
+dropNulls <- function(x) {
+    x[!vapply(x, is.null, FUN.VALUE = logical(1))]
+}
+
+# Takes a tag and removes any classes in the remove argument
+removeClass <- function(tag, remove) {
+  
+  if(length(remove) == 1) remove <- strsplit(remove, " ", fixed = TRUE)[[1]]
+  
+  class <- strsplit(tag$attribs$class, " ", fixed = TRUE)[[1]]
+  class <- class[!(class %in% remove)]
+  tag$attribs$class <- paste(class, collapse = " ")
+  
+  return(tag)
   
 }
 
-dropNulls <- function(x) {
-    x[!vapply(x, is.null, FUN.VALUE = logical(1))]
+addClass <- function(tag, add) {
+  tag$attribs$class <- paste(tag$attribs$class, add)
+  return(tag)
+}
+
+inputCheck <- function(..., valid, stop.func = FALSE) {
+  
+  v <- list(...)[1]
+  
+  if(!(v %in% valid)) {
+  
+    n <- names(list(...))[1]
+    caller <- deparse(sys.call(-1)[1])
+    msg <- paste0("Invalid '", n, "' argument in ", caller, ": ", v)
+    if(stop.func) {
+      stop(msg, call. = FALSE)
+    } else {
+      warning(msg, call. = FALSE)
+    }
+    
+    return(FALSE)
+    
+  } else {
+    
+    return(TRUE)
+  
+  }
+  
 }

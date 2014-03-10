@@ -164,6 +164,20 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                           bsCollapsePanel("Collapse #3", plotOutput("testPlot1"), id="col3", value = "test3")),
                         uiCode = "coUICode",
                         serverCode = "coServerCode"
-              )
+              ),
+              demoPanel(title = "Button Groups",
+                        intro = "shinyBS adds more customization options to buttons in shiny. You can set the size of a button with the <code>size</code> argument (large, small, or mini). You can set the style of the button, with color schemes similar to those of other bootstrap elements (primary, info, success, warning, danger, inverse, link).</p><p>shinyBS also adds the option of making a button a toggle button by setting <code>toggle = TRUE</code>. This is make the button return <code>TRUE</code> or <code>FALSE</code> similar to a <code>checkboxInput()</code>.</p><p>You may also create button groups.  ",
+                        controls = HTML(""),
+                        example = tagList(tags$p("Individual Buttons"),
+                                          bsButton("btn1", "ActionButton"),
+                                          bsButton("btn2", "ToggleButton", toggle = TRUE),
+                                          tags$p("Button Groups"),
+                                          bsButtonGroup("btngrp1", toggle = "radio", style = "primary",
+                                                        bsButton("btn3", "Left", style = "warning"),
+                                                        bsButton("btn4", "Middle", style = "info"),
+                                                        bsButton("btn5", "Right", style = "success"))
+                                          ),
+                        uiCode = "bgUICode",
+                        serverCode = "bgServerCode")
     )
 ))
