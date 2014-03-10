@@ -31,5 +31,9 @@ bsCollapse,
 bsCollapsePanel,
 updateCollapse,
 bsButtonGroup,
-bsButton)
+bsButton,
+bsActionButton,
+bsToggleButton,
+updateButtonGroup,
+updateButton)
 import(shiny)

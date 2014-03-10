@@ -207,7 +207,6 @@ paste0("  observe({
     
   })
 
-
 ###### CODE TO CONTROL TOOLTIPS AND POPOVERS DEMO ######
 
   # Code to control Tooltips and Popovers example page mockup
@@ -303,4 +302,46 @@ paste0("  observe({
     
   output$testPlot1 <- renderPlot({plot(rnorm(1000))})
   
+
+##### CODE TO CONTROL BUTTON GROUPS DEMO #####
+
+  output$bgValue <- renderTable({
+    
+    df <- cbind(c("bsActionButton", "bsToggleButton", "bsButtonGroup"), c(deparse(input$ab1), deparse(input$tb1), deparse(input$btngrp1)))
+    colnames(df) <- c("Input", "Value")
+    return(df)
+    
+  }, include.rownames=FALSE)
+
+  output$bgServerCode <- renderText({
+    bg <- input$bgValue
+    if(is.null(input$bgValue)) bg <- "none"
+    
+    baseServer(paste0("  updateButton(session, \"ab1\", style = ", deparse(input$bgStyle), ", size = ", deparse(input$bgSize), ", disabled = ", deparse(input$bgDisabled), ")
+  updateButton(session, \"tb1\", style = ", deparse(input$bgStyle), ", size = ", deparse(input$bgSize), ", disabled = ", deparse(input$bgDisabled), ")    
+  updateButtonGroup(session, \"btngrp1\", toggle = ", deparse(input$bgToggle), ", style = ", deparse(input$bgStyle), ", size = ", deparse(input$bgSize), ", disabled = ", deparse(input$bgDisabled), ", value = ", deparse(bg), ")
+
+"))
+  })
+
+  output$bgUICode <- renderText({
+    baseUI("bsActionButton(\"ab1\", label = \"bsActionButton\"),
+  bsToggleButton(\"tb1\", label = \"bsToggleButton\"),
+  tags$p(),
+  bsButtonGroup(\"btngrp1\", label = \"bsButtonGroup\", toggle = \"radio\", value = \"right\",
+    bsButton(\"btn1\", label = \"Left\", value = \"left\"),
+    bsButton(\"btn2\", label = \"Middle\", value = \"middle\"),
+    bsButton(\"btn3\", label = \"Right\", value = \"right\"))
+")
+  })
+
+  observe({
+    bg <- input$bgValue
+    if(is.null(input$bgValue)) bg <- "none"
+    updateButton(session, "ab1", style = input$bgStyle, size = input$bgSize, disabled = input$bgDisabled)
+    updateButton(session, "tb1", style = input$bgStyle, size = input$bgSize, disabled = input$bgDisabled)    
+    updateButtonGroup(session, "btngrp1", toggle = input$bgToggle, style = input$bgStyle, size = input$bgSize, disabled = input$bgDisabled, value = bg)
+  })
+
 })
+

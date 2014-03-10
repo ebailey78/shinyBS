@@ -7,6 +7,108 @@ $(document).ready(function() {
 
 })
 
+//New Input Bindings
+
+var bsButtonBinding = new Shiny.InputBinding();
+$.extend(bsButtonBinding, {
+  find: function(scope) {
+    return $(scope).find(".sbs-btn");
+  },
+  getValue: function(el) {
+    return $(el).attr('data-value');
+  },
+  setValue: function(el, value) {
+    $(el).data('val', value);
+  },
+  subscribe: function(el, callback) {
+    $(el).on("click.bsButtonBinding", function(e) {
+        callback();
+    });
+  },
+  getState: function(el) {
+    return { value: this.getValue(el) };
+  },
+  receiveMessage: function(el, data) {
+    updateButtonStyle(el, data);
+  },    
+  unsubscribe: function(el) {
+    $(el).off(".bsButtonBinding");
+  } 
+});
+Shiny.inputBindings.register(bsButtonBinding);
+
+/* Creates a clone of the actionButtonBinding, but with a receiveMessage 
+function for changing the style, size, etc. of the button. I tried to find a 
+way to do this without just copying the input binding but was unsuccessful. */
+var bsActionButtonInputBinding = new Shiny.InputBinding();
+$.extend(bsActionButtonInputBinding, {
+  find: function(scope) {
+    return $(scope).find(".sbs-action-button");
+  },
+  getValue: function(el) {
+    return $(el).data('val') || 0;
+  },
+  setValue: function(el, value) {
+    $(el).data('val', value);
+  },
+  subscribe: function(el, callback) {
+    $(el).on("click.bsActionButtonInputBinding", function(e) {
+      if(!$(el).hasClass("disabled")) {
+        var $el = $(this);
+        var val = $el.data('val') || 0;
+        $el.data('val', val + 1);
+          callback();
+      }})
+  },
+  getState: function(el) {
+    return { value: this.getValue(el) };
+  },
+  receiveMessage: function(el, data) {
+    updateButtonStyle(el, data);
+  },    
+  unsubscribe: function(el) {
+    $(el).off(".bsActionButtonInputBinding");
+  } 
+});
+Shiny.inputBindings.register(bsActionButtonInputBinding)
+
+var bsToggleButtonBinding = new Shiny.InputBinding();
+$.extend(bsToggleButtonBinding, {
+  find: function(scope) {
+    return $(scope).find(".sbs-toggle-button");
+  },
+  getValue: function(el) {
+    return $(el).hasClass("bs-active");
+  },
+  setValue: function(el, value) {
+    $(el).toggleClass("active bs-active", value);
+  },
+  subscribe: function(el, callback) {
+    $(el).on("click.bsToggleButtonBinding", function(e) {
+      if(!$(el).hasClass("disabled")) {
+        $(el).toggleClass("bs-active");
+        callback();
+      } else {
+        //Disabled toggle buttons appear to still toggle invisibly, this makes it to a double toggle so the state remains correct.
+        $(el).toggleClass("active");
+      }
+    });
+  },
+  getState: function(el) {
+    return { value: this.getValue(el) };
+  },
+  receiveMessage: function(el, data) {
+    updateButtonStyle(el, data);
+    if(data.hasOwnProperty("value")) {
+      $(el).toggleClass("active bs-active", data.value);
+    }
+  },    
+  unsubscribe: function(el) {
+    $(el).off(".bsToggleButtonBinding");
+  } 
+});
+Shiny.inputBindings.register(bsToggleButtonBinding);
+
 //Creates an input binding for bsCollapse objects
 var collapseBinding = new Shiny.InputBinding();
 $.extend(collapseBinding, {
@@ -148,7 +250,6 @@ Shiny.inputBindings.register(dropdownBinding);
 
 //Creates input binding for TypeAhead Objects
 var typeAheadBinding = new Shiny.InputBinding();
-
 $.extend(typeAheadBinding, {
   
     find: function(scope) {
@@ -206,11 +307,10 @@ $.extend(typeAheadBinding, {
     }
 
 });
-
 Shiny.inputBindings.register(typeAheadBinding);
 
+//Creates input binding for Toggle Buttons
 var toggleBinding = new Shiny.InputBinding();
-
 $.extend(toggleBinding, {
   find: function(scope) {
     return $(scope).find(".toggle-button");
@@ -254,10 +354,10 @@ $.extend(toggleBinding, {
   }
 
 })
+Shiny.inputBindings.register(toggleBinding);
 
 //Create Input Binding for bsNavtoggleLink Objects
 var tLinkBinding = new Shiny.InputBinding();
-
 $.extend(tLinkBinding, {
   find: function(scope) {
     return $(scope).find(".sbs-toggle");
@@ -297,19 +397,174 @@ $.extend(tLinkBinding, {
   }
 
 });
-
 Shiny.inputBindings.register(tLinkBinding);
 
+//Create Input Binding for bsButtonGroups
+var buttonGroupBinding = new Shiny.InputBinding();
+  $.extend(buttonGroupBinding, {
+    find: function(scope) {
+      return $(scope).find(".sbs-button-group");
+    },
+    getValue: function(el) {
+      var op = $(el).children("button.bs-active").map(function() {
+        var v = $(this).attr("data-value");
+        if(v == undefined) {
+          v = null;  
+        };
+        return v;
+      }).get();
+      return op;
+    },
+    setValue: function(el, value) {
+      $(el).children("button.bs-active").removeClass("bs-active active");
+      if(value instanceof Array) {
+        $.each(value, function(i, e) {
+          $(el).children("#" + e).addClass("active bs-active");
+        })
+      } else {
+        $(el).children("#" + value).addClass("active bs-active");
+      }
+    },
+    receiveMessage: function(el, data) {
+      if(data.hasOwnProperty("toggle")) {
+        var $el = $(el);
+        if(data.toggle == "none") {
+          $el.removeAttr("data-toggle");
+          $el.children("button").removeClass("bs-active active");
+        } else {
+          if($(el).attr("data-toggle") == "buttons-radio") {
+            $(el).children("button")
+          }
+          $el.attr("data-toggle", "buttons-" + data.toggle);
+        }
+      };
+      if(data.hasOwnProperty("style")) {
+        $el.children("button").removeClass("btn-primary btn-info btn-success btn-warning btn-danger btn-inverse btn-link");
+        if(data.style != "default") {
+          $el.children("button").addClass("btn-"+data.style);
+        }
+      };
+      if(data.hasOwnProperty("size")) {
+        $el.children("button").removeClass("btn-large btn-small btn-mini");
+        if(data.size != "default") {
+          $el.children("button").addClass("btn-"+data.size);
+        }
+      };
+      if(data.hasOwnProperty("disabled")) {
+        $el.children("button").toggleClass("disabled", data.disabled);
+      };
+      if(data.hasOwnProperty("value")) {
+        var val = data.value;
+        $el.children("button").removeClass("active bs-active");
+        if(val instanceof Array & $el.attr("data-toggle") != "buttons-radio") {
+          $.each(val, function(i, e) {
+            $el.children("button[data-value = '"+e+"']").addClass("active bs-active");
+          })
+        } else {
+          if(val instanceof Array & $el.attr("data-toggle") == "buttons-radio") {
+            val = val[0];
+          }
+          $el.children("button[data-value = '"+val+"']").addClass("active bs-active");
+        }
+      };
+    },
+    subscribe: function(el, callback) {
+      $(el).children("button").on("click", function(e) {
+        if(!$(this).hasClass("disabled")) {
+          if($(el).attr("data-toggle") == "buttons-radio") {
+            $(el).children("button").removeClass("bs-active");
+            $(this).addClass("bs-active");
+          } else {
+            $(this).toggleClass("bs-active");
+          }
+          callback();
+        }
+      })
+    },
+    unsubscribe: function(el) {
+      $(el).children("button").off("click");
+    }
+  });
+Shiny.inputBindings.register(buttonGroupBinding);
 
 
+//Support Functions
+
+function addPopover(id, title, content, placement, trigger) {
+
+  var $id = $("#"+id)
+  if($id.attr("type") == "slider") {
+    $id = $id.parent()
+  }
+  var $par = $id.parent();
+  if($par.is('[id]')) {
+    var par = $par.attr("id");
+  } else {
+    var par = "par" + parseInt(Math.random()*1000000);
+    $par.attr("id", par);
+  }
+
+  $id.popover('destroy');
+  $id.popover({html: true,
+              placement: placement,
+              trigger: trigger,
+              title: title,
+              content: content,
+              container: '#' + par
+              });
+  $id.data("popover")
+};
+
+function addTooltip(id, title, placement, trigger) {
+
+  var $id = $("#"+id)
+  if($id.attr("type") == "slider") {
+    $id = $id.parent()
+  }
+  var $par = $id.parent();
+  if($par.is('[id]')) {
+    var par = $par.attr("id");
+  } else {
+    var par = "par" + parseInt(Math.random()*1000000);
+    $par.attr("id", par);
+  }
+
+  $id.tooltip('destroy');
+  $id.tooltip({title: title,
+               placement: placement,
+               trigger: trigger,
+               html: true,
+               container: "#"+par
+  }); 
+    
+};
+
+function updateButtonStyle(el, data) {
+  
+  var $el = $(el)
+  if(data.hasOwnProperty("label")) {
+    $el.html(data.label);
+  }
+  if(data.hasOwnProperty("style")) {
+    $el.removeClass("btn-primary btn-info btn-success btn-warning btn-danger btn-inverse btn-link");
+    if(data.style != "default") {
+      $el.addClass("btn-"+data.style);
+    }
+  }
+  if(data.hasOwnProperty("size")) {
+    $el.removeClass("btn-large btn-small btn-mini");
+    if(data.size != "default") {
+      $el.addClass("btn-"+data.size);
+    }
+  }
+  if(data.hasOwnProperty("disabled")) {
+    $el.toggleClass("disabled", data.disabled);
+  }
+  
+}
 
 
-
-
-
-
-
-
+//New Customg Message Handlers
 
 Shiny.addCustomMessageHandler("createalert",
   function(data) {
@@ -357,18 +612,6 @@ Shiny.addCustomMessageHandler("closealert",
   }
 );
 
-Shiny.addCustomMessageHandler("removetooltip",
-  function(tooltipid) {
-    $("#"+tooltipid).tooltip("destroy");
-  }
-);
-
-Shiny.addCustomMessageHandler("removepopover",
-  function(popoverid) {
-    $("#"+popoverid).popover("destroy");
-  }
-);
-
 Shiny.addCustomMessageHandler("updateprogress",
   function(data) {
     $el = $("#"+data.id);
@@ -413,31 +656,7 @@ Shiny.addCustomMessageHandler("modifynavbar",
     if(data.hasOwnProperty("inverse")) {
       $el.toggleClass("navbar-inverse", data.inverse);
     };
-  });
-
-function addTooltip(id, title, placement, trigger) {
-
-  var $id = $("#"+id)
-  if($id.attr("type") == "slider") {
-    $id = $id.parent()
-  }
-  var $par = $id.parent();
-  if($par.is('[id]')) {
-    var par = $par.attr("id");
-  } else {
-    var par = "par" + parseInt(Math.random()*1000000);
-    $par.attr("id", par);
-  }
-
-  $id.tooltip('destroy');
-  $id.tooltip({title: title,
-               placement: placement,
-               trigger: trigger,
-               html: true,
-               container: "#"+par
-  }); 
-    
-};
+  })
 
 Shiny.addCustomMessageHandler("addtooltip", 
   function(data) {
@@ -445,42 +664,21 @@ Shiny.addCustomMessageHandler("addtooltip",
   }
 );
 
-function addPopover(id, title, content, placement, trigger) {
-
-  var $id = $("#"+id)
-  if($id.attr("type") == "slider") {
-    $id = $id.parent()
+Shiny.addCustomMessageHandler("removetooltip",
+  function(tooltipid) {
+    $("#"+tooltipid).tooltip("destroy");
   }
-  var $par = $id.parent();
-  if($par.is('[id]')) {
-    var par = $par.attr("id");
-  } else {
-    var par = "par" + parseInt(Math.random()*1000000);
-    $par.attr("id", par);
-  }
-
-  $id.popover('destroy');
-  $id.popover({html: true,
-              placement: placement,
-              trigger: trigger,
-              title: title,
-              content: content,
-              container: '#' + par
-              });
-  $id.data("popover")
-};
+);
 
 Shiny.addCustomMessageHandler("addpopover",
   function(data) {
     addPopover(id=data.id, title=data.title, content=data.content, placement=data.placement, trigger=data.trigger);
     
   }
-)
+);
 
-function addModal(id, target) {
-  
-  $("#"+id).attr({"href" : "#"+target,
-                  "data-toggle" : "modal"
-  });
-  
-};
+Shiny.addCustomMessageHandler("removepopover",
+  function(popoverid) {
+    $("#"+popoverid).popover("destroy");
+  }
+);
