@@ -447,7 +447,10 @@ function addPopover(id, title, content, placement, trigger) {
 
   var $id = $("#"+id)
   if($id.attr("type") == "slider") {
-    $id = $id.parent()
+    $id = $id.parent();
+  }
+  if($id.hasClass("selectized")) {
+    $id = $id.siblings("div.selectize-control");
   }
   var $par = $id.parent();
   if($par.is('[id]')) {
@@ -473,6 +476,9 @@ function addTooltip(id, title, placement, trigger) {
   var $id = $("#"+id)
   if($id.attr("type") == "slider") {
     $id = $id.parent()
+  }
+  if($id.hasClass("selectized")) {
+    $id = $id.siblings("div.selectize-control");
   }
   var $par = $id.parent();
   if($par.is('[id]')) {
