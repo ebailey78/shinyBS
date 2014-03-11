@@ -14,11 +14,25 @@ After installing `devtools` in R you can install shinyBS by typing at the R prom
 install_github("shinyBS", "ebailey78")
 ```
 
+`shinyBS` was also added to CRAN. You can install the CRAN version with:
+
+```
+install.packages("shinyBS")
+```
+
 For a quick demonstration of `shinyBS` functionality run the following code at the R prompt:
 
 ```
 library(shinyBS)
 bsDemo()
+```
+
+### Issues/Bugs
+
+* **pageWithNavBar()** - pageWithNavBar wasn't properly exported so is not available in the CRAN version. I will export it with the next release. Meanwhile, it can be accessed by using `:::`:
+ 
+```
+shinyBS:::pageWithNavBar()
 ```
 
 ### What's New
