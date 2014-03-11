@@ -15,7 +15,7 @@ pageWithNavBar(title = "", navbar, mainContent)
     The title to appear in the browsers application bar.
 }
   \item{navbar}{
-    A navbar created with \code{link{bsNavBar}}
+    A navbar created with \code{\link{bsNavBar}}
 }
   \item{mainContent}{
     Outputs for the application
