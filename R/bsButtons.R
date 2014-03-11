@@ -7,9 +7,16 @@ bsButton <- function(inputId, label, value, style = NULL, size = NULL,
   
   if(disabled) btn <- addClass(btn, "disabled")
   
-  if(!is.null(style)) btn <- addClass(btn, paste0("btn-", tolower(style)))
+  if(!is.null(style)) {
+    inputCheck(style = style, valid = c("primary", "info", "success", "warning", 
+                                        "danger", "inverse", "link"))
+    btn <- addClass(btn, paste0("btn-", tolower(style)))
+  }
   
-  if(!is.null(size)) btn <- addClass(btn, paste0("btn-", tolower(size)))
+  if(!is.null(size)) {
+    inputCheck(size = size, valid = c("large", "small", "mini"))
+    btn <- addClass(btn, paste0("btn-", tolower(size)))
+  }
   
   if(!missing(value)) btn$attribs['data-value'] <- value
   
