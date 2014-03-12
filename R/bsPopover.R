@@ -1,8 +1,8 @@
 # Add a popover from the ui.R script
 bsPopover <- function(id, title, content, placement="right", trigger="click") {
 
-  sbsHead(tags$script(HTML(paste0("addPopover('", id, "', '", title, "', '", content, 
-                             "', '", placement, "', '", trigger, "');"))))
+  sbsHead(tags$script(HTML(paste0("$(document).ready(function() {setTimeout(function() {addPopover('", id, "', '", title, "', '", content, 
+                             "', '", placement, "', '", trigger, "')}, 100);})"))))
   
 }
 

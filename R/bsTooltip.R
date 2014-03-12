@@ -3,8 +3,8 @@ bsTooltip <- function(id, title, placement="bottom", trigger="hover") {
   
   if(length(trigger) > 1) trigger = paste(trigger, collapse = " ")
   
-  sbsHead(tags$script(paste0("addTooltip('", id, "', '", title, "', '", 
-                             placement, "', '", trigger, "');")))
+  sbsHead(tags$script(paste0("$(document).ready(function() {setTimeout(function() {addTooltip('", id, "', '", title, "', '", 
+                             placement, "', '", trigger, "')}, 100)});")))
   
 }
 
