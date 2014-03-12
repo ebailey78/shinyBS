@@ -1,3 +1,18 @@
+Version 0.15 (Bug Fixes)
+--------------------------------------------------------------------------------
+* pageWithNavBar()
+  * I forgot to include the pageWithNavbar function in the NAMESPACE file so it 
+    wasn't exported
+
+* Buttons/Button Groups 
+  * singletons for including shinyBS's javascript and CSS files weren't added 
+    when only button functions were included in an app
+
+* Tooltips/Popovers
+  * Tooltips and Popovers will now work with the new selectize-type 
+    selectInput's in shiny 0.9.0
+
+
 Version 0.10 (Initial Release)
 --------------------------------------------------------------------------------
 * Alerts - Create alert anchors in your `ui.R` script and add alerts from 

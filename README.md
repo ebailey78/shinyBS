@@ -29,13 +29,28 @@ bsDemo()
 
 ### Issues/Bugs
 
+RStudio is preparing to release shiny v0.9.0 soon. When they do I will submit a new version (v0.15) of shinyBS that corrects problems listed here. Until then, the version of shinyBS on github has had these problems corrected.
+
 * **pageWithNavBar()** - pageWithNavBar wasn't properly exported so is not available in the CRAN version. I will export it with the next release. Meanwhile, it can be accessed by using `:::`:
  
 ```
 shinyBS:::pageWithNavBar()
 ```
 
+* **Tooltips/Popovers** - shiny has switched to a new type of selectInput in v0.9.0. The original versions of tooltips/popovers won't work with these new inputs.
+
+* **Buttons/Button Groups** - If the only shinyBS components used in an app are buttons or button groups then the shinyBS javascript/CSS files aren't loaded. For now, this can be fixed by including any other shinyBS component in your app.
+
 ### What's New
+
+#### Version 0.15 (Bug Fixes)
+
+* **pageWithNavBar()**
+  * I forgot to include the pageWithNavbar function in the NAMESPACE file so it wasn't exported
+* **Buttons/Button Groups** 
+  * singletons for including shinyBS's javascript and CSS files weren't added when only button functions were included in an app
+* **Tooltips/Popovers**
+  * Tooltips and Popovers will now work with the new selectize-type selectInput's in shiny 0.9.0
 
 #### Version 0.10 (Initial Release)
 
