@@ -23,7 +23,7 @@ dropNulls <- function(x) {
 removeClass <- function(tag, remove) {
   
   if(length(remove) == 1) remove <- strsplit(remove, " ", fixed = TRUE)[[1]]
-  
+
   class <- strsplit(tag$attribs$class, " ", fixed = TRUE)[[1]]
   class <- class[!(class %in% remove)]
   tag$attribs$class <- paste(class, collapse = " ")
