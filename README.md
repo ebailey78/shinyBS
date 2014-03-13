@@ -43,14 +43,18 @@ shinyBS:::pageWithNavBar()
 
 ### What's New
 
-#### Version 0.15 (Bug Fixes)
+#### Version 0.2
 
 * **pageWithNavBar()**
   * I forgot to include the pageWithNavbar function in the NAMESPACE file so it wasn't exported
 * **Buttons/Button Groups** 
   * singletons for including shinyBS's javascript and CSS files weren't added when only button functions were included in an app
+  * added `block` argument for creating block level buttons
 * **Tooltips/Popovers**
   * Tooltips and Popovers will now work with the new selectize-type selectInput's in shiny 0.9.0
+* **Tables**
+  * `highlightCells` lets you highlight table cells based on their content
+  * `highlightRows` lets you highlight table rows based on the content of a table column
 
 #### Version 0.10 (Initial Release)
 

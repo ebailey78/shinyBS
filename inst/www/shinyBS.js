@@ -516,6 +516,9 @@ function updateButtonStyle(el, data) {
       $el.addClass("btn-"+data.size);
     }
   }
+  if(data.hasOwnProperty("block")) {
+    $el.toggleClass("btn-block", data.block);
+  }
   if(data.hasOwnProperty("disabled")) {
     $el.toggleClass("disabled", data.disabled);
   }
@@ -641,3 +644,96 @@ Shiny.addCustomMessageHandler("removepopover",
     $("#"+popoverid).popover("destroy");
   }
 );
+
+
+// Table Highlighting Functions
+Shiny.addCustomMessageHandler("highlightCells", 
+  function(data) {
+    
+    var $tab = $("#"+data.id).children("table");
+    var $tds = $tab.find("td");
+        
+    if(data.hasOwnProperty("reset")) {
+      if(data.reset) {
+        $tds.removeClass().removeAttr("style");
+      }
+    }
+    
+    if(data.hasOwnProperty("regex")) {
+      
+      $tds = $tds.filter(function() {
+        return this.textContent.match(data.regex);
+      })
+      
+    } else {
+      if(data.hasOwnProperty("min")) {
+        $tds = $tds.filter(function() {
+          return parseFloat($(this).text(), 10) >= parseFloat(data.min, 10)});
+      }
+      if(data.hasOwnProperty("max")) {
+        $tds = $tds.filter(function() {
+          return parseFloat($(this).text(), 10) <= parseFloat(data.max, 10)});
+      }
+    }
+    
+    if(data.hasOwnProperty("class")) {
+      $tds.removeClass().removeAttr("style").addClass(data.class);
+    }
+    
+    if(data.hasOwnProperty("style")) {
+      $tds.removeAttr("style").attr("style", data.style);
+    }
+  }
+);
+
+Shiny.addCustomMessageHandler("highlightRows",
+  function(data) {
+  
+    var $tab = $("#"+data.id).children("table");
+    if($.isNumeric(data.column)) {
+      var ind = parseInt(data.column, 10);
+    } else {
+      var ind = $tab.find("tr:first-child").children("th").filter(function() {
+        return $.trim($(this).text()) == $.trim(data.column);
+      }).index();
+    }
+    
+    var $trs = $tab.find("tr:not(:first-child)")
+
+    if(data.hasOwnProperty("reset")) {
+      if(data.reset) {
+        $trs.removeClass().removeAttr("style");
+        $trs.children("td").removeClass().removeAttr("style")
+      }
+    }
+    
+    if(data.hasOwnProperty("regex")) {
+      
+      $trs = $trs.filter(function() {
+        return $(this).children("td").eq(ind).get(0).textContent.match(data.regex);
+      })
+      
+    } else {
+      
+      if(data.hasOwnProperty("min")) {
+        $trs = $trs.filter(function() {
+          return parseFloat($(this).children("td").eq(ind).text(), 10) >= parseFloat(data.min, 10)});
+      }
+      
+      if(data.hasOwnProperty("max")) {
+        $trs = $trs.filter(function() {
+          return parseFloat($(this).children("td").eq(ind).text(), 10) <= parseFloat(data.max, 10)});
+      }
+      
+    }
+    
+    if(data.hasOwnProperty("class")) {
+      $trs.children("td").removeClass().removeAttr("style");
+      $trs.removeClass().removeAttr("style").addClass(data.class);
+    }
+    if(data.hasOwnProperty("style")) {
+      $trs.children("td").removeAttr("style");
+      $trs.removeAttr("style").attr("style", data.style);
+    }
+
+})

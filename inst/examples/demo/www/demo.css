@@ -73,3 +73,11 @@ code {
   font-weight: bold;
   
 }
+
+#htTable > table {
+  width: 100%;
+}
+
+#htTable > table th {
+  text-align: center;
+}

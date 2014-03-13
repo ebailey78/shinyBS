@@ -15,14 +15,16 @@
   buttons in a shiny app. 
 }
 \usage{
-bsButton(inputId, label, value, style = NULL, size = NULL, disabled = FALSE)
-bsActionButton(inputId, label, style = NULL, size = NULL, disabled = FALSE)
-bsToggleButton(inputId, label, value, style = NULL, size = NULL, 
+bsButton(inputId, label, value, style = NULL, size = NULL, block = FALSE, 
+         disabled = FALSE)
+bsActionButton(inputId, label, style = NULL, size = NULL, block = FALSE, 
+               disabled = FALSE)
+bsToggleButton(inputId, label, value, style = NULL, size = NULL, block = FALSE,
                disabled = FALSE)
 bsButtonGroup(inputId, ..., label, toggle = "checkbox", style, size, 
               value = NULL, disabled = FALSE)
 updateButton(session, id, label = NULL, value = NULL, style = NULL, size = NULL, 
-             disabled = NULL)
+             block = NULL, disabled = NULL)
 updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL, 
                   disabled = NULL, value = NULL)
 }
@@ -52,6 +54,10 @@ updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL,
 }
   \item{size}{
     The bootstrap size the button(s) should take (See Details)
+}
+  \item{block}{
+    Should the button be a block level button? (i.e., should it span the width 
+    of its parent element)
 }
   \item{value}{
     The value of the button/button group (See Details)

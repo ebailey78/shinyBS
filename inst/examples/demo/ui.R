@@ -52,7 +52,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                             tags$script(src = "demo.js")
                             ),
             tags$div(class="pull-right", style="padding-top: 5px;", bsActionButton("bsClose", label = "Stop Demo", style = "primary")),
-            tabsetPanel(id = "tabset", selected = "Introduction",
+            tabsetPanel(id = "tabset", selected = "Tables",
               tabPanel("Introduction", tags$div(class = "row-fluid", tags$div(class = "span12", tags$h3("shinyBS Demo"))),
                                        tags$div(class = "row-fluid", tags$div(class = "span6",
                                                                               tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny programmers without the need to make custom html user interfaces. It began as a project to help me better understand how shiny works but I hope it will be useful to others. </p><p>I've created <code>bsDemo()</code> to hopefully help reduce the learning curve for using shinyBS by allowing you to interact with new components directly within a shiny application rather than having to have to rely soley on the help files in R. Each added component is represented by a tab above. Clicking a tab will display a demonstration panel for the component. Each panel is laid out like the example on the right. A brief explanation of a panel follows:")),
@@ -186,6 +186,21 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                                                         bsButton("btn3", label = "Right", value = "right"))
                                           ),
                         uiCode = "bgUICode",
-                        serverCode = "bgServerCode")
+                        serverCode = "bgServerCode"),
+              demoPanel(title = "Tables",
+                        intro = "<p>shinyBS allows you to easily hightlight individual cells or entire rows of a table based on the contents of the cells. Match cells based on a numeric range with the <code>min</code> and <code>max</code> arguments or use the <code>regex</code> argument to use regular expresssions for cell matching.</p><p><code>highlightCells()</code> is used for highlighting individual cells and <code>highlightRows()</code> is used for highlighting entire rows. Both functions use the same arguments with <code>highlightRows()</code> having an additional <code>column</code> argument for indicating the column to search. You can supply the <code>column</code> argument with the value that appears in the top row or with a numeric index value for the column.</p><p>Cells can be styled with the <code>class</code> or <code>style</code> arguments. <code>class</code> can be one of eight predefined classes (success, warning, error, info, good, bad, neutral, disabled) or any class you have defined. If you use the <code>style</code> argument its contents will be directly inserted into the <code>style</code> attribute of matching td and tr elements.</p>",
+                        controls = tagList(selectInput("htClass", "Class", choices = c("none", "success", "warning", "error", "info", "good", "bad", "neutral")),
+                                           textInput("htStyle", "Style"),
+                                           textInput("htCol", "Column"),
+                                           textInput("htMin", "Min"),
+                                           textInput("htMax", "Max"),
+                                           textInput("htText", "Text"),
+                                           checkboxInput("htReset", "Reset Highlighting"),
+                                           bsActionButton("htAdd", "highlightCells()", block = TRUE),
+                                           bsActionButton("htRow", "highlightRows()", block = TRUE)),
+                        example = tagList(tags$p(style = "font-weight: bold; text-align: center;", "2013 Sales Figures"), 
+                                          tableOutput("htTable")),
+                        uiCode = "htUICode",
+                        serverCode = "htServerCode")
     )
 ))

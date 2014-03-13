@@ -36,5 +36,7 @@ bsButton,
 bsActionButton,
 bsToggleButton,
 updateButtonGroup,
-updateButton)
+updateButton,
+highlightCells,
+highlightRows)
 import(shiny)

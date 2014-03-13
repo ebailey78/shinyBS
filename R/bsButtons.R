@@ -1,11 +1,12 @@
 # Generic button - used as base for bsToggleButton and bsActionButton and as
 # contents of bsButtonGroup
-bsButton <- function(inputId, label, value, style = NULL, size = NULL, 
+bsButton <- function(inputId, label, value, style = NULL, size = NULL, block = FALSE,
                      disabled = FALSE) {
   
   btn <- tags$button(id = inputId, type = "button", class = "btn sbs-btn", label)
   
   if(disabled) btn <- addClass(btn, "disabled")
+  if(block) btn <- addClass(btn, "btn-block")
   
   if(!is.null(style)) {
     inputCheck(style = style, valid = c("primary", "info", "success", "warning", 
@@ -26,9 +27,9 @@ bsButton <- function(inputId, label, value, style = NULL, size = NULL,
 
 # Creates a Toggle button that works like a checkboxinput
 bsToggleButton <- function(inputId, label, value = FALSE, style = NULL, 
-                           size = NULL, disabled = FALSE) {
+                           size = NULL, block = FALSE, disabled = FALSE) {
   
-  btn <- bsButton(inputId, label=label, style=style, size=size, disabled=disabled)
+  btn <- bsButton(inputId, label=label, style=style, size=size, block = block, disabled=disabled)
 
   btn[[2]] <- removeClass(btn[[2]], "sbs-btn")
   btn[[2]] <- addClass(btn[[2]], "sbs-toggle-button")
@@ -42,10 +43,10 @@ bsToggleButton <- function(inputId, label, value = FALSE, style = NULL,
 }
 
 # Creates an action button like the default action button but with more options
-bsActionButton <- function(inputId, label, style = NULL, size = NULL, 
+bsActionButton <- function(inputId, label, style = NULL, size = NULL, block = FALSE,
                            disabled = FALSE) {
   
-  btn <- bsButton(inputId, label, style = style, size=size, disabled=disabled)
+  btn <- bsButton(inputId, label, style = style, size=size, block = block, disabled=disabled)
 
   btn[[2]] <- removeClass(btn[[2]], "sbs-btn")
   btn[[2]] <- addClass(btn[[2]], "sbs-action-button")
@@ -55,10 +56,10 @@ bsActionButton <- function(inputId, label, style = NULL, size = NULL,
 }
 
 updateButton <- function(session, id, label = NULL, value = NULL, style = NULL, 
-                         size = NULL, disabled = NULL) {
+                         size = NULL, block = NULL, disabled = NULL) {
   
   data <- dropNulls(list(label = label, value = value, style = style, 
-                         size = size, disabled = disabled))
+                         size = size, block = block, disabled = disabled))
   
   session$sendInputMessage(id, data)
   
@@ -98,7 +99,7 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
     if(disabled) btn2 <- addClass(btn2, "disabled")
 
     btn2$attribs['data-toggle'] <- NULL
-    btn2 <- removeClass(btn2, "action-button toggle-button active")
+    btn2 <- removeClass(btn2, "action-button btn-block toggle-button active")
     
     if(btn2$attribs['data-value'] %in% value) {
       btn2 <- addClass(btn2, "active bs-active")

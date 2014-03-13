@@ -350,5 +350,94 @@ paste0("  observe({
     updateButtonGroup(session, "btngrp1", toggle = input$bgToggle, style = input$bgStyle, size = input$bgSize, disabled = input$bgDisabled, value = bg)
   })
 
+##### CODE TO CONTROL TABLES DEMO #####
+  
+  output$htTable <- renderTable({
+    
+    d <- as.integer(runif(84, 0, 20))
+    
+    df <- as.data.frame(matrix(d, nrow = 7, ncol = 12))
+    
+    colnames(df) <- month.abb
+    rownames(df) <- c("Troy", "Abed", "Britta", "Jeff", "Annie", "Pierce", "Shirley")
+    
+    return(df)
+    
+  })
+
+  output$htUICode <- renderText({baseUI("\ttags$p(style = \"font-weight: bold; text-align: center;\", \"2013 Sales Figures\")\n\ttableOutput('htTable')\n")})
+
+  output$htServerCode <- renderText({
+    
+    min <- paste(", min =", input$htMin)
+    max <- paste(", max =", input$htMax)
+    reset <- paste(", reset =", input$htReset)
+    style <- paste(", style =", deparse(input$htStyle))
+    regex <- paste(", regex =", deparse(input$htText))
+    class <- paste(", class =", deparse(input$htClass))
+    
+    if(input$htMin == "") min = ""
+    if(input$htMax == "") max = ""
+    if(input$htReset == FALSE) reset = ""
+    if(input$htStyle == "") style = ""
+    if(input$htText == "") regex = ""
+    if(input$htClass == "none") class = ""
+    
+    op <- paste0("\thighlightCells(session, 'htTable'", class, style, min, max, regex, reset, ")")
+    op <- paste0(op, "\n\thighlightRows(session, 'htTable', column = ", deparse(input$htColumn), class, style, min, max, regex, ")")
+    
+    return(baseServer(op))  
+
+  })
+
+  observe({
+    
+    if(input$htAdd > 0) {
+      
+      class = isolate(input$htClass)
+      min <- isolate(input$htMin)
+      max <- isolate(input$htMax)
+      style <- isolate(input$htStyle)
+      regex <- isolate(input$htText)
+      
+      if(class == "none") class <- NULL
+      if(min == "") min <- NULL
+      if(max == "") max <- NULL
+      if(style == "") style <- NULL
+      if(regex == "") regex <- NULL
+ 
+      highlightCells(session, "htTable", min = min, max = max,
+                    class = class, style = style, regex = regex, reset = isolate(input$htReset))
+      
+    }
+    
+  })
+
+  observe({
+    
+    if(input$htRow > 0) {
+      
+      class = isolate(input$htClass)
+      min <- isolate(input$htMin)
+      max <- isolate(input$htMax)
+      style <- isolate(input$htStyle)
+      regex <- isolate(input$htText)
+      column <- isolate(input$htCol)
+      
+      
+      if(class == "none") class <- NULL
+      if(min == "") min <- NULL
+      if(max == "") max <- NULL
+      if(style == "") style <- NULL
+      if(regex == "") text <- NULL
+      
+      highlightRows(session, "htTable", column = column, min = min, max = max,
+                     class = class, style = style, regex = regex, reset = isolate(input$htReset))
+      
+    }
+    
+  })
+
 })
+
 
