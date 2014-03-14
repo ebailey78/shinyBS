@@ -43,7 +43,7 @@ shinyBS:::pageWithNavBar()
 
 ### What's New
 
-#### Version 0.2
+#### Version 0.20
 
 * **pageWithNavBar()**
   * I forgot to include the pageWithNavbar function in the NAMESPACE file so it wasn't exported
