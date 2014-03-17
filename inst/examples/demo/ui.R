@@ -52,7 +52,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                             tags$script(src = "demo.js")
                             ),
             tags$div(class="pull-right", style="padding-top: 5px;", bsActionButton("bsClose", label = "Stop Demo", style = "primary")),
-            tabsetPanel(id = "tabset", selected = "Tables",
+            tabsetPanel(id = "tabset", selected = "Introduction",
               tabPanel("Introduction", tags$div(class = "row-fluid", tags$div(class = "span12", tags$h3("shinyBS Demo"))),
                                        tags$div(class = "row-fluid", tags$div(class = "span6",
                                                                               tags$p(HTML("shinyBS is an R package that makes much of the functionality inherent to Twitter Boostrap available to shiny programmers without the need to make custom html user interfaces. It began as a project to help me better understand how shiny works but I hope it will be useful to others. </p><p>I've created <code>bsDemo()</code> to hopefully help reduce the learning curve for using shinyBS by allowing you to interact with new components directly within a shiny application rather than having to have to rely soley on the help files in R. Each added component is represented by a tab above. Clicking a tab will display a demonstration panel for the component. Each panel is laid out like the example on the right. A brief explanation of a panel follows:")),

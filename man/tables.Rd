@@ -11,7 +11,7 @@ Table Highlighting
 highlightRows(session, id, column, min = NULL, max = NULL, regex = NULL, 
               class = NULL, style = NULL, reset = NULL)
 highlightCells(session, id, min = NULL, max = NULL, regex = NULL, class = NULL, 
-               style = NULL, reset = NULL)
+               style = NULL, reset = NULL, skip.row.names = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -42,6 +42,9 @@ highlightCells(session, id, min = NULL, max = NULL, regex = NULL, class = NULL,
   \item{reset}{
     Should preexisting styles be removed?
 }
+  \item{skip.row.names}{
+    Should the first column of the table be ignored because it contains row names?
+  }
 }
 \details{
   \code{highlightCells()} is used for highlighting individual cells and \code{highlightRows()} is used for highlighting entire rows. Both functions use the same arguments with \code{highlightRows()} having an additional column argument for indicating the column to search. You can supply the column argument with the value that appears in the top row or with a numeric index value for the column.\cr

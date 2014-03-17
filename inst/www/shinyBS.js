@@ -651,7 +651,11 @@ Shiny.addCustomMessageHandler("highlightCells",
   function(data) {
     
     var $tab = $("#"+data.id).children("table");
-    var $tds = $tab.find("td");
+    if(data.skip) {
+      var $tds = $tab.find("td:not(:first-child)");
+    } else {
+      var $tds = $tab.find("td");
+    }
         
     if(data.hasOwnProperty("reset")) {
       if(data.reset) {
