@@ -27,10 +27,6 @@ library(shinyBS)
 bsDemo()
 ```
 
-### Issues/Bugs
-
-None so far...
-
 ### What's New
 
 #### Version 0.20 (released: 2014-03-19)
