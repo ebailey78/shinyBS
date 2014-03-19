@@ -39,4 +39,5 @@ updateButtonGroup,
 updateButton,
 highlightCells,
 highlightRows)
-import(shiny)
+import(shiny,
+       methods)

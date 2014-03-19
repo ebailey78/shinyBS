@@ -22,7 +22,7 @@ bsActionButton(inputId, label, style = NULL, size = NULL, block = FALSE,
 bsToggleButton(inputId, label, value, style = NULL, size = NULL, block = FALSE,
                disabled = FALSE)
 bsButtonGroup(inputId, ..., label, toggle = "checkbox", style, size, 
-              value = NULL, disabled = FALSE)
+              value = NULL, disabled = FALSE, block = FALSE, vertical = FALSE)
 updateButton(session, id, label = NULL, value = NULL, style = NULL, size = NULL, 
              block = NULL, disabled = NULL)
 updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL, 
@@ -56,9 +56,12 @@ updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL,
     The bootstrap size the button(s) should take (See Details)
 }
   \item{block}{
-    Should the button be a block level button? (i.e., should it span the width 
-    of its parent element)
+    Should the button or button group be a block level element? (i.e., should it 
+    span the width of its parent element)
 }
+  \item{vertical}{
+    Should the button group's buttons have a vertical orientation?
+  }
   \item{value}{
     The value of the button/button group (See Details)
 }
@@ -76,7 +79,9 @@ updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL,
 
 \code{size} can be any of the sizes described in the Twitter Bootstrap 2.3.2 documentation. Accepatble values are currently: large, small, or mini. Additionally, when calling one of the update functions, style can be set to \code{default} to return to the default size.\cr
 
-For toggle buttons, \code{value} can be \code{TRUE} or \code{FALSE} and corresponds to whether the button is currently 'clicked.' For \code{bsButton}, \code{value} is used to set the value that will be returned by containing \code{bsButtonGroup} object when with button is clicked. For button groups, \code{value} is used to set the current value to be returned by the group and should correspond to values assigned to buttons contained in the button group.
+For toggle buttons, \code{value} can be \code{TRUE} or \code{FALSE} and corresponds to whether the button is currently 'clicked.' For \code{bsButton}, \code{value} is used to set the value that will be returned by containing \code{bsButtonGroup} object when the button is clicked. For button groups, \code{value} is used to set the current value to be returned by the group and should correspond to values assigned to buttons contained in the button group.\cr
+
+\code{vertical} and \code{block} for button groups are experimental. They do not work well together and may not work under all browsers. 
 }
 
 \references{

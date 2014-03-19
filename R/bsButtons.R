@@ -67,7 +67,7 @@ updateButton <- function(session, id, label = NULL, value = NULL, style = NULL,
 
 # Creates a button group
 bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size, 
-                          value = NULL, disabled = FALSE) {
+                          value = NULL, disabled = FALSE, block = FALSE, vertical = FALSE) {
     
   # Start the button group tag
   btngrp <- tags$div(id = inputId, class = "btn-group sbs-button-group")
@@ -76,7 +76,10 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
   if(inputCheck(toggle = toggle, valid = c("checkbox", "radio"))) {
     btngrp$attribs['data-toggle'] <- paste0("buttons-", toggle)
   }
-    
+  
+  if(block) btngrp <- addClass(btngrp, "btn-block")
+  if(vertical) btngrp <- addClass(btngrp, "btn-group-vertical")
+  
   if(!missing(style)) {
     if(inputCheck(style = style, 
                   valid = c("primary", "info", "success", "warning", 
@@ -104,6 +107,8 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
     if(btn2$attribs['data-value'] %in% value) {
       btn2 <- addClass(btn2, "active bs-active")
     }
+    
+    if(block) btn2$name <- "span"
     
     if(!missing(size)) {
       btn2 <- removeClass(btn2, "btn-large btn-small btn-mini")

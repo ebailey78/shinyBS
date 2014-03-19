@@ -359,7 +359,7 @@ var buttonGroupBinding = new Shiny.InputBinding();
       return $(scope).find(".sbs-button-group");
     },
     getValue: function(el) {
-      var op = $(el).children("button.bs-active").map(function() {
+      var op = $(el).children(".bs-active").map(function() {
         var v = $(this).attr("data-value");
         if(v == undefined) {
           v = null;  
@@ -369,7 +369,7 @@ var buttonGroupBinding = new Shiny.InputBinding();
       return op;
     },
     setValue: function(el, value) {
-      $(el).children("button.bs-active").removeClass("bs-active active");
+      $(el).children(".bs-active").removeClass("bs-active active");
       if(value instanceof Array) {
         $.each(value, function(i, e) {
           $(el).children("#" + e).addClass("active bs-active");
@@ -383,49 +383,49 @@ var buttonGroupBinding = new Shiny.InputBinding();
       if(data.hasOwnProperty("toggle")) {
         if(data.toggle == "none") {
           $el.removeAttr("data-toggle");
-          $el.children("button").removeClass("bs-active active");
+          $el.children(".btn").removeClass("bs-active active");
         } else {
           if($(el).attr("data-toggle") == "buttons-radio") {
-            $(el).children("button")
+            $(el).children(".btn")
           }
           $el.attr("data-toggle", "buttons-" + data.toggle);
         }
       };
       if(data.hasOwnProperty("style")) {
-        $el.children("button").removeClass("btn-primary btn-info btn-success btn-warning btn-danger btn-inverse btn-link");
+        $el.children(".btn").removeClass("btn-primary btn-info btn-success btn-warning btn-danger btn-inverse btn-link");
         if(data.style != "default") {
-          $el.children("button").addClass("btn-"+data.style);
+          $el.children(".btn").addClass("btn-"+data.style);
         }
       };
       if(data.hasOwnProperty("size")) {
-        $el.children("button").removeClass("btn-large btn-small btn-mini");
+        $el.children(".btn").removeClass("btn-large btn-small btn-mini");
         if(data.size != "default") {
-          $el.children("button").addClass("btn-"+data.size);
+          $el.children(".btn").addClass("btn-"+data.size);
         }
       };
       if(data.hasOwnProperty("disabled")) {
-        $el.children("button").toggleClass("disabled", data.disabled);
+        $el.children(".btn").toggleClass("disabled", data.disabled);
       };
       if(data.hasOwnProperty("value")) {
         var val = data.value;
-        $el.children("button").removeClass("active bs-active");
+        $el.children(".btn").removeClass("active bs-active");
         if(val instanceof Array & $el.attr("data-toggle") != "buttons-radio") {
           $.each(val, function(i, e) {
-            $el.children("button[data-value = '"+e+"']").addClass("active bs-active");
+            $el.children(".btn[data-value = '"+e+"']").addClass("active bs-active");
           })
         } else {
           if(val instanceof Array & $el.attr("data-toggle") == "buttons-radio") {
             val = val[0];
           }
-          $el.children("button[data-value = '"+val+"']").addClass("active bs-active");
+          $el.children(".btn[data-value = '"+val+"']").addClass("active bs-active");
         }
       };
     },
     subscribe: function(el, callback) {
-      $(el).children("button").on("click", function(e) {
+      $(el).children(".btn").on("click", function(e) {
         if(!$(this).hasClass("disabled")) {
           if($(el).attr("data-toggle") == "buttons-radio") {
-            $(el).children("button").removeClass("bs-active");
+            $(el).children(".btn").removeClass("bs-active");
             $(this).addClass("bs-active");
           } else {
             $(this).toggleClass("bs-active");
@@ -435,7 +435,7 @@ var buttonGroupBinding = new Shiny.InputBinding();
       })
     },
     unsubscribe: function(el) {
-      $(el).children("button").off("click");
+      $(el).children(".btn").off("click");
     }
   });
 Shiny.inputBindings.register(buttonGroupBinding);

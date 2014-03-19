@@ -39,3 +39,10 @@ td.neutral, tr.neutral{
   background-color: rgb(255, 235, 150);
   color: rgb(150, 100, 0);
 }
+
+.btn-group.btn-block {
+    display: table;
+}
+.btn-group.btn-block > .btn {
+    display: table-cell;
+}

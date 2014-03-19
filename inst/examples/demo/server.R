@@ -384,7 +384,7 @@ paste0("  observe({
     if(input$htClass == "none") class = ""
     
     op <- paste0("\thighlightCells(session, 'htTable'", class, style, min, max, regex, reset, ")")
-    op <- paste0(op, "\n\thighlightRows(session, 'htTable', column = ", deparse(input$htColumn), class, style, min, max, regex, ")")
+    op <- paste0(op, "\n\thighlightRows(session, 'htTable', column = ", deparse(input$htCol), class, style, min, max, regex, ")")
     
     return(baseServer(op))  
 
@@ -399,7 +399,7 @@ paste0("  observe({
       max <- isolate(input$htMax)
       style <- isolate(input$htStyle)
       regex <- isolate(input$htText)
-      
+      print(regex)
       if(class == "none") class <- NULL
       if(min == "") min <- NULL
       if(max == "") max <- NULL
@@ -424,12 +424,11 @@ paste0("  observe({
       regex <- isolate(input$htText)
       column <- isolate(input$htCol)
       
-      
       if(class == "none") class <- NULL
       if(min == "") min <- NULL
       if(max == "") max <- NULL
       if(style == "") style <- NULL
-      if(regex == "") text <- NULL
+      if(regex == "") regex <- NULL
       
       highlightRows(session, "htTable", column = column, min = min, max = max,
                      class = class, style = style, regex = regex, reset = isolate(input$htReset))
