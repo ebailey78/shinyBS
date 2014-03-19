@@ -178,7 +178,7 @@ $.extend(collapseBinding, {
   
   initialize: function(el) {
 
-    if($(el).attr('data-multiple') == 'false') {
+    if($(el).attr('data-multiple') == 'FALSE') {
       var par = "#"+$(el).attr("id")
     } else {
       var par = false;
