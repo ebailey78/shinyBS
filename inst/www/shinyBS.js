@@ -237,9 +237,9 @@ $.extend(dropdownBinding, {
     });
   },
   initialize: function(el) {
-    $(el).find("li").click(function() {
-      $(this).parents(".sbs-dropdown").attr("data-value", $(this).text().trim());
-      $(this).parents(".sbs-dropdown").removeClass("open");
+    $(el).find("li").not(".divider, .nav-header, .dropdown-submenu").click(function() {
+      $(this).parents(".sbs-dropdown").attr("data-value", $(this).attr("data-value"));
+//      $(this).parents(".sbs-dropdown").removeClass("open");
     });
   },
   unsubscribe: function(el) {

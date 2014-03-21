@@ -1,3 +1,10 @@
+.dropdown-menu > li > a > .media {
+  
+  min-width: 480px;
+  white-space: normal;
+  
+}
+
 .navbar-form{
   padding-left: 3px;
   padding-right: 3px;

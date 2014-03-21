@@ -2,6 +2,7 @@ export(bsAlert,
 createAlert,
 closeAlert,
 bsDemo,
+bsNavDemo,
 bsGlyph,
 bsNavBar,
 updateNavBar,
@@ -38,6 +39,7 @@ bsToggleButton,
 updateButtonGroup,
 updateButton,
 highlightCells,
-highlightRows)
+highlightRows,
+bsMedia)
 import(shiny,
        methods)

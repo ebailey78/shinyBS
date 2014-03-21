@@ -1,21 +1,57 @@
 # Creates a dropdown shiny input that returns the value of the last dropdown element clicked
+
+processChoice <- function(choice) {
+  
+  cname <- names(choice)
+  if(is.null(cname)) cname <- ""
+  if(cname == "") cname = choice[[1]]
+
+  if(inherits(choice[[1]], "bsmedia")) {
+    ddi <- tags$li("data-value" = cname, tags$a(tabindex = "-1", href="#", choice[[1]]))
+    print(ddi)
+  } else if(length(choice[[1]]) == 1) {
+    if(is.na(choice[[1]])) {
+      if(is.na(cname)) {
+        ddi <- tags$li(class = "divider")
+      } else {
+        ddi <- tags$li(class = "nav-header", cname)
+      }
+    } else {  
+      ddi <- tags$li("data-value" = choice[[1]], tags$a(tabindex = "-1", href = "#", cname))
+    }
+  } else if(length(choice[[1]]) > 1) {
+    ddi <- tags$li(class = "dropdown-submenu",
+                    tags$a(tabindex = "-1", href = "#", cname))
+    sdd <- tags$ul(class = "dropdown-menu")
+    for(i in seq(length(choice[[1]]))) {
+      sdd <- tagAppendChild(sdd, processChoice(choice[[1]][i]))
+    }
+    ddi <- tagAppendChild(ddi, sdd)
+    
+  }
+  
+  return(ddi)  
+  
+}
+
 bsNavDropDown <- function(inputId, label, choices, selected="") {
   
+  #If label isn't already a shiny tag make it HTML
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  choices <- lapply(length(choices), function(i) {
-    if(nameschoices[i])
-      tags$li(tags$a(tabindex="-1", href="#", HTML(choice)))
-  )
+  # Start the dropdown HTML
+  dd <- tags$li(id = inputId, class = "dropdown sbs-dropdown", "data-value" = selected,
+                tags$a(href="#", class = "dropdown-toggle", "data-toggle" = "dropdown", label, tags$b(class = "caret")))
   
-  tags$li(id=inputId, class="dropdown sbs-dropdown", "data-value"=selected,
-          tags$a(href="#", class="dropdown-toggle", "data-toggle"="dropdown", label, tags$b(class="caret")),
-          tags$ul(class = "dropdown-menu",
-                  choices
-          )
-  )
+  ddm <- tags$ul(class = "dropdown-menu")
   
+  for(i in seq(length(choices))) {
+    ddm <- tagAppendChild(ddm, processChoice(choices[i]))
   }
+    
+  return(tagAppendChild(dd, ddm))
+  
+}
 
 # Allows updating out navbar dropdowns.
 updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
@@ -24,5 +60,22 @@ updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=
                             value = selected))
   
   session$sendInputMessage(inputId, message)
+  
+}
+
+bsMedia <- function(id, heading, text, image) {
+  
+  med <- tags$div(class = "media", id = id)
+  
+  if(!missing(image)) {
+    med <- tagAppendChild(med, tags$div(class = "pull-left", href = "#", tags$img(class = "media-object", "data-src" = image)))
+  }
+  
+  med <- tagAppendChild(med, tags$div(class = "media-body",
+                                      tags$h4(class = "media-heading", heading), text))
+  
+  class(med) <- c(class(med), "bsmedia")
+  
+  return(med)
   
 }
