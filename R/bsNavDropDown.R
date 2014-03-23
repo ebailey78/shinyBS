@@ -8,7 +8,7 @@ processChoice <- function(choice) {
 
   if(inherits(choice[[1]], "bsmedia")) {
     ddi <- tags$li("data-value" = cname, tags$a(tabindex = "-1", href="#", choice[[1]]))
-    print(ddi)
+
   } else if(length(choice[[1]]) == 1) {
     if(is.na(choice[[1]])) {
       if(is.na(cname)) {
@@ -56,7 +56,17 @@ bsNavDropDown <- function(inputId, label, choices, selected="") {
 # Allows updating out navbar dropdowns.
 updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
   
-  message <- dropNulls(list(label = label, options = choices, 
+  if(!is.null(choices)) {
+    options <- tags$ul(class = "dropdown-menu")
+    for(i in seq(length(choices))) {
+      options <- tagAppendChild(options, processChoice(choices[i]))
+    }
+    options <- as.character(options)
+  } else {
+    options <- NULL
+  }
+  
+  message <- dropNulls(list(label = label, options = options, 
                             value = selected))
   
   session$sendInputMessage(inputId, message)

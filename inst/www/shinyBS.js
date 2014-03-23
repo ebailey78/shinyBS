@@ -224,10 +224,7 @@ $.extend(dropdownBinding, {
       $(el).children("a").html(data.label+"<b class='caret'></b>");
     }
     if(data.hasOwnProperty('options')) {
-      $(el).children("ul.dropdown-menu").empty();
-      for(var i = 0; i < data.options.length; i++) {
-        $(el).children("ul.dropdown-menu").append('<li><a href="#" tabindex="-1">' + data.options[i] + "</a></li>")
-      };
+      $(el).children("ul.dropdown-menu").replaceWith(data.options);
       this.initialize(el);
     }
   },
