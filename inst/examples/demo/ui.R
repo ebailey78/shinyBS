@@ -201,6 +201,21 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         example = tagList(tags$p(style = "font-weight: bold; text-align: center;", "2013 Sales Figures"), 
                                           tableOutput("htTable")),
                         uiCode = "htUICode",
-                        serverCode = "htServerCode")
+                        serverCode = "htServerCode"),
+              demoPanel(title = "Modal",
+                        intro = "<p>This is text.</p>",
+                        controls = tagList(),
+                        example = tagList(bsActionButton("moTrig", "Open Modal", size = "large", style = "primary"),
+                                          bsModal("moMod", "Example Modal", trigger = "moTrig",
+                                                  tags$p("This is a modal. It is a popup that can contain any other elements. Like inputs:"),
+                                                  bsActionButton("moBut1", "Button"),
+                                                  textInput("moText1", "Text Input"),
+                                                  tags$p("or outputs:"),
+                                                  plotOutput("moPlot")
+                                                  )
+                                          ),
+                        uiCode = "moUICode",
+                        serverCode = "moServerCode"
+                        )
     )
 ))

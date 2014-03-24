@@ -9,6 +9,34 @@ $(document).ready(function() {
 
 //New Input Bindings
 
+var bsModalBinding = new Shiny.InputBinding();
+$.extend(bsModalBinding, {
+
+  find: function(scope) {
+    return $(scope).find(".sbs-modal");
+  },
+  getValue: function(el) {
+    return !$(el).hasClass("hide");
+  },
+  setValue: function(el, value) {
+    $(el).toggleClass("hide", value);
+  },
+  subscribe: function(el, callback) {
+    $(el).on("shown.bsModalBinding hidden.bsModalBinding", function(e) {
+      callback();
+    })
+  },
+  unsubscribe: function(el) {
+    $(el).off(".bsModalBinding");
+  },
+  initialize: function(el) {
+    var $trigger = $("#" + $(el).attr("data-trigger"));
+    $trigger.attr("data-target", "#" + $(el).attr("id"));
+    $trigger.attr("data-toggle", "modal");
+  }
+});
+Shiny.inputBindings.register(bsModalBinding);
+
 var bsButtonBinding = new Shiny.InputBinding();
 $.extend(bsButtonBinding, {
   find: function(scope) {

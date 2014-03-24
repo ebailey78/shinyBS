@@ -437,6 +437,10 @@ paste0("  observe({
     
   })
 
+##### CODE TO CONTROL MODAL DEMO #####
+
+output$moPlot <- renderPlot({plot(rnorm(1000))})
+
 })
 
 
