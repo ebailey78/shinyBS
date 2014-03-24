@@ -29,6 +29,16 @@ bsDemo()
 
 ### What's New
 
+#### Version 0.25 (working version)
+
+* **bsNavDropDown**
+  * You can now create submenus inside a drop down by making a including lists inside your choices argument list. The submenus are built recursively so theoretically submenus can go as deep as you want
+  * You can create headers and dividers in your menus by include `NA`'s in you choices list, a named `NA` will become a header and an unnamed `NA` will become a divider.
+  * You can create dropdowns with media objects as their options. This is done with the `bsMedia()` function. 
+  * I am working on a bsNavDemo() example that will better explain changes to dropdowns.
+* **bsModal**
+  * You can now create modal windows with the `bsModal()` function. These are trigger from a button or link and can contain any combination of inputs, outputs, or standard html.
+
 #### Version 0.20 (released: 2014-03-19)
 
 * **pageWithNavBar**
