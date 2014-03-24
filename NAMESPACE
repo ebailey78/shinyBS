@@ -41,6 +41,7 @@ updateButton,
 highlightCells,
 highlightRows,
 bsMedia,
-bsModal)
+bsModal,
+toggleModal)
 import(shiny,
        methods)

@@ -1,7 +1,7 @@
 Package: shinyBS
 Type: Package
 Title: Twitter Bootstrap Components for Shiny
-Version: 0.20
+Version: 0.25
 Date: 2014-03-13
 Author: Eric Bailey
 Maintainer: Eric Bailey <ebailey@idem.in.gov>

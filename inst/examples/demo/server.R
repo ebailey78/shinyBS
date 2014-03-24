@@ -37,6 +37,7 @@ baseServer <- function(main.code = "") {
 
 shinyServer(function(input, output, session) {
   
+# Stop the app when button is clicked
   observe({
     if(input$bsClose > 0) {
       stopApp()
@@ -310,7 +311,7 @@ paste0("  observe({
   output$testPlot1 <- renderPlot({plot(rnorm(1000))})
   
 
-##### CODE TO CONTROL BUTTON GROUPS DEMO #####
+###### CODE TO CONTROL BUTTON GROUPS DEMO #####
 
   output$bgValue <- renderTable({
     
@@ -350,7 +351,7 @@ paste0("  observe({
     updateButtonGroup(session, "btngrp1", toggle = input$bgToggle, style = input$bgStyle, size = input$bgSize, disabled = input$bgDisabled, value = bg)
   })
 
-##### CODE TO CONTROL TABLES DEMO #####
+###### CODE TO CONTROL TABLES DEMO #####
   
   output$htTable <- renderTable({
     
@@ -437,9 +438,49 @@ paste0("  observe({
     
   })
 
-##### CODE TO CONTROL MODAL DEMO #####
+###### CODE TO CONTROL MODAL DEMO #####
 
-output$moPlot <- renderPlot({plot(rnorm(1000))})
+morandData <- reactive({
+  
+  rfunc <- switch(input$modist,
+                  "Normal" = rnorm,
+                  "Lognormal" = rlnorm,
+                  "Uniform" = runif,
+                  "Exponential" = rexp)
+  
+  rfunc(input$moobs)
+  
+})
+
+observe({
+  if(input$moTog1 > 0) {
+    toggleModal(session, "moMod")
+  }
+})
+
+output$moplot <- renderPlot({hist(morandData(), main=input$motitle)})
+
+output$moValue <- renderText({paste0("input$moMod = ", input$moMod, "\ninput$moMod2 = ", input$moMod2)})
+
+output$moUICode <- renderText({baseUI('\tbsButton("moTrig", "Open Modal", style = "primary"),
+  bsButton("moTrig2", "Open Remote Modal", style = "primary"),
+  bsModal("moMod", "Example Modal", trigger = "moTrig",
+        tags$p(HTML("Modals can contain anything:")),
+        tags$div(class = "row-fluid",
+          tags$div(class = "span4 well control-panel",
+            sliderInput("moobs", "Number of observations:", min = 1, max = 1000, value = 500),
+            selectInput("modist", "Distribution", choices = c("Normal", "Lognormal", "Uniform", "Exponential")),
+            textInput("motitle", "Plot Title", "A Modal Plot")
+          ),
+          tags$div(class = "span8",
+            plotOutput("moplot")
+          )
+        )
+      ),
+  bsModal("moMod2", "A Remote Modal", trigger = "moTrig2", href = "moDemo.html")
+')})
+
+output$moServerCode <- renderText({baseServer("\ttoggleModal(session, \"moMod\")")})
 
 })
 

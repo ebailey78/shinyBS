@@ -22,7 +22,7 @@ dropNulls <- function(x) {
 # Takes a tag and removes any classes in the remove argument
 removeClass <- function(tag, remove) {
   
-  if(length(remove) == 1) remove <- strsplit(remove, " ", fixed = TRUE)[[1]]
+  if(length(class) == 1) remove <- strsplit(remove, " ", fixed = TRUE)[[1]]
 
   class <- strsplit(tag$attribs$class, " ", fixed = TRUE)[[1]]
   class <- class[!(class %in% remove)]
@@ -34,6 +34,22 @@ removeClass <- function(tag, remove) {
 
 addClass <- function(tag, add) {
   tag$attribs$class <- paste(tag$attribs$class, add)
+  return(tag)
+}
+
+addAttribs <- function(tag, ...) {
+  a <- list(...)
+  for(i in seq(length(a))) {
+    tag$attribs[names(a)[i]] = a[[i]]
+  }
+  return(tag)
+}
+
+removeAttribs <- function(tag, ...) {
+  a <- list(...)
+  for(i in seq(length(a))) {
+    tags$attribs[a[[i]]] = NULL
+  }
   return(tag)
 }
 

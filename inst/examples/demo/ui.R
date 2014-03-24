@@ -1,7 +1,7 @@
 library(shiny)
 library(shinyBS)
 
-# Creates a standardized "Demo" panel for the bsDemo() app.
+###### Creates a standardized "Demo" panel for the bsDemo() app. #####
 demoPanel <- function(title, intro, controls, example, uiCode, serverCode) {
   tabPanel(title,
            tags$div(class = "row-fluid",
@@ -47,6 +47,7 @@ demoPanel <- function(title, intro, controls, example, uiCode, serverCode) {
 
 pollutants <- c('Acetone', 'Acrolein', 'Benzene', 'Benzyl Chloride', 'Bromodichloromethane', 'Bromoform', 'Bromomethane', '1,3-Butadiene', 'Carbon Disulfide', 'Carbon Tetrachloride', 'Chlorobenzene', 'Chloroethane', 'Chloroform', 'Chloromethane', 'Cyclohexane', 'Dibromochloromethane', '1,2-Dibromoethane', 'm-Dichlorobenzene', 'p-Dichlorobenzene', 'o-Dichlorobenzene', 'Dichlorodifluoromethane (F-12)', '1,1-Dichloroethane', '1,2-Dichloroethane', 't-1,2-Dichloroethene', 'c-1,2-Dichloroethene', 'Dichloromethane', '1,2-Dichloropropane', 'c-1,3-Dichloropropene', 't-1,3-Dichloropropene', 'Dichloro-Tetrafluoroethane (F-114)', '1,4-Dioxane', 'Ethanol', 'Ethyl Acetate', 'Ethylbenzene', 'p-Ethyltoluene', 'Heptane', 'Hexachlorobutadiene', 'Hexane', 'Isopropanol', 'Methyl Ethyl Ketone (MEK)', 'Methyl Isobutyl Ketone (MIBK)', 'Methyl n-Butyl Ketone (MBK)', 'Methyl Tert-Butyl Ether (MTBE)', 'Propene', 'Styrene', '1,1,2,2-Tetrachloroethane', 'Tetrachloroethene (PCE)', 'Tetrahydrofuran (THF)', 'Toluene', 'Trichlorotrifluoroethane (F-113)', '1,2,4-Trichlorobenzene', '1,1,1-Trichloroethane', '1,1,2-Trichloroethane', 'Trichloroethene (TCE)', 'Trichlorofluoromethane (F-11)', '1,3,5-Trimethylbenzene', '1,2,4-Trimethylbenzene', 'Vinyl Acetate', 'Vinyl Chloride', 'Vinylidene Chloride', 'o-Xylene', 'm+p-Xylenes')
 
+##### Shiny UI #####
 shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"), 
                             tags$link(type = "text/css", rel = "stylesheet", href="demo.css"),
                             tags$script(src = "demo.js")
@@ -66,7 +67,8 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                                                                               
                                                                      ),
                                                                      tags$div(class = "span6", tags$img(src="expic.png")))),
-              demoPanel(title = "Navbar",
+##### Navbar Demo #####
+              demoPanel(title = "Navbars",
                         intro = paste0("<p>Navbars offer a space-efficient way to group your inputs together in your shiny app. Most of the customizations in Twitter Bootstrap are available as arguments in the <code>bsNavBar()</code> function. Any element you add to the navbar will align to the left, unless you add them to the <code>rightItems</code> argument, which will cause them to align to the right.</p>",
                                        "<p>Several of shiny's default inputs have been reformatted to look better in the navbar. For example, <code>textInput</code> has had its label changed to a placeholder and has an added 'width' attribute to help save room. New versions of inputs have had <code>bsNav</code> prepended to their names.</p>",
                                        "<p>Refer to the help files for shinyBS for additional information about navBar inputs.</p>"
@@ -91,6 +93,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         uiCode = "nbUICode",
                         serverCode = "nbServerCode"
                         ),
+##### Alerts Demo #####
               demoPanel(title = "Alerts",
                         intro = "<p>Alerts allow you to communicate information to the user on the fly. Begin by creating an alert anchor with the <code>bsAlert()</code> function in the iu.R script. You can then add alerts to this anchor with <code>createAlert()</code> and remove them with <code>closeAlert()</code>.</p><p>By default, new alerts are placed below any alerts already present in the alert anchor but if you set <code>append = FALSE</code> in <code>createAlert()</code> the new alert will overwrite any existing alerts. </p><p> Also by default, alerts will be dismissable by the user with a small &times; in the upper-right corner of the alert. You can override this behavior by setting <code>dismiss = FALSE</code> in <code>createAlert()</code>. The alert can then only be removed using <code>closeAlert()</code> (be sure to set <code>alertId</code> when you create the alert) or by creating a new alert with <code>append = FALSE</code> in the same anchor.</p>",
                         controls = tagList(selectInput("alType", "Type", c("warning", "info", "danger", "success")),
@@ -105,6 +108,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         uiCode = "alUICode",
                         serverCode = "alServerCode"
                         ),
+##### Progress Bars Demo #####
               demoPanel(title = "Progress Bars",
                         intro = "<p>Progress bars are created with the <code>bsProgressBar()</code> function in ui.R and then modified with <code>updateProgressBar()</code> in server.R.</p><p>If you don't want the progress bar to be present all the time you should still create it in your ui.R script but set <code>visible = FALSE</code>. You can then use <code>updateProgressBar()</code> to make it visible when you want it.</p><p>The easiest use for them would be in some sort of loop where you can add an <code>updateProgressBar()</code> to the code in the loop to reflect how much of the loop has completed. </p><p> The <code>color</code> argument corresponds to the same predefined classes that alerts have, with the addition of a darker blue 'standard' option.</p> ",
                         controls = tagList(sliderInput("pbnumb", "Percent Complete", 50, min=0, max=100),
@@ -115,7 +119,8 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         uiCode = "pbUICode",
                         serverCode = "pbServerCode"
               ),
-              demoPanel(title = "TypeAhead",
+##### TypeAhead Demo #####
+              demoPanel(title = "TypeAheads",
                         intro = "<p>TypeAhead boxes are special versions of textboxes that help lead the user to acceptable inputs. They are created with the <code>bsTypeAhead()</code> function and can be updated with <code>updateTypeAhead()</code>. You can set the minimum match length and number of items to display at creation, but these properties cannot be changed by <code>updateTypeAhead()</code>.</p><p>The example below allows you to choose between three predefined vectors for the <em>choice</em> arugment but any reality any vector or list can be used.</p>",
                         controls = tagList(textInput("taLabel", "Label", "TypeAhead:"),
                                            selectInput("taChoice", "Choices", c("Pollutants", "Fruits and Vegetables", "Animals"))
@@ -124,6 +129,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         uiCode = "taUICode",
                         serverCode = "taServerCode"
               ),
+##### Tooltips and Popovers Demo #####
               demoPanel(title = "Tooltips and Popovers",
                         intro = "<p>Tooltips and popovers are added in very similar ways. Tooltips/Popovers can be added to any element with an <code>inputId</code> or an <code>outputId</code> by using <code>bsTooltip()</code> in ui.R, or <code>addTooltip()</code> in server.R. Similarly, you can remove tooltips and popovers from an object by using <code>removeTooltip()</code> and <code>removePopover()</code>, respectively.</p><p>Tooltips would generally be used to provide <em>brief</em> additional information about an input or output element. Popovers can contain much more detailed information but currently cannot contain shiny inputs or outputs. I hope to figure out how to incorporate them in a future release.</p><p>Some tooltips and popovers have already been added to the example below. These are used to illustrate how they can be added in the ui.R script. You can add your own tooltips and popovers from the control panel. The code for these will be shown in the server.R script.",
                         controls = tagList(selectInput("tpTarget", "Target", c("link", "slider", "select", "text", "plot")),
@@ -153,7 +159,8 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         uiCode = "tpUICode",
                         serverCode = "tpServerCode"
               ),
-              demoPanel(title = "Collapse",
+##### Collapse Demo #####
+              demoPanel(title = "Collapse Panels",
                         intro = "<p>Collapses (sometimes called accordions) are an alternative way to segment information and free up space in your shiny app. They have been designed to work in a very similar way to <code>tabsetPanel()</code> and <code>tabPanel()</code>. Create a collapse group with <code>bsCollapse()</code> and include any number of panels in it with <code>bsCollapsePanel()</code>.</p><p>Similar to <code>tabsetPanel()</code>, <code>bsCollapse()</code> will return the value of the panel that is currently open. If <code>multiple = TRUE</code> then it will return an array of all open panel values.</p><p>You can use <code>updateCollapse()</code> to open and close panels or turn <code>multiple</code> on and off from server.R.</p><p>In some cases, collapse panels did not render properly when testing in Internet Explorer 10.</p>",
                         controls = tagList(checkboxInput("coMult", "Multiple"),
                                            checkboxGroupInput("coOpen", "Open", c("Collapse #1" = "col1", "Collapse #2" = "col2", "Collapse #3" = "col3")),
@@ -168,6 +175,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         uiCode = "coUICode",
                         serverCode = "coServerCode"
               ),
+##### Buttons Demo #####
               demoPanel(title = "Buttons",
                         intro = "<p><code>actionButtons</code> are already a part of shiny but by using <code>bsActionButton()</code> you can create action buttons that can be sized and styled using Twitter Bootstrap's default styles (primary, info, success, warning, danger, inverse, and link) and sizes (large, small, and mini). You can also disable and enable the action button using the <code>disabled</code> argument at creation or in <code>updateButton()</code>.</p><p>There is also a <code>bsToggleButton()</code> function that allows the creation of a button that can be toggled on/off; returning TRUE/FALSE depending on its current state. Toggle buttons can be styled the same as the action buttons previously mentioned.</p><p>Button Groups offer functionality similar to <code>radioButtons()</code> or <code>checkBoxGroupInput()</code>, depending on the value of the <code>toggle</code> argument. Create a button group by starting with <code>bsButtonGroup()</code> and adding <code>bsButton()</code> objects to it. Similar to how tabs are added in <code>tabsetPanel()</code>. Buttons in a button group can be individually styled, or if the <code>style</code>, <code>size</code>, or <code>disabled</code> argument is supplied to <code>bsButtonGroup()</code> these values will be applied to all buttons in the group.</p>",
                         controls = tagList(radioButtons("bgToggle", "toggle", choices = c("radio", "checkbox"), selected = "radio"),
@@ -187,6 +195,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                                           ),
                         uiCode = "bgUICode",
                         serverCode = "bgServerCode"),
+##### Table Highlighting Demo #####
               demoPanel(title = "Tables",
                         intro = "<p><strong>These functions are experimental and may change significantly.</strong> The idea is to be able to highlight cells or rows based on their contents. You can match cells based on a numeric range with the <code>min</code> and <code>max</code> arguments or use the <code>regex</code> argument to use regular expresssions for cell matching.</p><p><code>highlightCells()</code> is used for highlighting individual cells and <code>highlightRows()</code> is used for highlighting entire rows. Both functions use the same arguments with <code>highlightRows()</code> having an additional <code>column</code> argument for indicating the column to search. You can supply the <code>column</code> argument with the value that appears in the top row or with a numeric index value for the column. <code>highlightCells()</code> also has a <code>skip.row.names</code> argument for skipping the first column in a table.</p><p>Cells can be styled with the <code>class</code> or <code>style</code> arguments. <code>class</code> can be one of eight predefined classes (success, warning, error, info, good, bad, neutral, disabled) or any class you have defined. If you use the <code>style</code> argument its contents will be directly inserted into the <code>style</code> attribute of matching td and tr elements.</p>",
                         controls = tagList(selectInput("htClass", "Class", choices = c("none", "success", "warning", "error", "info", "good", "bad", "neutral")),
@@ -202,20 +211,32 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                                           tableOutput("htTable")),
                         uiCode = "htUICode",
                         serverCode = "htServerCode"),
-              demoPanel(title = "Modal",
-                        intro = "<p>This is text.</p>",
-                        controls = tagList(),
-                        example = tagList(bsActionButton("moTrig", "Open Modal", size = "large", style = "primary"),
+##### Modal Demo #####
+              demoPanel(title = "Modals",
+                        intro = "<p>Modals are popup windows that can contain any html objects you want. You can either build the content of the modal window with R code or you can set the <code>href</code> argument to the location of a html file and have the html file loaded into the body of the modal.</p><p>Modals need to be linked to a button or anchor in the app. You create this link by setting the trigger argument in <code>bsModal()</code> to the id of the button or anchor you want to open the modal.</p><p>Modals are shiny inputs that return TRUE or FALSE based on whether they are currently visible.</p><p>You can open and/or close a modal from <code>server.R</code> by using the <code>toggleModal()</code> function.</p>",
+                        controls = tagList(actionButton("moTog1", "Toggle Modal"), tags$p(),
+                                           textOutput("moValue")),
+                        example = tagList(bsButton("moTrig", "Open Modal", style = "primary"),
+                                          bsButton("moTrig2", "Open Remote Modal", style = "primary"),
                                           bsModal("moMod", "Example Modal", trigger = "moTrig",
-                                                  tags$p("This is a modal. It is a popup that can contain any other elements. Like inputs:"),
-                                                  bsActionButton("moBut1", "Button"),
-                                                  textInput("moText1", "Text Input"),
-                                                  tags$p("or outputs:"),
-                                                  plotOutput("moPlot")
-                                                  )
+                                                  tags$p(HTML("Modals can contain anything:")),
+                                                  tags$div(class = "row-fluid",
+                                                           tags$div(class = "span4 well control-panel",
+                                                                    sliderInput("moobs", "Number of observations:", min = 1, max = 1000, value = 500),
+                                                                    selectInput("modist", "Distribution", choices = c("Normal", "Lognormal", "Uniform", "Exponential")),
+                                                                    textInput("motitle", "Plot Title", "A Modal Plot")
+                                                           ),
+                                                           tags$div(class = "span8",
+                                                                    plotOutput("moplot")
+                                                                    )
+                                                           )
+                                                  ),
+                                          bsModal("moMod2", "A Remote Modal", trigger = "moTrig2", href = "moDemo.html")
+                                        
                                           ),
                         uiCode = "moUICode",
                         serverCode = "moServerCode"
                         )
     )
+
 ))

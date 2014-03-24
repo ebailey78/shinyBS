@@ -16,7 +16,7 @@ $.extend(bsModalBinding, {
     return $(scope).find(".sbs-modal");
   },
   getValue: function(el) {
-    return !$(el).hasClass("hide");
+    return $(el).hasClass("in");
   },
   setValue: function(el, value) {
     $(el).toggleClass("hide", value);
@@ -25,6 +25,13 @@ $.extend(bsModalBinding, {
     $(el).on("shown.bsModalBinding hidden.bsModalBinding", function(e) {
       callback();
     })
+  },
+  receiveMessage: function(el, data) {
+    if(data.hasOwnProperty("toggle")) {
+      if(data.toggle) {
+        $(el).modal("toggle");
+      }
+    }
   },
   unsubscribe: function(el) {
     $(el).off(".bsModalBinding");

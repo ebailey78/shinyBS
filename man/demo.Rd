@@ -1,5 +1,6 @@
 \name{shinyBS Examples}
 \alias{bsDemo}
+\alias{bsNavDemo}
 \title{
   Examples of shinyBS functionality
 }
@@ -9,6 +10,9 @@
 \usage{
     bsDemo(port = NULL, 
            launch.browser = getOption("shiny.launch.browser", interactive()))
+    bsNavDemo(port = NULL, 
+              launch.browser = getOption("shiny.launch.browser", interactive()))
+
 }
 \arguments{
   \item{port}{
@@ -37,5 +41,7 @@
 \examples{
 
 \dontrun{
-  bsDemo()}
+  bsDemo()
+  bsNavDemo()
+  }
 }
