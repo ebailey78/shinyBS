@@ -271,7 +271,7 @@ $.extend(dropdownBinding, {
   initialize: function(el) {
     $(el).find("li").not(".divider, .nav-header, .dropdown-submenu").click(function() {
       $(this).parents(".sbs-dropdown").attr("data-value", $(this).attr("data-value"));
-//      $(this).parents(".sbs-dropdown").removeClass("open");
+      $(this).parents(".sbs-dropdown").removeClass("open");
     });
   },
   unsubscribe: function(el) {

@@ -9,7 +9,7 @@ processChoice <- function(choice) {
   if(inherits(choice[[1]], "bsmedia")) {
     ddi <- tags$li("data-value" = cname, tags$a(tabindex = "-1", href="#", choice[[1]]))
 
-  } else if(length(choice[[1]]) == 1) {
+  } else if(!is.list(choice[[1]])) {
     if(is.na(choice[[1]])) {
       if(is.na(cname)) {
         ddi <- tags$li(class = "divider")
@@ -19,7 +19,7 @@ processChoice <- function(choice) {
     } else {  
       ddi <- tags$li("data-value" = choice[[1]], tags$a(tabindex = "-1", href = "#", cname))
     }
-  } else if(length(choice[[1]]) > 1) {
+  } else {
     ddi <- tags$li(class = "dropdown-submenu",
                     tags$a(tabindex = "-1", href = "#", cname))
     sdd <- tags$ul(class = "dropdown-menu")
@@ -78,7 +78,7 @@ bsMedia <- function(id, heading, text, image) {
   med <- tags$div(class = "media", id = id)
   
   if(!missing(image)) {
-    med <- tagAppendChild(med, tags$div(class = "pull-left", href = "#", tags$img(class = "media-object", "data-src" = image)))
+    med <- tagAppendChild(med, tags$div(class = "pull-left", href = "#", tags$img(class = "media-object", src = image, "data-src" = image)))
   }
   
   med <- tagAppendChild(med, tags$div(class = "media-body",
