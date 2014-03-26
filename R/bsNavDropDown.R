@@ -2,29 +2,30 @@
 
 processChoice <- function(choice) {
   
+  ch <- choice[[1]]
   cname <- names(choice)
   if(is.null(cname)) cname <- ""
-  if(cname == "") cname = choice[[1]]
+  if(cname == "") cname = ch
 
   if(inherits(choice[[1]], "bsmedia")) {
     ddi <- tags$li("data-value" = cname, tags$a(tabindex = "-1", href="#", choice[[1]]))
 
-  } else if(!is.list(choice[[1]])) {
-    if(is.na(choice[[1]])) {
+  } else if(!is.list(ch)) {
+    if(is.na(ch)) {
       if(is.na(cname)) {
         ddi <- tags$li(class = "divider")
       } else {
-        ddi <- tags$li(class = "nav-header", cname)
+        ddi <- tags$li(class = "nav-header", HTML(cname))
       }
     } else {  
-      ddi <- tags$li("data-value" = choice[[1]], tags$a(tabindex = "-1", href = "#", cname))
+      ddi <- tags$li("data-value" = ch, tags$a(tabindex = "-1", href = "#", HTML(cname)))
     }
   } else {
     ddi <- tags$li(class = "dropdown-submenu",
-                    tags$a(tabindex = "-1", href = "#", cname))
+                    tags$a(tabindex = "-1", href = "#", HTML(cname)))
     sdd <- tags$ul(class = "dropdown-menu")
     for(i in seq(length(choice[[1]]))) {
-      sdd <- tagAppendChild(sdd, processChoice(choice[[1]][i]))
+      sdd <- tagAppendChild(sdd, processChoice(ch[i]))
     }
     ddi <- tagAppendChild(ddi, sdd)
     

@@ -16,5 +16,14 @@ bsNavDemo <- function(port = NULL, launch.browser = getOption("shiny.launch.brow
   runApp(dir, port = port, launch.browser = launch.browser)
   
 }
+
+bsConDemo <- function(port = NULL, launch.browser = getOption("shiny.launch.browser",
+                                                              interactive())) {
+  
+  examplesDir <- system.file("examples", package = "shinyBS")
+  dir <- normalizePath(paste(examplesDir, "controlbar", sep = "/"))
+  runApp(dir, port = port, launch.browser = launch.browser)
+  
+}
   
   

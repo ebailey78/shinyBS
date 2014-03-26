@@ -1,6 +1,21 @@
+.sbs-controlbar .dropdown-menu > li > a > span{
+  
+  position: relative;
+  left: -14px;
+  
+}
+
+.sbs-controlbar .dropdown-menu > li > a [class^="icon-"],
+.sbs-controlbar .dropdown-menu > li > a [class*=" icon-"]
+{
+  vertical-align: text-top;
+}
+
+
+
 .dropdown-menu > li > a > .media {
   
-  min-width: 480px;
+  min-width: 320px;
   white-space: normal;
   
 }

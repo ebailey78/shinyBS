@@ -42,6 +42,11 @@ highlightCells,
 highlightRows,
 bsMedia,
 bsModal,
-toggleModal)
+toggleModal,
+bsConDemo,
+bsControlBar,
+bsControlMenu,
+bsControlSubMenu,
+bsControlItem)
 import(shiny,
        methods)

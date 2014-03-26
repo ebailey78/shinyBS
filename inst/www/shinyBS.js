@@ -4,8 +4,131 @@ $(document).ready(function() {
   $('a[href="#"]').click(function(e){
     e.preventDefault();
   })
+  
+  $('.dropdown-menu .dropdown-submenu > a').click(function(event){
+     event.stopPropagation();
+  });
 
 })
+
+var controlItemBinding = new Shiny.InputBinding();
+$.extend(controlItemBinding, {
+
+  find: function(scope) {
+    return $(scope).find(".sbs-control-item");
+  },
+  getValue: function(el) {
+    return true;
+  },
+  setValue: function(el, value) {
+    $(el).toggleClass("hide", value);
+  },
+  subscribe: function(el, callback) {
+    $(el).on("click.controlItemBinding", function(e) {
+      callback();
+    })
+  },
+  unsubscribe: function(el) {
+    $(el).off(".controlItemBinding");
+  },
+  receiveMessage: function(el, data) {
+
+  },
+  initialize: function(el) {
+    if($(el).attr("data-tog")) {
+      $(el).on("click", function(e) {
+        $(el).children("a").children("span").children("i").toggleClass("icon-ok");
+      })
+    }
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //New Input Bindings
 
