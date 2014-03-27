@@ -32,7 +32,7 @@ bsControlBar <- function(inputId, ..., brand, rightItems, fixed=FALSE, inverse=F
   
 }
 
-bsControlMenu <- function(inputId, label, ..., caret = FALSE) {
+bsControlMenu <- function(inputId, label, ..., caret = FALSE, radio = FALSE) {
   
   menuItems <- list(...)
   
@@ -52,12 +52,14 @@ bsControlMenu <- function(inputId, label, ..., caret = FALSE) {
   
 }
 
-bsControlSubMenu <- function(inputId, label, ..., icon = "none", behavior = "none") {
+bsControlSubMenu <- function(inputId, label, ..., icon = "none", radio = FALSE) {
   
   csm <- bsControlItem(inputId, label, icon)
   
   csm <- removeClass(csm, "sbs-control-item")
-  csm <- addClass(csm, "dropdown-submenu")
+  csm <- addClass(csm, "dropdown-submenu sbs-control-submenu")
+  csm <- removeAttribs(csm, "data-tog")
+  csm <- addAttribs(csm, "data-radio" = radio)
   
   sm <- tagAppendChildren(tags$ul(class = "dropdown-menu"), list = list(...))
 
@@ -65,16 +67,26 @@ bsControlSubMenu <- function(inputId, label, ..., icon = "none", behavior = "non
   
 }
 
-bsControlItem <- function(inputId, label, icon = "none", toggle = FALSE) {
+bsControlItem <- function(inputId, label, icon = "none", toggle = FALSE, active = FALSE) {
   
   #If label isn't already a shiny tag make it HTML
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
   cia <- (tags$a(href = "#"))
   
-  cia <- tagAppendChild(cia, tags$span(tags$i(class = paste0("icon-", icon)), label))  
+  ico <- tags$i(class = paste0("icon-", icon))
+  if(toggle & active) ico <- addClass(ico, "icon-ok")
   
-  return(tags$li(class = "sbs-control-item", "data-tog" = toggle, cia))
+  cia <- tagAppendChild(cia, tags$span(ico, label))  
+  
+  return(tags$li(id = inputId, class = "sbs-control-item", "data-tog" = toggle, cia))
   
 }
 
+bsControlDivider <- function() {
+  tags$li(class = "divider")
+}
+
+bsControlHeader <- function(label) {
+  tags$li(class = "nav-header", label)
+}

@@ -11,83 +11,101 @@ $(document).ready(function() {
 
 })
 
-var controlItemBinding = new Shiny.InputBinding();
-$.extend(controlItemBinding, {
+var conItemBinding = new Shiny.InputBinding();
+$.extend(conItemBinding, {
 
   find: function(scope) {
     return $(scope).find(".sbs-control-item");
   },
   getValue: function(el) {
-    return true;
+    return $(el).data('val') || 0;
   },
   setValue: function(el, value) {
-    $(el).toggleClass("hide", value);
+    $(el).data('val', value);
   },
   subscribe: function(el, callback) {
-    $(el).on("click.controlItemBinding", function(e) {
+    $(el).on("click.conItemBinding", function(e) {
+      var $el = $(this);
+      var $par = $(el).parent().parent();
+      if($par.attr("data-radio") == "TRUE") {
+        $el.siblings(".sbs-control-item").children("a").children("span").children("i").removeClass("icon-ok");
+        $el.siblings(".sbs-control-item").data("val", false);
+      }
+      if($el.attr("data-tog") == "TRUE") {
+        var $i = $el.children("a").children("span").children("i")
+        $i.toggleClass("icon-ok");
+        $el.data('val', $i.hasClass("icon-ok"));
+      } else {
+        var val = $el.data('val') || 0;
+        $el.data('val', val + 1); 
+      }
+      
+      callback();
+      
+      $(el).trigger("sbs-update");
+
+    })
+  },
+  initialize: function(el) {
+    if($(el).attr("data-tog") == "TRUE") {
+      $(el).data("val", $(el).children("a").children("span").children("i").hasClass("icon-ok"));
+    } else {
+      $(el).data("val", 0)
+    }
+  },
+  unsubscribe: function(el) {
+    $(el).off(".conItemBinding");
+  }
+});
+Shiny.inputBindings.register(conItemBinding);
+
+var controlSubMenuBinding = new Shiny.InputBinding();
+$.extend(controlSubMenuBinding, {
+
+  find: function(scope) {
+    return $(scope).find(".sbs-control-submenu");
+  },
+  getValue: function(el) {
+    var val = new Object;
+    $.each($(el).find(".sbs-control-item, .sbs-control-submenu"), function(i, v) {
+      
+      val[$(this).attr("id")] = $(this).data("val")
+      
+    });
+    $(el).data('val', val);
+    return val;
+  },
+  setValue: function(el, value) {
+
+  },
+  subscribe: function(el, callback) {
+    $(el).find(".sbs-control-item").on("sbs-update", function(e) {
       callback();
     })
   },
   unsubscribe: function(el) {
-    $(el).off(".controlItemBinding");
+    $(el).find(".sbs-control-item").off(".controlItemBinding");
   },
   receiveMessage: function(el, data) {
-
+    
   },
   initialize: function(el) {
-    if($(el).attr("data-tog")) {
-      $(el).on("click", function(e) {
-        $(el).children("a").children("span").children("i").toggleClass("icon-ok");
-      })
-    }
+    
   }
 });
+Shiny.inputBindings.register(controlSubMenuBinding);
 
+/*
+var controlMenuBinding = new Shiny.InputBinding();
+$.extend(controlMenuBinding, {
+  find: function(scope) {
+    return $(scope).find(".sbs-control-menu");
+  }
 
+});
+Shiny.inputBindings.register(controlMenuBinding);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 
 
