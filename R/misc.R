@@ -53,6 +53,12 @@ removeAttribs <- function(tag, ...) {
   return(tag)
 }
 
+hasAttribs <- function(tag, attrib) {
+  
+  attrib %in% names(tag$attribs)
+  
+}
+
 inputCheck <- function(..., valid, stop.func = FALSE) {
   
   v <- list(...)[1]

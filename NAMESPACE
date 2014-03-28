@@ -47,7 +47,7 @@ bsConDemo,
 bsControlBar,
 bsControlMenu,
 bsControlSubMenu,
-bsControlItem,
+bsControlLink,
 bsControlDivider,
 bsControlHeader)
 import(shiny,

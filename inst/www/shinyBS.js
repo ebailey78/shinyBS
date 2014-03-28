@@ -8,31 +8,34 @@ $(document).ready(function() {
   $('.dropdown-menu .dropdown-submenu > a').click(function(event){
      event.stopPropagation();
   });
+  
+  $('.dropdown-menu .dropdown-submenu.dropdown-input').click(function(event){
+    event.stopPropagation();
+  })
 
 })
 
-var conItemBinding = new Shiny.InputBinding();
-$.extend(conItemBinding, {
+var controlLinkBinding = new Shiny.InputBinding();
+$.extend(controlLinkBinding, {
 
   find: function(scope) {
-    return $(scope).find(".sbs-control-item");
+    return $(scope).find(".control-item");
   },
   getValue: function(el) {
-    return $(el).data('val') || 0;
+    return $(el).data('val');
   },
   setValue: function(el, value) {
     $(el).data('val', value);
   },
   subscribe: function(el, callback) {
-    $(el).on("click.conItemBinding", function(e) {
+    $(el).on("click.controlLinkBinding", function(e) {
       var $el = $(this);
-      var $par = $(el).parent().parent();
-      if($par.attr("data-radio") == "TRUE") {
-        $el.siblings(".sbs-control-item").children("a").children("span").children("i").removeClass("icon-ok");
-        $el.siblings(".sbs-control-item").data("val", false);
+      if($el.attr("data-tog") == "radio") {
+        $el.siblings(".control-item").filter("[data-tog='radio']").find("i.left-icon").removeClass("icon-ok");
+        $el.siblings(".control-item").data("val", false);
       }
-      if($el.attr("data-tog") == "TRUE") {
-        var $i = $el.children("a").children("span").children("i")
+      if($el.attr("data-tog") != "FALSE") {
+        var $i = $el.find("i.left-icon")
         $i.toggleClass("icon-ok");
         $el.data('val', $i.hasClass("icon-ok"));
       } else {
@@ -54,33 +57,34 @@ $.extend(conItemBinding, {
     }
   },
   unsubscribe: function(el) {
-    $(el).off(".conItemBinding");
+    $(el).off(".controlLinkBinding");
   }
 });
-Shiny.inputBindings.register(conItemBinding);
+Shiny.inputBindings.register(controlLinkBinding);
 
 var controlSubMenuBinding = new Shiny.InputBinding();
 $.extend(controlSubMenuBinding, {
 
   find: function(scope) {
-    return $(scope).find(".sbs-control-submenu");
+    return $(scope).find(".control-group");
   },
   getValue: function(el) {
-    var val = new Object;
-    $.each($(el).find(".sbs-control-item, .sbs-control-submenu"), function(i, v) {
-      
-      val[$(this).attr("id")] = $(this).data("val")
-      
-    });
-    $(el).data('val', val);
-    return val;
+    return $(el).data("val");
   },
   setValue: function(el, value) {
 
   },
   subscribe: function(el, callback) {
-    $(el).find(".sbs-control-item").on("sbs-update", function(e) {
+    $(el).find(".control-item").on("sbs-update", function(e) {
+      
+      var val = new Object;
+      $.each($(el).find(".sbs-control"), function(i, v) {
+        val[$(this).attr("id")] = $(this).data("val")
+      });
+      $(el).data('val', val);
+      
       callback();
+
     })
   },
   unsubscribe: function(el) {
@@ -90,7 +94,11 @@ $.extend(controlSubMenuBinding, {
     
   },
   initialize: function(el) {
-    
+    var val = new Object;
+    $.each($(el).find(".sbs-control"), function(i, v) {
+      val[$(this).attr("id")] = $(this).data("val")
+    });
+    $(el).data('val', val);
   }
 });
 Shiny.inputBindings.register(controlSubMenuBinding);

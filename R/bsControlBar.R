@@ -1,38 +1,27 @@
-# Creates the shell of a controlbar that can have elements added to it.
 bsControlBar <- function(inputId, ..., brand, rightItems, fixed=FALSE, inverse=FALSE) {
   
   leftItems <- list(...)
   
-  cb <- tags$div(id = inputId, class = "navbar sbs-controlbar",
-                 tags$div(class = "navbar-inner")
-                 )
-  
+  # Build the navbar div and add appropriate classes
+  cb <- tags$div(class = "navbar sbs-controlbar")
+  if(fixed) cb <- addClass(cb, "navbar-static-top")
   if(inverse) cb <- addClass(cb, "navbar-inverse")
-  if(fixed)  cb <- addClass(cb, "navbar-fixed-top")
   
-  if(!missing(brand)) {
-    cb$children[[1]] <- tagAppendChild(cb$children[[1]], 
-                                      tags$a(class = "brand", href = "#", brand)
-                                      )
-  }
+  # Create inner navbar div seperately - easier to manipulate
+  cbi <- tags$div(class = "navbar-inner")
+  if(!missing(brand)) cbi <- tagAppendChild(cbi, tags$a(class = "brand", href = "#", brand))
+  if(length(leftItems) > 0)
+    cbi <- tagAppendChild(cbi, tagAppendChildren(tags$ul(class="nav pull-left"), 
+                                                 list = leftItems))
+  if(!missing(rightItems)) 
+    cbi <- tagAppendChild(cbi, tagAppendChildren(tags$ul(class="nav pull-right"), 
+                                                 list = rightItems))
   
-  if(length(leftItems) > 0) {
-    cb$children[[1]] <- tagAppendChild(cb$children[[1]],
-                                      tags$ul(class="nav pull-left", leftItems)
-                                      )
-  }
-  
-  if(!missing(rightItems)) {
-    cb$children[[1]] <- tagAppendChild(cb$children[[1]],
-                                      tags$ul(class="nav pull-right", rightItems)
-                                      )
-  }
-
-  sbsHead(cb)
+  sbsHead(tagAppendChild(cb, cbi))
   
 }
 
-bsControlMenu <- function(inputId, label, ..., caret = FALSE, radio = FALSE) {
+bsControlMenu <- function(inputId, label, ..., caret = FALSE) {
   
   menuItems <- list(...)
   
@@ -49,37 +38,46 @@ bsControlMenu <- function(inputId, label, ..., caret = FALSE, radio = FALSE) {
   ddm <- tagAppendChildren(tags$ul(class = "dropdown-menu"), list = menuItems)
   
   return(tagAppendChild(dd, ddm))
-  
+    
 }
 
 bsControlSubMenu <- function(inputId, label, ..., icon = "none", radio = FALSE) {
   
-  csm <- bsControlItem(inputId, label, icon)
+  items <- list(...)
+  csm <- bsControlLink(inputId, label, icon)
   
-  csm <- removeClass(csm, "sbs-control-item")
-  csm <- addClass(csm, "dropdown-submenu sbs-control-submenu")
+  csm <- removeClass(csm, "control-item")
+  csm <- addClass(csm, "dropdown-submenu control-group")
   csm <- removeAttribs(csm, "data-tog")
-  csm <- addAttribs(csm, "data-radio" = radio)
   
-  sm <- tagAppendChildren(tags$ul(class = "dropdown-menu"), list = list(...))
+  if(radio) {
+    for(i in seq(length(items))) {
+      if(hasAttribs(items[[i]], "data-tog")) {
+        if(items[[i]]$attribs["data-tog"] == TRUE) 
+          items[[i]]$attribs["data-tog"] = "radio"
+      }
+    }
+  }
+  
+  sm <- tagAppendChildren(tags$ul(class = "dropdown-menu"), list = items)
 
   tagAppendChild(csm, sm)
   
 }
 
-bsControlItem <- function(inputId, label, icon = "none", toggle = FALSE, active = FALSE) {
+bsControlLink <- function(inputId, label, icon = "none", toggle = FALSE, active = FALSE) {
   
   #If label isn't already a shiny tag make it HTML
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
   cia <- (tags$a(href = "#"))
   
-  ico <- tags$i(class = paste0("icon-", icon))
+  ico <- tags$i(class = paste0("left-icon icon-", icon))
   if(toggle & active) ico <- addClass(ico, "icon-ok")
   
   cia <- tagAppendChild(cia, tags$span(ico, label))  
   
-  return(tags$li(id = inputId, class = "sbs-control-item", "data-tog" = toggle, cia))
+  return(tags$li(id = inputId, class = "sbs-control control-item", "data-tog" = toggle, cia))
   
 }
 

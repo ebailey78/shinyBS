@@ -8,7 +8,7 @@ shinyServer(function(input, output, session) {
     hist(rnorm(1000))
   })
   
-  output$testing <- renderText(names(input$view_encode))
+  output$testing <- renderText(deparse(input$view_encode))
 #  output$testing <- renderText(input$view_encode$encode_custom)
   
 })
