@@ -6,10 +6,10 @@
 }
 
 # Wrapper to add the appropriate singletons to the head of the shiny app
-sbsHead <- function(...) {
+sbsHead <- function(..., script = "shinyBS.js", style = "shinyBS.css") {
   
-  tagList(singleton(tags$head(tags$script(src = "sbs/shinyBS.js"),
-                              tags$link(rel = "stylesheet", type = "text/css", href = "sbs/shinyBS.css"))),
+  tagList(singleton(tags$head(tags$script(src = paste0("sbs/", script)),
+                              tags$link(rel = "stylesheet", type = "text/css", href = paste0("sbs/", style)))),
           ...
           )
 }
