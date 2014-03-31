@@ -6,12 +6,17 @@
 }
 
 # Wrapper to add the appropriate singletons to the head of the shiny app
-sbsHead <- function(...) {
+sbsHead <- function(..., js = "sbs/shinyBS.js", css = "sbs/shinyBS.css") {
   
-  tagList(singleton(tags$head(tags$script(src = "sbs/shinyBS.js"),
-                              tags$link(rel = "stylesheet", type = "text/css", href = "sbs/shinyBS.css"))),
+  js.tags <- tagList(lapply(js, function(j) tags$script(src = j)))
+  css.tags <- tagList(lapply(css, function(i) tags$link(rel = "stylesheet", 
+                                                        type = "text/css", 
+                                                        href = i)))
+  
+  tagList(singleton(tags$head(js.tags, css.tags)),
           ...
           )
+  
 }
 
 # Copy of dropNulls function for shiny to avoid using shiny:::dropNulls

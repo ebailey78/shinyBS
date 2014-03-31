@@ -400,7 +400,7 @@ paste0("  observe({
       max <- isolate(input$htMax)
       style <- isolate(input$htStyle)
       regex <- isolate(input$htText)
-      print(regex)
+
       if(class == "none") class <- NULL
       if(min == "") min <- NULL
       if(max == "") max <- NULL
