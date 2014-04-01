@@ -11,7 +11,7 @@ bsControlBar <- function(inputId, ..., brand, rightItems, fixed=FALSE, inverse=F
   cbi <- tags$div(class = "navbar-inner")
   if(!missing(brand)) cbi <- tagAppendChild(cbi, tags$a(class = "brand", href = "#", brand))
   if(length(leftItems) > 0)
-    cbi <- tagAppendChild(cbi, tagAppendChildren(tags$ul(class="nav pull-left"),
+    cbi <- tagAppendChild(cbi, tagAppendChildren(tags$ul(class="nav"),
                                                  list = leftItems))
   if(!missing(rightItems))
     cbi <- tagAppendChild(cbi, tagAppendChildren(tags$ul(class="nav pull-right"),
@@ -25,7 +25,7 @@ bsControlBar <- function(inputId, ..., brand, rightItems, fixed=FALSE, inverse=F
   
 }
 
-bsControlMenu <- function(inputId, label, ..., icon, caret = FALSE) {
+bsControlMenu <- function(inputId, ..., label, icon, caret = FALSE) {
   
   menuItems <- list(...)
   
@@ -33,6 +33,7 @@ bsControlMenu <- function(inputId, label, ..., icon, caret = FALSE) {
   if(missing(label)) label = ""
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
+  # Prepends 'fa-' to the icon name, if it isn't already there.
   if(!missing(icon)) {
     if(substr(icon, 1, 3) != "fa-") 
       icon <- paste0("fa-", icon)  
@@ -40,7 +41,7 @@ bsControlMenu <- function(inputId, label, ..., icon, caret = FALSE) {
   }
   
   # Start the dropdown HTML
-  dd <- tags$li(id = inputId, class = "dropdown sbs-control-menu",
+  dd <- tags$li(id = inputId, class = "dropdown sbs-control-group",
                 tags$a(href="#", class = "dropdown-toggle", 
                        "data-toggle" = "dropdown", label))
   
@@ -60,15 +61,15 @@ bsControlSubMenu <- function(inputId, label, ..., icon = "none", radio = FALSE) 
   items <- list(...)
   csm <- bsControlLink(inputId, label, icon)
   
-  csm <- removeClass(csm, "control-item")
-  csm <- addClass(csm, "dropdown-submenu control-group")
-  csm <- removeAttribs(csm, "data-tog")
+  csm <- removeClass(csm, "sbs-control-link")
+  csm <- addClass(csm, "dropdown-submenu sbs-control-group")
+  csm <- removeAttribs(csm, "sbs-data-toggle")
   
   if(radio) {
     for(i in seq(length(items))) {
-      if(hasAttribs(items[[i]], "data-tog")) {
-        if(items[[i]]$attribs["data-tog"] == TRUE)
-          items[[i]]$attribs["data-tog"] = "radio"
+      if(hasAttribs(items[[i]], "sbs-data-toggle")) {
+        if(items[[i]]$attribs["sbs-data-toggle"] == TRUE)
+          items[[i]]$attribs["sbs-data-toggle"] = "radio"
       }
     }
   }
@@ -96,6 +97,7 @@ bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, 
       ico <- addClass(ico, "fa-square-o")
     }
   } else if(!missing(icon)) {
+    # Prepends 'fa-' to the icon name, if it isn't already there.
     if(substr(icon, 1, 3) != "fa-") {
       icon <- paste0("fa-", icon)  
     }
@@ -104,7 +106,7 @@ bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, 
 
   cia <- tagAppendChildren(cia, ico, label)
   
-  li <- tags$li(id = inputId, class = "sbs-control control-item", cia)
+  li <- tags$li(id = inputId, class = "sbs-control-link", cia)
   
   if(disabled) li <- addClass(li, "disabled")
   if(toggle) li <- addAttribs(li, "data-sbs-toggle" = TRUE)
@@ -114,9 +116,9 @@ bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, 
 }
 
 bsControlDivider <- function() {
-  tags$li(class = "divider")
+  tags$li(class = "divider sbs-control-divider")
 }
 
 bsControlHeader <- function(label) {
-  tags$li(class = "nav-header", label)
+  tags$li(class = "nav-header sbs-control-header", label)
 }
