@@ -115,6 +115,15 @@ bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, 
   
 }
 
+bsControlInput <- function(input) {
+  
+  label <- unlist(input[[1]][[3]])
+  id <- input[[2]]$attribs$id
+  type <- input[[2]]$attribs$type
+  
+  
+}
+
 bsControlDivider <- function() {
   tags$li(class = "divider sbs-control-divider")
 }

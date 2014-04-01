@@ -82,9 +82,12 @@ function updateLink($el) {
 function updateGroup($el) {
   
   var $par = $el.parent('ul.dropdown-menu').parent("li.sbs-control-group");
-  var val = $par.data("sbs-value");
-  val[$el.attr("id")] = $el.data("sbs-value");
-  $par.data("sbs-value", val);
+  if($par.length > 0) {
+    var val = $par.data("sbs-value");
+    val[$el.attr("id")] = $el.data("sbs-value");
+    $par.data("sbs-value", val);
+    updateGroup($par);
+  }
     
 }
 
@@ -100,10 +103,10 @@ function initializeLink(el) {
 function initializeGroup(el) {
   var $el = $(el);
   var val = new Object;
-  $el.children("ul.dropdown-menu").children("li.sbs-control").each(function(e) {
+  $el.children("ul.dropdown-menu").children("li").each(function(e) {
     var $this = $(this);
-    if($this.hasClass("control-item")) {
-      initializeItem(this);
+    if($this.hasClass("sbs-control-link")) {
+      initializeLink(this);
     } else if($this.hasClass("sbs-control-group")) {
       initializeGroup(this);
     }

@@ -20,8 +20,8 @@ shinyUI(basicPage(
                                               bsControlLink("i_sm1_3", "Three"),
                                               bsControlLink("i_sm1_4", "Four")
                              ),
-                             bsControlLink("i_1", "Link #1"),
-                             bsControlLink("i_2", "Link #2")
+                             bsControlLink("i_1", "Link #1", toggle = TRUE),
+                             bsControlLink("i_2", "Link #2", toggle = TRUE)
                ),
                bsControlMenu("bcm4", label = "Both", caret = TRUE, icon = "bar-chart-o",
                              bsControlLink("b_1", "Test")

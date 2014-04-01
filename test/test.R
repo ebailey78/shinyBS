@@ -1,0 +1,5 @@
+text.test <- textInput(inputId = "textTest", "Text Test", "Testing")
+num.test <- numericInput(inputId = "numTest", "Numeric Test", value = 5, min = -10, max = 10, step = 1)
+date.test <- dateInput(inputId = "dateTest", "Date Test", value = "2014-01-01", min = "2012-01-01", max = "2014-12-31")
+date.range.test <- dateRangeInput(inputId = "dateRangeTest", "Date Range Test", start = "2013-12-01", end = "2013-12-31", min = "2013-01-01", max = "2014-12-31")
+slider.test <- sliderInput(inputId = "sliderTest", "Slider Test", min = 0, max = 1000, value = 435, step = 5)
