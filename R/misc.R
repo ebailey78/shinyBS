@@ -13,7 +13,7 @@ sbsHead <- function(..., js = "sbs/shinyBS.js", css = "sbs/shinyBS.css") {
                                                         type = "text/css", 
                                                         href = i))))
   
-  tagList(tags$head(js.tags, css.tags),
+  tagList(singleton(tags$head(js.tags, css.tags)),
           ...
           )
   

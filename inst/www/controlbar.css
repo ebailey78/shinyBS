@@ -2,7 +2,14 @@
   padding: 3px 20px 3px 3px;
 }
 
-.sbs-control-input input, .sbs-control-input span.jslider {
-  margin: 10px;
+.sbs-control-input input {
+  margin: 0px;
 }
 
+li.sbs-control-input > ul.dropdown-menu > li {
+  padding: 5px;
+}
+
+li.sbs-control-input > ul.dropdown-menu > li > div.shiny-date-range-input {
+  white-space: nowrap;
+}

@@ -80,7 +80,8 @@ bsControlSubMenu <- function(inputId, label, ..., icon = NULL, radio = FALSE) {
   
 }
 
-bsControlLink <- function(inputId, label, icon = NULL, toggle = FALSE, active = FALSE, disabled = FALSE) {
+bsControlLink <- function(inputId, label, icon = NULL, toggle = FALSE, 
+                          active = FALSE, disabled = FALSE, radio.group) {
   
   if(active) toggle = TRUE
   
@@ -148,7 +149,7 @@ bsControlInput <- function(id, inputObject, icon = NULL) {
   obj <- addClass(obj, "dropdown-submenu sbs-control-input")
   obj <- removeAttribs(obj, "sbs-data-toggle")
   
-  sm <- tagAppendChild(tags$ul(class = "dropdown-menu"), inObj)
+  sm <- tagAppendChild(tags$ul(class = "dropdown-menu"), tags$li(inObj))
   
   obj <- tagAppendChild(obj, sm)
   

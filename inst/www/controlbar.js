@@ -59,11 +59,31 @@ $.extend(controlLinkBinding, {
     
   },
   initialize: function(el) {
-
+    
   }
 
 });
 Shiny.inputBindings.register(controlLinkBinding);
+
+var controlInputBinding = new Shiny.InputBinding();
+$.extend(controlInputBinding, {
+  find: function(scope) {
+    return $(scope).find("li.sbs-control-input");
+  },
+  getValue: function(el) {
+    return true;
+  },
+  initialize: function(el) {
+    var $el = $(el);
+    $el.children("a").on("click", function(e) {
+      e.stopPropagation();
+    })
+    $el.find("ul.dropdown-menu > li").children().on("click", function(e) {
+      e.stopPropagation();
+    })
+  }
+});
+Shiny.inputBindings.register(controlInputBinding);
 
 // Activates when a control-link is clicked
 function updateLink($el) {
@@ -114,3 +134,5 @@ function initializeGroup(el) {
   })
   $el.data('sbs-value', val);
 }
+
+

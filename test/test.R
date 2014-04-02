@@ -3,7 +3,7 @@ z <- numericInput(inputId = "numTest", "Numeric Test", value = 5, min = -10, max
 inputObject<- dateInput(inputId = "dateTest", "Date Test", value = "2014-01-01", min = "2012-01-01", max = "2014-12-31")
 inputObject <- dateRangeInput(inputId = "dateRangeTest", "Date Range Test", start = "2013-12-01", end = "2013-12-31", min = "2013-01-01", max = "2014-12-31")
 inputObject <- sliderInput(inputId = "sliderTest", "Slider Test", min = 0, max = 1000, value = 435, step = 5)
-y <- bsTypeAhead(inputId = "typeAheadTest", "TypeAhead Test", value = "benzene", choices = c("benzene", "toluene", "ethylbenzene", "xylenes"))
+inputObject <- bsTypeAhead(inputId = "typeAheadTest", "TypeAhead Test", value = "benzene", choices = c("benzene", "toluene", "ethylbenzene", "xylenes"))
 
 bsControlInput <- function(id, inputObject, icon) {
   
