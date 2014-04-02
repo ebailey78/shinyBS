@@ -30,7 +30,12 @@ shinyUI(basicPage(
                              bsControlLink("f_1", "Test")
                ),
                bsControlMenu("bcm6", icon = "fa-bar-chart-o", caret = TRUE,
-                             bsControlLink("g_1", "Test")
+                             bsControlInput("ip1", textInput(inputId = "textTest", "Text Test", "Testing")),
+                             bsControlInput("ip2", numericInput(inputId = "numTest", "Numeric Test", value = 5, min = -10, max = 10, step = 1)),
+                             bsControlInput("ip3", dateInput(inputId = "dateTest", "Date Test", value = "2014-01-01", min = "2012-01-01", max = "2014-12-31")),
+                             bsControlInput("ip4", dateRangeInput(inputId = "dateRangeTest", "Date Range Test", start = "2013-12-01", end = "2013-12-31", min = "2013-01-01", max = "2014-12-31")),
+                             bsControlInput("ip5", sliderInput(inputId = "sliderTest", "Slider Test", min = 0, max = 1000, value = 435, step = 5)),
+                             bsControlInput("ip6", bsTypeAhead(inputId = "typeAheadTest", "TypeAhead Test", value = "benzene", choices = c("benzene", "toluene", "ethylbenzene", "xylenes")))
                )
   ),
 

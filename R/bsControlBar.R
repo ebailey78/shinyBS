@@ -56,7 +56,7 @@ bsControlMenu <- function(inputId, ..., label, icon, caret = FALSE) {
   
 }
 
-bsControlSubMenu <- function(inputId, label, ..., icon = "none", radio = FALSE) {
+bsControlSubMenu <- function(inputId, label, ..., icon = NULL, radio = FALSE) {
   
   items <- list(...)
   csm <- bsControlLink(inputId, label, icon)
@@ -80,7 +80,7 @@ bsControlSubMenu <- function(inputId, label, ..., icon = "none", radio = FALSE) 
   
 }
 
-bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, disabled = FALSE) {
+bsControlLink <- function(inputId, label, icon = NULL, toggle = FALSE, active = FALSE, disabled = FALSE) {
   
   if(active) toggle = TRUE
   
@@ -96,7 +96,7 @@ bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, 
     } else {
       ico <- addClass(ico, "fa-square-o")
     }
-  } else if(!missing(icon)) {
+  } else if(!is.null(icon)) {
     # Prepends 'fa-' to the icon name, if it isn't already there.
     if(substr(icon, 1, 3) != "fa-") {
       icon <- paste0("fa-", icon)  
@@ -115,12 +115,48 @@ bsControlLink <- function(inputId, label, icon, toggle = FALSE, active = FALSE, 
   
 }
 
-bsControlInput <- function(input) {
+
+bsControlInput <- function(id, inputObject, icon = NULL) {
   
-  label <- unlist(input[[1]][[3]])
-  id <- input[[2]]$attribs$id
-  type <- input[[2]]$attribs$type
+  single <- NULL
   
+  if(inherits(inputObject[[1]], "shiny.singleton")) {
+    single <- inputObject[[1]]
+    inputObject <- inputObject[[2]]
+  }
+  if(inherits(inputObject, "shiny.tag")) {
+    if(length(inputObject[[2]]) == 0) {
+      iO <- inputObject[[3]]
+      inputObject <- unlist(inputObject[[3]], FALSE)
+    }
+  }
+  if(inherits(inputObject, "shiny.tag")) {
+    label <- inputObject[[3]][[1]]
+    inputObject[[3]][[1]] <- NULL
+    inObj <- inputObject
+  } else {
+    label <- inputObject[[1]]
+    inObj <- inputObject[[2]]
+  }
+  
+  label <- unlist(label[[3]])
+  
+  
+  obj <- bsControlLink(id, label, icon)
+  
+  obj <- removeClass(obj, "sbs-control-link")
+  obj <- addClass(obj, "dropdown-submenu sbs-control-input")
+  obj <- removeAttribs(obj, "sbs-data-toggle")
+  
+  sm <- tagAppendChild(tags$ul(class = "dropdown-menu"), inObj)
+  
+  obj <- tagAppendChild(obj, sm)
+  
+  if(!is.null(single)) {
+    obj <- tagList(single, obj)
+  }
+  
+  obj
   
 }
 

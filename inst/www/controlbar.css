@@ -1,3 +1,8 @@
 .sbs-controlbar li > a {
   padding: 3px 20px 3px 3px;
 }
+
+.sbs-control-input input, .sbs-control-input span.jslider {
+  margin: 10px;
+}
+

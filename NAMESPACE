@@ -45,6 +45,7 @@ toggleModal,
 bsControlBar,
 bsControlMenu,
 bsControlSubMenu,
-bsControlLink)
+bsControlLink,
+bsControlInput)
 import(shiny,
        methods)
