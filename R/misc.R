@@ -34,12 +34,18 @@ removeClass <- function(tag, remove) {
   tag$attribs$class <- paste(class, collapse = " ")
   
   return(tag)
-  
 }
 
 addClass <- function(tag, add) {
-  tag$attribs$class <- paste(tag$attribs$class, add)
+  if(!hasClass(tag, add)) {
+    tag$attribs$class <- paste(tag$attribs$class, add)
+  }
   return(tag)
+}
+
+hasClass <- function(tag, class) {
+  cl <- unlist(strsplit(tag$attribs$class, " "))
+  class %in% cl
 }
 
 addAttribs <- function(tag, ...) {

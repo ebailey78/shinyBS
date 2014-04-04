@@ -56,7 +56,7 @@ bsControlMenu <- function(inputId, ..., label, icon, caret = FALSE) {
   
 }
 
-bsControlSubMenu <- function(inputId, label, ..., icon = NULL, radio = FALSE) {
+bsControlSubMenu <- function(inputId, label, ..., icon = NULL) {
   
   items <- list(...)
   csm <- bsControlLink(inputId, label, icon)
@@ -65,39 +65,45 @@ bsControlSubMenu <- function(inputId, label, ..., icon = NULL, radio = FALSE) {
   csm <- addClass(csm, "dropdown-submenu sbs-control-group")
   csm <- removeAttribs(csm, "sbs-data-toggle")
   
-  if(radio) {
-    for(i in seq(length(items))) {
-      if(hasAttribs(items[[i]], "sbs-data-toggle")) {
-        if(items[[i]]$attribs["sbs-data-toggle"] == TRUE)
-          items[[i]]$attribs["sbs-data-toggle"] = "radio"
-      }
-    }
-  }
-  
   sm <- tagAppendChildren(tags$ul(class = "dropdown-menu"), list = items)
   
   tagAppendChild(csm, sm)
   
 }
 
+bsRadioGroup <- function(groupId, ..., active) {
+  
+  rb <- list(...)
+  
+  for(i in seq(length(rb))) {
+    rb[[i]] <- removeClass(rb[[i]], "sbs-control-toggle sbs-control-link sbs-toggle-on")
+    rb[[i]] <- addClass(rb[[i]], "sbs-control-radio")
+    if(active == rb[[i]]$attribs$id) rb[[i]] <- addClass(rb[[i]], "sbs-toggle-on")
+  }
+  
+  tags$div(id = groupId, class = "sbs-radio-group", rb)
+#  tagList(tags$input(id = groupId, type = "hidden", class = "sbs-radio-group"), rb)
+  
+}
+
 bsControlLink <- function(inputId, label, icon = NULL, toggle = FALSE, 
-                          active = FALSE, disabled = FALSE, radio.group) {
+                          active = FALSE, disabled = FALSE) {
   
   if(active) toggle = TRUE
   
+  if(toggle) {
+    linkClass = "sbs-control-toggle"
+  } else {
+    linkClass = "sbs-control-link"
+  }
+  
   #If label isn't already a shiny tag make it HTML
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
-  
+
   cia <- (tags$a(href = "#"))
   
   ico <- tags$i(class = "fa fa-fw left-icon")
-  if(toggle) {
-    if(active) {
-      ico <- addClass(ico, "fa-check-square-o")
-    } else {
-      ico <- addClass(ico, "fa-square-o")
-    }
-  } else if(!is.null(icon)) {
+  if(!is.null(icon)) {
     # Prepends 'fa-' to the icon name, if it isn't already there.
     if(substr(icon, 1, 3) != "fa-") {
       icon <- paste0("fa-", icon)  
@@ -107,10 +113,11 @@ bsControlLink <- function(inputId, label, icon = NULL, toggle = FALSE,
 
   cia <- tagAppendChildren(cia, ico, label)
   
-  li <- tags$li(id = inputId, class = "sbs-control-link", cia)
+  li <- tags$li(id = inputId, class = linkClass, cia)
+  
+  if(active) li <- addClass(li, "sbs-toggle-on")
   
   if(disabled) li <- addClass(li, "disabled")
-  if(toggle) li <- addAttribs(li, "data-sbs-toggle" = TRUE)
   
   return(li)
   

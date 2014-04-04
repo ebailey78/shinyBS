@@ -22,7 +22,7 @@ $.extend(controlGroupBinding, {
     
   },
   initialize: function(el) {
-    initializeGroup(el);
+    //initializeGroup(el);
   }
 
 });
@@ -30,109 +30,105 @@ Shiny.inputBindings.register(controlGroupBinding);
 
 var controlLinkBinding = new Shiny.InputBinding();
 $.extend(controlLinkBinding, {
-
   find: function(scope) {
     return $(scope).find("li.sbs-control-link");
   },
   getValue: function(el) {
-    return $(el).data("sbs-value");
+    return $(el).data('sbs-value') || 0;
   },
   setValue: function(el, value) {
-    var $el = $(el); 
-    if($el.attr("data-sbs-toggle") != undefined) {
-      $el.find("i.left-icon").toggleClass("fa-check-square-o", value).toggleClass("fa-square-o", !value);
-    }
-    $el.data('sbs-value', value);
+    $(el).data('sbs-value', value);
   },
   subscribe: function(el, callback) {
-    var $el = $(el);
-    $el.children("a").on("click", function(e) {
-      updateLink($el);
-      callback();
-      $el.trigger("sbs-click");
+    $(el).on("click.controlLink", function(e) {
+      var $el = $(this);
+      if($el.hasClass("disabled") == false) {
+        var val = $el.data("sbs-value") || 0;
+        $el.data("sbs-value", val + 1);
+        callback();
+      }
     })
   },
   unsubscribe: function(el) {
-    
+    $(el).off(".controlLink");
   },
   receiveMessage: function(el, data) {
-    
-  },
-  initialize: function(el) {
-    
+    if(data.hasOwnProperty("disabled")) {
+      $(el).toggleClass("disabled", data.disabled);
+      $(el).trigger("change");
+    }
   }
 
 });
 Shiny.inputBindings.register(controlLinkBinding);
 
-var controlInputBinding = new Shiny.InputBinding();
-$.extend(controlInputBinding, {
+var controlToggleLinkBinding = {};
+$.extend(controlToggleLinkBinding, controlLinkBinding, {
   find: function(scope) {
-    return $(scope).find("li.sbs-control-input");
+    return $(scope).find("li.sbs-control-toggle");
   },
-  getValue: function(el) {
-    return true;
+  subscribe: function(el, callback) {
+    $(el).on("click.controlLink", function(e) {
+      var $el = $(this);
+      if($el.hasClass("disabled") == false) {
+        $el.trigger("change.controlLink");
+        callback();  
+      }
+    })
   },
   initialize: function(el) {
-    var $el = $(el);
-    $el.children("a").on("click", function(e) {
-      e.stopPropagation();
-    })
-    $el.find("ul.dropdown-menu > li").children().on("click", function(e) {
-      e.stopPropagation();
+    var $el = $(el)
+    var $on = $el.hasClass("sbs-toggle-on");
+    $el.find("i.left-icon").toggleClass("fa-check-square-o", $on).toggleClass("fa-square-o", !$on);  
+    $el.on("change.controlLink", function(e) {
+      var $el = $(this);
+      $el.toggleClass("sbs-toggle-on");
+      var $on = $el.hasClass("sbs-toggle-on");
+      $el.data('sbs-value', $on)
+      $el.find("i.left-icon").toggleClass("fa-check-square-o", $on).toggleClass("fa-square-o", !$on);
     })
   }
 });
-Shiny.inputBindings.register(controlInputBinding);
+Shiny.inputBindings.register(controlToggleLinkBinding);
 
-// Activates when a control-link is clicked
-function updateLink($el) {
-  
-  if($el.attr("data-sbs-toggle") != undefined) {
-    var $icon = $el.find("i.left-icon");
-    $icon.toggleClass('fa-square-o').toggleClass('fa-check-square-o');
-    $el.data('sbs-value', $icon.hasClass('fa-check-square-o'));
-  } else {
-    var val = $el.data('sbs-value') || 0;
-    $el.data('sbs-value', val + 1);
+var controlRadioLinkBinding = {};
+$.extend(controlRadioLinkBinding, controlToggleLinkBinding, {
+  find: function(scope) {
+    return $(scope).find("li.sbs-control-radio") 
+  },
+  initialize: function(el) {
+    var $el = $(el)
+    var $on = $el.hasClass("sbs-toggle-on");
+    $el.find("i.left-icon").toggleClass("fa-dot-circle-o", $on).toggleClass("fa-circle-o", !$on);  
+    $(el).on("change.controlLink", function(e) {
+      var $this = $(this);
+      $this.siblings("li.sbs-control-radio").removeClass("sbs-toggle-on").find("i.left-icon").removeClass('fa-dot-circle-o').addClass("fa-circle-o").data('sbs-value', false);
+      $this.data('sbs-value', true)
+      $this.find("i.left-icon").addClass("fa-dot-circle-o").removeClass("fa-circle-o");
+    })
   }
-  updateGroup($el);
-}
 
-function updateGroup($el) {
-  
-  var $par = $el.parent('ul.dropdown-menu').parent("li.sbs-control-group");
-  if($par.length > 0) {
-    var val = $par.data("sbs-value");
-    val[$el.attr("id")] = $el.data("sbs-value");
-    $par.data("sbs-value", val);
-    updateGroup($par);
-  }
+});
+Shiny.inputBindings.register(controlRadioLinkBinding);
+
+var controlRadioGroupBinding = new Shiny.InputBinding();
+$.extend(controlRadioGroupBinding, {
+
+  find: function(scope) {
+    return $(scope).find("input.sbs-radio-group");
+  },
+  getValue: function(el) {
+    return $(el).value
+  },
+  setValue: function(el, value) {
+    $(el).value = value;
+  },
+  subscribe: function(el, callback) {
+    $(el).children("li.sbs-radio-group").on("change.controlLink", function(e) {
+      callback();
+    })  
     
-}
-
-function initializeLink(el) {
-  var $el = $(el);
-  if($el.attr("data-sbs-toggle") !== undefined) {
-    $el.data('sbs-value', $el.find("i.left-icon").hasClass('fa-check-square-o'));
-  } else {
-    $el.data("sbs-value", 0);
   }
-}
+  
 
-function initializeGroup(el) {
-  var $el = $(el);
-  var val = new Object;
-  $el.children("ul.dropdown-menu").children("li").each(function(e) {
-    var $this = $(this);
-    if($this.hasClass("sbs-control-link")) {
-      initializeLink(this);
-    } else if($this.hasClass("sbs-control-group")) {
-      initializeGroup(this);
-    }
-    val[$this.attr('id')] = $this.data('sbs-value');
-  })
-  $el.data('sbs-value', val);
-}
-
-
+})

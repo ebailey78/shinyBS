@@ -48,6 +48,7 @@ bsControlSubMenu,
 bsControlLink,
 bsControlInput,
 bsControlDivider,
-bsControlHeader)
+bsControlHeader,
+bsRadioGroup)
 import(shiny,
        methods)

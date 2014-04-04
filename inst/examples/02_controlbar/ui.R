@@ -4,14 +4,20 @@ library(shinyBS)
 shinyUI(basicPage(
   
   bsControlBar(inputId = "cb1", brand = "shinyBS",
-               bsControlMenu("bcm1", label = "Plain",
+               bsControlMenu("bcm1", label = "Links", icon = "link", caret = TRUE,
                              bsControlHeader("Action Links"),
                              bsControlLink("p_2", "With Icon", icon = "globe"),
                              bsControlLink("p_1", "Without Icon"),
                              bsControlDivider(),
                              bsControlHeader("Toggle Links"),
                              bsControlLink("p_3", "Toggle #1", toggle = TRUE),
-                             bsControlLink("p_4", "Toggle #2", toggle = TRUE, active = TRUE)
+                             bsControlLink("p_4", "Toggle #2", toggle = TRUE, active = TRUE),
+                             bsControlDivider(),
+                             bsControlHeader("Radio Links"),
+                             bsRadioGroup("bsRad", active = "rad2",
+                                          bsControlLink("rad1", "Radio #1"),
+                                          bsControlLink("rad2", "Radio #2"),
+                                          bsControlLink("rad3", "Radio #3"))
                ),
                bsControlMenu("bcm2", label = "Caret", caret = TRUE,
                              bsControlSubMenu("i_sm1", "Submenu", 
@@ -40,10 +46,12 @@ shinyUI(basicPage(
                ),
                bsControlMenu("bcm4", label = "Both", caret = TRUE, icon = "bar-chart-o",
                              bsControlHeader("Radio Links"),
-                             bsControlLink("b_1", "Radio #1", toggle = TRUE),
-                             bsControlLink("b_2", "Radio #2", toggle = TRUE),
-                             bsControlLink("b_3", "Radio #3", toggle = TRUE),
-                             bsControlLink("b_4", "Radio #4", toggle = TRUE)
+                             bsRadioGroup("rad1", active = "b_3",
+                                          bsControlLink("b_1", "Radio #1", toggle = TRUE),
+                                          bsControlLink("b_2", "Radio #2", toggle = TRUE),
+                                          bsControlLink("b_3", "Radio #3", toggle = TRUE),
+                                          bsControlLink("b_4", "Radio #4", toggle = TRUE)
+                             )
                ),
                bsControlMenu("bcm5", icon = "fa-bar-chart-o",
                              bsControlLink("f_1", "Test")
