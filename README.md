@@ -38,6 +38,7 @@ bsDemo()
   * I am working on a bsNavDemo() example that will better explain changes to dropdowns.
 * **bsModal**
   * You can now create modal windows with the `bsModal()` function. These are trigger from a button or link and can contain any combination of inputs, outputs, or standard html.
+  * Per Request: highlightCells() now accepts a `column` argument which limits cell highlighting to that column.
 
 #### Version 0.20 (released: 2014-03-19)
 

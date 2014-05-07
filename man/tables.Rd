@@ -10,8 +10,8 @@ Table Highlighting
 \usage{
 highlightRows(session, id, column, min = NULL, max = NULL, regex = NULL, 
               class = NULL, style = NULL, reset = NULL)
-highlightCells(session, id, min = NULL, max = NULL, regex = NULL, class = NULL, 
-               style = NULL, reset = NULL, skip.row.names = TRUE)
+highlightCells(session, id, min = NULL, max = NULL, regex = NULL, column = NULL,
+               class = NULL, style = NULL, reset = NULL, skip.row.names = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,7 +22,7 @@ highlightCells(session, id, min = NULL, max = NULL, regex = NULL, class = NULL,
     The id of the table you want to highlight
 }
   \item{column}{
-    For \code{highlightRows} the column to do matching on
+    The column to do matching on, can be either the index or the column name    
 }
   \item{min}{
     The minimum value of a cell that will match (inclusive)

@@ -683,10 +683,21 @@ Shiny.addCustomMessageHandler("highlightCells",
   function(data) {
     
     var $tab = $("#"+data.id).children("table");
+    var $tds = $tab.find("td");
+    
     if(data.skip) {
-      var $tds = $tab.find("td:not(:first-child)");
-    } else {
-      var $tds = $tab.find("td");
+      $tds = $tab.find("td:not(:first-child)");
+    };
+    
+    if(data.hasOwnProperty("column")) {
+      if($.isNumeric(data.column)) {
+        var ind = parseInt(data.column, 10);
+      } else {
+        var ind = $tab.find("tr:first-child").children("th").filter(function() {
+          return $.trim($(this).text()) == $.trim(data.column);
+        }).index();
+      }
+      $tds = $tab.find("tr").find("td:nth-child(" + (ind + 1) + ")")
     }
         
     if(data.hasOwnProperty("reset")) {

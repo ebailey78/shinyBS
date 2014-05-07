@@ -357,6 +357,8 @@ paste0("  observe({
     
     d <- as.integer(runif(84, 0, 20))
     
+    d[runif(10, 1, 84)] <- NA
+    
     df <- as.data.frame(matrix(d, nrow = 7, ncol = 12))
     
     colnames(df) <- month.abb
@@ -400,14 +402,16 @@ paste0("  observe({
       max <- isolate(input$htMax)
       style <- isolate(input$htStyle)
       regex <- isolate(input$htText)
-      print(regex)
+      column <- isolate(input$htCol)
+
       if(class == "none") class <- NULL
       if(min == "") min <- NULL
       if(max == "") max <- NULL
       if(style == "") style <- NULL
       if(regex == "") regex <- NULL
+      if(column == "") column <- NULL
  
-      highlightCells(session, "htTable", min = min, max = max,
+      highlightCells(session, "htTable", min = min, max = max, column = column,
                     class = class, style = style, regex = regex, reset = isolate(input$htReset))
       
     }
