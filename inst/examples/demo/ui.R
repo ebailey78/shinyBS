@@ -125,7 +125,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                         controls = tagList(textInput("taLabel", "Label", "TypeAhead:"),
                                            selectInput("taChoice", "Choices", c("Pollutants", "Fruits and Vegetables", "Animals"))
                                            ),
-                        example = bsTypeAhead("ta1", label = "TypeAhead:", choices = pollutants, items=4),
+                        example = bsTypeAhead("ta1", label = "TypeAhead:", choices = pollutants),
                         uiCode = "taUICode",
                         serverCode = "taServerCode"
               ),
