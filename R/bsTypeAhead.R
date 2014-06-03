@@ -1,13 +1,14 @@
 # Create a typeahead text input
 bsTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=1) {
   
-  choices <- paste0("[\"", paste0(choices, collapse="\", \"") , "\"]")
+  choices <- paste0("[\'", paste0(choices, collapse="\', \'") , "\']")
   
   sbsHead(tagList(tags$label(label, `for` = inputId), 
                   tags$input(id = inputId, type="text", class="sbs-typeahead", 
-                             "data-provide"="typeahead", "data-source"=choices,
-                             "data-items"=items, "data-minLength"=minLength, autocomplete="off",
-                             value = value)
+                             "data-provide"="typeahead", "data-items"=items,
+                             "data-minLength"=minLength, autocomplete="off",
+                             value = value),
+                  tags$script(paste0("$('#", inputId, "').typeahead({source: ", choices, "})"))
                   )
           )
   
