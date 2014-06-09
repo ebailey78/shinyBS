@@ -1,3 +1,4 @@
+#'@export
 bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NULL, 
                        disabled = FALSE, checked = FALSE, group = NULL) {
   
@@ -49,7 +50,7 @@ bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NU
   
   if(!is.null(group) & (type == "radio" | type == "checkbox")) {
     item <- tagAddAttribs(item, "data-group" = group)
-    item <- tagList(shinyMenuGroup(group), item)
+    item <- tagList(bsMenuGroup(group), item)
   }
   
   return(item)

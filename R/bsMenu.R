@@ -1,3 +1,4 @@
+#'@export
 bsMenu <- function(menuId, ..., label, icon = NULL, type = "toolbar", 
                    caret = TRUE, target = NULL) {
   

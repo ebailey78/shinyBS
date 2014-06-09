@@ -1,0 +1,18 @@
+.shiny-menu-bar ul.dropdown-menu li > a {
+  padding: 3px 20px 3px 3px !important;
+}
+
+.shiny-menu-item input {
+  margin: 0px;
+}
+
+ul.dropdown-menu > li.shiny-menu-item > a
+{
+  padding-left: 5px;
+}
+
+.shiny-menu-popup {
+  display: block;
+  position: fixed !important;
+}
+

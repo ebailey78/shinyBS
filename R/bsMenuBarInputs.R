@@ -1,4 +1,4 @@
-# Create a link input for a navbar that acts like an actionButton
+#'@export
 bsMenuLink <- function(inputId, label, href="#", icon = NULL) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
@@ -20,7 +20,6 @@ bsMenuLink <- function(inputId, label, href="#", icon = NULL) {
   
 }
 
-# Create a link input for a navbar that acts like a checkboxInput
 bsMenuToggleLink <- function(inputId, label, icon = NULL, value=FALSE) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)

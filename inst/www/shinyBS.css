@@ -10,6 +10,10 @@
   padding-right: 3px;
 }
 
+li.sbs-menu-wrap input {
+  width: none;
+}
+
 td.success {
   background-color: rgb(223, 240, 216);
 }

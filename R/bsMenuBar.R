@@ -1,3 +1,4 @@
+#'@export
 bsMenuBar <- function(inputId, ..., brand, rightItems, fixed = FALSE, 
                          inverse = FALSE) {
 

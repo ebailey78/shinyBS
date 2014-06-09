@@ -6,7 +6,7 @@
 }
 
 # Wrapper to add the appropriate singletons to the head of the shiny app
-sbsHead <- function(..., js = "sbs/shinyBS.js", css = list("sbs/shinyBS.css", "shared/font-awesome/css/font-awesome.min.css")) {
+sbsHead <- function(..., js = list("sbs/shinyMenu.js", "sbs/shinyBS.js"), css = list("sbs/shinyMenu.css", "sbs/shinyBS.css", "shared/font-awesome/css/font-awesome.min.css")) {
   
   js.tags <- tagList(lapply(js, function(j) singleton(tags$script(src = j))))
   css.tags <- tagList(lapply(css, function(i) singleton(tags$link(rel = "stylesheet", 
@@ -56,7 +56,7 @@ tagAddAttribs <- function(tag, ...) {
   return(tag)
 }
 
-removeAttribs <- function(tag, ...) {
+tagRemoveAttribs <- function(tag, ...) {
   a <- list(...)
   for(i in seq(length(a))) {
     tags$attribs[a[[i]]] = NULL
