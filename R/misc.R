@@ -1,17 +1,22 @@
 .onAttach <- function(...) {
   
   # Create link to javascript and css files for package
-  addResourcePath("sbs", system.file("www", package="shinyBS"))
+  shiny::addResourcePath("sbs", system.file("www", package="shinyBS"))
   
 }
 
 # Wrapper to add the appropriate singletons to the head of the shiny app
-sbsHead <- function(...) {
+sbsHead <- function(..., js = "sbs/shinyBS.js", css = list("sbs/shinyBS.css", "shared/font-awesome/css/font-awesome.min.css")) {
   
-  tagList(singleton(tags$head(tags$script(src = "sbs/shinyBS.js"),
-                              tags$link(rel = "stylesheet", type = "text/css", href = "sbs/shinyBS.css"))),
+  js.tags <- tagList(lapply(js, function(j) singleton(tags$script(src = j))))
+  css.tags <- tagList(lapply(css, function(i) singleton(tags$link(rel = "stylesheet", 
+                                                                  type = "text/css", 
+                                                                  href = i))))
+  
+  tagList(singleton(tags$head(js.tags, css.tags)),
           ...
-          )
+  )
+  
 }
 
 # Copy of dropNulls function for shiny to avoid using shiny:::dropNulls
@@ -20,7 +25,7 @@ dropNulls <- function(x) {
 }
 
 # Takes a tag and removes any classes in the remove argument
-removeClass <- function(tag, remove) {
+tagRemoveClass <- function(tag, remove) {
   
   if(length(remove) == 1) remove <- strsplit(remove, " ", fixed = TRUE)[[1]]
 
@@ -32,12 +37,18 @@ removeClass <- function(tag, remove) {
   
 }
 
-addClass <- function(tag, add) {
+tagAddClass <- function(tag, add) {
   tag$attribs$class <- paste(tag$attribs$class, add)
   return(tag)
 }
 
-addAttribs <- function(tag, ...) {
+tagHasClass <- function(tag, class) {
+  cl <- unlist(strsplit(tag$attribs$class, " "))
+  class %in% cl
+}
+
+
+tagAddAttribs <- function(tag, ...) {
   a <- list(...)
   for(i in seq(length(a))) {
     tag$attribs[names(a)[i]] = a[[i]]

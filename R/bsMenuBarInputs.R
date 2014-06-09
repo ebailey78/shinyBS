@@ -1,21 +1,47 @@
 # Create a link input for a navbar that acts like an actionButton
-bsNavLink <- function(inputId, label, href="#") {
+bsMenuLink <- function(inputId, label, href="#", icon = NULL) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
-  tags$li(tags$a(id = inputId, type="button", href = href, class="action-button", label))
+  if(!is.null(icon)) {
+    i <- tags$i(class = "fa fa-fw left-icon")
+    if(!is.null(icon)) {
+      # Prepends 'fa-' to the icon name, if it isn't already there.
+      if(substr(icon, 1, 3) != "fa-") {
+        icon <- paste0("fa-", icon)  
+      }
+      i <- tagAddClass(i, icon)
+    }
+  } else {
+    i <- ""
+  }
+  
+  tags$li(tags$a(id = inputId, type="button", href = href, class="action-button", i, label))
   
 }
 
 # Create a link input for a navbar that acts like a checkboxInput
-bsNavToggleLink <- function(inputId, label, value=FALSE) {
+bsMenuToggleLink <- function(inputId, label, icon = NULL, value=FALSE) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
+  
+  if(!is.null(icon)) {
+    i <- tags$i(class = "fa fa-fw left-icon")
+    if(!is.null(icon)) {
+      # Prepends 'fa-' to the icon name, if it isn't already there.
+      if(substr(icon, 1, 3) != "fa-") {
+        icon <- paste0("fa-", icon)  
+      }
+      i <- tagAddClass(i, icon)
+    }
+  } else {
+    i <- ""
+  }
   
   class = ""
   if(value) class = "active"
   
-  tags$li(class = class, tags$a(id = inputId, href="#", class = "sbs-toggle", label))
+  tags$li(class = class, tags$a(id = inputId, href="#", class = "sbs-toggle", i, label))
   
 }
 
@@ -28,19 +54,17 @@ updateToggleLink <- function(session, inputId, label=NULL, value=NULL) {
 }
 
 # Create a vertical divider between navbar elements
-bsNavDivider <- function() {
+bsMenuDivider <- function() {
   tags$li(class="divider-vertical")
 }
 
 # Wraps actionbutton in a li so it works with bsNavBar
-bsNavButton <- function(inputId, label) {
-  
+bsMenuButton <- function(inputId, label) {
   tags$li(tags$form(class="navbar-form", actionButton(inputId, label)))
-  
 }
 
 # Same as textInput but with label and a placeholder and optional width argument to save space
-bsNavTextInput <- function(inputId, label, value = "", width=NULL) {
+bsMenuTextInput <- function(inputId, label, value = "", width=NULL) {
   
   style = ""
   if(!is.null(width)) style = paste0("width: ", width, "px;")
@@ -50,7 +74,7 @@ bsNavTextInput <- function(inputId, label, value = "", width=NULL) {
 }
 
 # dateInput element for navbars
-bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
+bsMenuDateInput <- function(inputId, label, value = NULL, min = NULL,
                            max = NULL, format = "yyyy-mm-dd", startview = "month",
                            weekstart = 0, language = "en", width = NULL) {
   
@@ -76,7 +100,7 @@ bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
 }
 
 # Same as dateRangeInput with slight formatting modification. Would like to figure out how to remove space from between date inputs
-bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
+bsMenuDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
                                 min = NULL, max = NULL, format = "yyyy-mm-dd",
                                 startview = "month", weekstart = 0, language = "en", width=NULL) {
   

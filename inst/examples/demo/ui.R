@@ -81,7 +81,7 @@ shinyUI(basicPage(tags$head(tags$title("shinyBS Demo Page"),
                                            tableOutput("nbDemo")
                                    ),
                         example = tags$div(style="height: 800px;", bsNavBar("navBar", "shinyBS", 
-                                           bsNavLink("nbLink1", "Link", href="#"),
+                                           bsMenuLink("nbLink1", "Link", href="#", icon = "globe"),
                                            bsNavDropDown("nbdd", "Dropdown", c("Apple", "Pear", "Banana", "Grapes", "Orange")),
                                            bsNavDivider(), 
                                            bsNavToggleLink("nbLink2", "Toggle", value=TRUE),        

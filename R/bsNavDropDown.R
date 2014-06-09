@@ -72,20 +72,3 @@ updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=
   session$sendInputMessage(inputId, message)
   
 }
-
-bsMedia <- function(id, heading, text, image) {
-  
-  med <- tags$div(class = "media", id = id)
-  
-  if(!missing(image)) {
-    med <- tagAppendChild(med, tags$div(class = "pull-left", href = "#", tags$img(class = "media-object", src = image, "data-src" = image)))
-  }
-  
-  med <- tagAppendChild(med, tags$div(class = "media-body",
-                                      tags$h4(class = "media-heading", heading), text))
-  
-  class(med) <- c(class(med), "bsmedia")
-  
-  return(med)
-  
-}
