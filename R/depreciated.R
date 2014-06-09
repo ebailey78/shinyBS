@@ -153,3 +153,19 @@ bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
   
   
 }
+
+# Same as bsTypeAhead but with label as placeholder and optional width argument to save space.
+bsNavTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=1, width = NULL) {
+  
+  choices <- paste0("[\"", paste0(choices, collapse="\", \"") , "\"]")
+  
+  style = ""
+  if(!is.null(width)) style = paste0("width: ", width, "px;")
+  
+  
+  tags$li(tags$form(class="navbar-form", tags$input(id = inputId, type="text", class="sbs-typeahead",
+                                                    "data-provide"="typeahead", "data-source"=choices, style=style,
+                                                    "data-items"=items, "data-minLength"=1, autocomplete="off",
+                                                    placeholder=label, value = value)))
+  
+}
