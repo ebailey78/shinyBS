@@ -2,8 +2,12 @@
   padding: 3px 20px 3px 3px !important;
 }
 
-.shiny-menu-item input {
-  margin: 0px;
+li.sbs-menu-wrap input {
+  width: auto !important;
+}
+
+.sbs-menu-item input {
+  margin: -1px;
 }
 
 ul.dropdown-menu > li.sbs-menu-item > a

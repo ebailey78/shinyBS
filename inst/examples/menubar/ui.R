@@ -35,8 +35,12 @@ shinyUI(basicPage(
                                              )
                                    )
                          )
-             )#,
-             #bsMenuWrap(textInput("test", "Text Input"), width = 10)
+             ),
+             bsMenuWrap(textInput("test", "Text Input"), width = 10),
+             bsMenuWrap(dateInput("Test", "Test Date"), width = 10),
+             bsMenuWrap(actionButton("TTEST", "Test Button")),
+             bsMenuWrap(dateRangeInput("tteesstt", "DRI", separator = ""))
+             
   ),
   plotOutput("chart1"),
   bsMenu("popup1", type = "popup", target = "chart1",
