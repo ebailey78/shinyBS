@@ -8,7 +8,7 @@
 #'@param modalId Id of the modal you want to open/close
 #'@param title The title of the modal window
 #'@param trigger The id of the button or anchor that will open the modal window
-#'@param \dots{} Elements to add to the body of the modal window
+#'@param \dots Elements to add to the body of the modal window
 #'@param href Location of an html file that will provide content of modal body
 #'@param session The \code{session} object passed to function given to 
 #'  \code{shinyServer}

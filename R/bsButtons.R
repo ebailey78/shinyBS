@@ -9,7 +9,7 @@
 #'  \code{shinyServer}
 #'@param inputId Id to assign to the button or button group
 #'@param id The id of the button/button group you want to update
-#'@param \dots{} \code{bsButton()} objects to be added to the button group
+#'@param \dots \code{bsButton()} objects to be added to the button group
 #'@param label For buttons, the text to appear inside the button. For button 
 #'  groups, an optional label that will appear above the button group
 #'@param toggle The type of toggle behavior the button group should have (See 

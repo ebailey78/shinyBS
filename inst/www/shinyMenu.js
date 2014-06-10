@@ -167,6 +167,16 @@ $.extend(shinyMenuGroupBinding, {
     })
     return val;
   },
+  receiveMessage(el, data) {
+    var $el = $(el);
+    if(data.hasOwnProperty("check")) {
+      var $grp = $.find("li[data-group = '" + $el.attr("id") + "]");
+      $.each($grp, function(i, v) {
+        
+      
+      })
+    }
+  },
   subscribe: function(el, callback) {
     var $el = $(el);
     var $grp = $($.find("li[data-group = '" + $el.attr("id") + "']"));

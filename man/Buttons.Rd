@@ -35,7 +35,7 @@ updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL,
 
 \item{id}{The id of the button/button group you want to update}
 
-\item{\dots{}}{\code{bsButton()} objects to be added to the button group}
+\item{\dots}{\code{bsButton()} objects to be added to the button group}
 
 \item{label}{For buttons, the text to appear inside the button. For button
 groups, an optional label that will appear above the button group}

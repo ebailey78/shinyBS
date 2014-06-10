@@ -1,3 +1,5 @@
+#'@import shiny
+
 .onAttach <- function(...) {
   
   # Create link to javascript and css files for package
@@ -25,7 +27,6 @@ dropNulls <- function(x) {
 }
 
 # Takes a tag and removes any classes in the remove argument
-#'@export
 tagRemoveClass <- function(tag, remove) {
   
   if(length(remove) == 1) remove <- strsplit(remove, " ", fixed = TRUE)[[1]]
@@ -37,18 +38,18 @@ tagRemoveClass <- function(tag, remove) {
   return(tag)
   
 }
-#'@export
+
 tagAddClass <- function(tag, add) {
   tag$attribs$class <- paste(tag$attribs$class, add)
   return(tag)
 }
-#'@export
+
 tagHasClass <- function(tag, class) {
   cl <- unlist(strsplit(tag$attribs$class, " "))
   class %in% cl
 }
 
-#'@export
+
 tagAddAttribs <- function(tag, ...) {
   a <- list(...)
   for(i in seq(length(a))) {
@@ -56,7 +57,7 @@ tagAddAttribs <- function(tag, ...) {
   }
   return(tag)
 }
-#'@export
+
 tagRemoveAttribs <- function(tag, ...) {
   a <- list(...)
   for(i in seq(length(a))) {

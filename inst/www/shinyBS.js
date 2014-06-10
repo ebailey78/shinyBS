@@ -336,6 +336,13 @@ $.extend(typeAheadBinding, {
         policy: 'debounce',
         delay: 250
       };
+    },
+    initialize: function(el) {
+      var $el = $(el);
+      var src = $el.attr("data-choices").split("|");
+      var itm = $el.attr("data-items");
+      var min = $el.attr("data-minLength");
+      $(el).typeahead({source: src, items: itm, minLength: min});
     }
 
 });

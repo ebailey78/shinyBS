@@ -1,5 +1,4 @@
 # Creates a dropdown shiny input that returns the value of the last dropdown element clicked
-
 processChoice <- function(choice) {
   
   cname <- names(choice)
@@ -34,6 +33,8 @@ processChoice <- function(choice) {
   
 }
 
+#'@rdname NavBar
+#'@export
 bsNavDropDown <- function(inputId, label, choices, selected="") {
   
   #If label isn't already a shiny tag make it HTML
@@ -54,6 +55,8 @@ bsNavDropDown <- function(inputId, label, choices, selected="") {
 }
 
 # Allows updating out navbar dropdowns.
+#'@rdname NavBar
+#'@export
 updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
   
   if(!is.null(choices)) {

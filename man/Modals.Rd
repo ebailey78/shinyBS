@@ -18,7 +18,7 @@ toggleModal(session, modalId)
 
 \item{trigger}{The id of the button or anchor that will open the modal window}
 
-\item{\dots{}}{Elements to add to the body of the modal window}
+\item{\dots}{Elements to add to the body of the modal window}
 
 \item{href}{Location of an html file that will provide content of modal body}
 

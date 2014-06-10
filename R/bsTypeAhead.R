@@ -23,15 +23,13 @@
 #'@export
 bsTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=1) {
   
-  choices <- paste0("[\'", paste0(choices, collapse="\', \'") , "\']")
+  choices <- paste0(choices, collapse="|")
   
   sbsHead(tagList(tags$label(label, `for` = inputId), 
                   tags$input(id = inputId, type="text", class="sbs-typeahead", 
                              "data-provide"="typeahead", autocomplete="off",
-                             value = value),
-                  tags$script(paste0("$('#", inputId, "').typeahead({source: ", choices, ",
-                                                                     items: ", items, ",
-                                                                     minLength: ", minLength, "})"))
+                             value = value, "data-choices" = choices, 
+                             "data-items" = items, "data-minLength" = minLength)
                   )
           )
   

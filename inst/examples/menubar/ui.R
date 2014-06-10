@@ -17,9 +17,11 @@ shinyUI(basicPage(
                          bsMenuItem("cb3", label = "Checkbox #3", type = "checkbox")
                ),
                bsMenu("subs", label = "Submenus", icon = "terminal", caret = TRUE,
-                         bsMenu("sub1", label = "Submenu with Commands", type = "submenu",
-                                   bsMenuItem("cmd3", "Command #3"),
-                                   bsMenuItem("cmd4", "Command #4")
+                         bsMenu("sub_dist", label = "Distribution", type = "submenu",
+                                bsMenuItem("sdt_norm", type = "radio", group = "sdtype", value = "rnorm", label = "Normal"),
+                                bsMenuItem("sdt_lnorm", type = "radio", group = "sdtype", value = "rlnorm", label = "Lognormal"),
+                                bsMenuItem("sdt_unif", type = "radio", group = "sdtype", value = "runif", label = "Uniform"),
+                                bsMenuItem("sdt_exp", type = "radio", group = "sdtype", value = "rexp", label = "Exponential")
                          ),
                          bsMenu("sub2", label = "Submenu with Radios", type = "submenu",
                                    bsMenuItem("rad4", "Radio #4", type = "radio", group = "rad_2"),
@@ -36,13 +38,14 @@ shinyUI(basicPage(
                                    )
                          )
              ),
-             bsMenuWrap(textInput("test", "Text Input"), width = 10),
-             bsMenuWrap(dateInput("Test", "Test Date"), width = 10),
-             bsMenuWrap(actionButton("TTEST", "Test Button")),
-             bsMenuWrap(dateRangeInput("tteesstt", "DRI", separator = ""))
-             
+             bsMenuWrap(textInput("plot_title", "Plot Title"), width = "10", icon="tag"),
+             bsMenuWrap(dateInput("Test", "Test Date"), width = 10, icon = "calendar"),
+             bsMenuWrap(bsActionButton("new_data", "New Data", style = "success")),
+             bsMenuWrap(bsTypeAhead("testestest", "TypeAhead", choices = list("cat", "dog", "mouse", "chicken")), width = 10, icon = "globe"),
+             bsMenuDateRangeInput("tteesstt", "Date Range Input")
   ),
   plotOutput("chart1"),
+  textOutput("testing"),
   bsMenu("popup1", type = "popup", target = "chart1",
             bsMenu("plot_type", type = "submenu", label = "Plot Type",
                       bsMenuItem("pt_plot", type = "radio", group = "ptype", value = "plot", label = "Scatterplot"),

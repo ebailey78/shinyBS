@@ -10,6 +10,14 @@ li.sbs-menu-wrap input {
   margin: -1px;
 }
 
+.sbs-menu-wrap.input-append, .sbs-menu-wrap.input-prepend {
+  margin-bottom: auto;
+}
+
+.navbar-form i.add-on {
+  margin-top: 5px;
+}
+
 ul.dropdown-menu > li.sbs-menu-item > a
 {
   padding-left: 5px;

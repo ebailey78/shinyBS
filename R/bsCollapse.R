@@ -4,7 +4,7 @@
 #'  
 #'@description Functions for creating and manipulating Collapse (Accordion)
 #'  Panels in shiny
-#'@param \dots{} For \code{bsCollapse} a series of \code{bsCollapsePanels} to
+#'@param \dots For \code{bsCollapse} a series of \code{bsCollapsePanels} to
 #'  include in the object for \code{bsCollapsePanel} as series of UI elements to
 #'  add to the panel
 #'@param id A name for the object (Optional)

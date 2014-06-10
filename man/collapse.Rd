@@ -13,7 +13,7 @@ bsCollapsePanel(title, ..., id = NULL, value = NULL)
 updateCollapse(session, id, open = NULL, close = NULL, multiple = NULL)
 }
 \arguments{
-\item{\dots{}}{For \code{bsCollapse} a series of \code{bsCollapsePanels} to
+\item{\dots}{For \code{bsCollapse} a series of \code{bsCollapsePanels} to
 include in the object for \code{bsCollapsePanel} as series of UI elements to
 add to the panel}
 
