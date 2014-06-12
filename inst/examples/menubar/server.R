@@ -16,8 +16,11 @@ shinyServer(function(input, output, session) {
   })
   
   data <- reactive({input$new_data
-                    eval(parse(text = paste0(values$dist, "(1000)")))})
+    eval(parse(text = paste0(values$dist, "(1000)")))
+  })
+  
   output$chart1 <- renderPlot({
+    print(input$ptype)
     eval(parse(text = paste0(input$ptype, "(data(), col = '", input$clr, "', main = '", input$plot_title, "')")))
     if(input$rug == TRUE) rug(data())}
   

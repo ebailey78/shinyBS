@@ -1,3 +1,33 @@
+#'@rdname bsMenu
+#'@name bsMenu
+#'@title Menu Dropdowns
+#'   
+#'@details Function for creating various menu types
+#'  
+#'@param menuId An Id for the menu
+#'@param \dots Items to add to the menu
+#'@param label The label for the menu
+#'@param icon An optional Font Awesome icon
+#'@param type The type of toolbar to create; either toolbar, submenu, or popup 
+#'  (See details)
+#'@param caret Logical indicating whether to include a caret on a toolbar menu
+#'@param target Id of a target for the popup menu
+#'  
+#'@details \code{bsMenu} is the general function for creating menus in shinyBS. 
+#'  It can take any of three forms determined by the \code{type} argument. 
+#'  \code{toolbar} is for creating top=level menus in a \code{bsMenuBar} object
+#'  similar to the depreciated \code{bsNavToolbar}. \code{popup} will create a
+#'  context menu accessible by right-clicking on the element identified by the
+#'  \code{target} attribute. \code{submenu} will create submenus within either
+#'  \code{toolbar} or \code{popup} menus.
+#'  
+#'@note Run \code{bsDemo()} for a live examples of shinyBS functionality.
+#'@author Eric Bailey
+#'@references \href{http://getbootstrap.com/2.3.2/components.html}{Components of
+#'  Twitter Bootstrap 2.3.2}
+#'@references \href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript 
+#'  for Twitter Bootstrap 2.3.2}
+#'@examples #Run bsDemo() for examples
 #'@export
 bsMenu <- function(menuId, ..., label, icon = NULL, type = "toolbar", 
                    caret = TRUE, target = NULL) {
