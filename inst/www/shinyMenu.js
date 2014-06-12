@@ -167,7 +167,7 @@ $.extend(shinyMenuGroupBinding, {
     })
     return val;
   },
-  receiveMessage(el, data) {
+/*  receiveMessage(el, data) {
     var $el = $(el);
     if(data.hasOwnProperty("check")) {
       var $grp = $.find("li[data-group = '" + $el.attr("id") + "]");
@@ -176,7 +176,7 @@ $.extend(shinyMenuGroupBinding, {
       
       })
     }
-  },
+  },*/
   subscribe: function(el, callback) {
     var $el = $(el);
     var $grp = $($.find("li[data-group = '" + $el.attr("id") + "']"));
