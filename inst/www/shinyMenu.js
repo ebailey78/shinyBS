@@ -1,28 +1,138 @@
-var shinyMenuPopupBinding = new Shiny.InputBinding();
-$.extend(shinyMenuPopupBinding, {
-  find: function(scope) {
-    return $(scope).find("div.sbs-menu-popup");
+var shinyToolbarMenuBinding = new Shiny.InputBinding();
+$.extend(shinyToolbarMenuBinding, {
+  find: function(scope){
+    return $(scope).find(".sbs-menu[data-type = 'toolbar']");
   },
   getValue: function(el) {
     return $(el).hasClass("open");
   },
-  subscribe: function(el, callback) {
-    $(el).on("click", function(e) {callback();})
+  setValue: function(el, value) {
+    // Strictly speaking, you're never supposed to do this...
+    $(el).toggleClass("open", value);
   },
-  initialize: function(el) {
-    var tar = $(el).attr("data-target");
-    var $tar = $($.find("#" + tar));
-    $tar.on("contextmenu", function(e) {
-      e.preventDefault();
-      $(el).addClass("open").css("top", e.clientY).css("left", e.clientX);
+  subscribe: function(el, callback) {
+    var $el = $(el);
+    $el.on("click", function(e) {
+      var $p = $el.children("ul");
+      var x = $p.left();
+      var y = $p.top();
+      var h = $p.outerHeight();
+      var w = $p.outerWidth();
+      var wh = $(document).height();
+      var ww = $(document).width();
+      
+      if(x + h > wh & h < wh) {
+        $el.removeClass("dropdown").addClass("dropup")
+      } else {
+        $el.removeClass("dropup").addClass("dropdown")
+      }
+
     })
     $(document).on("click", function(e) {
-      $(el).removeClass("open");
+      if($el.hasClass("open")) {
+        $el.removeClass("open");
+        callback();
+      }
+    });
+  }  
+});
+Shiny.inputBindings.register(shinyToolbarMenuBinding);
+
+var shinySubmenuMenuBinding = new Shiny.InputBinding();
+$.extend(shinySubmenuMenuBinding, {
+  find: function(scope){
+    return $(scope).find(".sbs-menu[data-type = 'submenu']");
+  },
+  getValue: function(el) {
+    return $(el).hasClass("open");
+  },
+  setValue: function(el, value) {
+    // Strictly speaking, you're never supposed to do this...
+    $(el).toggleClass("open", value);
+  },
+  subscribe: function(el, callback) {
+    var $el = $(el);
+    $el.on("mouseover", function(e) {
+      var $p = $el.children("ul");
+      var pos = $p.offset();
+      var h = $p.outerHeight();
+      var w = $p.outerWidth();
+      var wh = $(document).height();
+      var ww = $(document).width();
+      
+      if(pos.top + h > wh & h < wh) {
+        $el.removeClass("dropdown").addClass("dropup")
+      } else {
+        $el.removeClass("dropup").addClass("dropdown")
+      }
+      
+      if(pos.left + w > ww & w < ww) {
+        $el.addClass("pull-left")
+      } else {
+        $el.removeClass("pull-left")
+      }
+
     })
+    $(document).on("click", function(e) {
+      if($el.hasClass("open")) {
+        $el.removeClass("open");
+        callback();
+      }
+    });
+  }  
+});
+Shiny.inputBindings.register(shinySubmenuMenuBinding);
+
+/*
+Binding for the Popup menus. Popup menus aren't strictly inputs but they will 
+return a value indicating when they are opened so that may be useful...
+*/
+var shinyPopupMenuBinding = new Shiny.InputBinding();
+$.extend(shinyPopupMenuBinding, {
+  find: function(scope) {
+    return $(scope).find("div.sbs-menu[data-type = 'popup']");
+  },
+  getValue: function(el) {
+    return $(el).hasClass("open");
+  },
+  setValue: function(el, value) {
+    // Strictly speaking, you're never supposed to do this...
+    $(el).toggleClass("open", value);
+  },
+  subscribe: function(el, callback) {
+    var $el = $(el);
+    var $tar = $("#" + $(el).attr("data-target"));
+    $tar.on("contextmenu.sbs-menu", function(e) {
+      e.preventDefault();
+      var x = e.clientX;
+      var y = e.clientY;
+      var wh = $(document).height();
+      var ww = $(document).width();
+      var $p = $el.children("ul");
+      var h = $p.outerHeight();
+      var w = $p.outerWidth();
+      if(x + w > ww) x = ww - w;
+      if(y + h > wh) y = wh - h;      
+      $el.addClass("open").css("top", y).css("left", x);
+      callback();
+    });
+    $(document).on("click", function(e) {
+      if($el.hasClass("open")) {
+        $el.removeClass("open");
+        callback();
+      }
+    });
+  },
+  unsubscribe: function(el) {
+    $(el).off(".sbs-menu");
   }
 });
-Shiny.inputBindings.register(shinyMenuPopupBinding);
+Shiny.inputBindings.register(shinyPopupMenuBinding);
 
+/*
+Binding for menu command links. These work just like action buttons but are for
+shinyBS menus
+*/
 var shinyMenuCommandBinding = new Shiny.InputBinding();
 $.extend(shinyMenuCommandBinding, {
   find: function(scope) {
@@ -37,26 +147,39 @@ $.extend(shinyMenuCommandBinding, {
   subscribe: function(el, callback) {
     var $el = $(el);
     var obj = this;
-    $el.on("click.menu", function(e) {
+    $el.on("click.sbs-menu", function(e) {
       if($el.hasClass("disabled") == false) {
         obj.updateValue($el);
-        $el.trigger("menuUpdate.menu");
+        $el.trigger("menuUpdate.sbs-menu");
       }
     })
-    $el.on("menuUpdate.menu", function(e) {
-        callback();
+    $el.on("menuUpdate.sbs-menu", function(e) {
+      callback();
+      if($el[0].hasAttribute("data-group") == true) {
+        $("#" + $el.attr("data-group")).trigger("menuUpdate.sbs-menu");
+      }
     })
   },
   unsubscribe: function(el) {
-    $(el).off(".menu");
+    $(el).off(".sbs-menu");
   },
   receiveMessage: function(el, data) {
     var $el = $(el);
-    if(data.hasOwnProperty("disable")) {
-      $el.toggleClass("disabled", data.disable)
+    if(data.hasOwnProperty("disabled")) {
+      $el.toggleClass("disabled", data.disabled)
+    }
+    if(data.hasOwnProperty("value")) {
+      $el.data("menu-value", data.value)
+      $el.trigger("menuUpdate.sbs-menu");
     }
     if(data.hasOwnProperty("click")) {
-      $el.trigger("click.menu");
+      $el.trigger("click.sbs-menu");
+    }
+    if(data.hasOwnProperty("label")) {
+      $el.find("span.sbs-menu-label").text(data.label)
+    }
+    if(data.hasOwnProperty("icon")) {
+      $el.find("i").removeClass().addClass("fa fa-fw left-icon " + data.icon)
     }
   },
   initialize: function(el) {
@@ -69,7 +192,11 @@ $.extend(shinyMenuCommandBinding, {
 });
 Shiny.inputBindings.register(shinyMenuCommandBinding);
 
-
+/*
+Binding for menu checkbox links. These work just like action buttons but are for
+shinyBS menus. This binding reuses as much as it can from the command link
+binding.
+*/
 var shinyMenuCheckboxBinding = new Shiny.InputBinding();
 $.extend(shinyMenuCheckboxBinding, shinyMenuCommandBinding, {
   find: function(scope) {
@@ -77,22 +204,6 @@ $.extend(shinyMenuCheckboxBinding, shinyMenuCommandBinding, {
   },
   initialize: function(el) {
     $(el).data("menu-value", $(el).hasClass("sbs-menu-checked"));
-  },
-  receiveMessage: function(el, data) {
-    var $el = $(el);
-    if(data.hasOwnProperty("disable")) {
-      $el.toggleClass("disabled", data.disable)
-    }
-    if(data.hasOwnProperty("checked")) {
-      if($el.hasClass("disabled") == false) {
-        $el.data("menu-value", data.checked);
-        $el.toggleClass("sbs-menu-checked", data.checked)
-        $el.find("i.left-icon")
-          .toggleClass("fa-check-square-o", data.checked)
-          .toggleClass("fa-square-o", !data.checked);
-        $el.trigger("menuUpdate.menu");
-      }
-    }
   },
   updateValue: function($el) {
     var val = !$el.data("menu-value");
@@ -158,7 +269,7 @@ $.extend(shinyMenuGroupBinding, {
     $.each($grp, function(i, v) {
       var $v = $(v);
       if($v.data("menu-value") == true) {
-        if($v.attr("data-menu-value") === 'undefined') {
+        if($v.attr("data-menu-value") === undefined) {
           val.push($v.attr("id"));
         } else {
           val.push($v.attr("data-menu-value"));
@@ -167,22 +278,11 @@ $.extend(shinyMenuGroupBinding, {
     })
     return val;
   },
-/*  receiveMessage(el, data) {
-    var $el = $(el);
-    if(data.hasOwnProperty("check")) {
-      var $grp = $.find("li[data-group = '" + $el.attr("id") + "]");
-      $.each($grp, function(i, v) {
-        
-      
-      })
-    }
-  },*/
   subscribe: function(el, callback) {
-    var $el = $(el);
-    var $grp = $($.find("li[data-group = '" + $el.attr("id") + "']"));
-    $grp.on("menuUpdate.menu", function(e) {
-      callback();
-    });
+    $(el).on("menuUpdate.sbs-menu", callback);
+  },
+  unsubscribe: function(el) {
+    $(el).off(".sbs-menu");
   }
 });
 Shiny.inputBindings.register(shinyMenuGroupBinding);

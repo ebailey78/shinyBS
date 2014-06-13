@@ -60,6 +60,8 @@ bsMenu <- function(menuId, ..., label, icon = NULL, type = "toolbar",
                          "data-toggle" = "dropdown", label))
   }
   
+  dd <- tagAddAttribs(dd, "data-type" = type)
+  
   if(type == "toolbar") {
     dd <- tagAddClass(dd, "dropdown")
   } else if(type == "submenu") {

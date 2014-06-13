@@ -8,6 +8,8 @@ bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NU
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
   
+  label <- tags$span(class="sbs-menu-label", label)
+  
   i <- tags$i(class = "fa fa-fw left-icon")
   
   itemClass <- "sbs-menu-item"
@@ -55,4 +57,23 @@ bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NU
   
   return(item)
   
+}
+
+#'@export
+updateMenuItem <- function(session, id, label = NULL, icon = NULL, 
+                           value = NULL, disabled = NULL) {
+  
+  if(!is.null(icon))
+    if(substr(icon,1,3) != "fa-")
+      icon <- paste0("fa-", icon)
+  
+  data <- dropNulls(list(label = label, icon = icon, 
+                         value = value, disabled = disabled))
+  session$sendInputMessage(id, data)
+  
+}
+
+#'@export
+clickMenuItem <- function(session, id) {
+  session$sendInputMessage(id, list(click = TRUE))
 }
