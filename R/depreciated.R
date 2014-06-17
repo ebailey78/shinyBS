@@ -24,7 +24,7 @@ bsGlyph <- function(name, white = FALSE) {
 #'@title Depreciated Navbar Functions
 #'  
 #'@description Depreciated functions related to creating NavBars in shiny. See
-#'  \link{menuBar} for updated functions.
+#'  \link{bsMenuBar} for updated functions.
 #'  
 #'@param inputId The Id of the input
 #'@param brand A word or short phrase that describes the NavBar

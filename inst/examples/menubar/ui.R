@@ -42,7 +42,7 @@ shinyUI(basicPage(
             bsMenuWrap(dateInput("Test", "Test Date"), width = 10, icon = "calendar"),
             bsMenuWrap(bsActionButton("new_data", "New Data", style = "success")),
             bsMenuWrap(bsActionButton("dis", "Disable", style = "danger")),
-            bsMenuWrap(bsTypeAhead("testestest", "TypeAhead", choices = list("cat", "dog", "mouse", "chicken")), width = 10, icon = "globe"),
+            bsMenuWrap(bsTypeAhead("testestest", "TypeAhead", choices = list("cat", "dog's", "mouse's", "chicken")), width = 10, icon = "globe"),
             bsMenuDateRangeInput("tteesstt", "Date Range Input")
   ),
   plotOutput("chart1"),

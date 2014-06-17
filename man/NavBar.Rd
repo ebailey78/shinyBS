@@ -114,7 +114,7 @@ object}
 }
 \description{
 Depreciated functions related to creating NavBars in shiny. See
- \link{menuBar} for updated functions.
+ \link{bsMenuBar} for updated functions.
 }
 \details{
 These functions have been depreciated. I have reworked how navbars

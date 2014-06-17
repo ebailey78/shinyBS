@@ -1,3 +1,4 @@
+#'@rdname menuBarInputs
 #'@export
 bsMenuLink <- function(inputId, label, href="#", icon = NULL) {
   
@@ -20,6 +21,8 @@ bsMenuLink <- function(inputId, label, href="#", icon = NULL) {
   
 }
 
+#'@rdname menuBarInputs
+#'@export
 bsMenuToggleLink <- function(inputId, label, icon = NULL, value=FALSE) {
   
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
@@ -44,64 +47,33 @@ bsMenuToggleLink <- function(inputId, label, icon = NULL, value=FALSE) {
   
 }
 
-# Update a toggleLink object
-updateToggleLink <- function(session, inputId, label=NULL, value=NULL) {
+#'@rdname menuBarInputs
+#'@export
+updateMenuToggle <- function(session, inputId, label=NULL, value=NULL) {
   data <- dropNulls(list(label=label, value = value))
   
   session$sendInputMessage(inputId, data)
   
 }
 
-# Create a vertical divider between navbar elements
-bsMenuDivider <- function() {
+#'@rdname menuBarInputs
+#'@export
+bsMenuBarDivider <- function() {
   tags$li(class="divider-vertical")
 }
 
-# Wraps actionbutton in a li so it works with bsNavBar
-bsMenuButton <- function(inputId, label) {
-  tags$li(tags$form(class="navbar-form", actionButton(inputId, label)))
-}
-
-# Same as textInput but with label and a placeholder and optional width argument to save space
-bsMenuTextInput <- function(inputId, label, value = "", width=NULL) {
+#'@rdname menuBarInputs
+#'@export
+bsMenuDateRangeInput <- function (inputId, label, start = NULL, end = NULL, min = NULL, 
+                                  max = NULL, format = "yyyy-mm-dd", startview = "month", weekstart = 0, 
+                                  language = "en") {
   
-  style = ""
-  if(!is.null(width)) style = paste0("width: ", width, "px;")
-  
-  tags$li(tags$form(class="navbar-form", tags$input(id = inputId, style=style, type = "text", value = value, placeholder=label)))
-  
-}
-
-# dateInput element for navbars
-bsMenuDateInput <- function(inputId, label, value = NULL, min = NULL,
-                           max = NULL, format = "yyyy-mm-dd", startview = "month",
-                           weekstart = 0, language = "en", width = NULL) {
-  
-  if (inherits(value, "Date")) 
-    value <- format(value, "%Y-%m-%d")
-  if (inherits(min, "Date")) 
-    min <- format(min, "%Y-%m-%d")
-  if (inherits(max, "Date")) 
-    max <- format(max, "%Y-%m-%d")
-  
-  style = ""
-  if(!is.null(width)) style = paste0("width: ", width, "px;")
-    
-  tagList(singleton(tags$head(tags$script(src = "shared/datepicker/js/bootstrap-datepicker.min.js"), 
-                              tags$link(rel = "stylesheet", type = "text/css", href = "shared/datepicker/css/datepicker.css"))), 
-          tags$li(tags$form(id = inputId, class = "shiny-date-input navbar-form", tags$input(type = "text", style = style, class = "input-medium datepicker", placeholder = label,
-                                                                       `data-date-language` = language, `data-date-weekstart` = weekstart, 
-                                                                       `data-date-format` = format, `data-date-start-view` = startview, 
-                                                                       `data-min-date` = min, `data-max-date` = max, `data-initial-date` = value)
-                            )
-                  )
-          )
-}
-
-# Same as dateRangeInput with slight formatting modification. Would like to figure out how to remove space from between date inputs
-bsMenuDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
-                                min = NULL, max = NULL, format = "yyyy-mm-dd",
-                                startview = "month", weekstart = 0, language = "en", width=NULL) {
+  dep <- list(name = "bootstrap-datepicker", version = "1.0.2", 
+              src = structure(list(href = "shared/datepicker"), .Names = "href"), 
+              meta = NULL, script = "js/bootstrap-datepicker.min.js", 
+              stylesheet = "css/datepicker.css", 
+              head = NULL)
+  class(dep) <- "html_dependency"
   
   if (inherits(start, "Date")) 
     start <- format(start, "%Y-%m-%d")
@@ -111,29 +83,21 @@ bsMenuDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
     min <- format(min, "%Y-%m-%d")
   if (inherits(max, "Date")) 
     max <- format(max, "%Y-%m-%d")
+  st <- tags$input(size = 10,
+                   type = "text", `data-date-language` = language, `data-date-weekstart` = weekstart, 
+                   `data-date-format` = format, `data-date-start-view` = startview, 
+                   `data-min-date` = min, `data-max-date` = max, `data-initial-date` = start)
+  et <- tags$input(type = "text", style = "border-radius: 0px 4px 4px 0px; margin-left: -1px;",
+                   `data-date-language` = language, `data-date-weekstart` = weekstart, 
+                   `data-date-format` = format, `data-date-start-view` = startview, size = 10,
+                   `data-min-date` = min, `data-max-date` = max, `data-initial-date` = end)
   
-  style = ""
-  if(!is.null(width)) style = paste0("width: ", width, "px;")
+  op <- tags$li(class = "sbs-menu-wrap shiny-date-range-input input-daterange input-prepend input-append", tags$form(class = "navbar-form", tags$i(id = paste0(inputId, "_icon"), class="fa fa-calendar add-on"), st, et))
+  attr(op, "html_dependencies") <- dep
   
-  x <- label # Just a placeholder
+  label <- bsTooltip(paste0(inputId, "_icon"), label)
   
-  tagList(singleton(tags$head(tags$script(src = "shared/datepicker/js/bootstrap-datepicker.min.js"), 
-                              tags$link(rel = "stylesheet", type = "text/css", href = "shared/datepicker/css/datepicker.css"))), 
-          tags$li(tags$form(id = inputId, class = "shiny-date-range-input input-daterange navbar-form", 
-                   tags$input(class = "input-small", style = style, placeholder="Start Date",
-                              type = "text", `data-date-language` = language, 
-                              `data-date-weekstart` = weekstart, `data-date-format` = format, 
-                              `data-date-start-view` = startview, `data-min-date` = min, 
-                              `data-max-date` = max, `data-initial-date` = start), 
-                   tags$input(class = "input-small", style = style, placeholder="End Date",
-                              type = "text", `data-date-language` = language, 
-                              `data-date-weekstart` = weekstart, `data-date-format` = format, 
-                              `data-date-start-view` = startview, `data-min-date` = min, 
-                              `data-max-date` = max, `data-initial-date` = end)
-                            )
-                  )
-          )
-  
+  return(tagList(op, label))
   
 }
 
