@@ -661,7 +661,7 @@ Shiny.addCustomMessageHandler("modifynavbar",
 
 Shiny.addCustomMessageHandler("addtooltip", 
   function(data) {
-    addTooltip(id=data.id, title=data.title, placement=data.placement, trigger=data.trigger);
+    setTimeout(function() {addTooltip(id=data.id, title=data.title, placement=data.placement, trigger=data.trigger);}, 100);
   }
 );
 
@@ -673,7 +673,7 @@ Shiny.addCustomMessageHandler("removetooltip",
 
 Shiny.addCustomMessageHandler("addpopover",
   function(data) {
-    addPopover(id=data.id, title=data.title, content=data.content, placement=data.placement, trigger=data.trigger);
+    setTimeout(function() {addPopover(id=data.id, title=data.title, content=data.content, placement=data.placement, trigger=data.trigger);}, 100)
     
   }
 );

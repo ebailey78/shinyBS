@@ -3,6 +3,13 @@ bsMenuGroup <- function(groupId) {
   singleton(tags$span(id = groupId, class = "sbs-menu-group"))
 }
 
+#'@export
+updateMenuGroup <- function(session, groupId, value = NULL) {
+  if(!is.null(value)) {
+    session$sendInputMessage(groupId, list(value = value))
+  }
+}
+
 #'@rdname MenuItems
 #'@export
 bsMenuDivider <- function() {
@@ -14,4 +21,8 @@ bsMenuHeader <- function(label) {
   tags$li(class = "nav-header sbs-menu-header", label)
 }
 
-
+bsMenuItemGroup <- function(...) {
+  
+  
+  
+}

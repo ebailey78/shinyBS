@@ -45,8 +45,8 @@ shinyUI(basicPage(
             bsMenuWrap(bsTypeAhead("testestest", "TypeAhead", choices = list("cat", "dog's", "mouse's", "chicken")), width = 10, icon = "globe"),
             bsMenuDateRangeInput("tteesstt", "Date Range Input")
   ),
-  plotOutput("chart1"),
   textOutput("testing"),
+  plotOutput("chart1"),
   bsMenu("popup1", type = "popup", target = "chart1",
          bsMenu("plot_type", type = "submenu", label = "Plot Type",
                 bsMenuItem("pt_plot", type = "radio", group = "ptype", value = "plot", label = "Scatterplot"),

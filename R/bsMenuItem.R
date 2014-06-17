@@ -47,56 +47,50 @@
 bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NULL, 
                        disabled = FALSE, checked = FALSE, group = NULL) {
   
+  # A couple of checks to make sure menu item will render correctly
   if(is.null(group) & type == "radio") stop("Radio menu items must include a group name.")
+  if(type %in% c("radio", "command", "checkbox") == FALSE) stop("type must be equal to 'radio', 'checkbox', or 'command'.")
   
-  if(missing(inputId)) inputId <- paste0("menuitem", as.integer(runif(1, 1, 1000000)))
+  # So jQuery will recognize the boolean
+  checked <- tolower(as.character(checked))
   
+  # If label isn't a shiny tag, convert to HTML...
   if(!inherits(label, "shiny.tag")) label <- HTML(label)
-  
+  # ... and wrap the result in a span so it can be updated if necessary
   label <- tags$span(class="sbs-menu-label", label)
   
+  # Build the left icon
   i <- tags$i(class = "fa fa-fw left-icon")
-  
-  itemClass <- "sbs-menu-item"
-  
   if(type == "radio") {
-    itemClass <- paste(itemClass, "sbs-menu-radio")
     if(checked) {
       icon <- "fa-dot-circle-o"
-      itemClass <- paste(itemClass, "sbs-menu-checked")
     } else {
       icon <- "fa-circle-o"
     }
   } else if(type == "checkbox") {
-    itemClass <- paste(itemClass, "sbs-menu-checkbox")
     if(checked) {
       icon <- "fa-check-square-o"
-      itemClass <- paste(itemClass, "sbs-menu-checked")
     } else {
       icon <- "fa-square-o"
     }
-  } else {
-    itemClass <- "sbs-menu-item sbs-menu-command"
   }
-  
   if(!is.null(icon)) {
-    if(!is.null(icon)) {
-      # Prepends 'fa-' to the icon name, if it isn't already there.
-      if(substr(icon, 1, 3) != "fa-") {
-        icon <- paste0("fa-", icon)  
-      }
-      i <- tagAddClass(i, icon)
+    # Prepends 'fa-' to the icon name, if it isn't already there.
+    if(substr(icon, 1, 3) != "fa-") {
+      icon <- paste0("fa-", icon)  
     }
+    i <- tagAddClass(i, icon)
   }
   
-  item <- tags$li(id = inputId, class = itemClass, tags$a(href = "#", i, label))
+  item <- tags$li(id = inputId, class = "sbs-menu-item", "data-menu-type" = type, tags$a(href = "#", i, label))
   
+  if(type != "command") item <- tagAddAttribs(item, "data-menu-checked" = checked)
   if(!is.null(value)) item <- tagAddAttribs(item, "data-menu-value" = value)
   
   if(disabled) item <- tagAddClass(item, "disabled")
   
   if(!is.null(group) & (type == "radio" | type == "checkbox")) {
-    item <- tagAddAttribs(item, "data-group" = group)
+    item <- tagAddAttribs(item, "data-menu-group" = group)
     item <- tagList(bsMenuGroup(group), item)
   }
   
@@ -107,14 +101,14 @@ bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NU
 #'@rdname MenuItems
 #'@export
 updateMenuItem <- function(session, inputId, label = NULL, icon = NULL, 
-                           value = NULL, disabled = NULL) {
+                           value = NULL, checked = NULL, disabled = NULL) {
   
   if(!is.null(icon))
     if(substr(icon,1,3) != "fa-")
       icon <- paste0("fa-", icon)
   
-  data <- dropNulls(list(label = label, icon = icon, 
-                         value = value, disabled = disabled))
+  data <- dropNulls(list(label = label, icon = icon, value = value, 
+                         checked = checked, disabled = disabled))
   session$sendInputMessage(inputId, data)
   
 }

@@ -21,6 +21,11 @@
 #'@param startview See \link{dateRangeInput}
 #'@param weekstart See \link{dateRangeInput}
 #'@param language See \link{dateRangeInput}
+#'@param href If provided, bsMenuLink will act as a regular html link to the
+#'  provided address
+#'@param value The value to assign to the toggle link, TRUE or FALSE
+#'@param session The \code{session} object passed to function given to 
+#'  \code{shinyServer}
 #'  
 #'@details Use \code{bsMenuWrapper} to format standard shiny inputs to fit 
 #'  better within a menu bar. Only works for text-based inputs (e.g. 
@@ -33,7 +38,7 @@
 #'  look better when wrapped in a \code{form} tag. if \code{form} isn't 
 #'  specified, \code{bsMenuWrap} attempts to determine if the input should be 
 #'  wrapped in a \code{form}. If an input is not rendering correctly try setting
-#'  \code{form} to \code{TRUE} or \code{FALSE}. Even if this fixes it, please
+#'  \code{form} to \code{TRUE} or \code{FALSE}. Even if this fixes it, please 
 #'  file a bug report or send me an email so I fix the problem for others.
 #'@note Run \code{bsDemo("menubar")} for a live examples of shinyBS menubar 
 #'  functionality.

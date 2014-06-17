@@ -12,7 +12,7 @@ bsMenuItem(inputId, label, type = "command", value = NULL, icon = NULL,
   disabled = FALSE, checked = FALSE, group = NULL)
 
 updateMenuItem(session, inputId, label = NULL, icon = NULL, value = NULL,
-  disabled = NULL)
+  checked = NULL, disabled = NULL)
 
 clickMenuItem(session, inputId)
 

@@ -55,6 +55,14 @@ icon to attach to the input}
 \item{weekstart}{See \link{dateRangeInput}}
 
 \item{language}{See \link{dateRangeInput}}
+
+\item{href}{If provided, bsMenuLink will act as a regular html link to the
+provided address}
+
+\item{value}{The value to assign to the toggle link, TRUE or FALSE}
+
+\item{session}{The \code{session} object passed to function given to
+ \code{shinyServer}}
 }
 \description{
 Function to create specially formatted inputs for shinyBS menu
