@@ -1,6 +1,59 @@
 #This isn't used by the user, only used as an anchor for group ids.
-bsMenuGroup <- function(groupId) {
+bsMenuGroupTag <- function(groupId) {
   singleton(tags$span(id = groupId, class = "sbs-menu-group"))
+}
+
+#'@export
+bsMenuGroup <- function(groupId, groupType = "radio", itemIds, labels, values, 
+                        disabled = FALSE, checked = NULL) {
+  
+  l <- length(itemIds)
+  if(l == 1) {
+    itemIds <- paste(itemIds, seq(length(labels)))
+  } else if(l != length(labels)) {
+    stop("There must be the same number of itemIds as labels")
+  } else if(length(unique(itemIds)) != l) {
+    stop("Each itemId must be unique.")
+  }
+  l <- length(itemIds)  
+  
+  if(missing(values)) {
+    values <- rep(NULL, l)
+  } else if(length(values) != l) {
+    stop("If values is provided, it must be the same length as other inputs.")
+  }
+  
+  if(length(disabled) == 1) {
+    disabled = rep(disabled, l)
+  } else if(length(disabled) != l) {
+    stop("If disabled is provided, it must be a single value or a vector the same length as other inputs.")
+  }
+  
+  if(groupType != "radio" & groupType != "checkbox") {
+    groupType = "checkbox"
+    warning("Unrecognized groupType, using checkbox")
+  }
+  
+  if(!missing(checked)) {
+    if(!(checked %in% itemIds)) {
+      warning("checked value not found in list of inputIds")
+      checked = NULL
+    }
+  }
+  
+  tl <- lapply(seq(length(itemIds)), function(i) {
+    
+    x <- paste0("bsMenuItem(inputId = '", itemIds[i], "', label = '", labels[i], "',
+                type = '", groupType, "', value = '", values[i], "', group = '", groupId, "'")
+    if(itemIds[i] %in% checked) x <- paste0(x, ", checked = TRUE")
+    x <- paste0(x, ", disabled = ", disabled[i])
+    x <- paste0(x, ")")
+    return(eval(parse(text = x)))    
+    
+  })
+  
+  return(tagList(tl))
+  
 }
 
 #'@export
@@ -19,6 +72,15 @@ bsMenuDivider <- function() {
 #'@export
 bsMenuHeader <- function(label) {
   tags$li(class = "nav-header sbs-menu-header", label)
+}
+
+#'@export
+pageWithMenuBar <- function(title = "", navbar, mainContent) {
+  
+  basicPage(tags$head(tags$title(title)),
+            navbar,
+            mainContent)
+  
 }
 
 #'@export

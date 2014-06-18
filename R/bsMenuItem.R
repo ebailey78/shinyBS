@@ -91,7 +91,7 @@ bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NU
   
   if(!is.null(group) & (type == "radio" | type == "checkbox")) {
     item <- tagAddAttribs(item, "data-menu-group" = group)
-    item <- tagList(bsMenuGroup(group), item)
+    item <- tagList(bsMenuGroupTag(group), item)
   }
   
   return(item)
