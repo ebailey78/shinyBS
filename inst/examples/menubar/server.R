@@ -47,5 +47,5 @@ shinyServer(function(input, output, session) {
     eval(parse(text = paste0(input$ptype, "(data(), col = '", input$clr, "', main = '", input$plot_title, "')")))
     if(input$rug == TRUE) rug(data())}, width = 700)
   
-  output$testing <- renderText({input$cmd1})
+  output$testing <- renderText({input$rad_1})
 })

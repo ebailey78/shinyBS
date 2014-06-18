@@ -20,17 +20,10 @@ $.extend(shinyMenu.bindings.commandBinding, {
   },
   subscribe: function(el, callback) {
     var $el = $(el);
-    var obj = this;
     $el.on("click.sbs-menu", function(e) {
       if($el.hasClass("disabled") == false) {
-        obj.updateValue($el);
-        $el.trigger("menuUpdate.sbs-menu");
-      }
-    })
-    $el.on("menuUpdate.sbs-menu", function(e) {
-      callback();
-      if($el[0].hasAttribute("data-menu-group") == true) {
-        $("#" + $el.data("menu-group")).trigger("menuUpdate.sbs-menu");
+        $el.data("menu-checked", $el.data("menu-checked") + 1);
+        callback();
       }
     })
   },
@@ -58,10 +51,6 @@ $.extend(shinyMenu.bindings.commandBinding, {
   },
   initialize: function(el) {
     $(el).data("menu-checked", 0);
-  },
-  updateValue: function($el) {
-    var val = $el.data("menu-checked");
-    $el.data("menu-checked", val + 1);
   }
 });
 Shiny.inputBindings.register(shinyMenu.bindings.commandBinding);
@@ -71,25 +60,30 @@ Binding for menu checkbox links. These work just like checkbox inputs but are fo
 shinyBS menus. This binding reuses as much as it can from the command link
 binding.
 */
-var shinyMenu.bindings.checkboxBinding = new Shiny.InputBinding();
+shinyMenu.bindings.checkboxBinding = new Shiny.InputBinding();
 $.extend(shinyMenu.bindings.checkboxBinding, shinyMenu.bindings.commandBinding, {
   find: function(scope) {
     return $(scope).find("li.sbs-menu-item[data-menu-type = 'checkbox']");
   },
   initialize: function(el) {
-    $(el).data("menu-checked", $(el).data("menu-checked"))
+    var $el = $(el);
+    $el.on("menu-update.sbs-menu", function(e) {
+      $el.find("i.left-icon")
+        .toggleClass("fa-check-square-o", $el.data("menu-checked"))
+        .toggleClass("fa-square-o", !$el.data("menu-checked"))
+    });
   },
-  updateValue: function($el) {
-    var val = !$el.data("menu-checked");
-    $el.data("menu-checked", val);
-    $el.find("i.left-icon")
-      .toggleClass("fa-check-square-o", val)
-      .toggleClass("fa-square-o", !val);
+  subscribe: function(el, callback) {
+    var $el = $(el);
+    $el.on("click.sbs-menu", function(e) {
+      $el.data("menu-checked", !el.data("menu-checked"))
+      $el.trigger("menu-update.sbs-menu");
+    })
   }
 });
 Shiny.inputBindings.register(shinyMenu.bindings.checkboxBinding);
 
-var shinyMenu.bindings.radioBinding = new Shiny.InputBinding();
+shinyMenu.bindings.radioBinding = new Shiny.InputBinding();
 $.extend(shinyMenu.bindings.radioBinding, shinyMenu.bindings.checkboxBinding, {
   find: function(scope) {
     return $(scope).find("li.sbs-menu-item[data-menu-type = 'radio']");
@@ -107,6 +101,9 @@ $.extend(shinyMenu.bindings.radioBinding, shinyMenu.bindings.checkboxBinding, {
             .removeClass("fa-circle-o")
             .addClass("fa-dot-circle-o");     
     }
+    $el.on("menu-update.sbs-menu", function(e) {
+      
+    })
   },
   updateValue: function($el) {
     var grpname = $el.data("menu-group");
@@ -312,5 +309,10 @@ $.extend(shinyPopupMenuBinding, {
   }
 });
 Shiny.inputBindings.register(shinyPopupMenuBinding);
+
+shinyMenu.setCommandValue = function(el) {
+  var $el = $(el);
+  $el.data("menu-checked", $el.data("menu-checked") + 1);
+}
 
 /**/
