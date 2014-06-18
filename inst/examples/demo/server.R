@@ -353,7 +353,15 @@ paste0("  observe({
 
 ###### CODE TO CONTROL TABLES DEMO #####
   
-  output$htTable <- renderTable({
+#   observe({
+#     tableData()
+#     invalidateLater(100, session)
+#     highlightCells(session, 'htTable', class = "error", min = 5, max = 10)
+#   })
+
+  tableData <- reactive({
+    
+    input$htData
     
     d <- as.integer(runif(84, 0, 20))
     
@@ -366,6 +374,10 @@ paste0("  observe({
     
     return(df)
     
+  })
+
+  output$htTable <- renderTable({
+    tableData()    
   })
 
   output$htUICode <- renderText({baseUI("\ttags$p(style = \"font-weight: bold; text-align: center;\", \"2013 Sales Figures\")\n\ttableOutput('htTable')\n")})

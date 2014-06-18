@@ -1,3 +1,4 @@
+#'@export
 highlightCells <- function(session, id, min = NULL, max = NULL, regex = NULL, column = NULL,
                            class = NULL, style = NULL, reset = NULL, skip.row.names = TRUE) {
   
@@ -8,6 +9,7 @@ highlightCells <- function(session, id, min = NULL, max = NULL, regex = NULL, co
   
 }
 
+#'@export
 highlightRows <- function(session, id, column, min=NULL, max=NULL, regex = NULL,
                           class = NULL, style = NULL, reset = NULL) {
   

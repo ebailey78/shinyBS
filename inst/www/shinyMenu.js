@@ -36,8 +36,12 @@ $.extend(shinyMenu.bindings.commandBinding, {
       $el.toggleClass("disabled", data.disabled)
     }
     if(data.hasOwnProperty("value")) {
-      $el.data("menu-checked", data.value)
-      $el.trigger("menuUpdate.sbs-menu");
+      $el.data("menu-value", data.value)
+      $el.trigger("menu-update.sbs-menu");
+    }
+    if(data.hasOwnProperty("checked")) {
+      $el.data("menu-checked", data.checked)
+      $el.trigger("menu-update.sbs-menu")
     }
     if(data.hasOwnProperty("click")) {
       $el.trigger("click.sbs-menu");
@@ -67,18 +71,23 @@ $.extend(shinyMenu.bindings.checkboxBinding, shinyMenu.bindings.commandBinding, 
   },
   initialize: function(el) {
     var $el = $(el);
-    $el.on("menu-update.sbs-menu", function(e) {
-      $el.find("i.left-icon")
-        .toggleClass("fa-check-square-o", $el.data("menu-checked"))
-        .toggleClass("fa-square-o", !$el.data("menu-checked"))
-    });
   },
   subscribe: function(el, callback) {
     var $el = $(el);
     $el.on("click.sbs-menu", function(e) {
-      $el.data("menu-checked", !el.data("menu-checked"))
+      $el.data("menu-checked", !$el.data("menu-checked"))
       $el.trigger("menu-update.sbs-menu");
-    })
+    });
+    
+    $el.on("menu-update.sbs-menu", function(e) {
+      $el.find("i.left-icon")
+        .toggleClass("fa-check-square-o", $el.data("menu-checked"))
+        .toggleClass("fa-square-o", !$el.data("menu-checked"))
+      callback();
+      if($el.data("menu-group") !== undefined) {
+        $("span#" + $el.data("menu-group")).trigger("menu-update.sbs-menu");
+      }
+    });
   }
 });
 Shiny.inputBindings.register(shinyMenu.bindings.checkboxBinding);
@@ -88,57 +97,75 @@ $.extend(shinyMenu.bindings.radioBinding, shinyMenu.bindings.checkboxBinding, {
   find: function(scope) {
     return $(scope).find("li.sbs-menu-item[data-menu-type = 'radio']");
   },
+  subscribe: function(el, callback) {
+    var $el = $(el);
+    $el.on("click.sbs-menu", function(e) {
+      if(!$el.hasClass("disabled")) {
+        if(!$el.data("menu-checked")) {
+          $el.data("menu-checked", true);
+          $el.trigger("menu-update.sbs-menu");
+        }
+      }
+    });
+    $el.on("menu-update.sbs-menu", function(e) {
+      
+      //Find all radio menu items in the group
+      var $grp = $("li.sbs-menu-item[data-menu-group = '" + $el.data("menu-group") + "']")
+      
+      // Filter out the selected element and set the rest to false
+      $grp.filter(function() {
+          return $(this).attr("id") != $el.attr("id");      
+      }).data("menu-checked", false)
+        .find("i.left-icon")
+          .removeClass("fa-dot-circle-o")
+          .addClass("fa-circle-o");
+      
+      // Change $el icon to 'checked'
+      $el.find("i.left-icon")
+        .addClass("fa-dot-circle-o")
+        .removeClass("fa-circle-o");
+      
+      // Trigger a callback for all elements in the group
+      $grp.trigger("menu-callback.sbs-menu");
+      
+      // Trigger an update of the menu-group as well.
+      $("span#" + $el.data("menu-group")).trigger("menu-update.sbs-menu");
+      
+    });
+    $el.on("menu-callback.sbs-menu", function(e) {
+      callback();
+    })
+  },
   initialize: function(el) {
     var $el = $(el);
     var grpname = $el.data("menu-group");
-    // Radio groups must have one option selected by default, it not, this will select the first one encountered, by default
-    var $act = $("li.sbs-menu-item[data-menu-group = '" + grpname + "']").filter(function() {
-      return $(this).data("menu-checked");
-    });
+    // Radio groups must have one option selected by default, it not, this will 
+    // select the first one encountered, by default
+    var $act = $("li.sbs-menu-item[data-menu-group = '" + grpname + "']")
+      .filter(function() {
+        return $(this).data("menu-checked");
+      });
     if($act.length == 0) {
         $el.data("menu-checked", true)
           .find("i.left-icon")
             .removeClass("fa-circle-o")
             .addClass("fa-dot-circle-o");     
     }
-    $el.on("menu-update.sbs-menu", function(e) {
-      
-    })
-  },
-  updateValue: function($el) {
-    var grpname = $el.data("menu-group");
-    var $act = $("li.sbs-menu-item[data-menu-group = '" + grpname + "']").filter(function() {
-      return $(this).data("menu-checked")
-    })
-    if($act.length > 0) {
-      if($el.attr("id") != $act.attr("id")) {
-        $act.data("menu-checked", false)
-          .find("i.left-icon")
-            .removeClass("fa-dot-circle-o")
-            .addClass("fa-circle-o");
-        $act.trigger("menuUpdate.sbs-menu");
-        
-        $el.data("menu-checked", true)
-          .find("i.left-icon")
-            .removeClass("fa-circle-o")
-            .addClass("fa-dot-circle-o");     
-      }   
-    }
   }
 });
 Shiny.inputBindings.register(shinyMenu.bindings.radioBinding);
 
-var shinyMenuGroupBinding = new Shiny.InputBinding();
-$.extend(shinyMenuGroupBinding, {
+shinyMenu.bindings.groupBinding = new Shiny.InputBinding();
+$.extend(shinyMenu.bindings.groupBinding, {
   find: function(scope) {
     return $(scope).find("span.sbs-menu-group")
   },
   getValue: function(el) {
     var $el = $(el);
-    var $grp = $.find("li.sbs-menu-item[data-menu-group = '" + $el.attr("id") + "']")
+    var $grp = $("li.sbs-menu-item[data-menu-group = '" + $el.attr("id") + "']")
     var val = [];
-    $.each($grp, function(i, v) {
-      var $v = $(v);
+    $grp.each(function(i) {
+      var $v = $(this);
       if($v.data("menu-checked") == true) {
         if($v.data("menu-value") === undefined) {
           val.push($v.attr("id"));
@@ -150,7 +177,7 @@ $.extend(shinyMenuGroupBinding, {
     return val;
   },
   subscribe: function(el, callback) {
-    $(el).on("menuUpdate.sbs-menu", function() {
+    $(el).on("menu-update.sbs-menu", function() {
         callback();
     });
   },
@@ -161,21 +188,21 @@ $.extend(shinyMenuGroupBinding, {
     if(data.hasOwnProperty("value")) {
       var $grp = $("li.sbs-menu-item[data-menu-group = '" + $(el).attr("id") + "']")
       if(data.value instanceof Array) {
-        $.each($grp, function(i, v) {
-          var $v = $(v);
+        $grp.each(function(i) {
+          var $v = $(this);
           if(data.value.indexOf($v.data("menu-value")) != -1 || data.value.indexOf($v.attr("id")) != -1) {
-            $v.data("menu-checked", true).trigger("click.sbs-menu");
+            $v.data("menu-checked", true).trigger("menu-update.sbs-menu");
           }
         })
       } else {
         $grp.filter(function() {
           return $(this).data("menu-value") == data.value | $(this).attr("id") == data.value
-        }).data("menu-checked", true).trigger("click.sbs-menu");
+        }).data("menu-checked", true).trigger("menu-update.sbs-menu");
       }
     }
   }
 });
-Shiny.inputBindings.register(shinyMenuGroupBinding);
+Shiny.inputBindings.register(shinyMenu.bindings.groupBinding);
 
 /*
 var shinyToolbarMenuBinding = new Shiny.InputBinding();

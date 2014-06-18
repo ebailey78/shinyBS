@@ -3,49 +3,35 @@ library(shinyBS)
 
 shinyServer(function(input, output, session) {
   
-  values <- reactiveValues()
+  values <- reactiveValues(test = "")
   
-  observe({
-    if(input$dis %% 2 == 0) {
-      updateMenuItem(session, "cmd1", disabled = FALSE)
-    } else {
-      updateMenuItem(session, "cmd1", disabled = TRUE)
-    }
-    if(input$dis > 0) {
-      updateMenuItem(session, "cmd1", icon = "globe", label = "I'm a globe!")
-      clickMenuItem(session, "rad3")
-    }
-  })
-  
-  observe({
-    input$new_data
-    updateMenuGroup(session, "rad_1", "boo")
-  })
-  
-  observe({
-    val <- input$dtype
-    print(val)
-    updateMenuItem(session, "sdtype", value = TRUE)
-    isolate(values$dist <- val)
-  })
-  
-  observe({
-    val <- input$sdtype
-    print(val)
-    updateMenuItem(session, "dtype", value = TRUE)
-    isolate(values$dist <- val)
+  test <- observe({
+    if(input$test_but > 0)
+      updateMenuItem(session, "rug1", checked = TRUE)
   })
   
   data <- reactive({
-    input$cmd2
-    input$po_nd
-    eval(parse(text = paste0(values$dist, "(1000)")))
+    input$nd1
+    input$nd2
+    input$new_data
+    cnt <- input$sample_size
+    if(!is.numeric(cnt)) cnt <- 1000
+    eval(parse(text = paste0(menuGroups$dist, "(", cnt, ")")))
   })
   
-  output$chart1 <- renderPlot({
-    print(input$ptype)
-    eval(parse(text = paste0(input$ptype, "(data(), col = '", input$clr, "', main = '", input$plot_title, "')")))
-    if(input$rug == TRUE) rug(data())}, width = 700)
+  bsMenuItemGroup("dist", "dtype1", "dtype2", group = TRUE)
+  bsMenuItemGroup("plot", "ptype1", "ptype2", group = TRUE)
+  bsMenuItemGroup("color", "clr1", "clr2", group = TRUE)
+  bsMenuItemGroup("rug", "rug1", "rug2")
   
-  output$testing <- renderText({input$rad_1})
+  output$chart1 <- renderPlot({
+    isolate(values$test <- paste(values$test, "1"))
+    col <- "red"
+    plot <- "hist"
+    eval(parse(text = paste0(menuGroups$plot, "(data(), col = '", menuGroups$color, "', main = '", input$plot_title, "')")))
+    if(menuGroups$rug == TRUE) rug(data())
+  }, width = 700)
+  
+#  output$testing <- renderText({values$test})
+  
 })

@@ -107,6 +107,8 @@ updateMenuItem <- function(session, inputId, label = NULL, icon = NULL,
     if(substr(icon,1,3) != "fa-")
       icon <- paste0("fa-", icon)
   
+#  if(!is.null(checked)) checked = tolower(as.character(checked))
+  
   data <- dropNulls(list(label = label, icon = icon, value = value, 
                          checked = checked, disabled = disabled))
   session$sendInputMessage(inputId, data)
