@@ -29,18 +29,29 @@ bsDemo()
 
 ### What's New
 
-#### Version 0.25 (working version)
+#### Version 0.30 (working version)
 
-* **bsNavDropDown**
-  * You can now create submenus inside a drop down by making a including lists inside your choices argument list. The submenus are built recursively so theoretically submenus can go as deep as you want
-  * You can create headers and dividers in your menus by include `NA`'s in you choices list, a named `NA` will become a header and an unnamed `NA` will become a divider.
-  * You can create dropdowns with media objects as their options. This is done with the `bsMedia()` function. 
-  * I am working on a bsNavDemo() example that will better explain changes to dropdowns.
+* **bsMenus**
+    * Completely reworked how navbars are implemented. As a result, all the `bsNav` functions have been depreciated and replaced with functions that start with `bsMenu`.
+      + `bsMenu()` - creates three different types of menus:
+        * toolbar - similar to `bsNavDropdown()`, creates top-level menus in a navbar
+        * submenu - creates submenus in an existing toolbar or popup menu
+        * popup - creates a contextual popup menu that appears when you right-click on an ui element
+      + `bsMenuItem()` - creates three different types of menu elements:
+        * command - the equivilent of an `actionButton`.
+        * checkbox - the equivilent of a `checkboxInput`.
+        * radio - the equivilent of a `radioInput`. Provided multiple radio elements the same `group` attribute to link them together.
+      + `bsMenuWrap()` - A wrapper for any text-like inputs (e.g., `textInput()`, `numericInput()`, or `bsTypeAhead()`) or buttons that format them to work better within navbars. This replaces the individual functions that existed in the `bsNav` scheme. Only `bsMenuDateRangeInput()` remains as a stand-alone function for menubar inputs
+      + `bsMenuGroup()` - A convenience function that allows you to create many `bsMenuItem()` elements at once.
+      + `bsMenuItemGroup()` - A function that ties multiple menu elements together so that changing one automatically changes the others. This is so that you can have access to the same functionality in multiple locations (e.g., being able to add a trend line to a graph from a navbar menu or from a contextual popup menu.)
+      + `bsMenuDivider()` - adds a horizontal dividing line to a menu to help organize elements.
+      + `bsMenuHeader()` - adds a non-clickable heading to a menu, again, for organizational purposes.
 * **bsModal**
-  * You can now create modal windows with the `bsModal()` function. These are trigger from a button or link and can contain any combination of inputs, outputs, or standard html.
-* **Table Highlighting**
-  * Per Request: highlightCells() now accepts a `column` argument which limits cell highlighting to that column.
-
+    * You can now create modal windows with the `bsModal()` function. These are trigger from a button or link and can contain any combination of inputs, outputs, or standard html.
+* **Bug Fixes/Requested Changes**
+    * **Table Highlighting**
+    * Per Request: highlightCells() now accepts a `column` argument which limits cell highlighting to that column.
+ 
 #### Version 0.20 (released: 2014-03-19)
 
 * **pageWithNavBar**
