@@ -48,6 +48,8 @@ bsDemo()
       + `bsMenuHeader()` - adds a non-clickable heading to a menu, again, for organizational purposes.
 * **bsModal**
     * You can now create modal windows with the `bsModal()` function. These are trigger from a button or link and can contain any combination of inputs, outputs, or standard html.
+* **Alerts**
+    * Added a check so that if an alert already exists with the same alertId as an alert you are trying to create, the new alert isn't created.
 * **Bug Fixes/Requested Changes**
     * **Table Highlighting**
     * Per Request: highlightCells() now accepts a `column` argument which limits cell highlighting to that column.

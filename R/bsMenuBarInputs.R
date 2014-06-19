@@ -83,16 +83,16 @@ bsMenuDateRangeInput <- function (inputId, label, start = NULL, end = NULL, min 
     min <- format(min, "%Y-%m-%d")
   if (inherits(max, "Date")) 
     max <- format(max, "%Y-%m-%d")
-  st <- tags$input(size = 10,
+  st <- tags$input(size = 8, class = "input-small",
                    type = "text", `data-date-language` = language, `data-date-weekstart` = weekstart, 
                    `data-date-format` = format, `data-date-start-view` = startview, 
                    `data-min-date` = min, `data-max-date` = max, `data-initial-date` = start)
-  et <- tags$input(type = "text", style = "border-radius: 0px 4px 4px 0px; margin-left: -1px;",
+  et <- tags$input(type = "text", class = "input-small", style = "border-radius: 0px 4px 4px 0px; margin-left: -1px;",
                    `data-date-language` = language, `data-date-weekstart` = weekstart, 
-                   `data-date-format` = format, `data-date-start-view` = startview, size = 10,
+                   `data-date-format` = format, `data-date-start-view` = startview, size = 8,
                    `data-min-date` = min, `data-max-date` = max, `data-initial-date` = end)
   
-  op <- tags$li(class = "sbs-menu-wrap shiny-date-range-input input-daterange input-prepend input-append", tags$form(class = "navbar-form", tags$i(id = paste0(inputId, "_icon"), class="fa fa-calendar add-on"), st, et))
+  op <- tags$li(id = inputId, class = "sbs-menu-wrap shiny-date-range-input input-daterange input-prepend input-append", tags$form(class = "navbar-form", tags$i(id = paste0(inputId, "_icon"), class="fa fa-calendar add-on"), st, et))
   attr(op, "html_dependencies") <- dep
   
   label <- bsTooltip(paste0(inputId, "_icon"), label)

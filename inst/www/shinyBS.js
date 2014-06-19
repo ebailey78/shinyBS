@@ -565,45 +565,51 @@ function updateButtonStyle(el, data) {
 }
 
 
-//New Customg Message Handlers
+//New Custom Message Handlers
 
 Shiny.addCustomMessageHandler("createalert",
   function(data) {
-
-    var cl = "alert";
-    if(data.hasOwnProperty('type')) {
-      cl = cl+" alert-"+data.type;
-    };
-    if(data.hasOwnProperty('block')) {
-      if(data.block == true) {
-        cl = cl+" alert-block";
+    if(data.hasOwnProperty("alertId")) {
+      var t = $("#" + data.alertId).length;
+    } else {
+      var t = 0;
+    }
+    
+    if(t == 0) {
+      var cl = "alert";
+      if(data.hasOwnProperty('type')) {
+        cl = cl+" alert-"+data.type;
+      };
+      if(data.hasOwnProperty('block')) {
+        if(data.block == true) {
+          cl = cl+" alert-block";
+        }
+      }
+      
+      al = "<div class='"+cl+"'"
+      
+      if(data.hasOwnProperty('alertId')) {
+        al = al + " id=" + data.alertId
+      }
+      
+      al = al+">"
+      
+      if(data.dismiss == true) {
+        al = al+"<button type='button' class='close' data-dismiss='alert'>&times;</button>";
+      }
+      
+      if(data.hasOwnProperty('title')) {
+        al = al+"<h4>"+data.title+"</h4>";
+      }
+      
+      al = al + data.message + "</div>";
+      
+      if(data.append == true) {
+        $(al).appendTo("#"+data.id);
+      } else {
+        $("#"+data.id).html(al);
       }
     }
-    
-    al = "<div class='"+cl+"'"
-    
-    if(data.hasOwnProperty('alertId')) {
-      al = al + " id=" + data.alertId
-    }
-    
-    al = al+">"
-    
-    if(data.dismiss == true) {
-      al = al+"<button type='button' class='close' data-dismiss='alert'>&times;</button>";
-    }
-    
-    if(data.hasOwnProperty('title')) {
-      al = al+"<h4>"+data.title+"</h4>";
-    }
-    
-    al = al + data.message + "</div>";
-    
-    if(data.append == true) {
-      $(al).appendTo("#"+data.id);
-    } else {
-      $("#"+data.id).html(al);
-    }
-    
   }
 );
 

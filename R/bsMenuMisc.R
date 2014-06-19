@@ -43,8 +43,7 @@ bsMenuGroup <- function(groupId, groupType = "radio", itemIds, labels, values,
   
   tl <- lapply(seq(length(itemIds)), function(i) {
     
-    x <- paste0("bsMenuItem(inputId = '", itemIds[i], "', label = '", labels[i], "',
-                type = '", groupType, "', value = '", values[i], "', group = '", groupId, "'")
+    x <- paste0("bsMenuItem(inputId =  itemIds[i], label = labels[i], type = groupType, value = values[i], group = groupId")
     if(itemIds[i] %in% checked) x <- paste0(x, ", checked = TRUE")
     x <- paste0(x, ", disabled = ", disabled[i])
     x <- paste0(x, ")")
