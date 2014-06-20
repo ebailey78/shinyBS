@@ -66,7 +66,7 @@ bsMenuBarDivider <- function() {
 #'@export
 bsMenuDateRangeInput <- function (inputId, label, start = NULL, end = NULL, min = NULL, 
                                   max = NULL, format = "yyyy-mm-dd", startview = "month", weekstart = 0, 
-                                  language = "en") {
+                                  language = "en", presets) {
   
   dep <- list(name = "bootstrap-datepicker", version = "1.0.2", 
               src = structure(list(href = "shared/datepicker"), .Names = "href"), 
@@ -83,7 +83,7 @@ bsMenuDateRangeInput <- function (inputId, label, start = NULL, end = NULL, min 
     min <- format(min, "%Y-%m-%d")
   if (inherits(max, "Date")) 
     max <- format(max, "%Y-%m-%d")
-  st <- tags$input(size = 8, class = "input-small",
+  st <- tags$input(size = 8, class = "input-small", 
                    type = "text", `data-date-language` = language, `data-date-weekstart` = weekstart, 
                    `data-date-format` = format, `data-date-start-view` = startview, 
                    `data-min-date` = min, `data-max-date` = max, `data-initial-date` = start)
@@ -92,7 +92,31 @@ bsMenuDateRangeInput <- function (inputId, label, start = NULL, end = NULL, min 
                    `data-date-format` = format, `data-date-start-view` = startview, size = 8,
                    `data-min-date` = min, `data-max-date` = max, `data-initial-date` = end)
   
-  op <- tags$li(id = inputId, class = "sbs-menu-wrap shiny-date-range-input input-daterange input-prepend input-append", tags$form(class = "navbar-form", tags$i(id = paste0(inputId, "_icon"), class="fa fa-calendar add-on"), st, et))
+  if(!missing(presets)) {
+    
+    opts <- tags$ul(class = "dropdown-menu", role = "menu", 
+                    lapply(seq(length(presets)), function(i) {
+                      v <- paste0('["',paste0(presets[[i]], collapse = '","'),'"]')
+                      tags$li(class = "date-range-preset", "data-target" = inputId, "data-value" = v, tags$a("tab-index" = "-1", href = "#", names(presets)[i]))
+                    })
+            )
+    
+    btn <- tags$button(class = "btn dropdown-toggle ",
+                       type = "button", "data-toggle" = "dropdown", style = "margin-top: 5px;",
+                       tags$i(id = paste0(inputId, "_icon"), class="fa fa-calendar")
+    )
+    
+    op <- tags$li(id = inputId, class = "sbs-menu-wrap shiny-date-range-input input-daterange input-prepend input-append",
+                  tags$form(class="navbar-form",
+                            tags$div(class="btn-group date-range-presets", id = paste0(inputId, "_presets"), btn, opts),
+                            st, et
+                  )
+    )
+    
+  } else {
+    op <- tags$li(id = inputId, class = "sbs-menu-wrap shiny-date-range-input input-daterange input-prepend input-append", tags$form(class = "navbar-form", tags$i(id = paste0(inputId, "_icon"), class="fa fa-calendar add-on"), st, et))
+  }
+  
   attr(op, "html_dependencies") <- dep
   
   label <- bsTooltip(paste0(inputId, "_icon"), label)

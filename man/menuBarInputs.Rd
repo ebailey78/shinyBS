@@ -19,7 +19,7 @@ bsMenuBarDivider()
 
 bsMenuDateRangeInput(inputId, label, start = NULL, end = NULL, min = NULL,
   max = NULL, format = "yyyy-mm-dd", startview = "month", weekstart = 0,
-  language = "en")
+  language = "en", presets)
 
 bsMenuWrap(input, width = 10, form = "auto", icon, placement = "before")
 }

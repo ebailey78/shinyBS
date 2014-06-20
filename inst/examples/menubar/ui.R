@@ -32,7 +32,8 @@ shinyUI(basicPage(
              bsMenuWrap(textInput("plot_title", "Plot Title"), width = "10", icon="tag"),
              bsMenuWrap(numericInput("sample_size", "Sample Size", value = 1000, min = 1, max = 100000, step = 100), width = 10, icon = "truck"),
              bsMenuWrap(bsActionButton("test_but", "Test", style = "danger")),
-             bsMenuWrap(bsActionButton("new_data", "New Data", style = "success"))
+             bsMenuWrap(bsActionButton("new_data", "New Data", style = "success")),
+             bsMenuDateRangeInput("test_dr", "Date Range", presets = list("This Year" = c("2014-01-01", "2014-06-20"), "This Month" = c("2014-06-01", "2014-06-20"), "Present Day" = c("", "2014-06-20")))
   ),
   textOutput("testing"),
   plotOutput("chart1"),

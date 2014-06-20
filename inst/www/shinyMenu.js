@@ -204,6 +204,45 @@ $.extend(shinyMenu.bindings.groupBinding, {
 });
 Shiny.inputBindings.register(shinyMenu.bindings.groupBinding);
 
+shinyMenu.bindings.dateRangePresets = new Shiny.InputBinding();
+$.extend(shinyMenu.bindings.dateRangePresets, {
+  find: function(scope) {
+    return $(scope).find("div.date-range-presets");
+  },
+  getValue: function(el) {
+    
+  },
+  setValue: function(el, value) {
+    
+  },
+  subscribe: function(el, callback) {
+    var $el = $(el);
+    $el.find("li.date-range-preset").on("click", function(e) {
+      $el.data("value", $(this).data("value"));
+      var val = $el.data("value")
+      var $tar = $("#" + $(this).data("target"));
+      var $inputs = $tar.find("input");
+      if(val[0] !== "") {
+        $inputs.eq(0).datepicker("update", val[0]);
+      }
+      if(val[1] !== "") {
+        $inputs.eq(1).datepicker("update", val[1]);
+      }
+      $tar.datepicker("updateDates");
+      $tar.trigger("changeDate");
+      callback();
+    })
+  },
+  unsubscribe: function(el) {
+    $(el).off(".sbs-menu")
+  },
+  initialize: function(el) {
+    $(el).data("value", false)
+  }
+});
+Shiny.inputBindings.register(shinyMenu.bindings.dateRangePresets);
+
+
 /*
 var shinyToolbarMenuBinding = new Shiny.InputBinding();
 $.extend(shinyToolbarMenuBinding, {
@@ -336,10 +375,5 @@ $.extend(shinyPopupMenuBinding, {
   }
 });
 Shiny.inputBindings.register(shinyPopupMenuBinding);
-
-shinyMenu.setCommandValue = function(el) {
-  var $el = $(el);
-  $el.data("menu-checked", $el.data("menu-checked") + 1);
-}
 
 /**/
