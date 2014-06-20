@@ -74,11 +74,11 @@ bsMenuHeader <- function(label) {
 }
 
 #'@export
-pageWithMenuBar <- function(title = "", navbar, mainContent) {
+pageWithMenuBar <- function(title = "", navbar, ...) {
   
   basicPage(tags$head(tags$title(title)),
             navbar,
-            mainContent)
+            ...)
   
 }
 
