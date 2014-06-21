@@ -4,25 +4,25 @@ shinyBS
 **shinyBS** is a package that adds several additional Twitter Boostrap components to shiny.
 You can install shinyBS from this repository by first installing `devtools`. At the R prompt type:
 
-```
+```R
 install.packages("devtools")
 ```
 
 After installing `devtools` in R you can install shinyBS by typing at the R prompt: 
 
-```
+```R
 install_github("shinyBS", "ebailey78")
 ```
 
 `shinyBS` was also added to CRAN. You can install the CRAN version with:
 
-```
+```R
 install.packages("shinyBS")
 ```
 
 For a quick demonstration of `shinyBS` functionality run the following code at the R prompt:
 
-```
+```R
 library(shinyBS)
 bsDemo()
 ```
