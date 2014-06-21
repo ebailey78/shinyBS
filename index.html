@@ -62,14 +62,24 @@ install_github<span class="p">(</span><span class="s">"ebailey78/shinyBS"</span>
 <h2>
 <a name="working-with-shinybs" class="anchor" href="#working-with-shinybs"><span class="octicon octicon-link"></span></a>Working with shinyBS</h2>
 
-<p>I've tried to make functions in <code>shinyBS</code> work and look, as much as possible, like native <code>shiny</code> functions. Most functions used in <code>ui.R</code> are prepended with <code>bs</code>. So, for example, you can create a popover from within <code>ui.R</code> with:</p>
+<p>I've tried to make functions in <code>shinyBS</code> work and look, as much as possible, like native <code>shiny</code> functions. Most functions used in <code>ui.R</code> are prepended with <code>bs</code>. So, for example, you can create a typeAhead from within <code>ui.R</code> with:</p>
 
-<div class="highlight highlight-R"><pre>bsPopover<span class="p">(</span>id <span class="o">=</span> <span class="o">&lt;</span>target_id<span class="o">&gt;</span><span class="p">,</span> 
-          title <span class="o">=</span> <span class="s">"Popover Title"</span><span class="p">,</span> 
-          content <span class="o">=</span> <span class="s">"This is the content of the popover."</span><span class="p">,</span> 
-          placement <span class="o">=</span> <span class="s">"below"</span><span class="p">,</span>
-          trigger <span class="o">=</span> <span class="s">"hover"</span>
-          <span class="p">)</span>
+<div class="highlight highlight-R"><pre><span class="c1"># A list of choices to appear in the typeAhead</span>
+animals <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">"cat"</span><span class="p">,</span> <span class="s">"dog"</span><span class="p">,</span> <span class="s">"fish"</span><span class="p">,</span> <span class="s">"hamster"</span><span class="p">,</span> <span class="s">"gerbil"</span><span class="p">,</span> <span class="s">"turtle"</span><span class="p">,</span> <span class="s">"snake"</span><span class="p">)</span>
+bsTypeAhead<span class="p">(</span>inputId <span class="o">=</span> <span class="s">"tA_example"</span><span class="p">,</span>
+            label <span class="o">=</span> <span class="s">"TypeAhead Example"</span><span class="p">,</span>
+            value <span class="o">=</span> <span class="s">""</span><span class="p">,</span> 
+            choices <span class="o">=</span> animals
+            <span class="p">)</span>
+</pre></div>
+
+<p>Most <code>shinyBS</code> inputs have update functions like those for standard <code>shiny</code> inputs. So, to update the previous typeAhead:</p>
+
+<div class="highlight highlight-R"><pre>updateTypeAhead<span class="p">(</span>session<span class="p">,</span>
+                inputId <span class="o">=</span> <span class="s">"tA_example"</span>
+                choices <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">"lion"</span><span class="p">,</span> <span class="s">"tiger"</span><span class="p">,</span> <span class="s">"giraffe"</span><span class="p">,</span> 
+                            <span class="s">"hippo"</span><span class="p">,</span> <span class="s">"rhino"</span><span class="p">,</span> <span class="s">"elephant"</span><span class="p">)</span>
+                <span class="p">)</span>
 </pre></div>
       </section>
       <footer>
