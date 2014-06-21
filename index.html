@@ -43,8 +43,8 @@
 <li>Progress Bars</li>
 </ul><p>In addition to adding additional Twitter Bootstrap components, <code>shinyBS</code> also adds table highlighting functions and a menu creation system based on Twitter Bootstrap's navbar component.</p>
 
-<h2>
-<a name="installing-shinybs" class="anchor" href="#installing-shinybs"><span class="octicon octicon-link"></span></a>Installing shinyBS</h2>
+<h3>
+<a name="installing-shinybs" class="anchor" href="#installing-shinybs"><span class="octicon octicon-link"></span></a>Installing shinyBS</h3>
 
 <p><code>shinyBS</code> has been published on CRAN an so can be installed in the usual way:</p>
 
@@ -62,7 +62,15 @@ install_github<span class="p">(</span><span class="s">"ebailey78/shinyBS"</span>
 <h2>
 <a name="working-with-shinybs" class="anchor" href="#working-with-shinybs"><span class="octicon octicon-link"></span></a>Working with shinyBS</h2>
 
-<p>I've tried to make functions in <code>shinyBS</code> work and look, as much as possible, like native <code>shiny</code> functions.</p>
+<p>I've tried to make functions in <code>shinyBS</code> work and look, as much as possible, like native <code>shiny</code> functions. Most functions used in <code>ui.R</code> are prepended with <code>bs</code>. So, for example, you can create a popover from within <code>ui.R</code> with:</p>
+
+<div class="highlight highlight-R"><pre>bsPopover<span class="p">(</span>id <span class="o">=</span> <span class="o">&lt;</span>target_id<span class="o">&gt;</span><span class="p">,</span> 
+          title <span class="o">=</span> <span class="s">"Popover Title"</span><span class="p">,</span> 
+          content <span class="o">=</span> <span class="s">"This is the content of the popover."</span><span class="p">,</span> 
+          placement <span class="o">=</span> <span class="s">"below"</span><span class="p">,</span>
+          trigger <span class="o">=</span> <span class="s">"hover"</span>
+          <span class="p">)</span>
+</pre></div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/ebailey78">ebailey78</a></p>
