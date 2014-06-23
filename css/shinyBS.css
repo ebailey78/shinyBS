@@ -1,75 +1,106 @@
-.header {
-	padding-top: 0px;
-	background-color: #CC6600;
+body { padding-top: 50px; }
+
+.navbar-brand {
 	color: white;
-	text-align: center;
-	padding: 30px 10px 0 10px;
-	height: auto;
-	margin-bottom: 100px;
+	font-size: 30px;
+	font-weight: 400;
+}
+
+.navbar-shinybs {
+	border-radius: 0px;
+	background-color: #CC6600;
 	background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
 }
 
- .header h1 {
-	font-size: 100px;
- }
- 
- .header h5.first {
-	font-weight: bold;
+.navbar-shinybs button.navbar-toggle {
+	background-color: rgba(255,255,255,0.2);
+	border-color: rgba(0,0,0,0.1)
 }
 
-.bs-nav {
-	padding: 5px;
-	margin-left: -10px;
-	margin-right: -10px;
-	margin-top: 32px;
-	background-color: rgba(0,0,0,0.2);
+.navbar-shinybs .navbar-toggle .icon-bar {
+    background-color: white;
 }
 
-.bs-nav ul {
-	margin-top: 3px;
-	margin-bottom: 3px;
-}
-
-.bs-nav ul li {
-  display: inline-block;
-  padding: 1px 12px;
-  margin: 0;
-}
-
-.nav a {
+.navbar-shinybs a {
 	color: white;
-	font-weight: bold;
-	padding: 5px 10px;
+}
+.navbar-shinybs a:not(.navbar-brand) {
 	text-transform: uppercase;
-	text-decoration: none;
-	letter-spacing: 1px;
 }
 
-.marketing i , .marketing h2{
-	color: #CC6600;
+.navbar-shinybs li.active a , .navbar-shinybs a:hover:not(.navbar-brand) , .navbar-shinybs a:focus{
+	background-color: rgba(0,0,0,0.2) !important;
 }
 
-/* Pad the edges of the mobile views a bit */
-.marketing {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-/* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-.marketing h2 {
-  font-weight: normal;
-}
-.marketing .col-lg-4 p {
-  margin-right: 10px;
-  margin-left: 10px;
+div.highlight {
+	padding-top: 10px;
+	padding-bottom: 15px;
 }
 
 footer {
 	font-size: 10px;
 	margin-top: 75px;
 	text-align: center;
+}
+
+i.main-icon {
+	color: #CC6600;
+	padding-right: 10px;
+}
+
+.group {
+	padding-left: 20px;
+}
+
+.group h2 {
+	margin-left: -20px;
+}
+
+.subgroup h3 {
+	margin-left: -20px;
+}
+
+.subgroup {
+	padding-left: 20px;
+}
+
+/*
+	Side navigation styles
+*/
+
+.fixed {
+    position: fixed;
+}
+
+.sbs-sidebar {
+    padding-left: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* all links */
+.sbs-sidebar .nav>li>a {
+    color: #999;
+    padding: 4px 20px;
+    font-size: 13px;
+    font-weight: 400;
+	border-left: 2px solid transparent;
+}
+
+/* nested links */
+.sbs-sidebar .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+}
+
+/* active & hover links */
+.sbs-sidebar .nav>.active>a, 
+.sbs-sidebar .nav>li>a:hover, 
+.sbs-sidebar .nav>li>a:focus {
+    color: #CC6600;                 
+    text-decoration: none;          
+    background-color: transparent;  
+    border-left: 2px solid #CC6600; 
 }

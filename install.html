@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shinyBS</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/shinyBS.css" rel="stylesheet">
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+	<script src="holder/holder.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+  </head>
+  <body>
+
+	<nav class="navbar navbar-shinybs navbar-fixed-top" role="navigation">
+	  <div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shinybs-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="index.html">shinyBS</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="shinybs-collapse">
+		  <ul class="nav navbar-nav">
+			<li class="active"><a href="install.html">Install</a></li>
+			<li><a href="tutorial.html">Tutorial</a></li>
+			<li><a href="reference.html">Reference</a></li>
+			<li><a href="examples.html">Examples</a><li>
+			<li><a href="help.html">Help</a></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class = "container" style = 'top: 40px'>
+		<div class = "row">
+		
+			<!-- Sidebar navigation -->
+		
+			<nav class = "col-xs-3 sbs-sidebar">
+				<ul id = "sidebar" class = "nav nav-stacked fixed">
+					<li>
+						<a href = "#getting_ready">Getting Ready</a>
+						<ul class = "nav nav-stacked">
+							<li><a href = "#install_r">Installing R</a></li>
+							<li><a href = "#install_rstudio">Installing RStiudio</a></li>
+							<li><a href = "#install_shiny">Installing Shiny</a></li>
+						</ul>
+					<li>
+						<a href = "#install_shinybs">Installing shinyBS</a>
+						<ul class = "nav nav-stacked">
+							<li><a href = "#from_cran">Installing from CRAN</a></li>
+							<li><a href = "#from_github">Installing from GitHub</a></li>
+						</ul>
+					<li><a href = "#using_shinybs">Using shinyBS</a></li>
+				</ul>
+			</nav>
+			
+			<!-- Main Content -->
+			
+			<div class = "col-xs-9">
+				<h1 class = "page-header"><i class="fa fa-download fa-2x main-icon"></i> Installing shinyBS</h1>
+				<section id = "getting_ready" class = "group">
+					<h2>Getting Ready</h2>
+					<p>Before you can use shinyBS you need to have several prerequisites installed. This should be fairly obvious to anyone who is wanting to use shinyBS but in the interest of completeness...</p>
+					<div class = "subgroup" id = "install_r">
+						<h3>Installing R</h3>
+						<p>shinyBS is an R package so you should have R installed. You can install it from one of <a href = "http://cran.r-project.org/mirrors.html">CRAN's mirrors</a>.</p>
+					</div>
+					<div class = "subgroup" id = "install_rstudio">
+						<h3>Installing RStudio (optional)</h3>
+						<p>While not completely necessary, I would recommend installing RStudio. RStudio is an IDE for R from the same people that make shiny. I find it much easier to work in R with RStudio 
+						than to use the default interface. In addition, since it is made by the people that make shiny, they have added features that streamline the making of shiny apps.</p>
+						<p>Get it from <a href = "http://www.rstudio.com/products/RStudio/">RStudio's website</a>.</p>
+					</div>
+					<div class = "subgroup" id = "install_shiny">
+						<h3>Installing Shiny</h3>
+						<p>shinyBS extends the functionality of shiny so you need to install Shiny to use it. In the R console type:
+				
+<div class = "highlight highlight-R"><pre>
+install.packages("shiny")
+</pre></div>		
+					</div>
+				</section>
+				<section id = "install_shiny_bs" class = "group">
+					<h2 id = "install_shinybs">Installing shinyBS</h2>
+					<p> Once you have completed the prerequisites you have two options for installing shinyBS.</p>
+					<div class = "subgroup" id = "from_cran">
+						<h3>Installing from CRAN</h3>
+						<p>This is the safest option. Install from CRAN if you want the version that is least likely to have bugs. I try to test thoroughly before releasing a version to CRAN so you will be least likely to encounter problems if you use this method.</p>
+						<p>You can install shinyBS from CRAN like any other R package. In the R console type:</p>
+				
+<div class = "highlight highlight-R"><pre>
+install.packages("shinyBS")
+</pre></div>
+					</div>
+					<div class = "subgroup" id = "from_github">
+						<h3>Installing from GitHub</h3>
+						<p>Install from GitHub if you want to have the most up-to-date version. There is a better chance that you will encounter a bug, but you will have access to any new feature that have been added since the last release to CRAN.</p>
+						<p>Installing from GitHub requires that you have the devtools package installed. In the R console type:</p>
+				
+<div class = "highlight highlight-R"><pre>
+install.packages("devtools")
+</pre></div>
+
+						<p>Once devtools is installed you can install shinyBS from the R console:</p>
+				
+<div class = "highlight highlight-R"><pre>
+devtools::install_github("shinyBS", "ebailey78")
+</pre></div>
+					</div>
+				</section>
+				<section id = "using_shinybs" class = "group">
+					<h2>Using shinyBS</h2>
+					<p>In order to use shinyBS in a shiny app you must load the package when the app loads. In both server.R and ui.R you must include:
+					
+					<div class = "highlight highlight-R"><pre>library(shinyBS)</pre></div>
+					
+					at the top of the page, right after
+					
+					<div class = "highlight highlight-R"><pre>library(shiny)</pre></div>
+				</section>
+				
+				That's all there is to it. You can use shinyBS components just like any other shiny component. See the <a href="tutorial.html">tutorial</a> if you want more help getting started with shinyBS, or skip to the <a href="reference.html">reference</a> to see a list of all the features currently available in shinyBS.
+			</div>
+			
+		</div>	
+		
+	</div>
+	<footer class = "container" >
+		<p>
+			This project is maintained by <a href="https://github.com/ebailey78">ebailey78</a>
+			and is in no way affiliated with <a href = "http://shiny.rstudio.com">Shiny</a> or <a href = "http://www.rstudio.com">RStudio</a>.
+		</p>
+		<p>
+			<small>
+				Hosted on GitHub Pages
+			</small>
+		</p>
+	</footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	<script>
+		$('body').scrollspy({
+			target: '.sbs-sidebar',
+			offset: 40
+		});
+	</script>
+	
+  </body>
+</html>

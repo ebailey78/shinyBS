@@ -1,0 +1,89 @@
+.header {
+	padding-top: 0px;
+	background-color: #CC6600;
+	color: white;
+	text-align: center;
+	padding: 30px 10px 0 10px;
+	height: auto;
+	margin-bottom: 100px;
+	background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
+}
+
+header.header {
+	padding-top: 0px;
+	text-align: left;
+}
+
+header.header h1 {
+	font-size: 30px;
+	padding: 5px 50px;
+}
+
+.bs-nav li.active a{
+	color: grey !important;
+}
+
+ .header h1 {
+	font-size: 100px;
+ }
+ 
+ .header h5.first {
+	font-weight: bold;
+}
+
+.bs-nav {
+	padding: 5px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-top: 32px;
+	background-color: rgba(0,0,0,0.2);
+}
+
+.bs-nav ul {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.bs-nav ul li {
+  display: inline-block;
+  padding: 1px 12px;
+  margin: 0;
+}
+
+.nav a {
+	color: white;
+	font-weight: bold;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 1px;
+}
+
+.marketing i , .marketing h2{
+	color: #CC6600;
+}
+
+/* Pad the edges of the mobile views a bit */
+.marketing {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+footer {
+	font-size: 10px;
+	margin-top: 75px;
+	text-align: center;
+}
