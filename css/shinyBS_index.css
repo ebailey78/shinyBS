@@ -19,6 +19,10 @@ header.header h1 {
 	padding: 5px 50px;
 }
 
+.bs-nav a:hover {
+	color: #DDDDDD;
+}
+
 .bs-nav li.active a{
 	color: grey !important;
 }
