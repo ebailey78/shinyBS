@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>shinyBS</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h2>shinyBS</h2>
+
+<p><strong>shinyBS</strong> is a package that adds several additional Twitter Boostrap components to shiny.
+You can install shinyBS from this repository by first installing <code>devtools</code>. At the R prompt type:</p>
+
+<pre><code>install.packages(&quot;devtools&quot;)
+</code></pre>
+
+<p>After installing <code>devtools</code> in R you can install shinyBS by typing at the R prompt: </p>
+
+<pre><code>install_github(&quot;shinyBS&quot;, &quot;ebailey78&quot;)
+</code></pre>
+
+<p><code>shinyBS</code> was also added to CRAN. You can install the CRAN version with:</p>
+
+<pre><code>install.packages(&quot;shinyBS&quot;)
+</code></pre>
+
+<p>For a quick demonstration of <code>shinyBS</code> functionality run the following code at the R prompt:</p>
+
+<pre><code>library(shinyBS)
+bsDemo()
+</code></pre>
+
+<h3>What&#39;s New</h3>
+
+<h4>Version 0.25 (working version)</h4>
+
+<ul>
+<li><strong>bsNavDropDown</strong>
+
+<ul>
+<li>You can now create submenus inside a drop down by making a including lists inside your choices argument list. The submenus are built recursively so theoretically submenus can go as deep as you want</li>
+<li>You can create headers and dividers in your menus by include <code>NA</code>&#39;s in you choices list, a named <code>NA</code> will become a header and an unnamed <code>NA</code> will become a divider.</li>
+<li>You can create dropdowns with media objects as their options. This is done with the <code>bsMedia()</code> function. </li>
+<li>I am working on a bsNavDemo() example that will better explain changes to dropdowns.</li>
+</ul></li>
+<li><strong>bsModal</strong>
+
+<ul>
+<li>You can now create modal windows with the <code>bsModal()</code> function. These are trigger from a button or link and can contain any combination of inputs, outputs, or standard html.</li>
+<li>Per Request: highlightCells() now accepts a <code>column</code> argument which limits cell highlighting to that column.</li>
+</ul></li>
+</ul>
+
+<h4>Version 0.20 (released: 2014-03-19)</h4>
+
+<ul>
+<li><strong>pageWithNavBar</strong>
+
+<ul>
+<li>I forgot to include the pageWithNavbar function in the NAMESPACE file so it wasn&#39;t exported</li>
+</ul></li>
+<li><p><strong>Buttons/Button Groups</strong> </p>
+
+<ul>
+<li>singletons for including shinyBS&#39;s javascript and CSS files weren&#39;t added when only button functions were included in an app</li>
+<li>added <code>block</code> argument for creating block level buttons and button groups</li>
+<li>added <code>vertical</code> argument for creating verically oriented button groups</li>
+</ul></li>
+<li><p><strong>Tooltips/Popovers</strong></p>
+
+<ul>
+<li>Tooltips and Popovers will now work with the new selectize-type selectInput&#39;s in shiny 0.9.0</li>
+</ul></li>
+<li><p><strong>Tables</strong></p>
+
+<ul>
+<li><code>highlightCells</code> lets you highlight table cells based on their content</li>
+<li><code>highlightRows</code> lets you highlight table rows based on the content of a table column</li>
+</ul></li>
+</ul>
+
+<h4>Version 0.10 (released: 2014-03-11)</h4>
+
+<ul>
+<li><strong>Alerts</strong> - Create alert anchors in your <code>ui.R</code> script and add alerts from <code>server.R</code></li>
+<li><strong>Tooltips</strong> - Add and configure tooltips on any element with an <code>inputId</code> or <code>outputId</code> with <code>bsTooltip()</code> from the ui or with <code>addToolTip()</code> from the server.</li>
+<li><strong>Popovers</strong> - Works the same as Tooltips but useful for more content heavy applications.</li>
+<li><strong>TypeAhead</strong> - Works just like a &#39;textInput&#39; but you can provide custom autocomplete lists to guide the user to specific inputs.</li>
+<li><strong>Progress Bars</strong> - Fully configurable Progress bars that can be updated and changed from <code>server.R</code>.</li>
+<li><strong>Navigation Bars</strong> - Create Bootstrap style navigation bars with buttons, links, dropdowns, etc that control your shiny app.</li>
+<li><strong>Collapse Panels</strong> - Create collapsable panels that allow you to remove some clutter from your app.</li>
+<li><strong>Buttons Groups</strong> - Create button groups that behave like radio buttons or checkbox groups</li>
+<li><strong>Buttons</strong> - Access Twitter Bootstrap styles and sizes for action buttons and toggle buttons</li>
+</ul>
+
+</body>
+
+</html>
+
