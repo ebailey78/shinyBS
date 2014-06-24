@@ -1,5 +1,17 @@
 body { padding-top: 50px; }
 
+.bs-bg-color {
+	background-color: #CC6600;
+}
+
+.bs-bg-pattern {
+	background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
+}
+
+.bs-color {
+	color: #CC6600;
+}
+
 .navbar-brand {
 	color: white;
 	font-size: 30px;
@@ -8,8 +20,6 @@ body { padding-top: 50px; }
 
 .navbar-shinybs {
 	border-radius: 0px;
-	background-color: #CC6600;
-	background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
 }
 
 .navbar-shinybs button.navbar-toggle {
@@ -44,7 +54,6 @@ footer {
 }
 
 i.main-icon {
-	color: #CC6600;
 	padding-right: 10px;
 }
 

@@ -8,7 +8,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/shinyBS_index.css" rel="stylesheet">
+    <link href="css/shinyBS.css" rel="stylesheet">
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<script src="holder/holder.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -18,9 +18,86 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	
+	<style>
+		
+		body{padding-top: 0px;}
+		
+		.header {
+			padding-top: 0px;
+			color: white;
+			text-align: center;
+			padding: 30px 10px 0 10px;
+			height: auto;
+			margin-bottom: 100px;
+			background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
+		}
+
+		.header h1 {
+			font-size: 100px;
+		}
+		 
+		.header h5.first {
+			font-weight: bold;
+		}
+		
+		.bs-nav {
+			padding: 5px;
+			margin-left: -10px;
+			margin-right: -10px;
+			margin-top: 32px;
+			background-color: rgba(0,0,0,0.2);
+		}
+
+		.bs-nav ul {
+			margin-top: 3px;
+			margin-bottom: 3px;
+		}
+
+		.bs-nav ul li {
+		  display: inline-block;
+		  padding: 1px 12px;
+		  margin: 0;
+		}
+
+		.bs-nav a {
+			color: white;
+			font-weight: bold;
+			padding: 5px 10px;
+			text-transform: uppercase;
+			text-decoration: none;
+			letter-spacing: 1px;
+		}
+
+		.bs-nav a:hover {
+			color: #DDDDDD;
+		}
+
+		.bs-nav li.active a{
+			color: grey !important;
+		}
+
+		.marketing {
+		  padding-right: 15px;
+		  padding-left: 15px;
+		}
+
+		.marketing .col-lg-4 {
+		  margin-bottom: 20px;
+		  text-align: center;
+		}
+		.marketing h2 {
+		  font-weight: normal;
+		}
+		.marketing .col-lg-4 p {
+		  margin-right: 10px;
+		  margin-left: 10px;
+		}	
+		
+	</style>	
+	
   </head>
   <body>
-	<div class = "header">
+	<div class = "header bs-bg-color bs-bg-pattern">
 		<h1>shinyBS</h1>
 		<h5 class = "first">Twitter Bootstrap Components for Shiny</h5> 
 		<h5>Add additional functionality and interactivity to your Shiny applications</h5>
@@ -38,25 +115,25 @@
 
 	<a href="https://github.com/ebailey78/shinyBS"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
 
-	    <div class="container marketing">
+    <div class="container marketing">
 
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <i class="fa fa-download fa-5x"></i>
-          <h2>Install</h2>
+          <i class="fa fa-download fa-5x bs-color"></i>
+          <h2 class = "bs-color">Install</h2>
           <p>Installing shinyBS is easy! You can install the stable version from CRAN or get the version with the latest features from github. </p>
           <p><a class="btn btn-default" href="install.html" role="button">More &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <i class="fa fa-university fa-5x"></i>
-          <h2>Tutorial</h2>
+          <i class="fa fa-university fa-5x bs-color"></i>
+          <h2 class = "bs-color">Tutorial</h2>
           <p>shinyBS adds many new features to Shiny. I've tried to make it easy to get help. I would suggest starting with the Tutorial.</p>
           <p><a class="btn btn-default" href="tutorial.html" role="button">More &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <i class="fa fa-laptop fa-5x"></i>
-          <h2>Examples</h2>
+          <i class="fa fa-laptop fa-5x bs-color"></i>
+          <h2 class = "bs-color">Examples</h2>
           <p>I've put together several examples to help give you ideas on how to use shinyBS. These examples aren't exhaustive, but should help get you started.</p>
           <p><a class="btn btn-default" href="examples.html" role="button">More &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
