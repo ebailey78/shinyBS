@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shinyBS</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/shinyBS.css" rel="stylesheet">
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+	<script src="holder/holder.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+  </head>
+  <body>
+
+	<nav class="navbar navbar-shinybs navbar-fixed-top bs-bg-color bs-bg-pattern" role="navigation">
+	  <div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shinybs-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="index.html">shinyBS</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="shinybs-collapse">
+		  <ul class="nav navbar-nav">
+			<li><a href="install.html">Install</a></li>
+			<li><a href="tutorial.html">Tutorial</a></li>
+			<li><a href="reference.html">Reference</a></li>
+			<li><a href="examples.html">Examples</a><li>
+			<li><a href="help.html">Help</a></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class = "container">
+		<div class = "row">
+		
+			<!-- Sidebar navigation -->
+		
+			<nav class = "col-xs-3 sbs-sidebar">
+				<ul id = "sidebar" class = "nav nav-stacked fixed">
+					<li>
+						<a href = "#v0.30">Version 0.30</a>
+<!---					<ul class = "nav nav-stacked">
+							<li><a href = "#"></a></li>
+							<li><a href = "#"></a></li>
+							<li><a href = "#"></a></li>
+						</ul> -->
+					</li>
+					<li><a href = "#v0.20">Version 0.20</a></li>
+					<li><a href = "#v0.10">Version 0.10</a></li>
+				</ul>
+			</nav>
+			
+			<!-- Main Content -->
+			
+			<div class = "col-xs-9">
+				<h1 class = "page-header bs-color"><i class="fa fa-bolt fa-2x"></i> Change Log</h1>
+				<section id = "v0.30" class = "group">
+					<h2><i class = "fa fa-chevron-right bs-color"></i> Version 0.30 (next release)</h2>
+					<ul>
+						<li><strong>New Menu System</strong> - Implemented new menu system based on Bootstrap's navbar element.
+							<ul>
+								<li><code>bsMenu()</code> creates three different types of menus:
+									<ul>
+										<li><code>toolbar</code> - similar to <code>bsNavDropdown()</code>, creates top-level menus in a navbar.</li>
+										<li><code>submenu</code> - creates submenus in an existing toolbar or popup menu.</li>
+										<li><code>popup</code> - creates a contextual popup menu that appears when you right-click on a targeted ui element.</li>
+									</ul>
+								</li>
+								<li><code>bsMenuItem()</code> creates three different types of menu elements:
+									<ul>
+										<li><code>command</code> - the equivalent of <code>actionButton()</code>.</li>
+										<li><code>checkbox</code> - the equivalent of <code>checkboxInput()</code>.</li>
+										<li><code>radio</code> - the equivalent of <code>radioInput</code>. Provide multiple radio elements the 
+											same <code>group</code> attribute to link them together.</li>
+									</ul>
+								</li>
+								<li><code>bsMenuWrap()</code> - A wrapper for any text-like inputs (e.g., <code>textInput()</code>, 
+									<code>numericInput()</code>, or <code>bsTypeAhead()</code>) or buttons that format them to work 
+									better within navbars. This replaces the individual functions that existed in the <code>bsNav</code> 
+									scheme. Only <code>bsMenuDateRangeInput()</code> remains as a stand-alone function for menubar inputs.
+								</li>
+								<li><code>bsMenuGroup()</code> - A convenience function that allows you to create many bsMenuItem() elements at once.</li>
+								<li><code>bsMenuItemGroup()</code> - A function that ties multiple menu elements together so that changing one automatically changes the 
+									others. This is so that you can have access to the same functionality in multiple locations (e.g., being able to add a 
+									trend line to a graph from a navbar menu or from a contextual popup menu.)
+								</li>
+								<li><code>bsMenuDivider()</code> - adds a horizontal dividing line to a menu to help organize elements.</li>
+								<li><code>bsMenuHeader()</code> - adds a non-clickable heading to a menu, again, for organizational purposes.</li>
+							</ul>
+						</li>
+						<li><strong>Modals</strong> - Use <code>bsModal()</code> to create modal windows. These are triggered from a button or link and 
+							can contain any combination of inputs, outputs, or standard html.
+						</li>
+						<li><strong>Alerts</strong> - Added a check so that if an alert already exists with the same id as the alert being created, the new alert
+							isn't created.
+						</li>
+					</ul>
+				</section>
+				<section id = "v0.20" class = "group">
+					<h2><i class = "fa fa-chevron-right bs-color"></i> Version 0.20 (released: 2014-03-19)</h2>
+					<ul>
+						<li><strong>pageWithNavBar()</strong> - I forgot to include the pageWithNavbar function in the NAMESPACE file so it wasn't exported.</li>
+						<li><strong>Buttons/Button Groups</strong>
+							<ul>
+								<li> Fixed bug that shinyBS javascript/css wasn't loaded if only buttons/button groups were used in an app. </li>
+								<li> Added <code>block</code> argument for creating block level buttons and button groups. (They expand to fill the full width of the parent element)</li>
+								<li> Added <code>vertical</code> argument for creating vertically oriented button groups
+							</ul>
+						</li>
+						<li><strong>Tooltips/Popovers</strong> - Tooltips and popovers will work with the new selectize-type inputs in shiny 0.9.0.</li>
+						<li><strong>Tables</strong> - Added experimental table highlighting functions
+							<ul>
+								<li><code>highlightCells()</code> lets the user highlight cells based on their contents</li>
+								<li><code>highlightRows()</code> lets the user highlight entire rows based on the content of a table column.</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section id = "v0.10" class = "group">
+					<h2><i class = "fa fa-chevron-right bs-color"></i> Version 0.10 (released: 2014-03-11)</h2>
+					<ul>
+						<li>
+							<strong>Alerts</strong> - Create alert anchors in your <code>ui.R</code> script and add alerts from <code>server.R</code>
+						</li>
+						<li>
+							<strong>Tooltips</strong> - Add and configure tooltips on any element with an <code>inputId</code> or <code>outputId</code> with <code>bsTooltip()</code> from the ui or with <code>addToolTip()</code> from the server.</li>
+						<li>
+							<strong>Popovers</strong> - Works the same as Tooltips but useful for more content heavy applications.</li>
+						<li>
+							<strong>TypeAhead</strong> - Works just like a 'textInput' but you can provide custom autocomplete lists to guide the user to specific inputs.</li>
+						<li>
+							<strong>Progress Bars</strong> - Fully configurable Progress bars that can be updated and changed from <code>server.R</code>.</li>
+						<li>
+							<strong>Navigation Bars</strong> - Create Bootstrap style navigation bars with buttons, links, dropdowns, etc that control your shiny app.</li>
+						<li>
+							<strong>Collapse Panels</strong> - Create collapsable panels that allow you to remove some clutter from your app.</li>
+						<li>
+							<strong>Buttons Groups</strong> - Create button groups that behave like radio buttons or checkbox groups</li>
+						<li>
+							<strong>Buttons</strong> - Access Twitter Bootstrap styles and sizes for action buttons and toggle buttons</li>
+						</ul>
+				</section>
+				
+			</div>
+			
+		</div>	
+		
+	</div>
+	<footer class = "container" >
+		<p>
+			This project is maintained by <a href="https://github.com/ebailey78">ebailey78</a>
+			and is in no way affiliated with <a href = "http://shiny.rstudio.com">Shiny</a> or <a href = "http://www.rstudio.com">RStudio</a>.
+		</p>
+		<p>
+			<small>
+				Hosted on GitHub Pages
+			</small>
+		</p>
+	</footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	<script>
+		$('body').scrollspy({
+			target: '.sbs-sidebar',
+			offset: 120
+		});
+	</script>
+	
+  </body>
+</html>

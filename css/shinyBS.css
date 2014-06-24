@@ -87,6 +87,13 @@ i.main-icon {
     margin-bottom: 20px;
 }
 
+code {
+	color: #888;
+	background-color: #F0F0F0;
+
+}
+
+
 /* all links */
 .sbs-sidebar .nav>li>a {
     color: #999;
