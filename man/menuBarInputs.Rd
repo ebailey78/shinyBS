@@ -2,7 +2,6 @@
 \name{bsMenuLink}
 \alias{Menu Bar Inputs}
 \alias{bsMenuBarDivider}
-\alias{bsMenuDateRangeInput}
 \alias{bsMenuLink}
 \alias{bsMenuToggleLink}
 \alias{bsMenuWrap}
@@ -16,10 +15,6 @@ bsMenuToggleLink(inputId, label, icon = NULL, value = FALSE)
 updateMenuToggle(session, inputId, label = NULL, value = NULL)
 
 bsMenuBarDivider()
-
-bsMenuDateRangeInput(inputId, label, start = NULL, end = NULL, min = NULL,
-  max = NULL, format = "yyyy-mm-dd", startview = "month", weekstart = 0,
-  language = "en", presets)
 
 bsMenuWrap(input, width = 10, form = "auto", icon, placement = "before")
 }
@@ -36,25 +31,9 @@ icon to attach to the input}
 
 \item{placement}{Where to place the icon, either 'before' or 'after'}
 
-\item{inputId}{An Id for the dateRangeInput object}
+\item{inputId}{An Id for the menu item}
 
-\item{label}{Label for dateRangeInput (appears as tooltip)}
-
-\item{start}{See \link{dateRangeInput}}
-
-\item{end}{See \link{dateRangeInput}}
-
-\item{min}{See \link{dateRangeInput}}
-
-\item{max}{See \link{dateRangeInput}}
-
-\item{format}{See \link{dateRangeInput}}
-
-\item{startview}{See \link{dateRangeInput}}
-
-\item{weekstart}{See \link{dateRangeInput}}
-
-\item{language}{See \link{dateRangeInput}}
+\item{label}{Label for menu item (appears as tooltip)}
 
 \item{href}{If provided, bsMenuLink will act as a regular html link to the
 provided address}
@@ -69,12 +48,10 @@ Function to create specially formatted inputs for shinyBS menu
  bars
 }
 \details{
-Use \code{bsMenuWrapper} to format standard shiny inputs to fit
+Use \code{bsMenuWrap} to format standard shiny inputs to fit
  better within a menu bar. Only works for text-based inputs (e.g.
  \code{textInput}, \code{dateInput}, \code{numericInput}, etc.) and buttons.
- For \code{dateRangeInput} use the custom \code{bsMenuDateRangeInput}.
- Because of the presence of two text inputs it was easier to write a custom
- function.\cr\cr These functions remove the normal label from the input and
+ \cr\cr These functions remove the normal label from the input and
  make it a placeholder within the input. In addition, if an icon is included,
  a tooltip with the label is attached to the icon on hover.\cr\cr Some inputs
  look better when wrapped in a \code{form} tag. if \code{form} isn't

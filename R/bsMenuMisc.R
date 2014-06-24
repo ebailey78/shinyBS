@@ -110,7 +110,7 @@ bsMenuItemGroup <- function(groupId, ..., group = FALSE) {
   if(!exists("menuGroups")) {
     eval(parse(text = "menuGroups <- reactiveValues()"), envir = parent)
   } else {
-    if(!is.reactivevalues(menuGroups)) {
+    if(!is.reactivevalues(eval(parse(text = "menuGroups")))) {
       stop("menuGroups is a reserved word in shinyBS. Please rename your variable.")
     }
   }

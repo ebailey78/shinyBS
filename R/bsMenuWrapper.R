@@ -11,28 +11,18 @@
 #'@param icon A \href{http://fortawesome.github.io/Font-Awesome/}{Font Awesome} 
 #'  icon to attach to the input
 #'@param placement Where to place the icon, either 'before' or 'after'
-#'@param inputId An Id for the dateRangeInput object
-#'@param label Label for dateRangeInput (appears as tooltip)
-#'@param start See \link{dateRangeInput}
-#'@param end See \link{dateRangeInput}
-#'@param min See \link{dateRangeInput}
-#'@param max See \link{dateRangeInput}
-#'@param format See \link{dateRangeInput}
-#'@param startview See \link{dateRangeInput}
-#'@param weekstart See \link{dateRangeInput}
-#'@param language See \link{dateRangeInput}
+#'@param inputId An Id for the menu item
+#'@param label Label for menu item (appears as tooltip)
 #'@param href If provided, bsMenuLink will act as a regular html link to the
 #'  provided address
 #'@param value The value to assign to the toggle link, TRUE or FALSE
 #'@param session The \code{session} object passed to function given to 
 #'  \code{shinyServer}
 #'  
-#'@details Use \code{bsMenuWrapper} to format standard shiny inputs to fit 
+#'@details Use \code{bsMenuWrap} to format standard shiny inputs to fit 
 #'  better within a menu bar. Only works for text-based inputs (e.g. 
 #'  \code{textInput}, \code{dateInput}, \code{numericInput}, etc.) and buttons. 
-#'  For \code{dateRangeInput} use the custom \code{bsMenuDateRangeInput}. 
-#'  Because of the presence of two text inputs it was easier to write a custom 
-#'  function.\cr\cr These functions remove the normal label from the input and 
+#'  \cr\cr These functions remove the normal label from the input and 
 #'  make it a placeholder within the input. In addition, if an icon is included,
 #'  a tooltip with the label is attached to the icon on hover.\cr\cr Some inputs
 #'  look better when wrapped in a \code{form} tag. if \code{form} isn't 
