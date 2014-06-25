@@ -1,10 +1,9 @@
-library(shiny)
-
+#'@export
 runRemoteApp <- function(appDir = getwd(), launch.browser = TRUE, ...) {
   
   port = 5167
   exe <- file.path(R.home("bin"), "Rscript.exe")
-  scr <- file.path(getwd(), "remoteScript.R")
+  scr <- file.path(system.file(package="shinyBS"), "tests", "remoteScript.R")
   cnt <- 1
   
   shell(paste0(exe, ' "', scr, '"'), wait = FALSE)
@@ -32,6 +31,12 @@ runRemoteApp <- function(appDir = getwd(), launch.browser = TRUE, ...) {
   
 }
 
+#'@export
+close.rApp <- function(con) {
+  closeRemoteApp(con)
+}
+
+#'@export
 closeRemoteApp <- function(rApp) {
   invisible(shell(paste("taskkill /F /PID", rApp$pid)))
 }
