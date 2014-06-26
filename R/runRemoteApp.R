@@ -38,5 +38,5 @@ close.rApp <- function(con) {
 
 #'@export
 closeRemoteApp <- function(rApp) {
-  invisible(shell(paste("taskkill /F /PID", rApp$pid)))
+  shell(paste("taskkill /F /PID", rApp$pid), wait = FALSE)
 }

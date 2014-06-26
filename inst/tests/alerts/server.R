@@ -8,15 +8,15 @@ shinyServer(function(input, output, session) {
   createAlert(session, "alert1", "info1", type = "info", "Information", "This is the first information test.")
   createAlert(session, "alert1", "succ1", type = "success", "Success", "This is the first success test.")
   
-  createAlert(session, "alert2", "warn2", type = "warning", "Warning", "This is the second warning test.")
-  createAlert(session, "alert2", "dang2", type = "danger", "Danger", "This is the second  danger test.")
-  createAlert(session, "alert2", "info2", type = "info", "Information", "This is the second  information test.")
-  createAlert(session, "alert2", "succ2", type = "success", "Success", "This is the second  success test.")
+  createAlert(session, "alert2", "warn2", dismiss = FALSE, type = "warning", "Warning", "This is the second warning test.")
+  createAlert(session, "alert2", "dang2", dismiss = FALSE, type = "danger", "Danger", "This is the second  danger test.")
+  createAlert(session, "alert2", "info2", dismiss = FALSE, type = "info", "Information", "This is the second  information test.")
+  createAlert(session, "alert2", "succ2", dismiss = FALSE, type = "success", "Success", "This is the second  success test.")
   
-  createAlert(session, "alert1", "warn3", type = "warning", dismiss = FALSE, "Warning", "This is the third warning test.")
-  createAlert(session, "alert1", "dang3", type = "danger", dismiss = FALSE, "Danger", "This is the third danger test.")
-  createAlert(session, "alert1", "info3", type = "info", dismiss = FALSE, "Information", "This is the third information test.")
-  createAlert(session, "alert1", "succ3", type = "success", dismiss = FALSE, "Success", "This is the third success test.")
+#   createAlert(session, "alert1", "warn3", type = "warning", dismiss = FALSE, "Warning", "This is the third warning test.")
+#   createAlert(session, "alert1", "dang3", type = "danger", dismiss = FALSE, "Danger", "This is the third danger test.")
+#   createAlert(session, "alert1", "info3", type = "info", dismiss = FALSE, "Information", "This is the third information test.")
+#   createAlert(session, "alert1", "succ3", type = "success", dismiss = FALSE, "Success", "This is the third success test.")
   
   observe({
     if(input$but1 > 0) {
@@ -46,11 +46,11 @@ shinyServer(function(input, output, session) {
     closeAlert(session, "text_test")
     x <- as.numeric(input$text1)
     if(is.na(x)) {
-      createAlert(session, "alert1", "text_test", title = "Text Test", "You must enter numeric input!", type = "info")
+      createAlert(session, "textAlert", "text_test", title = "Text Test", "You must enter numeric input!", type = "info")
     } else if(x > 100) {
-      createAlert(session, "alert1", "text_test", title = "Text Test", "Congratulations! You entered a number above 100!", type = "success")
+      createAlert(session, "textAlert", "text_test", title = "Text Test", "Congratulations! You entered a number above 100!", type = "success")
     } else {
-      createAlert(session, "alert1", "text_test", title = "Text Test", "Danger! You have entered a number less than or equal to 100!", type = "danger")
+      createAlert(session, "textAlert", "text_test", title = "Text Test", "Danger! You have entered a number less than or equal to 100!", type = "danger")
     }
     
     
