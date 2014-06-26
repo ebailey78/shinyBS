@@ -1,34 +1,23 @@
-library(shiny)
+context("basic")
+
+library(RSelenium)
+library(testthat)
 library(shinyBS)
-library(parallel)
 
-cl <- makeCluster(1)
+remoteApp <- runRemoteApp(appDir = file.path(getwd(), "alerts"), 
+                          port = 5000, launch.browser = TRUE)
 
-y <- function() {
-  library(shiny)
-  library(shinyBS)
-  shinyApp(
-    ui = fluidPage(
-        fluidRow(
-          column(width = 2,
-                 bsActionButton("addAlerts", "Add Alerts"),
-                 bsActionButton("removeAlerts", "Remove Alerts")
-          ),
-          column(width = 5,
-                 bsAlert("alert")
-          ),
-          column(width = 5,
-                 bsAlert("alert")
-          )
-        )
-    ),
-    server = function(input, output, session) {
-      observe({
+remDr <- remoteDriver()
+remDr$open(silent = TRUE)
+appURL <- "http:127.0.0.1:5000"
+
+test_that("can connect to app", {
   
-      })
-    },
-    options = list(port = 8080)
-  )
-}
+  remDr$navigate(appURL)
+  appTitle <- remDr$getTitle()[[1]]
+  expect_equal(appTitle, "shinyBS Alerts Test")
+  
+})
 
-clusterCall(cl, y)
+remDr$close()
+close(remoteApp)
