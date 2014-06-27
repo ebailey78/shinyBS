@@ -2,6 +2,8 @@ context("Alerts")
 
 appDir = file.path(system.file(package = "shinyBS"), "tests", "alerts")
 
+source(file.path(appDir, "global.R"))
+
 remoteApp <- runRemoteApp(appDir = appDir, port = 5000, launch.browser = FALSE)
 
 remDr <- remoteDriver()
@@ -9,8 +11,8 @@ remDr$open(silent = TRUE)
 remDr$navigate("http:127.0.0.1:5000")
 
 #Convenience Functions
-byId <- findElement(remDr, "id")
-bySel <- findElement(remDr, "css selector")
+id <- findElement(remDr, "id")
+css <- findElement(remDr, "css selector")
 
 test_that("can connect to app", {
   appTitle <- remDr$getTitle()[[1]]
@@ -21,101 +23,106 @@ test_that("alert anchors created", {
   
   expect_true(elementExists(remDr, "alert1"))
   expect_true(elementExists(remDr, "alert2"))
+  expect_false(elementExists(remDr, "alert3"))
   
-  expect_equal(getTag(byId("alert1")), "div")
-  expect_true(hasClass(remDr, "alert1", "tbs-alert"))
-  expect_true(hasClass(remDr, "alert2", "tbs-alert"))
+  expect_equal(getTag(id("alert1")), "div")
+  expect_equal(getTag(id("alert2")), "div")
+  expect_true(hasClass(id("alert1"), "tbs-alert"))
+  expect_true(hasClass(id("alert2"), "tbs-alert"))
   
 })
 
-test_that("can create alerts on load", {
-  els <- c("warn1", "dang1", "info1", "succ1", "warn2", "dang2", "info2", "succ2")
-  for(el in els) {
-    expect_true(elementExists(remDr, el), label = el)
+test_that("Alerts created on load", {
+  for(r in seq(nrow(g))) {
+    aid <- paste(g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    expect_true(elementExists(remDr, aid), label = aid, info = "existence check")
+    expect_true(hasClass(id(aid), paste0("alert-", types[g[r, 2]])), label = aid, info = "style check")
+    expect_equal(childExists(id(aid), "css selector", "button.close"), g[r, 3], label = aid, info = paste("dismiss check:", g[r, 3]))
   }
 })
 
-test_that("type argument works", {
-  
-  expect_true(hasClass(remDr, "warn1", "alert-warning"))
-  expect_true(hasClass(remDr, "dang1", "alert-danger"))
-  expect_true(hasClass(remDr, "info1", "alert-info"))
-  expect_true(hasClass(remDr, "succ1", "alert-success"))
-  
-  expect_false(hasClass(remDr, "warn1", "alert-danger"))
-  expect_false(hasClass(remDr, "dang1", "alert-info"))
-  expect_false(hasClass(remDr, "info1", "alert-success"))
-  expect_false(hasClass(remDr, "succ1", "alert-warning"))
-  
-})
-
-test_that("dismiss argument works", {
- 
-  expect_true(getTag(childBySel(byId("warn1"), "button.close")) == "button")
-  expect_false(getTag(childBySel(byId("warn2"), "button.close")) == "button")
-  
-})
-
-test_that("create alerts after load", {
+test_that("Alerts created after load", {
   
   # First test to make sure batch 4 doesn't already exist
-  els <- c("warn4", "dang4", "info4", "succ4")
-  for(el in els) {
-    expect_false(elementExists(remDr, el), label = el)
+  for(r in seq(nrow(g))) {
+    aid <- paste("post", g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    expect_false(elementExists(remDr, aid), label = aid, info = "non-existence check")
   }
-    
+  
   # Click the button that creates the new alerts
-  byId("but1")$clickElement()
+  id("but1")$clickElement()
+  
+  Sys.sleep(0.5)
   
   # Check if alert exists now
-  for(el in els) {
-    expect_true(elementExists(remDr, el), label = el)
+  for(r in seq(nrow(g))) {
+    aid <- paste("post", g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    expect_true(elementExists(remDr, aid), label = aid, info = "existence check")
+    expect_true(hasClass(id(aid), paste0("alert-", types[g[r, 2]])), label = aid, info = "style check")
+    expect_equal(childExists(id(aid), "css selector", "button.close"), g[r, 3], label = aid, info = paste("dismiss check:", g[r, 3]))
   }
   
 })
 
 test_that("closeAlert works", {
   
-  # First test to make sure batch 4 is still open
-  els <- c("warn4", "dang4", "info4", "succ4")
-  for(el in els) {
-    expect_true(elementExists(remDr, el), label = el)
+  # Check if alert still exist
+  for(r in seq(nrow(g))) {
+    aid <- paste("post", g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    expect_true(elementExists(remDr, aid), label = aid, info = "existence check")
+    expect_true(hasClass(id(aid), paste0("alert-", types[g[r, 2]])), label = aid, info = "style check")
+    expect_equal(childExists(id(aid), "css selector", "button.close"), g[r, 3], label = aid, info = paste("dismiss check:", g[r, 3]))
   }
   
-  # Click the button that creates the new alerts
-  byId("but2")$clickElement()
+  # Click the button that closes the alerts
+  id("but2")$clickElement()
   
-  # Check if alert have disappeared
-  for(el in els) {
-    expect_false(elementExists(remDr, el), label = el)
+  # Check if the new alerts have disappeared but not the old
+  for(r in seq(nrow(g))) {
+    aid <- paste(g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    expect_false(elementExists(remDr, paste0("post_", aid)), label = aid, info = "non-existence check")
+    expect_true(elementExists(remDr, aid), label = aid, info = "existence check")
   }
   
+})
+
+test_that("close button works", {
+  g2 <- g[g[,3] == TRUE, ]
+  for(r in seq(nrow(g2))) {
+    aid <- paste(g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    if(elementExists(remDr, aid)) {
+      expect_true(elementExists(remDr, aid), label = aid, info = "pre-check")
+      findChild("css selector")(id(aid), "button.close")$clickElement()
+      expect_false(elementExists(remDr, aid), label = aid, info = "post-check")      
+    }
+  }
 })
 
 test_that("append works", {
   
-  a2 <- byId("alert2")
-  byId("but2")$clickElement()
-  start <- length(a2$findChildElements(using = "css selector", value = "div.alert"))
-  byId("but1")$clickElement()
-  expect_more_than(length(a2$findChildElements(using = "css selector", value = "div.alert")), start)
-  byId("but3")$clickElement()
-  expect_less_than(length(a2$findChildElements(using = "css selector", value = "div.alert")), start)
+  a2 <- id("alert2")
+  id("but2")$clickElement()
+  start <- length(findChildren("css selector")(a2, "div.alert"))
+  id("but1")$clickElement()
+  expect_more_than(length(findChildren("css selector")(a2, "div.alert")), start)
+  id("but3")$clickElement()
+  expect_equal(length(findChildren("css selector")(a2, "div.alert")), 1)
 
 })
 
 test_that("textInput alert", {
-  txt <- byId("text1")
+  txt <- id("text1")
   #Make Sure textInput is empty
   txt$clearElement()
-  expect_true(hasClass(remDr, "text_test", "alert-info"))
+  expect_true(hasClass(id("text_test"), "alert-info"))
   txt$sendKeysToElement(list("50"))
   Sys.sleep(0.5)
-  expect_true(hasClass(remDr, "text_test", "alert-danger"))
+  expect_true(hasClass(id("text_test"), "alert-danger"))
   txt$sendKeysToElement(list("0"))
   Sys.sleep(0.5)
-  expect_true(hasClass(remDr, "text_test", "alert-success"))
+  expect_true(hasClass(id("text_test"), "alert-success"))
 })
+
 
 
 remDr$close()

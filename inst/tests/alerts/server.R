@@ -1,39 +1,31 @@
-library(shiny)
-library(shinyBS)
-
 shinyServer(function(input, output, session) {
   
-  createAlert(session, "alert1", "warn1", type = "warning", "Warning", "This is the first warning test.")
-  createAlert(session, "alert1", "dang1", type = "danger", "Danger", "This is the first danger test.")
-  createAlert(session, "alert1", "info1", type = "info", "Information", "This is the first information test.")
-  createAlert(session, "alert1", "succ1", type = "success", "Success", "This is the first success test.")
+  for(r in seq(nrow(g))) {
+    id <- paste(g[r, 1], g[r, 2], g[r, 3], sep = "_")
+    createAlert(session, g[r, 1], id, type = types[g[r, 2]], title = titles[g[r, 2]], message = messages[g[r, 2]], dismiss = g[r, 3])
+  }
   
-  createAlert(session, "alert2", "warn2", dismiss = FALSE, type = "warning", "Warning", "This is the second warning test.")
-  createAlert(session, "alert2", "dang2", dismiss = FALSE, type = "danger", "Danger", "This is the second  danger test.")
-  createAlert(session, "alert2", "info2", dismiss = FALSE, type = "info", "Information", "This is the second  information test.")
-  createAlert(session, "alert2", "succ2", dismiss = FALSE, type = "success", "Success", "This is the second  success test.")
-    
   observe({
     if(input$but1 > 0) {
-      createAlert(session, "alert2", "warn4", type = "warning", "Warning", "This is another warning test.")
-      createAlert(session, "alert2", "dang4", type = "danger", "Danger", "This is another  danger test.")
-      createAlert(session, "alert2", "info4", type = "info", "Information", "This is another  information test.")
-      createAlert(session, "alert2", "succ4", type = "success", "Success", "This is another success test.")
+      for(r in seq(nrow(g))) {
+        id <- paste("post", g[r, 1], g[r, 2], g[r, 3], sep = "_")
+        createAlert(session, g[r, 1], id, type = types[g[r, 2]], title = titles[g[r, 2]], message = messages[g[r, 2]], dismiss = g[r, 3])
+      }
     }
   })
   
   observe({
     if(input$but2 > 0) {
-      closeAlert(session, "warn4")
-      closeAlert(session, "dang4")
-      closeAlert(session, "info4")
-      closeAlert(session, "succ4")
+      for(r in seq(nrow(g))) {
+        id <- paste("post", g[r, 1], g[r, 2], g[r, 3], sep = "_")
+        closeAlert(session, id)
+      }    
     }
   })
   
   observe({
     if(input$but3 > 0) {
-      createAlert(session, "alert2", "info5", "Information", "This information alert is overwriting alert anchor #2.", append = FALSE)
+      createAlert(session, "alert2", "appender", "Information", "This information alert should overwrite alert anchor #2.", append = FALSE)
     }
   })
   
