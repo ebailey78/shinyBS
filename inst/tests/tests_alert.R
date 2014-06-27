@@ -1,4 +1,4 @@
-context("basic")
+context("Alerts")
 
 appDir = file.path(system.file(package = "shinyBS"), "tests", "alerts")
 
@@ -8,83 +8,115 @@ remDr <- remoteDriver()
 remDr$open(silent = TRUE)
 remDr$navigate("http:127.0.0.1:5000")
 
+#Convenience Functions
+byId <- findElement(remDr, "id")
+bySel <- findElement(remDr, "css selector")
+
 test_that("can connect to app", {
   appTitle <- remDr$getTitle()[[1]]
   expect_equal(appTitle, "shinyBS Alerts Test")
 })
 
+test_that("alert anchors created", {
+  
+  expect_true(elementExists(remDr, "alert1"))
+  expect_true(elementExists(remDr, "alert2"))
+  
+  expect_equal(getTag(byId("alert1")), "div")
+  expect_true(hasClass(remDr, "alert1", "tbs-alert"))
+  expect_true(hasClass(remDr, "alert2", "tbs-alert"))
+  
+})
+
 test_that("can create alerts on load", {
-  w1 <- remDr$findElement(using = "id", value = "warn1")
-  d1 <- remDr$findElement(using = "id", value = "dang1")
-  i1 <- remDr$findElement(using = "id", value = "info1")
-  s1 <- remDr$findElement(using = "id", value = "succ1")
-  expect_equal(w1$getElementAttribute("id")[[1]][1], "warn1")
-  expect_equal(d1$getElementAttribute("id")[[1]][1], "dang1")
-  expect_equal(i1$getElementAttribute("id")[[1]][1], "info1")
-  expect_equal(s1$getElementAttribute("id")[[1]][1], "succ1")
+  els <- c("warn1", "dang1", "info1", "succ1", "warn2", "dang2", "info2", "succ2")
+  for(el in els) {
+    expect_true(elementExists(remDr, el), label = el)
+  }
 })
 
 test_that("type argument works", {
   
-  w1 <- remDr$findElement(using = "id", value = "warn1")$getElementAttribute("class")[[1]][1]
-  d1 <- remDr$findElement(using = "id", value = "dang1")$getElementAttribute("class")[[1]][1]
-  i1 <- remDr$findElement(using = "id", value = "info1")$getElementAttribute("class")[[1]][1]
-  s1 <- remDr$findElement(using = "id", value = "succ1")$getElementAttribute("class")[[1]][1]
+  expect_true(hasClass(remDr, "warn1", "alert-warning"))
+  expect_true(hasClass(remDr, "dang1", "alert-danger"))
+  expect_true(hasClass(remDr, "info1", "alert-info"))
+  expect_true(hasClass(remDr, "succ1", "alert-success"))
   
-  expect_that("alert-warning" %in% unlist(strsplit(w1, " ")), is_true())
-  expect_that("alert-danger" %in% unlist(strsplit(d1, " ")), is_true())
-  expect_that("alert-info" %in% unlist(strsplit(i1, " ")), is_true())
-  expect_that("alert-success" %in% unlist(strsplit(s1, " ")), is_true())
-
-  expect_that("alert-danger" %in% unlist(strsplit(w1, " ")), is_false())
-  expect_that("alert-info" %in% unlist(strsplit(d1, " ")), is_false())
-  expect_that("alert-success" %in% unlist(strsplit(i1, " ")), is_false())
-  expect_that("alert-warning" %in% unlist(strsplit(s1, " ")), is_false())
+  expect_false(hasClass(remDr, "warn1", "alert-danger"))
+  expect_false(hasClass(remDr, "dang1", "alert-info"))
+  expect_false(hasClass(remDr, "info1", "alert-success"))
+  expect_false(hasClass(remDr, "succ1", "alert-warning"))
   
 })
 
 test_that("dismiss argument works", {
-
-  cl1 <- remDr$findElement(using = "id", value = "warn1")$findChildElement(using = "css selector", value = "button.close")
-  cl2 <- remDr$findElement(using = "id", value = "warn2")$findChildElement(using = "css selector", value = "button.close")
-  
-  expect_equal(cl1$getElementTagName()[[1]][1], "button")
-  expect_that(cl2$getElementTagName()[[1]][1] == "button", is_false())
+ 
+  expect_true(getTag(childBySel(byId("warn1"), "button.close")) == "button")
+  expect_false(getTag(childBySel(byId("warn2"), "button.close")) == "button")
   
 })
 
 test_that("create alerts after load", {
   
-  # First test to make sure warn4 doesn't already exist
-  w4 <- remDr$findElement(using = "id", value = "warn4")
-  expect_that(w4$getElementTagName()[[1]][1] == "div", is_false())
-  
+  # First test to make sure batch 4 doesn't already exist
+  els <- c("warn4", "dang4", "info4", "succ4")
+  for(el in els) {
+    expect_false(elementExists(remDr, el), label = el)
+  }
+    
   # Click the button that creates the new alerts
-  remDr$findElement(using = "id", value = "but1")$clickElement()
+  byId("but1")$clickElement()
   
   # Check if alert exists now
-  w4 <- remDr$findElement(using = "id", value = "warn4")
-  expect_that(w4$getElementTagName()[[1]][1] == "div", is_true())
+  for(el in els) {
+    expect_true(elementExists(remDr, el), label = el)
+  }
   
 })
 
 test_that("closeAlert works", {
   
-  d2 <- remDr$findElement(using = "id", value = "dang2")
-  expect_that(d2$getElementTagName()[[1]][1] == "div", is_true())
+  # First test to make sure batch 4 is still open
+  els <- c("warn4", "dang4", "info4", "succ4")
+  for(el in els) {
+    expect_true(elementExists(remDr, el), label = el)
+  }
   
-  remDr$findElement(using = "id", value = "but2")$clickElement()
-
-  d2 <- remDr$findElement(using = "id", value = "dang2")
-  expect_that(d2$getElementTagName()[[1]][1] == "div", is_false())
+  # Click the button that creates the new alerts
+  byId("but2")$clickElement()
+  
+  # Check if alert have disappeared
+  for(el in els) {
+    expect_false(elementExists(remDr, el), label = el)
+  }
   
 })
 
-test_that("text dependent alert", {
+test_that("append works", {
   
-  
-  
+  a2 <- byId("alert2")
+  byId("but2")$clickElement()
+  start <- length(a2$findChildElements(using = "css selector", value = "div.alert"))
+  byId("but1")$clickElement()
+  expect_more_than(length(a2$findChildElements(using = "css selector", value = "div.alert")), start)
+  byId("but3")$clickElement()
+  expect_less_than(length(a2$findChildElements(using = "css selector", value = "div.alert")), start)
+
 })
+
+test_that("textInput alert", {
+  txt <- byId("text1")
+  #Make Sure textInput is empty
+  txt$clearElement()
+  expect_true(hasClass(remDr, "text_test", "alert-info"))
+  txt$sendKeysToElement(list("50"))
+  Sys.sleep(0.5)
+  expect_true(hasClass(remDr, "text_test", "alert-danger"))
+  txt$sendKeysToElement(list("0"))
+  Sys.sleep(0.5)
+  expect_true(hasClass(remDr, "text_test", "alert-success"))
+})
+
 
 remDr$close()
 close(remoteApp)

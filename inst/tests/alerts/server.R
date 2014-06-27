@@ -12,12 +12,7 @@ shinyServer(function(input, output, session) {
   createAlert(session, "alert2", "dang2", dismiss = FALSE, type = "danger", "Danger", "This is the second  danger test.")
   createAlert(session, "alert2", "info2", dismiss = FALSE, type = "info", "Information", "This is the second  information test.")
   createAlert(session, "alert2", "succ2", dismiss = FALSE, type = "success", "Success", "This is the second  success test.")
-  
-#   createAlert(session, "alert1", "warn3", type = "warning", dismiss = FALSE, "Warning", "This is the third warning test.")
-#   createAlert(session, "alert1", "dang3", type = "danger", dismiss = FALSE, "Danger", "This is the third danger test.")
-#   createAlert(session, "alert1", "info3", type = "info", dismiss = FALSE, "Information", "This is the third information test.")
-#   createAlert(session, "alert1", "succ3", type = "success", dismiss = FALSE, "Success", "This is the third success test.")
-  
+    
   observe({
     if(input$but1 > 0) {
       createAlert(session, "alert2", "warn4", type = "warning", "Warning", "This is another warning test.")
@@ -29,9 +24,9 @@ shinyServer(function(input, output, session) {
   
   observe({
     if(input$but2 > 0) {
-      closeAlert(session, "warn1")
-      closeAlert(session, "dang2")
-      closeAlert(session, "info3")
+      closeAlert(session, "warn4")
+      closeAlert(session, "dang4")
+      closeAlert(session, "info4")
       closeAlert(session, "succ4")
     }
   })
