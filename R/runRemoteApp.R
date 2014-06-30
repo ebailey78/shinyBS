@@ -1,3 +1,30 @@
+#'@rdname runRemoteApp
+#'@title Run shiny apps in seperate processes
+#'@description Open a shiny app in a seperate R processes (Windows Only)
+#'  
+#'@param appDir The directory of the application
+#'@param launch.browser Logical indicating whether the default browser should be
+#'  automatically opened.
+#'@param \dots In \code{runRemoteApp} represents other options to pass to
+#'  \link{runApp}. For \code{close} serves no purpose
+#'@param rApp The object created by runRemoteApp. Used to close app afterwards
+#'@param con The rApp object created by runRemoteApp
+#'  
+#'@details These functions were created to assist in testing with testthat and 
+#'  RSelenium packages. This allows the shiny test apps to be opened in a 
+#'  seperate process so the main process can be used by testthat.\cr\cr The 
+#'  function opens an instance of Rscript.exe and opens a socket to that 
+#'  process. Based roughly on how the snow package opens additional instances 
+#'  for parallel processing.
+#'@author Eric Bailey
+#'@examples
+#'\dontrun{
+#'## Open an app on a seperate process
+#'app <- runRemoteApp()
+#'
+#'## Close the remote app
+#'closeRemoteApp(app)
+#'}
 #'@export
 runRemoteApp <- function(appDir = getwd(), launch.browser = TRUE, ...) {
   
@@ -31,11 +58,15 @@ runRemoteApp <- function(appDir = getwd(), launch.browser = TRUE, ...) {
   
 }
 
+#'@rdname runRemoteApp
+#'@method close rApp
+#'@S3method close rApp
 #'@export
-close.rApp <- function(con) {
+close.rApp <- function(con, ...) {
   closeRemoteApp(con)
 }
 
+#'@rdname runRemoteApp
 #'@export
 closeRemoteApp <- function(rApp) {
   shell(paste("taskkill /F /PID", rApp$pid), wait = FALSE)
