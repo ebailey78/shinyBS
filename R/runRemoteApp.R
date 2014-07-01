@@ -60,7 +60,6 @@ runRemoteApp <- function(appDir = getwd(), launch.browser = TRUE, ...) {
 
 #'@rdname runRemoteApp
 #'@method close rApp
-#'@S3method close rApp
 #'@export
 close.rApp <- function(con, ...) {
   closeRemoteApp(con)
