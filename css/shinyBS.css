@@ -5,7 +5,7 @@ body { padding-top: 50px; }
 }
 
 .bs-bg-pattern {
-	background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
+	background-image: repeating-linear-gradient(315deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px); /**/
 }
 
 .bs-color {
