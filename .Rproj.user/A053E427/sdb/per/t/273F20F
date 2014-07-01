@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\n\nshinyServer(function(input, output, session) {\n  \n  createAlert(session, \"alert1\", \"warn1\", type = \"warning\", \"Warning\", \"This is the first warning test.\")\n  createAlert(session, \"alert1\", \"dang1\", type = \"danger\", \"Danger\", \"This is the first danger test.\")\n  createAlert(session, \"alert1\", \"info1\", type = \"info\", \"Information\", \"This is the first information test.\")\n  createAlert(session, \"alert1\", \"succ1\", type = \"success\", \"Success\", \"This is the first success test.\")\n  \n  createAlert(session, \"alert2\", \"warn2\", dismiss = FALSE, type = \"warning\", \"Warning\", \"This is the second warning test.\")\n  createAlert(session, \"alert2\", \"dang2\", dismiss = FALSE, type = \"danger\", \"Danger\", \"This is the second  danger test.\")\n  createAlert(session, \"alert2\", \"info2\", dismiss = FALSE, type = \"info\", \"Information\", \"This is the second  information test.\")\n  createAlert(session, \"alert2\", \"succ2\", dismiss = FALSE, type = \"success\", \"Success\", \"This is the second  success test.\")\n    \n  observe({\n    if(input$but1 > 0) {\n      createAlert(session, \"alert2\", \"warn4\", type = \"warning\", \"Warning\", \"This is another warning test.\")\n      createAlert(session, \"alert2\", \"dang4\", type = \"danger\", \"Danger\", \"This is another  danger test.\")\n      createAlert(session, \"alert2\", \"info4\", type = \"info\", \"Information\", \"This is another  information test.\")\n      createAlert(session, \"alert2\", \"succ4\", type = \"success\", \"Success\", \"This is another success test.\")\n    }\n  })\n  \n  observe({\n    if(input$but2 > 0) {\n      closeAlert(session, \"warn4\")\n      closeAlert(session, \"dang4\")\n      closeAlert(session, \"info4\")\n      closeAlert(session, \"succ4\")\n    }\n  })\n  \n  observe({\n    if(input$but3 > 0) {\n      createAlert(session, \"alert2\", \"info5\", \"Information\", \"This information alert is overwriting alert anchor #2.\", append = FALSE)\n    }\n  })\n  \n  observe({\n    closeAlert(session, \"text_test\")\n    x <- as.numeric(input$text1)\n    if(is.na(x)) {\n      createAlert(session, \"textAlert\", \"text_test\", title = \"Text Test\", \"You must enter numeric input!\", type = \"info\")\n    } else if(x > 100) {\n      createAlert(session, \"textAlert\", \"text_test\", title = \"Text Test\", \"Congratulations! You entered a number above 100!\", type = \"success\")\n    } else {\n      createAlert(session, \"textAlert\", \"text_test\", title = \"Text Test\", \"Danger! You have entered a number less than or equal to 100!\", type = \"danger\")\n    }\n    \n    \n  })\n  \n})",
+    "created" : 1403747456823.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "3414239191",
+    "id" : "273F20F",
+    "lastKnownWriteTime" : 1403838198,
+    "path" : "~/GitHub/shinyBS/inst/tests/alerts/server.R",
+    "project_path" : "inst/tests/alerts/server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

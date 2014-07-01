@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\n\nshinyUI(fluidPage(\n  fluidRow(tags$head(tags$title(\"shinyBS Alerts Test\")),\n    column(width = 4,\n           actionButton(\"but1\", \"Add Alerts\"),\n           actionButton(\"but2\", \"Remove Alerts\"),\n           actionButton(\"but3\", \"Append = FALSE\"),\n           textInput(\"text1\", \"Text Input\"),\n           bsAlert(\"textAlert\")\n           ),\n    column(width = 4,\n           bsAlert(\"alert1\")\n           ),\n    column(width = 4,\n           bsAlert(\"alert2\")\n           )\n    )\n  )\n)",
+    "created" : 1403747137014.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1209029338",
+    "id" : "495CB9E",
+    "lastKnownWriteTime" : 1403831302,
+    "path" : "~/GitHub/shinyBS/inst/tests/alerts/ui.R",
+    "project_path" : "inst/tests/alerts/ui.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

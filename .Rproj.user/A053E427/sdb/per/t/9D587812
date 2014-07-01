@@ -1,0 +1,16 @@
+{
+    "contents" : "#'@rdname Alerts\n#'@name Alerts\n#'@title Twitter Bootstrap Alerts\n#'  \n#'@description Functions to add and manipulate Twitter Bootstrap alerts in shiny\n#'  \n#'@details By default each new alert will be added below any previously existing\n#'  alerts. If you want only one alert to appear at a time change append to \n#'  FALSE. This will cause new alerts to overwrite any previously existing \n#'  alerts.\n#'  \n#'  Block style is an option discussed in the Twitter Bootstrap documentation, \n#'  though it doesn't make any difference that the author can see.\n#'  \n#'@param inputId id of the alert anchor\n#'@param session The \\code{session} object passed to function given to \n#'  \\code{shinyServer}\n#'@param alertId An id for the created alert. Optional, but necessary if you \n#'  want to close alert later with \\code{closeAlert}\n#'@param title A title for the alert. This text will be at the top of the alert \n#'  and be in larger, bold font\n#'@param message The main text of the alert\n#'@param type One of four options: \\code{warning}, \\code{danger}, \\code{info}, \n#'  or \\code{success}. Corresponds to standard Twitter Boostrap styles\n#'@param dismiss Logical indicating whether the user should be able to close the\n#'  alert\n#'@param block Logical indicating whether 'block' formatting should be applied \n#'  to the alert\n#'@param append Logical indicating whether the alert should be appended to the \n#'  alert anchor or should overwrite existing alerts in the alert anchor\n#'  \n#'@note Run \\code{bsDemo()} for a live examples of shinyBS functionality.\n#'@author Eric Bailey\n#'@references \\href{http://getbootstrap.com/2.3.2/components.html}{Components of\n#'  Twitter Bootstrap 2.3.2}\n#'@references \\href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript \n#'  for Twitter Bootstrap 2.3.2}\n#'@examples #Run bsDemo() for examples\n#'@export\nbsAlert <- function(inputId) {\n  \n  sbsHead(tags$div(class=\"tbs-alert\", id = inputId, \" \"))\n\n}\n\n#'@rdname Alerts\n#'@export\ncreateAlert <- function(session, inputId, alertId = NULL, title=NULL, message=NULL, type=NULL, dismiss=TRUE, block=NULL, append=TRUE) {\n  \n  data <- dropNulls(list(id=inputId, alertId = alertId, title=title, message=message, type=type, dismiss=dismiss, block=block, append=append))\n\n  session$sendCustomMessage(type=\"createalert\", data)\n  \n}\n\n#'@rdname Alerts\n#'@export\ncloseAlert <- function(session, alertId) {\n  \n  session$sendCustomMessage(type=\"closealert\", alertId)\n  \n}",
+    "created" : 1404094415746.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1838671081",
+    "id" : "9D587812",
+    "lastKnownWriteTime" : 1403661076,
+    "path" : "~/GitHub/shinyBS/R/bsAlert.R",
+    "project_path" : "R/bsAlert.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
