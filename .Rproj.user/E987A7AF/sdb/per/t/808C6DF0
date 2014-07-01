@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\n\nshinyUI(fluidPage(\n  fluidRow(\n    column(width = 4, id = \"col1\",\n           bsActionButton(\"actionTest\", \"actionButton\"),\n           bsToggleButton(\"toggleTest\", \"toggleButton\")),\n    column(width = 4, id = \"col2\"),\n    column(width = 4, id = \"col3\")\n  )\n))",
+    "created" : 1403897284966.000,
+    "dirty" : true,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1781795928",
+    "id" : "808C6DF0",
+    "lastKnownWriteTime" : 1403897584,
+    "path" : "C:/R/shinyBS/inst/tests/buttons2/ui.R",
+    "project_path" : "inst/tests/buttons2/ui.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

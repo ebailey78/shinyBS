@@ -1,0 +1,16 @@
+{
+    "contents" : "\nif(!require(RSelenium)) {\n  install.packages(\"RSelenium\")\n  library(RSelenium)\n}\n\nlibrary(shiny)\nlibrary(testthat)\nlibrary(shinyBS)\n\n#Install the server if it isn't already present\nRSelenium::checkForServer()\n\n# Starts the selenium server\nRSelenium::startServer()\n\n",
+    "created" : 1403888659885.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1158958287",
+    "id" : "936CC107",
+    "lastKnownWriteTime" : 1403886896,
+    "path" : "C:/R/shinyBS/inst/tests/helper_a_selenium_startup.R",
+    "project_path" : "inst/tests/helper_a_selenium_startup.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
