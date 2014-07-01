@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\n\nshinyServer(function(input, output, session) {\n  \n  output$aBvalue <- renderText(input$actionTest)\n  output$tBvalue <- renderText(input$toggleTest)\n  \n  observe({\n    if(input$aBdis > 0) {\n      if(input$aBdis %% 2 == 1) {\n        dis = TRUE\n      } else {\n        dis = FALSE\n      }\n      updateButton(session, \"actionTest\", disabled = dis)\n    }\n  })\n\n  observe({\n    if(input$tBdis > 0) {\n      if(input$tBdis %% 2 == 1) {\n        dis = TRUE\n      } else {\n        dis = FALSE\n      }\n      updateButton(session, \"toggleTest\", disabled = dis)\n    }\n  })\n  \n  observe({\n    \n    if(input$aBstyle > 0) {\n      style <- c(\"default\", \"primary\", \"info\", \"success\", \"warning\", \"danger\", \"inverse\", \"link\")[input$aBstyle %% 8 + 1]\n      updateButton(session, \"actionTest\", style = style)  \n    }\n      \n  })\n \n  observe({\n    \n    if(input$tBstyle > 0) {\n      style <- c(\"default\", \"primary\", \"info\", \"success\", \"warning\", \"danger\", \"inverse\", \"link\")[input$tBstyle %% 8 + 1]\n      updateButton(session, \"toggleTest\", style = style)  \n    }\n    \n  })\n  \n  observe({\n    if(input$aBsize > 0) {\n      size <- c(\"default\", \"large\", \"mini\", \"small\")[input$aBsize %% 4 + 1]\n      updateButton(session, \"actionTest\", size = size)\n    }\n  })\n  \n  observe({\n    if(input$tBsize > 0) {\n      size <- c(\"default\", \"large\", \"mini\", \"small\")[input$tBsize %% 4 + 1]\n      updateButton(session, \"toggleTest\", size = size)\n    }\n  })\n  \n  observe({\n    if(input$aBblock > 0) {\n      block = c(FALSE, TRUE)[input$aBblock %% 2 + 1]\n      updateButton(session, \"actionTest\", block = block)\n    }\n  })\n \n  observe({\n    if(input$tBblock > 0) {\n      block = c(FALSE, TRUE)[input$tBblock %% 2 + 1]\n      updateButton(session, \"toggleTest\", block = block)\n    }\n  })\n  \n  observe({\n    updateButton(session, \"actionTest\", label = input$aBlabel)\n  })\n  \n  observe({\n    updateButton(session, \"toggleTest\", label = input$tBlabel)\n  })\n  \n})",
+    "created" : 1404230809780.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "969088200",
+    "id" : "AFD402C9",
+    "lastKnownWriteTime" : 1404235100,
+    "path" : "C:/R/shinyBS/inst/tests/buttons2/server.R",
+    "project_path" : "inst/tests/buttons2/server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

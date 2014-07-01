@@ -1,0 +1,17 @@
+{
+    "contents" : "context(\"Buttons Updates\")\n\nappDir = file.path(system.file(package = \"shinyBS\"), \"tests\", \"buttons2\")\n\nremoteApp <- runRemoteApp(appDir = appDir, port = 5000, launch.browser = FALSE)\n\n#source(file.path(appDir, \"global.R\"))\n\nremDr <- remoteDriver()\nremDr$open(silent = TRUE)\nremDr$navigate(\"http:127.0.0.1:5000\")\n\n#Convenience Functions\nid <- findElement(remDr, \"id\")\ncss <- findElement(remDr, \"css selector\")\ncscss <- findChildren(\"css selector\")\n\n# Give the shiny app a second to get going\nSys.sleep(1)\n\ntest_that(\"can connect to app\", {\n  appTitle <- remDr$getTitle()[[1]]\n  expect_equal(appTitle, \"shinyBS Buttons Update Test\")\n})\n\ntest_that(\"buttons created\", {\n  \n  expect_true(elementExists(remDr, \"actionTest\"))\n  expect_true(elementExists(remDr, \"toggleTest\"))\n  expect_true(checkInputBinding(id(\"actionTest\")))\n  expect_true(checkInputBinding(id(\"toggleTest\")))\n  \n})\n\ntest_that(\"disable works\", {\n  \n  aB <- id(\"actionTest\")\n  tB <- id(\"toggleTest\")\n  aBt <- id(\"aBvalue\")\n  tBt <- id(\"tBvalue\")\n  \n  aBv <- as.integer(aBt$getElementText()[[1]][1])\n  aB$clickElement()\n  expect_equal(as.integer(aBt$getElementText()[[1]][1]), aBv + 1)\n  id(\"aBdis\")$clickElement()\n  aB$clickElement()\n  expect_equal(as.integer(aBt$getElementText()[[1]][1]), aBv + 1)\n  id(\"aBdis\")$clickElement()\n  aB$clickElement()\n  expect_equal(as.integer(aBt$getElementText()[[1]][1]), aBv + 2)\n  \n  tBv <- as.logical(tBt$getElementText()[[1]][1])\n  tB$clickElement()\n  expect_equal(as.logical(tBt$getElementText()[[1]][1]), !tBv)\n  id(\"tBdis\")$clickElement()\n  tB$clickElement()\n  expect_equal(as.logical(tBt$getElementText()[[1]][1]), !tBv)\n  id(\"tBdis\")$clickElement()\n  tB$clickElement()\n  expect_equal(as.logical(tBt$getElementText()[[1]][1]), tBv)\n  \n  \n})\n\ntest_that(\"style updates work\", {\n  styles <- c(\"primary\", \"info\", \"success\", \"warning\", \"danger\", \"inverse\", \"link\")\n  i = 0\n  for(style in styles) {\n    id(\"aBstyle\")$clickElement()\n    id(\"tBstyle\")$clickElement()\n    i = i + 1\n    expect_true(hasClass(id(\"actionTest\"), paste0(\"btn-\", style)), info = style)    \n    expect_true(hasClass(id(\"toggleTest\"), paste0(\"btn-\", style)), info = style)    \n  }\n})\n\ntest_that(\"size updates work\", {\n  sizes <- c(\"large\", \"mini\", \"small\")\n  i = 0\n  for(size in sizes) {\n    id(\"aBsize\")$clickElement()\n    id(\"tBsize\")$clickElement()\n    i = i + 1\n    expect_true(hasClass(id(\"actionTest\"), paste0(\"btn-\", size)), info = size)    \n    expect_true(hasClass(id(\"toggleTest\"), paste0(\"btn-\", size)), info = size)    \n  }\n})\n\nremDr$close()\nclose(remoteApp)\n",
+    "created" : 1404231843120.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "3906976170",
+    "id" : "60CD5957",
+    "lastKnownWriteTime" : 1404235807,
+    "path" : "C:/R/shinyBS/inst/tests/tests_buttons2.R",
+    "project_path" : "inst/tests/tests_buttons2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

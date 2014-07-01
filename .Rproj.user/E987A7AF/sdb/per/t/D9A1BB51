@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\n\n\n\nshinyUI(fluidPage(\n  fluidRow(tags$head(tags$title(\"shinyBS Buttons Update Test\")),\n    column(width = 4, id = \"col1\", tags$h3(\"Test Buttons\"),\n           bsActionButton(\"actionTest\", \"actionButton\"),\n           bsToggleButton(\"toggleTest\", \"toggleButton\")#,\n#            bsButtonGroup(\"bGone\", label = \"Checkbox Toggle\", style = \"warning\", size = \"mini\", block = TRUE, disabled = FALSE,\n#                          bsButton(\"bGone1\", \"dog\", value = \"dog\"),\n#                          bsButton(\"bGone2\", \"cat\", value = \"cat\"),\n#                          bsButton(\"bGone3\", \"cow\", value = \"cow\")\n#                          ),\n#            bsButtonGroup(\"bGtwo\", label = \"Radio Toggle\", toggle = \"radio\", style = \"warning\", size = \"mini\", block = TRUE, disabled = FALSE,\n#                          bsButton(\"bGtwo1\", \"dog\", value = \"dog\"),\n#                          bsButton(\"bGtwo2\", \"cat\", value = \"cat\"),\n#                          bsButton(\"bGtwo3\", \"cow\", value = \"cow\")\n#                          )\n           ),\n          \n    column(width = 4, id = \"col2\", tags$h3(\"Control Buttons\"),\n           actionButton(\"aBdis\", \"Disable actionButton\"),\n           actionButton(\"tBdis\", \"Disable toggleButton\"),\n           actionButton(\"aBstyle\", \"Change actionButton Style\"),\n           actionButton(\"tBstyle\", \"Change toggleButton Style\"),\n           actionButton(\"aBsize\", \"Change Action Button Size\"),\n           actionButton(\"tBsize\", \"Change Toggle Button Size\"),\n           actionButton(\"aBblock\", \"Make actionButton Block\"),\n           actionButton(\"tBblock\", \"Make toggleButton Block\"),\n           textInput(\"aBlabel\", \"actionButton Label\", value = \"actionButton\"),\n           textInput(\"tBlabel\", \"toggleButton Label\", value = \"toggleButton\")\n           ),\n    column(width = 4, id = \"col3\", tags$h3(\"Button Outputs\"),\n           textOutput(\"aBvalue\"),\n           textOutput(\"tBvalue\")\n           )\n  )\n))",
+    "created" : 1404230808851.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "224128283",
+    "id" : "D9A1BB51",
+    "lastKnownWriteTime" : 1404232110,
+    "path" : "C:/R/shinyBS/inst/tests/buttons2/ui.R",
+    "project_path" : "inst/tests/buttons2/ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
