@@ -28,9 +28,6 @@ updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL,
   disabled = NULL, value = NULL)
 }
 \arguments{
-\item{session}{The \code{session} object passed to function given to
-\code{shinyServer}}
-
 \item{inputId}{Id to assign to the button or button group}
 
 \item{id}{The id of the button/button group you want to update}
@@ -56,10 +53,12 @@ vertical orientation}
 \item{value}{The value of the button/button group (See Details)}
 
 \item{disabled}{Logical indicating whether the button(s) should be disabled}
+
+\item{session}{The \code{session} object passed to function given to
+\code{shinyServer}}
 }
 \description{
-Functions for setting and changing the style, size, and state of
- various buttons in shiny apps.
+Functions to create and update Twitter Bootstrap buttons in shiny
 }
 \details{
 \code{bsActionButton()} creates an action button that behaves just as

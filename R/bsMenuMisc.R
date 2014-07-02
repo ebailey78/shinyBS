@@ -3,6 +3,7 @@ bsMenuGroupTag <- function(groupId) {
   singleton(tags$span(id = groupId, class = "sbs-menu-group"))
 }
 
+
 #'@export
 bsMenuGroup <- function(groupId, groupType = "radio", itemIds, labels, values, 
                         disabled = FALSE, checked = NULL) {
@@ -73,11 +74,32 @@ bsMenuHeader <- function(label) {
   tags$li(class = "nav-header sbs-menu-header", label)
 }
 
+#'@rdname pageWithMenuBar
+#'@name pageWithMenuBar
+#'@title Create a page with a menubar
+#'@description Create a Shiny UI that contains a shinyBS menubar and an area for the main content
+#'
+#'@param title The title to appear in the browser tab
+#'@param menubar a menubar object created with \code{\link{bsMenuBar}}
+#'@param \dots Various input to add to the main content area of the shiny app.
+#'
+#'@details This will create a shiny UI taht can be passed to \code{\link{shinyUI}} inside a ui.R script.
+#'@author Eric Bailey
+#'@examples
+#'\dontrun{
+#'  shinyUI(pageWithMenuBar(title = "Example",
+#'          bsMenuBar(
+#'            bsMenuLink("test", "Test"),
+#'          ),
+#'          textOutput("title"),
+#'          plotOutput("plot")
+#'  ))
+#'}
 #'@export
-pageWithMenuBar <- function(title = "", navbar, ...) {
+pageWithMenuBar <- function(title = "", menubar, ...) {
   
   basicPage(tags$head(tags$title(title)),
-            navbar,
+            menubar,
             ...)
   
 }

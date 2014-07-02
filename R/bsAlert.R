@@ -1,8 +1,5 @@
-#'@rdname Alerts
-#'@name Alerts
-#'@title Twitter Bootstrap Alerts
-#'  
-#'@description Functions to add and manipulate Twitter Bootstrap alerts in shiny
+#'@templateVar item_name Alert
+#'@template component_header
 #'  
 #'@details By default each new alert will be added below any previously existing
 #'  alerts. If you want only one alert to appear at a time change append to 
@@ -10,11 +7,18 @@
 #'  alerts.
 #'  
 #'  Block style is an option discussed in the Twitter Bootstrap documentation, 
-#'  though it doesn't make any difference that the author can see.
+#'  it seems to add a slight amount of padding to the alert box.
 #'  
 #'@param inputId id of the alert anchor
-#'@param session The \code{session} object passed to function given to 
-#'  \code{shinyServer}
+#'@template footer
+bsAlert <- function(inputId) {
+  
+  sbsHead(tags$div(class="tbs-alert", id = inputId, " "))
+
+}
+
+#'@rdname alerts
+#'@template session
 #'@param alertId An id for the created alert. Optional, but necessary if you 
 #'  want to close alert later with \code{closeAlert}
 #'@param title A title for the alert. This text will be at the top of the alert 
@@ -28,22 +32,6 @@
 #'  to the alert
 #'@param append Logical indicating whether the alert should be appended to the 
 #'  alert anchor or should overwrite existing alerts in the alert anchor
-#'  
-#'@note Run \code{bsDemo()} for a live examples of shinyBS functionality.
-#'@author Eric Bailey
-#'@references \href{http://getbootstrap.com/2.3.2/components.html}{Components of
-#'  Twitter Bootstrap 2.3.2}
-#'@references \href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript 
-#'  for Twitter Bootstrap 2.3.2}
-#'@examples #Run bsDemo() for examples
-#'@export
-bsAlert <- function(inputId) {
-  
-  sbsHead(tags$div(class="tbs-alert", id = inputId, " "))
-
-}
-
-#'@rdname Alerts
 #'@export
 createAlert <- function(session, inputId, alertId = NULL, title=NULL, message=NULL, type=NULL, dismiss=TRUE, block=NULL, append=TRUE) {
   
@@ -53,7 +41,7 @@ createAlert <- function(session, inputId, alertId = NULL, title=NULL, message=NU
   
 }
 
-#'@rdname Alerts
+#'@rdname alerts
 #'@export
 closeAlert <- function(session, alertId) {
   

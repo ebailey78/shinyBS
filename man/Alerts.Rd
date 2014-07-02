@@ -4,7 +4,7 @@
 \alias{bsAlert}
 \alias{closeAlert}
 \alias{createAlert}
-\title{Twitter Bootstrap Alerts}
+\title{Create Twitter Bootstrap Alerts}
 \usage{
 bsAlert(inputId)
 
@@ -17,8 +17,7 @@ closeAlert(session, alertId)
 \arguments{
 \item{inputId}{id of the alert anchor}
 
-\item{session}{The \code{session} object passed to function given to
-\code{shinyServer}}
+\item{session}{The \code{session} object passed to function given to \code{shinyServer}}
 
 \item{alertId}{An id for the created alert. Optional, but necessary if you
 want to close alert later with \code{closeAlert}}
@@ -38,34 +37,32 @@ alert}
 to the alert}
 
 \item{append}{Logical indicating whether the alert should be appended to the
- alert anchor or should overwrite existing alerts in the alert anchor}
+alert anchor or should overwrite existing alerts in the alert anchor}
 }
 \description{
-Functions to add and manipulate Twitter Bootstrap alerts in shiny
+Functions to create and update Twitter Bootstrap Alerts in shiny
 }
 \details{
+
+
 By default each new alert will be added below any previously existing
  alerts. If you want only one alert to appear at a time change append to
  FALSE. This will cause new alerts to overwrite any previously existing
  alerts.
 
  Block style is an option discussed in the Twitter Bootstrap documentation,
- though it doesn't make any difference that the author can see.
+ it seems to add a slight amount of padding to the alert box.
 }
 \note{
 Run \code{bsDemo()} for a live examples of shinyBS functionality.
 }
 \examples{
-#Run bsDemo() for examples
+\dontrun{Run bsDemo() for examples}
 }
 \author{
 Eric Bailey
 }
 \references{
-\href{http://getbootstrap.com/2.3.2/components.html}{Components of
- Twitter Bootstrap 2.3.2}
-
-\href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript
- for Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/}{Twitter Bootstrap 2.3.2}
 }
 

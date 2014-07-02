@@ -1,12 +1,10 @@
-#'@rdname Buttons
+#'@rdname buttons
 #'@name Buttons
 #'@title Twitter Bootstrap Buttons
 #'  
-#'@description Functions for setting and changing the style, size, and state of 
-#'  various buttons in shiny apps.
+#'@templateVar item_name button
+#'@template component_desc
 #'  
-#'@param session The \code{session} object passed to function given to 
-#'  \code{shinyServer}
 #'@param inputId Id to assign to the button or button group
 #'@param id The id of the button/button group you want to update
 #'@param \dots \code{bsButton()} objects to be added to the button group
@@ -80,7 +78,7 @@ bsButton <- function(inputId, label, value, style = NULL, size = NULL,
   
 }
 
-#'@rdname Buttons
+#'@rdname buttons
 #'@export
 bsToggleButton <- function(inputId, label, value = FALSE, style = NULL, 
                            size = NULL, block = FALSE, disabled = FALSE) {
@@ -98,7 +96,7 @@ bsToggleButton <- function(inputId, label, value = FALSE, style = NULL,
   
 }
 
-#'@rdname Buttons
+#'@rdname buttons
 #'@export
 bsActionButton <- function(inputId, label, style = NULL, size = NULL, block = FALSE,
                            disabled = FALSE) {
@@ -112,7 +110,7 @@ bsActionButton <- function(inputId, label, style = NULL, size = NULL, block = FA
   
 }
 
-#'@rdname Buttons
+#'@rdname buttons
 #'@export
 updateButton <- function(session, id, label = NULL, value = NULL, style = NULL, 
                          size = NULL, block = NULL, disabled = NULL) {
@@ -124,7 +122,7 @@ updateButton <- function(session, id, label = NULL, value = NULL, style = NULL,
   
 }
 
-#'@rdname Buttons
+#'@rdname buttons
 #'@export
 bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size, 
                           value = NULL, disabled = FALSE, block = FALSE, vertical = FALSE) {
@@ -195,7 +193,9 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
 
 }
 
-#'@rdname Buttons
+#'@rdname buttons
+#'@param session The \code{session} object passed to function given to 
+#'  \code{shinyServer}
 #'@export
 updateButtonGroup <- function(session, id, toggle = NULL, style = NULL, 
                               size = NULL, disabled = NULL, value = NULL) {
