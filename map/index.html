@@ -14,9 +14,26 @@
 			  stroke:#FFF;
 			}
 			
+			.popup {
+
+			}
+			
+			text.popup-country {
+				fill: #333;
+				font-family: sans-serif;
+				font-weight: bold;
+				font-size: 1em;
+			}
+			
+			text.popup-data {
+				fill: #333;
+				font-family: sans-serif;
+				font-size: 0.8em;
+			}
+			
 		</style>
 		
-		<script src = "http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script src = "http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 	</head>
 
@@ -31,32 +48,97 @@
 		var width = $("svg").parent().width();
 		var height = ht;
 
-		// I discovered that the unscaled equirectangular map is 640x360. Thus, we
-		// should scale our map accordingly. Depending on the width ratio of the new
-		// container, the scale will be this ratio * 100. You could also use the height 
-		// instead. The aspect ratio of an equirectangular map is 2:1, so that's why
-		// our height is half of our width.
-
 		projection = d3.geo.equirectangular().scale((width/640)*100).translate([width/2, height/2]);
 		var path = d3.geo.path().projection(projection);
-		d3.json('data/world-countries.json', function(collection) {
-			map.selectAll('path').data(collection.features, function(d) {
-				return d.id;}
-			).enter()
-				.append('path')
-				.attr('d', path)
-				.attr("class", "nation")
-				.attr("width", width)
-				.attr("height", width/2);
+		d3.json('data/world-countries.json', function(error, collection) {
+		
+			d3.json('data/data.json', function(err, data) {
+				var max = 0;
 				
-			d3.json('data/data.json', function(err, dat) {
-				var x = 1;
-				var nats = map.selectAll('path').data(dat, function(e) {
-					return e.country;
-				})	
+				for(var i = 0; i < data.length; i++) {
+					var id = data[i].country;
+					max = Math.max(max, data[i].count);
+					for(var j = 0; j < collection.features.length; j++) {
+						if(collection.features[j].id === id) {
+							collection.features[j].properties.count = data[i].count;
+							collection.features[j].properties.first = data[i].first;
+							collection.features[j].properties.last = data[i].last;
+						}
+					}
+				}
 			
-			});
+				var scale = d3.scale.pow().exponent(0.3)
+					.domain([0, max])
+					.range(["yellow", "red"])
+			
+				map.selectAll('path').data(collection.features, function(d) {return d.id;}).enter()
+					.append('path')
+					.attr('d', path)
+					.attr("class", "nation")
+					.attr("width", width)
+					.attr("height", width/2)
+					.attr("fill", function(d) {
+						var x = 2;
+						if(d.properties.hasOwnProperty("count")) {
+							return scale(d.properties.count);
+						} else {
+							return "black";
+						};
+					})
+					.on("mouseenter", function(d) {
+						d3.select("g.popup")
+							.transition()
+								.delay(100)
+								.duration(200)
+								.attr("opacity", 0.9)
+								.style("display", "block");
+						d3.select("text.popup-country")
+							.text(d.properties.name);
+						d3.select("text.popup-count")
+							.text("Total Downloads: " + d.properties.count)
+					})
+					.on("mousemove", function(d) {
+						var m = d3.mouse(this);
+						d3.select("g.popup")
+							.attr("transform", "translate(" + (m[0] + 15) + "," + (m[1] + 5) + ")")
+						var x = 2;
+					})
+					.on("mouseleave", function(d) {
+							d3.select("g.popup")
+							.transition()
+								.duration(250)
+								.delay(75)
+									.attr("opacity", 0)
+									.style("display", "none")
+					});
+					
+					
+				var popup = map.append('g')
+					.attr("class", "popup")
+					.attr("opacity", 0)
+				popup.append("rect")
+					.attr("class", "popup")
+					.attr("width", "200px")
+					.attr("height", "100px")
+					.attr("rx", "5px")
+					.attr("fill", "#DDD")
+					.attr("stroke", "#555")
+					.attr("stroke-width", "2px");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "10px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-country");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "30px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-data popup-count");
+					
 
+			});
+		
+				
 		});
 		
 		}
