@@ -42,11 +42,15 @@
 	</body>
 	
 	<script>
-		function draw(ht) {
-		$("#mapContainer").html("<svg id='map' xmlns='http://www.w3.org/2000/svg' width='100%' height='" + ht + "'></svg>");
-		map = d3.select("svg");
-		var width = $("svg").parent().width();
-		var height = ht;
+		function draw() {
+		var width = 800;
+		var height = Math.floor(width / 2);
+		var pop_width = 200
+		var pop_height = 100
+		var map = d3.select("#mapContainer").append("svg")
+			.attr("id", "mapContainer")
+			.attr("width", width)
+			.attr("height", height)
 
 		projection = d3.geo.equirectangular().scale((width/640)*100).translate([width/2, height/2]);
 		var path = d3.geo.path().projection(projection);
@@ -67,9 +71,9 @@
 					}
 				}
 			
-				var scale = d3.scale.pow().exponent(0.3)
+				var scale = d3.scale.pow().exponent(0.43)
 					.domain([0, max])
-					.range(["yellow", "red"])
+					.range(["#FFFF00", "#CC0000"])
 			
 				map.selectAll('path').data(collection.features, function(d) {return d.id;}).enter()
 					.append('path')
@@ -86,6 +90,12 @@
 						};
 					})
 					.on("mouseenter", function(d) {
+						var props = d.properties
+						if(props.hasOwnProperty("count") == false) {
+							props.count = "NA"
+							props.first = "NA"
+							props.last = "NA"
+						}
 						d3.select("g.popup")
 							.transition()
 								.delay(100)
@@ -93,15 +103,26 @@
 								.attr("opacity", 0.9)
 								.style("display", "block");
 						d3.select("text.popup-country")
-							.text(d.properties.name);
+							.text(props.name);
 						d3.select("text.popup-count")
-							.text("Total Downloads: " + d.properties.count)
+							.text("Total Downloads: " + props.count);
+						d3.select("text.popup-first")
+							.text("First Download: " + props.first);
+						d3.select("text.popup-last")
+							.text("Last Download: " + props.last);
 					})
 					.on("mousemove", function(d) {
 						var m = d3.mouse(this);
+						var x = m[0] + 15;
+						var y = m[1] + 5;
+						if((x + pop_width) > width) {
+							x = m[0] - (pop_width + 5)
+						}
+						if((y + pop_height) > height) {
+							y = m[1] - (pop_height + 5)
+						}
 						d3.select("g.popup")
-							.attr("transform", "translate(" + (m[0] + 15) + "," + (m[1] + 5) + ")")
-						var x = 2;
+							.attr("transform", "translate(" + x + "," + y + ")")
 					})
 					.on("mouseleave", function(d) {
 							d3.select("g.popup")
@@ -118,8 +139,8 @@
 					.attr("opacity", 0)
 				popup.append("rect")
 					.attr("class", "popup")
-					.attr("width", "200px")
-					.attr("height", "100px")
+					.attr("width", pop_width)
+					.attr("height", pop_height)
 					.attr("rx", "5px")
 					.attr("fill", "#DDD")
 					.attr("stroke", "#555")
@@ -131,9 +152,19 @@
 					.attr("class", "popup-country");
 				popup.append("text")
 					.attr("x", "10px")
-					.attr("y", "30px")
+					.attr("y", "35px")
 					.attr("dy", "0.67em")
 					.attr("class", "popup-data popup-count");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "55px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-data popup-first");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "75px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-data popup-last");
 					
 
 			});
@@ -142,7 +173,7 @@
 		});
 		
 		}
-		draw($("#mapContainer").width()/2);
+		draw();
 	</script>
 
 </html> 

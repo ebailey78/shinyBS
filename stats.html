@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shinyBS</title>
+	
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/shinyBS.css" rel="stylesheet">
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+	<script src="holder/holder.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<style>
+		#mapContainer {
+			display:block;
+			margin:0 auto;
+		}
+			
+		#mapContainer path {
+		  stroke:#FFF;
+		}
+			
+		.popup {
+			}
+			
+		text.popup-country {
+			fill: #333;
+			font-family: sans-serif;
+			font-weight: bold;
+			font-size: 18px;
+		}
+		
+		text.popup-data {
+			fill: #333;
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+	</style>
+	
+  </head>
+  <body>
+
+	<nav class="navbar navbar-shinybs navbar-fixed-top bs-bg-color bs-bg-pattern" role="navigation">
+	  <div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shinybs-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="index.html">shinyBS</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="shinybs-collapse">
+		  <ul class="nav navbar-nav">
+			<li class="active"><a href="install.html">Install</a></li>
+			<li><a href="changes.html">Changes</a></li>
+			<li><a href="reference.html">Reference</a></li>
+			<li><a href="examples.html">Examples</a><li>
+			<li><a href="help.html">Help</a></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class = "container">
+		<div class = "row">
+		
+			<!-- Sidebar navigation -->
+		
+			<nav class = "col-xs-3 sbs-sidebar">
+				<ul id = "sidebar" class = "nav nav-stacked fixed">
+					<li>
+						<a href = "#getting_ready">Getting Ready</a>
+						<ul class = "nav nav-stacked">
+							<li><a href = "#install_r">Installing R</a></li>
+							<li><a href = "#install_rstudio">Installing RStiudio</a></li>
+							<li><a href = "#install_shiny">Installing Shiny</a></li>
+						</ul>
+					<li>
+						<a href = "#install_shinybs">Installing shinyBS</a>
+						<ul class = "nav nav-stacked">
+							<li><a href = "#from_cran">Installing from CRAN</a></li>
+							<li><a href = "#from_github">Installing from GitHub</a></li>
+						</ul>
+					<li><a href = "#using_shinybs">Using shinyBS</a></li>
+				</ul>
+			</nav>
+			
+			<!-- Main Content -->
+			
+			<div class = "col-xs-9">
+				<h1 class = "page-header bs-color"><i class="fa fa-bar-chart-o fa-2x"></i> Stats</h1>
+				<p class="text-justify">Using <a href = "http://cran-logs.rstudio.com/">RStudio's CRAN logs</a> and the 
+				  <a href = "http://cran.r-project.org/web/packages/rworldmap/index.html">rworldmap</a> package, I've 
+				  been tracking shinyBS downloads. I just worked up this d3 map to add a little interactivity to the data.</p>
+				<p class="text-justify">This is an incomplete picture but, as of 
+				  June 30th, 2014, shinyBS has been downloaded nearly 1,000 times from RStudio's CRAN mirror. 
+				  Downloads have occurred in 66 different countries and on every continent except Antarctica.
+				</p>
+
+				<div id="mapContainer"></div>
+				
+			</div>
+			
+		</div>	
+		
+	</div>
+	<footer class = "container" >
+		<p>
+			This project is maintained by <a href="https://github.com/ebailey78">ebailey78</a>
+			and is in no way affiliated with <a href = "http://shiny.rstudio.com">Shiny</a> or <a href = "http://www.rstudio.com">RStudio</a>.
+		</p>
+		<p>
+			<small>
+				Hosted on GitHub Pages
+			</small>
+		</p>
+	</footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	<script>
+		$('body').scrollspy({
+			target: '.sbs-sidebar',
+			offset: 120
+		});
+	</script>
+		<script>
+		function draw() {
+		var width = 800;
+		var height = Math.floor(width / 2);
+		var pop_width = 200
+		var pop_height = 100
+		var map = d3.select("#mapContainer").append("svg")
+			.attr("id", "mapContainer")
+			.attr("width", width)
+			.attr("height", height)
+
+		projection = d3.geo.equirectangular().scale((width/640)*100).translate([width/2, height/2]);
+		var path = d3.geo.path().projection(projection);
+		d3.json('data/world-countries.json', function(error, collection) {
+		
+			d3.json('data/data.json', function(err, data) {
+				var max = 0;
+				
+				for(var i = 0; i < data.length; i++) {
+					var id = data[i].country;
+					max = Math.max(max, data[i].count);
+					for(var j = 0; j < collection.features.length; j++) {
+						if(collection.features[j].id === id) {
+							collection.features[j].properties.count = data[i].count;
+							collection.features[j].properties.first = data[i].first;
+							collection.features[j].properties.last = data[i].last;
+						}
+					}
+				}
+			
+				var scale = d3.scale.pow().exponent(0.43)
+					.domain([0, max])
+					.range(["#FFFF00", "#CC0000"])
+			
+				map.selectAll('path').data(collection.features, function(d) {return d.id;}).enter()
+					.append('path')
+					.attr('d', path)
+					.attr("class", "nation")
+					.attr("width", width)
+					.attr("height", width/2)
+					.attr("fill", function(d) {
+						var x = 2;
+						if(d.properties.hasOwnProperty("count")) {
+							return scale(d.properties.count);
+						} else {
+							return "black";
+						};
+					})
+					.on("mouseenter", function(d) {
+						var props = d.properties
+						if(props.hasOwnProperty("count") == false) {
+							props.count = "NA"
+							props.first = "NA"
+							props.last = "NA"
+						}
+						d3.select("g.popup")
+							.transition()
+								.delay(100)
+								.duration(200)
+								.attr("opacity", 0.9)
+								.style("display", "block");
+						d3.select("text.popup-country")
+							.text(props.name);
+						d3.select("text.popup-count")
+							.text("Total Downloads: " + props.count);
+						d3.select("text.popup-first")
+							.text("First Download: " + props.first);
+						d3.select("text.popup-last")
+							.text("Last Download: " + props.last);
+					})
+					.on("mousemove", function(d) {
+						var m = d3.mouse(this);
+						var x = m[0] + 15;
+						var y = m[1] + 5;
+						if((x + pop_width) > width) {
+							x = m[0] - (pop_width + 5)
+						}
+						if((y + pop_height) > height) {
+							y = m[1] - (pop_height + 5)
+						}
+						d3.select("g.popup")
+							.attr("transform", "translate(" + x + "," + y + ")")
+					})
+					.on("mouseleave", function(d) {
+							d3.select("g.popup")
+							.transition()
+								.duration(250)
+								.delay(75)
+									.attr("opacity", 0)
+									.style("display", "none")
+					});
+					
+					
+				var popup = map.append('g')
+					.attr("class", "popup")
+					.attr("opacity", 0)
+				popup.append("rect")
+					.attr("class", "popup")
+					.attr("width", pop_width)
+					.attr("height", pop_height)
+					.attr("rx", "5px")
+					.attr("fill", "#DDD")
+					.attr("stroke", "#555")
+					.attr("stroke-width", "2px");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "10px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-country");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "35px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-data popup-count");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "55px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-data popup-first");
+				popup.append("text")
+					.attr("x", "10px")
+					.attr("y", "75px")
+					.attr("dy", "0.67em")
+					.attr("class", "popup-data popup-last");
+					
+
+			});
+		
+				
+		});
+		
+		}
+		draw();
+	</script>
+
+  </body>
+</html>
