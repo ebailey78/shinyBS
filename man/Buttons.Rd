@@ -3,11 +3,9 @@
 \alias{Buttons}
 \alias{bsActionButton}
 \alias{bsButton}
-\alias{bsButtonGroup}
 \alias{bsToggleButton}
 \alias{updateButton}
-\alias{updateButtonGroup}
-\title{Twitter Bootstrap Buttons}
+\title{Create Twitter Bootstrap Buttons}
 \usage{
 bsButton(inputId, label, value, style = NULL, size = NULL, block = FALSE,
   disabled = FALSE)
@@ -20,85 +18,86 @@ bsActionButton(inputId, label, style = NULL, size = NULL, block = FALSE,
 
 updateButton(session, id, label = NULL, value = NULL, style = NULL,
   size = NULL, block = NULL, disabled = NULL)
-
-bsButtonGroup(inputId, ..., label, toggle = "checkbox", style, size,
-  value = NULL, disabled = FALSE, block = FALSE, vertical = FALSE)
-
-updateButtonGroup(session, id, toggle = NULL, style = NULL, size = NULL,
-  disabled = NULL, value = NULL)
 }
 \arguments{
-\item{inputId}{Id to assign to the button or button group}
+\item{inputId}{Input variable to assign the control's value to}
 
-\item{id}{The id of the button/button group you want to update}
+\item{label}{The text that will appear within the button}
 
-\item{\dots}{\code{bsButton()} objects to be added to the button group}
+\item{value}{See details}
 
-\item{label}{For buttons, the text to appear inside the button. For button
-groups, an optional label that will appear above the button group}
+\item{style}{The style to apply to the button}
 
-\item{toggle}{The type of toggle behavior the button group should have (See
-Details)}
+\item{size}{The desired size of the button}
 
-\item{style}{The bootstrap style the button(s) should take (See Details)}
+\item{block}{Logical indicating whether the button should be a block level
+control.}
 
-\item{size}{The bootstrap size the button(s) should take (See Details)}
+\item{disabled}{Logical indicating whether the button should be clickable}
 
-\item{block}{Logical indicating whether the button or button group should be a
-block level element (i.e., should it span the width of its parent element)}
+\item{session}{The session object passed from shinyServer}
 
-\item{vertical}{Logical indicating whether the button group should have a
-vertical orientation}
-
-\item{value}{The value of the button/button group (See Details)}
-
-\item{disabled}{Logical indicating whether the button(s) should be disabled}
-
-\item{session}{The \code{session} object passed to function given to
-\code{shinyServer}}
+\item{id}{The id of the button you want to update with \code{updateButton}}
 }
 \description{
-Functions to create and update Twitter Bootstrap buttons in shiny
+Functions to create and update Twitter Bootstrap Buttons in shiny
 }
 \details{
-\code{bsActionButton()} creates an action button that behaves just as
-a standard shiny action button does. It has the added functionality of being
-able to changed its style and size. It can also be disabled/enabled.\cr\cr
-\code{toggle} can take a value of either \code{radio} or \code{checkbox}.
-\code{radio} will allow only one button in the button group to be selected at
-a time. \code{checkbox} will allow any number of buttons to be selected at a
-time. \cr\cr \code{style} can be any of the styles described in the Twitter
-Bootstrap 2.3.2 documentation. Acceptable values are currently: primary, info,
-success, warning, danger, inverse, or link. Additionally, when calling one of
-the update functions, style can be set to \code{default} to return to the
-default button style.\cr\cr \code{size} can be any of the sizes described in
-the Twitter Bootstrap 2.3.2 documentation. Accepatble values are currently:
-large, small, or mini. Additionally, when calling one of the update functions,
-style can be set to \code{default} to return to the default size.\cr\cr For
-toggle buttons, \code{value} can be \code{TRUE} or \code{FALSE} and
-corresponds to whether the button is currently 'clicked.' For \code{bsButton},
-\code{value} is used to set the value that will be returned by containing
-\code{bsButtonGroup} object when the button is clicked. For button groups,
-\code{value} is used to set the current value to be returned by the group and
-should correspond to values assigned to buttons contained in the button
-group.\cr\cr \code{vertical} and \code{block} for button groups are
-experimental. They do not work well together and may not work under all
-browsers.
+
+
+shinyBS adds additional styling options to the
+ \code{\link{actionButton}} and introduces two new types of buttons to the
+ shiny interface.
+
+\code{bsButton} is a generic button that doesn't have any default
+ behavior. They are used as inputs when creating a
+ \code{\link{bsButtonGroup}}. They can also be used as triggers for other
+ elements like \code{\link{bsModal}} or \code{\link{bsPopover}}.
+
+ For \code{bsButton}, \code{value} is used to assign a return value for
+ \code{\link{bsButtonGroup}}. See \code{\link{bsButtonGroup}} for more
+ details. For \code{bsToggleButton} and \code{updateButton}, \code{value} is
+ used to set whether the button is currently 'clicked'.
+
+ \code{style} is used to customize the appearence of buttons. There are six
+ options for style: \code{primary}, \code{info}, \code{success},
+ \code{warning}, \code{danger}, \code{inverse}, \code{link}. Any other value
+ will result in a standard button style.
+
+ \code{size} is used to control the size of buttons. \code{size} can be
+ \code{large}, \code{small}, or \code{mini}. Any other value will result in a
+ standard-sized button.
+
+ Setting \code{block = TRUE} will cause the button to take up the full width
+ of its parent element.
+
+ When \code{disabled = TRUE} the button will appear "greyed-out" and clicking
+ the button will have no effect on the app.
+
+\code{bsToggleButton} is an alternative to
+ \code{\link{checkboxInput}}. It has on and an off states that correspond to
+ \code{TRUE/FALSE}. When \code{TRUE} the toggle button will look like it is pressed
+ in. When \code{FALSE} it will appear as a normal button. Clicking the toggle
+ button will alternate between the two states.
+
+\code{bsActionButton} works just like shiny's default
+ \code{\link{actionButton}} but has additional styling options.
+
+updateButton can be used within server.R to change the appearence
+ and/or state of any of the shinyBS button types. If a parameter is passed to
+ \code{updateButton} that doesn't apply to the button selected, it will be
+ ignored (e.g. \code{value} for \code{bsActionButton}).
 }
 \note{
-Run \code{bsDemo()} for a live examples of shinyBS functionality.
+Run \code{bsDemo()} for a live example of shinyBS Buttons functionality.
 }
 \examples{
-#Run bsDemo() for examples
+\dontrun{Run bsDemo() for examples}
 }
 \author{
 Eric Bailey
 }
 \references{
-\href{http://getbootstrap.com/2.3.2/components.html}{Components of
- Twitter Bootstrap 2.3.2}
-
-\href{http://getbootstrap.com/2.3.2/base-css.html}{Base CSS for
- Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/}{Twitter Bootstrap 2.3.2}
 }
 
