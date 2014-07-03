@@ -33,21 +33,24 @@ bsAlert <- function(inputId) {
 #'  to the alert
 #'@param append Logical indicating whether the alert should be appended to the 
 #'  alert anchor or should overwrite existing alerts in the alert anchor
+#'  
 #'@details \code{createAlert} is used in server.R to create an alert within 
 #'  an anchor created by \code{bsAlert}. For example, you may have an observer 
 #'  that watches for certain conditions, like a missing input or an empty 
 #'  data.frame and calls \code{createAlert} to create an alert warning the user 
 #'  of the problem.
 #'  
+#'  The alert consists of an optional \code{title} and \code{message}. The title
+#'  will appear on its own line as larger bold text. The message is the main 
+#'  body of the alert and with dislay as standard text.
+#'  
+#'@section Options:
+#'
 #'  \code{alertId} is optional but serves two useful functions. First, if an
 #'  alert is assigned an id with \code{alertId} it can be dismissed later by
 #'  using \code{closeAlert}. Second, if you assign an alert an id, shinyBS will
 #'  check to see if an alert with the same id already exists, and if it does it
 #'  wont create the new alert.
-#'  
-#'  The alert consists of an optional \code{title} and \code{message}. The title
-#'  will appear on its own line as larger bold text. The message is the main 
-#'  body of the alert and with dislay as standard text.
 #'  
 #'  \code{type} is used to set the style of the alert. There are currently four 
 #'  options: \code{warning}, \code{danger}, \code{info}, or \code{success}. 
@@ -68,7 +71,6 @@ bsAlert <- function(inputId) {
 #'  alert below the last alert created in the anchor. If \code{append = FALSE} 
 #'  then any existing alerts in the anchor will be removed before the new alert 
 #'  is created.
-#'  
 #'  
 #'@export
 createAlert <- function(session, inputId, alertId = NULL, title=NULL, message=NULL, type=NULL, dismiss=TRUE, block=NULL, append=TRUE) {

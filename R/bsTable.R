@@ -1,4 +1,4 @@
-#'@rdname Tables
+#'@rdname tables
 #'@name Tables
 #'@title Table Highlighting
 #'@description Functions to highlight table cells and/or rows based on their
@@ -26,14 +26,7 @@
 #'\code{danger}, \code{info}, \code{warning}, \code{success}, \code{good},
 #'\code{bad}, or \code{neutral}.
 #'
-#'@note Run \code{bsDemo()} for a live examples of shinyBS functionality.
-#'@author Eric Bailey
-#'@references \href{http://getbootstrap.com/2.3.2/components.html}{Components of
-#'  Twitter Bootstrap 2.3.2}
-#'@references \href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript 
-#'  for Twitter Bootstrap 2.3.2}
-#'@examples #Run bsDemo() for examples
-#'@export
+#'@template footer
 highlightCells <- function(session, id, min = NULL, max = NULL, regex = NULL, column = NULL,
                            class = NULL, style = NULL, reset = NULL, skip.row.names = TRUE) {
   
@@ -44,7 +37,7 @@ highlightCells <- function(session, id, min = NULL, max = NULL, regex = NULL, co
   
 }
 
-#'@rdname Tables
+#'@rdname tables
 #'@export
 highlightRows <- function(session, id, column, min=NULL, max=NULL, regex = NULL,
                           class = NULL, style = NULL, reset = NULL) {

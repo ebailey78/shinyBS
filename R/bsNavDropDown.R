@@ -33,7 +33,7 @@ processChoice <- function(choice) {
   
 }
 
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavDropDown <- function(inputId, label, choices, selected="") {
   
@@ -55,7 +55,7 @@ bsNavDropDown <- function(inputId, label, choices, selected="") {
 }
 
 # Allows updating out navbar dropdowns.
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 updateDropDown <- function(session, inputId, label=NULL, choices=NULL, selected=NULL) {
   

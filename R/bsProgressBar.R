@@ -1,34 +1,38 @@
-#'@rdname ProgressBar
-#'@name Progress Bars
-#'@title Twitter Bootstrap Progress Bars
+#'@templateVar item_name Progress Bar
+#'@template component
+#'@details Progress Bars can be used to give the user feedback on their progress
+#'  through a multistep process or the progress of some long-running background 
+#'  process running on the server.
 #'  
-#'@description Functions to create and update Twitter Bootstrap progress bars in
-#'  shiny
-#'  
-#'@param inputId Id to assign to the progress bar
-#'@param value The current completion value as a percent between 0  and 100
+#'  To use a progress bar effectively you need to know the endpoint that you are
+#'  working towards. That can be difficult unless you are updating based on the
+#'  progress of a loop or *apply function.
+NULL
+
+#'@rdname progressbars
+#'@param inputId The id to assign to the progress bar
+#'@param value numeric value between 0 and 100. Indicated percentage filled
 #'@param visible Logical indicating whether the progress bar should be visible
-#'@param color Following Twitter Bootstrap's style scheme, one of
-#'  \code{standard}, \code{warning}, \code{danger}, \code{info}, or
-#'  \code{success}. \code{standard} by default
-#'@param striped Logical indicating whether Twitter Bootstrap's 'striped' style
-#'  should be applied
-#'@param animate Logical indication whether Twitter Bootstrap's 'animate' style
-#'  should be applied
-#'@param session The \code{session} object passed to function given to
-#'  \code{shinyServer}
+#'@param color The color of the progress bar
+#'@param striped Logical indicating whether the progress bar shoudl be striped
+#'@param animate Logical indicating whether the progress bar's stripes should 
+#'  move
 #'  
-#'@details Progress bars should be initialized with \code{bsProgress} in the
-#'\code{ui.R} script. They can then be updated using \code{updateProgressBar}
-#'from \code{server.R}.\cr\cr When using \code{updateProgressBar} only specify
-#'those arguments that you want to change. If you call
-#'\code{updateProgressBar(value = 25)} then only the value will be updated and
-#'the other options will remain unchanged.
-#'@note Run \code{bsDemo()} for a live examples of shinyBS functionality.
-#'@author Eric Bailey
-#'@references \href{http://getbootstrap.com/2.3.2/components.html}{Components of
-#'  Twitter Bootstrap 2.3.2}
-#'@examples #Run bsDemo() for examples
+#'@section Options: \code{value} should be a numeric value between 0 and 100 
+#'  where 0 indicates the bar is empty and 100 indicates the bar is completely 
+#'  full.
+#'  
+#'  \code{visible} makes it easy to hide the progress bar when it isn't in use.
+#'  
+#'  \code{color} is one of Twitter Bootstrap's predefined color schemes: 
+#'  \code{danger}, \code{warning}, \code{success}, or \code{info}. If missing, 
+#'  the progress bar will be the default blue color scheme.
+#'  
+#'  \code{striped = TRUE} will cause the progress bar to have diagonal stripes.
+#'  
+#'  \code{animate = TRUE} will cause the progress bar to have animated diagonal
+#'  stripes.
+#'  
 #'@export
 bsProgressBar <- function(inputId, value = 0, visible=TRUE, 
                           color, striped=FALSE, animate=FALSE) {
@@ -53,7 +57,10 @@ bsProgressBar <- function(inputId, value = 0, visible=TRUE,
 
 }
 
-#'@rdname ProgressBar
+#'@rdname progressbars
+#'@param session The session object passed from shinyServer
+#'@details \code{updateProgressBar} is called from server.R to change the style
+#'  of the progres bar or change its value.
 #'@export
 updateProgressBar <- function(session, inputId, value=NULL, visible=NULL, color=NULL, striped=NULL, animate=NULL) {
   

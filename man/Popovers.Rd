@@ -4,7 +4,7 @@
 \alias{addPopover}
 \alias{bsPopover}
 \alias{removePopover}
-\title{Twitter Bootstrap Popovers}
+\title{Create Twitter Bootstrap Popovers}
 \usage{
 bsPopover(id, title, content, placement = "right", trigger = "click")
 
@@ -14,47 +14,59 @@ addPopover(session, id, title = "", content, placement = "right",
 removePopover(session, id)
 }
 \arguments{
-\item{id}{The \code{inputId} of the object to add the popover to}
+\item{id}{The id of the element you want to attach/remove the popover to/from}
 
-\item{title}{The title of the popover}
+\item{title}{The title to appear at the top of the popover.}
 
-\item{content}{The main content of the popover}
+\item{content}{The main body of the popover}
 
-\item{placement}{Where the popover should appear in relation to the object.
-Acceptable values are \code{bottom}, \code{top}, \code{left}, and
-\code{right}}
+\item{placement}{Where the popover shoud appear relative to its target}
 
-\item{trigger}{The action that will make the popover appear. Common values are
-\code{hover} or \code{click}}
+\item{trigger}{What action should cause the popover to appear}
 
-\item{session}{The \code{session} object passed to function given to
- \code{shinyServer}}
+\item{session}{The session object passed from shinyServer}
 }
 \description{
-Functions to add and manipulate Twitter Bootstrap Tooltips in
- shiny
+Functions to create and update Twitter Bootstrap Popovers in shiny
 }
 \details{
-\code{bsPopover} is called from \code{ui.R} and will add a
- \code{<script>} element to the page that adds a popover on page load. \cr\cr
- \code{addPopover} is called from \code{server.R} and uses shiny's
- \code{customMessageHandler} to add a popover after page load. \cr\cr When
- the popover is added to the app, a "#" is prepended to the \code{id}
- provided. If you have knowledge of CSS/jQuery you can add additional
- selectors after the id to give finer control over the placement of the
- popover.
+
+
+Popovers are used to convey small amounts of information to the user
+ of your shiny app. They are usually set to appear on click or hover and can
+ contain text to help better explain an element of your shiny app.
+
+shiny and shinyBS use jQuery to select elements within the page.
+shinyBS will prepend the \code{id} argument with a "#" to tell jQuery to look
+for an id, but additional css selectors can be included within the \code{id}
+argument. For example, if you wanted to attach a popover to the first header
+of a table with an id of "tableEx" you could do something like \code{id =
+"tableEx th:nth-child(1)"}.
+
+\code{bsPopover} is used from within ui.R to add
+popovers to elements
+
+\code{addPopover} is called from within server.R to add popovers to elements
+
+\code{removePopover} will remove any popovers attached to the selected element.
 }
 \note{
-Run \code{bsDemo()} for a live examples of shinyBS functionality.
+Run \code{bsDemo()} for a live example of shinyBS Popovers functionality.
+}
+\section{Options}{
+ \code{placement} can be \code{right}, \code{left},
+ \code{top}, or \code{bottom}
+
+ \code{trigger} can be \code{hover}, \code{click}, \code{focus}, or
+ \code{manual}
 }
 \examples{
-#Run bsDemo() for examples
+\dontrun{Run bsDemo() for examples}
 }
 \author{
 Eric Bailey
 }
 \references{
-\href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript
- for Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/}{Twitter Bootstrap 2.3.2}
 }
 

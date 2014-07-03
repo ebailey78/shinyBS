@@ -53,16 +53,12 @@ specified. \cr\cr \code{class} can be set to any of the following:
 Run \code{bsDemo()} for a live examples of shinyBS functionality.
 }
 \examples{
-#Run bsDemo() for examples
+\dontrun{Run bsDemo() for examples}
 }
 \author{
 Eric Bailey
 }
 \references{
-\href{http://getbootstrap.com/2.3.2/components.html}{Components of
- Twitter Bootstrap 2.3.2}
-
-\href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript
- for Twitter Bootstrap 2.3.2}
+\href{http://getbootstrap.com/2.3.2/}{Twitter Bootstrap 2.3.2}
 }
 

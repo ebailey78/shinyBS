@@ -2,14 +2,15 @@
 #'@name bsGlyph
 #'@title Glyphicons
 #'@description Add Glyphicons to shiny (DEPRECIATED)
-#'
+#'  
 #'@param name The name of the glyphicon
 #'@param white Logical indicating whether the white version should be used
-#'
-#'@details Since writing this function, RStudio has added an \code{icon()} function to shiny. Use \code{icon()} instead.
-#'
+#'  
+#'@details Since writing this function, RStudio has added an \code{\link{icon}}
+#'  function to shiny. Use \code{\link{icon}} instead.
+#'@family depreciated
 #'@author Eric Bailey
-#'@references \href{http://getbootstrap.com/2.3.2/base-css.html}{Base CSS for
+#'@references \href{http://getbootstrap.com/2.3.2/base-css.html}{Base CSS for 
 #'  Twitter Bootstrap 2.3.2}
 #'@export
 bsGlyph <- function(name, white = FALSE) {
@@ -19,8 +20,8 @@ bsGlyph <- function(name, white = FALSE) {
   tags$i(class=class)
 }
 
-#'@rdname NavBar
-#'@name NavBar
+#'@rdname navbar
+#'@name navbar
 #'@title Depreciated Navbar Functions
 #'  
 #'@description Depreciated functions related to creating NavBars in shiny. See
@@ -61,6 +62,7 @@ bsGlyph <- function(name, white = FALSE) {
 #'work and added new functionality. These new function begin with \code{bsMenu}.
 #'The bsNav function remain to avoid breaking older apps but should not be used
 #'for new apps.
+#'@family depreciated
 #'@author Eric Bailey
 #'@references \href{http://getbootstrap.com/2.3.2/components.html}{Components of
 #'  Twitter Bootstrap 2.3.2}
@@ -79,7 +81,7 @@ bsNavBar <- function(inputId, brand, ..., rightItems, fixed=FALSE, inverse=FALSE
 }
 
 # Allows the user to change some aspects of th navbar from the server.
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 updateNavBar <- function(session, inputId, brand=NULL, fixed=NULL, inverse=NULL) {
   
@@ -90,7 +92,7 @@ updateNavBar <- function(session, inputId, brand=NULL, fixed=NULL, inverse=NULL)
 }
 
 # Wrapper for creating a page with a navbar
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 pageWithNavBar <- function(title = "", navbar, mainContent) {
   
@@ -101,14 +103,14 @@ pageWithNavBar <- function(title = "", navbar, mainContent) {
 }
 
 # same as textOutput but wrapped for better formatting in navbar 
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavTextOutput <- function(outputId) {
   tags$li(tags$p(id = outputId, class="navbar-text sbs-text-output"))
 }
 
 # Create a link input for a navbar that acts like an actionButton
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavLink <- function(inputId, label, href="#") {
   
@@ -119,7 +121,7 @@ bsNavLink <- function(inputId, label, href="#") {
 }
 
 # Create a link input for a navbar that acts like a checkboxInput
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavToggleLink <- function(inputId, label, value=FALSE) {
   
@@ -133,7 +135,7 @@ bsNavToggleLink <- function(inputId, label, value=FALSE) {
 }
 
 # Update a toggleLink object
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 updateToggleLink <- function(session, inputId, label=NULL, value=NULL) {
   data <- dropNulls(list(label=label, value = value))
@@ -143,14 +145,14 @@ updateToggleLink <- function(session, inputId, label=NULL, value=NULL) {
 }
 
 # Create a vertical divider between navbar elements
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavDivider <- function() {
   tags$li(class="divider-vertical")
 }
 
 # Wraps actionbutton in a li so it works with bsNavBar
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavButton <- function(inputId, label) {
   
@@ -159,7 +161,7 @@ bsNavButton <- function(inputId, label) {
 }
 
 # Same as textInput but with label and a placeholder and optional width argument to save space
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavTextInput <- function(inputId, label, value = "", width=NULL) {
   
@@ -171,7 +173,7 @@ bsNavTextInput <- function(inputId, label, value = "", width=NULL) {
 }
 
 # dateInput element for navbars
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
                            max = NULL, format = "yyyy-mm-dd", startview = "month",
@@ -199,7 +201,7 @@ bsNavDateInput <- function(inputId, label, value = NULL, min = NULL,
 }
 
 # Same as dateRangeInput with slight formatting modification. Would like to figure out how to remove space from between date inputs
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
                                 min = NULL, max = NULL, format = "yyyy-mm-dd",
@@ -240,7 +242,7 @@ bsNavDateRangeInput <- function(inputId, label, start = NULL, end = NULL,
 }
 
 # Same as bsTypeAhead but with label as placeholder and optional width argument to save space.
-#'@rdname NavBar
+#'@rdname navbar
 #'@export
 bsNavTypeAhead <- function(inputId, label, value = "", choices, items=8, minLength=1, width = NULL) {
   

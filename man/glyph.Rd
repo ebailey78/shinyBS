@@ -14,7 +14,8 @@ bsGlyph(name, white = FALSE)
 Add Glyphicons to shiny (DEPRECIATED)
 }
 \details{
-Since writing this function, RStudio has added an \code{icon()} function to shiny. Use \code{icon()} instead.
+Since writing this function, RStudio has added an \code{\link{icon}}
+ function to shiny. Use \code{\link{icon}} instead.
 }
 \author{
 Eric Bailey
@@ -22,5 +23,18 @@ Eric Bailey
 \references{
 \href{http://getbootstrap.com/2.3.2/base-css.html}{Base CSS for
  Twitter Bootstrap 2.3.2}
+}
+\seealso{
+Other depreciated: \code{\link{bsNavBar}},
+  \code{\link{bsNavButton}}, \code{\link{bsNavDateInput}},
+  \code{\link{bsNavDateRangeInput}},
+  \code{\link{bsNavDivider}}, \code{\link{bsNavDropDown}},
+  \code{\link{bsNavLink}}, \code{\link{bsNavTextInput}},
+  \code{\link{bsNavTextOutput}},
+  \code{\link{bsNavToggleLink}},
+  \code{\link{bsNavTypeAhead}}, \code{\link{navbar}},
+  \code{\link{pageWithNavBar}},
+  \code{\link{updateDropDown}}, \code{\link{updateNavBar}},
+  \code{\link{updateToggleLink}}
 }
 

@@ -1,32 +1,33 @@
-#'@rdname Collapse
-#'@name Collapse Panels
-#'@title Twitter Bootstrap Collapse Panels
+#'@templateVar item_name Collapse
+#'@template component
+#'@details Collapse panels offer an additional way to organize information
+#'  within your shiny app. They can be set so that only one panel is open at a
+#'  time or can be set so that each panel act independently.
+NULL
+
+#'@rdname collapses
+#'@param \dots \code{bsCollapsePanel} elements that will be in the collapse
+#'@param id The id to assign to the collapse
+#'@param multiple Logical indicating whether multiple collapse panels can be 
+#'  open at once
+#'@param open A vector \code{bsCollapsePanel} ids indicating which panels should be 
+#'  open
 #'  
-#'@description Functions for creating and manipulating Collapse (Accordion)
-#'  Panels in shiny
-#'@param \dots For \code{bsCollapse} a series of \code{bsCollapsePanels} to
-#'  include in the object for \code{bsCollapsePanel} as series of UI elements to
-#'  add to the panel
-#'@param id A name for the object (Optional)
-#'@param multiple Logical indicating whether multiple panels in a group can be
-#'  open at one time
-#'@param open The id of the panel(s) you want to open
-#'@param close The id of the panel(s) you want to close
-#'@param title The title to appear at the top of the panel
-#'@param value The value to return to bsCollapse when this panel is open
-#'@param session The \code{session} object passed to function given to
-#'  \code{shinyServer}
+#'@details \code{bsCollapse} is a wrapper that links the \code{bsCollapsePanel}s
+#'  within it.
+#'@section Options: If \code{multiple = FALSE} (the default), then opening one 
+#'  \code{\link{bsCollapsePanel}} will close all other \code{\link{bsCollapsePanel}}s within 
+#'  the same group. If \code{multiple = TRUE}, opening \code{bsCollapsePanel}s 
+#'  will have no effect on other collapse panels.
 #'  
-#'@details \code{bsCollapse} works very similarly to \code{tabsetPanel} and may 
-#'  be useful in similar situations.\cr\cr Like \code{tabsetPanel}s, 
-#'  \code{bsCollapse} can return values indicating which panels are open or 
-#'  \code{NULL} if no panels are open.
-#'@note Run \code{bsDemo()} for a live examples of shinyBS functionality.
-#'@author Eric Bailey
-#'@references \href{http://getbootstrap.com/2.3.2/javascript.html}{Javascript
-#'  for Twitter Bootstrap 2.3.2}
-#'@examples #Run bsDemo() for examples
-#'@export
+#'  \code{open} should be the id of one of the \code{\link{bsCollapsePanel}}s within
+#'  the group. If \code{multiple = TRUE}, then it can be a vector of ids.
+#'@return If the \code{value} argument was provided to the currently open 
+#'  \code{\link{bsCollapsePanel}} then that value be returned to the server, otherwise 
+#'  the \code{\link{bsCollapsePanel}}'s id will be returned.
+#'  
+#'  If \code{multiple == TRUE} then a vector of values or ids will be returned 
+#'  representing all open \code{\link{bsCollapsePanel}}s.
 bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
 
   if(is.null(id)) id = paste0("accordion", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
@@ -47,32 +48,12 @@ bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
   
 }
 
-#'@rdname Collapse
-#'@export
-bsCollapsePanel <- function(title, ..., id = NULL, value = NULL) {
-  
-  content <- list(...)
-  
-  if(is.null(id)) id <- paste0("cpanel", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
-  
-  if(is.null(value)) {
-      value = title
-  }
-  
-  tags$div(class = "accordion-group",
-           tags$div(class = "accordion-heading",
-                    tags$a(class = "accordion-toggle", 'data-toggle' = "collapse", href = paste0("#", id), title)
-                    ),
-           tags$div(class = "accordion-body collapse", id = id, "data-value" = value,
-                    tags$div(class = "accordion-inner", content)
-                    )
-           )
-  
-  
-  
-}
 
-#'@rdname Collapse
+#'@rdname collapses
+#'@param session The session object passed from shinyServer
+#'@param close A vector of \code{bsCollapsePanel} ids that you want closed.
+#'@details Use \code{updateCollapse} in server.R to open and close
+#'  \code{bsCollapsePanels} or swith \code{multiple} behavior on or off.
 #'@export
 updateCollapse <- function(session, id, open = NULL, close = NULL, multiple = NULL) {
   

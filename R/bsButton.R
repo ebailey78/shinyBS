@@ -19,6 +19,7 @@ NULL
 #'  \code{\link{bsButtonGroup}}. They can also be used as triggers for other 
 #'  elements like \code{\link{bsModal}} or \code{\link{bsPopover}}.
 #'  
+#'@section Options:
 #'  For \code{bsButton}, \code{value} is used to assign a return value for 
 #'  \code{\link{bsButtonGroup}}. See \code{\link{bsButtonGroup}} for more 
 #'  details. For \code{bsToggleButton} and \code{updateButton}, \code{value} is 

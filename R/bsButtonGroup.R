@@ -1,10 +1,61 @@
-#'@templateVar item_name ButtonGroup
+#'@templateVar item_name Button Group
 #'@template component
-#'@details ButtonGroups are used to group buttons together. When grouped they
-#'  can act collectively.
+#'@details Button Groups are used to group buttons together. When grouped they
+#'  can act like radio buttons or a checkbox group.
 NULL
 
 #'@rdname buttongroups
+#'@param inputId Input variable to assign the control's value to
+#'@param \dots \code{\link{bsButton}} objects to add the to button group
+#'@param label The text that will appear above the button group
+#'@param toggle The desire behavior of the button group (checkbox or radio)
+#'@param style The style to apply to the button group
+#'@param size The size to apply to the button group
+#'@param value The value to assign to the button group
+#'@param disabled Logical indicating whether the button group should be 
+#'  \emph{clickable}
+#'@param block Logical indicating whether the button group should be a block 
+#'  level element
+#'@param vertical Logical indicating whethet the button group should be 
+#'  vertically aligned
+#'@section Options: You can set \code{style} and \code{size} for individual 
+#'  buttons within the group from \code{\link{bsButton}}, or use 
+#'  \code{bsButtonGroup}'s arugments to set the values for all buttons in the 
+#'  group at once.
+#'  
+#'  \code{style}, \code{size}, and \code{disabled} have the same options as they
+#'  do in \code{\link{bsButton}} but will affect all buttons in the group.
+#'  
+#'  \code{block = TRUE} will cause the button group to take up the full width of
+#'  its parent element, and attempt to evenly space the buttons within it.
+#'  
+#'  \code{vertical = TRUE} will stack the button group vertically, rather than 
+#'  horizontally. This doesn't always work well, and may not work in all
+#'  browsers, so use at your own risk.
+#'@details \code{bsButtonGroup} provides an alternative to 
+#'  \code{\link{radioButtons}} and \code{\link{checkboxGroupInput}}. It creates 
+#'  a group of buttons that return a single value based on which of the buttons 
+#'  are \emph{clicked}.
+#'  
+#'  You build a button group in the same way you build a \code{\link{tabPanel}} 
+#'  in shiny or a \code{\link{bsCollapsePanel}} in shinyBS. \code{bsButtonGroup}
+#'  is a wrapper and you include \code{\link{bsButton}} elements inside it. The 
+#'  button group will return a value based on which buttons within it are 
+#'  currently pressed.
+#'  
+#'  \code{\link{bsButton}} has a \code{value} argument that you should use to 
+#'  set the return value when that button is pressed. Setting the \code{value} 
+#'  argument within the \code{bsButtonGroup} will determine which buttons are 
+#'  initially \emph{clicked}.
+#'  
+#'@return When \code{toggle = 'checkbox'} the button group will return a vector 
+#'  of values representing the buttons that are currently clicked. When 
+#'  \code{toggle = 'radio'}, it will return a single value representing the 
+#'  clicked button.
+#'  
+#'  If \code{value} was not set in \code{\link{bsButton}}, the button's id 
+#'  will be returned instead.
+#'  
 #'@export
 bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size, 
                           value = NULL, disabled = FALSE, block = FALSE, vertical = FALSE) {
@@ -78,6 +129,9 @@ bsButtonGroup <- function(inputId, ..., label, toggle = "checkbox", style, size,
 #'@rdname buttongroups
 #'@param session The \code{session} object passed to function given to 
 #'  \code{shinyServer}
+#'@param id The inputId of the button group you wish to update
+#'@details \code{updateButtonGroup} is used within server.R to change the style
+#'  or state of a button group after the app has loaded.
 #'@export
 updateButtonGroup <- function(session, id, toggle = NULL, style = NULL, 
                               size = NULL, disabled = NULL, value = NULL) {

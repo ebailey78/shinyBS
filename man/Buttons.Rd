@@ -54,6 +54,25 @@ shinyBS adds additional styling options to the
  \code{\link{bsButtonGroup}}. They can also be used as triggers for other
  elements like \code{\link{bsModal}} or \code{\link{bsPopover}}.
 
+\code{bsToggleButton} is an alternative to
+ \code{\link{checkboxInput}}. It has on and an off states that correspond to
+ \code{TRUE/FALSE}. When \code{TRUE} the toggle button will look like it is pressed
+ in. When \code{FALSE} it will appear as a normal button. Clicking the toggle
+ button will alternate between the two states.
+
+\code{bsActionButton} works just like shiny's default
+ \code{\link{actionButton}} but has additional styling options.
+
+updateButton can be used within server.R to change the appearence
+ and/or state of any of the shinyBS button types. If a parameter is passed to
+ \code{updateButton} that doesn't apply to the button selected, it will be
+ ignored (e.g. \code{value} for \code{bsActionButton}).
+}
+\note{
+Run \code{bsDemo()} for a live example of shinyBS Buttons functionality.
+}
+\section{Options}{
+
  For \code{bsButton}, \code{value} is used to assign a return value for
  \code{\link{bsButtonGroup}}. See \code{\link{bsButtonGroup}} for more
  details. For \code{bsToggleButton} and \code{updateButton}, \code{value} is
@@ -73,23 +92,6 @@ shinyBS adds additional styling options to the
 
  When \code{disabled = TRUE} the button will appear "greyed-out" and clicking
  the button will have no effect on the app.
-
-\code{bsToggleButton} is an alternative to
- \code{\link{checkboxInput}}. It has on and an off states that correspond to
- \code{TRUE/FALSE}. When \code{TRUE} the toggle button will look like it is pressed
- in. When \code{FALSE} it will appear as a normal button. Clicking the toggle
- button will alternate between the two states.
-
-\code{bsActionButton} works just like shiny's default
- \code{\link{actionButton}} but has additional styling options.
-
-updateButton can be used within server.R to change the appearence
- and/or state of any of the shinyBS button types. If a parameter is passed to
- \code{updateButton} that doesn't apply to the button selected, it will be
- ignored (e.g. \code{value} for \code{bsActionButton}).
-}
-\note{
-Run \code{bsDemo()} for a live example of shinyBS Buttons functionality.
 }
 \examples{
 \dontrun{Run bsDemo() for examples}
