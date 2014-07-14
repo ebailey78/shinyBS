@@ -25,6 +25,7 @@ NULL
 #'  
 #'  \code{trigger} can be \code{hover}, \code{click}, \code{focus}, or
 #'  \code{manual}
+#'@export
 bsPopover <- function(id, title, content, placement="right", trigger="click") {
 
   sbsHead(tags$script(HTML(paste0("$(document).ready(function() {setTimeout(function() {addPopover('", id, "', '", title, "', '", content, 

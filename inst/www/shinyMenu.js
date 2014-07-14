@@ -185,20 +185,20 @@ $.extend(shinyMenu.bindings.groupBinding, {
     $(el).off(".sbs-menu");
   },
   receiveMessage: function(el, data) {
-    if(data.hasOwnProperty("value")) {
-      var $grp = $("li.sbs-menu-item[data-menu-group = '" + $(el).attr("id") + "']")
-      if(data.value instanceof Array) {
-        $grp.each(function(i) {
-          var $v = $(this);
-          if(data.value.indexOf($v.data("menu-value")) != -1 || data.value.indexOf($v.attr("id")) != -1) {
-            $v.data("menu-checked", true).trigger("menu-update.sbs-menu");
-          }
-        })
-      } else {
-        $grp.filter(function() {
-          return $(this).data("menu-value") == data.value | $(this).attr("id") == data.value
-        }).data("menu-checked", true).trigger("menu-update.sbs-menu");
-      }
+    var $el = $(el)
+    var $grp = $("li.sbs-menu-item[data-menu-group = '" + $el.attr("id") + "']")
+    if(data.hasOwnProperty("disabled")) {
+      $grp.toggleClass("disabled", data.disabled)
+    }
+    if(data.hasOwnProperty("checked")) {
+      $grp.each(function(i) {
+        var $v = $(this);
+        if(data.checked.indexOf($v.data("menu-value")) != -1 || data.checked.indexOf($v.attr("id")) != -1) {
+          $v.data("menu-checked", true).trigger("menu-update.sbs-menu");
+        } else {
+          $v.data("menu-checked", false).trigger("menu-update.sbs-menu");
+        }
+      })
     }
   }
 });

@@ -3,6 +3,13 @@ bsMenuGroupTag <- function(groupId) {
   singleton(tags$span(id = groupId, class = "sbs-menu-group"))
 }
 
+#'@export
+updateMenuGroup <- function(session, groupId, disabled = NULL, checked = NULL) {
+  
+  data <- dropNulls(list(disabled = disabled, checked = checked))
+  session$sendInputMessage(groupId, data)
+  
+}
 
 #'@export
 bsMenuGroup <- function(groupId, groupType = "radio", itemIds, labels, values, 
@@ -54,13 +61,6 @@ bsMenuGroup <- function(groupId, groupType = "radio", itemIds, labels, values,
   
   return(tagList(tl))
   
-}
-
-#'@export
-updateMenuGroup <- function(session, groupId, value = NULL) {
-  if(!is.null(value)) {
-    session$sendInputMessage(groupId, list(value = value))
-  }
 }
 
 #'@rdname MenuItems

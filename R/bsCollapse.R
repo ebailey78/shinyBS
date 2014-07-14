@@ -28,6 +28,7 @@ NULL
 #'  
 #'  If \code{multiple == TRUE} then a vector of values or ids will be returned 
 #'  representing all open \code{\link{bsCollapsePanel}}s.
+#'  @export
 bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
 
   if(is.null(id)) id = paste0("accordion", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
