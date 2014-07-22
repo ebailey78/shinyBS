@@ -118,7 +118,7 @@ bsMenuItemGroup <- function(groupId, ..., group = FALSE) {
     x <- paste0(x, "for(j in grp) {\n")
     x <- paste0(x, "if(j != '", item, "') {\n")
     if(group) {
-      x <- paste0(x, "updateMenuGroup(session, j, val)\n")
+#      x <- paste0(x, "updateMenuGroup(session, j, checked = val)\n")
     } else {
       x <- paste0(x, "updateMenuItem(session, j, checked = val)\n")
     }

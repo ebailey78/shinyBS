@@ -40,7 +40,7 @@ shinyUI(basicPage(
   bsMenu("popup1", type = "popup", target = "chart1",
          bsMenu("plot_type2", type = "submenu", label = "Plot Type",
                 bsMenuItem("pt_plot2", type = "radio", group = "ptype2", value = "plot", label = "Scatterplot"),
-                bsMenuItem("pt_hist2", type = "radio", group = "ptype2", value = "hist", label = "Histogram"),
+                bsMenuItem("pt_hist2", type = "radio", group = "ptype2", value = "hist", label = "Histogram", checked = TRUE),
                 bsMenuItem("pt_box2", type = "radio", group = "ptype2", value = "boxplot", label = "Boxplot")
          ),
          bsMenu("dist_type2", type = "submenu", label = "Distribution",
