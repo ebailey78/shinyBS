@@ -20,6 +20,7 @@ NULL
 #'  the modal and replace them with the contents of the webpage indicated.
 #'@return \code{bsModal} will return \code{TRUE} or \code{FALSE} to the shiny
 #'  server, indicating whether the modal is currently open or not.
+#'@export
 bsModal <- function(id, title, trigger, ..., href) {
   
   mo <- tags$div(class = "modal sbs-modal hide fade", id = id,
