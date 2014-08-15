@@ -82,7 +82,7 @@ bsMenuItem <- function(inputId, label, type = "command", value = NULL, icon = NU
     i <- tagAddClass(i, icon)
   }
   
-  item <- tags$li(id = inputId, class = "sbs-menu-item", "data-menu-type" = type, tags$a(href = "#", i, label))
+  item <- tags$li(id = inputId, class = "sbs-menu-item", "data-menu-type" = type, tags$a(href = "#", onclick="return false;", i, label))
   
   if(type != "command") item <- tagAddAttribs(item, "data-menu-checked" = checked)
   if(!is.null(value)) item <- tagAddAttribs(item, "data-menu-value" = value)
