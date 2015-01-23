@@ -1,3 +1,10 @@
+Update
+------
+
+It looks like shiny's upgrade to v0.11 has broken shinyBS. I have not kept up with shinyBS like I should have because of other commitments, but I have begun work on making shinyBS compatible with the newest version of shiny. I cannot give any estimate of how long it will take, but until the new version is working you can look at the `shinybootstrap2` package released by RStudio as a possible workaround. I am sorry for any inconvienience this may have caused.
+
+Eric
+
 shinyBS
 -------
 
