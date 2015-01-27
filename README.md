@@ -36,6 +36,9 @@ devtools::install_github("ebailey78/shinyBS", ref = "shinyBS3")
     + Added "size" option
     + added toggle argument to ```bsToggleModal()``` so you can explicitly tell 
       the modal to open or close
+* bsTooltips
+    + Added an options argument that allows more access to tooltip options for
+      advanced users.
 
 #### Version 0.30 (depreciated)
 

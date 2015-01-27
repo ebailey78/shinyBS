@@ -20,9 +20,16 @@ shinyServer(function(input, output, session) {
 
   })
   
+  addTooltip(session, "scatter", options = list(title = "This is a scatterplot", trigger = "click"))
+  addTooltip(session, "distPlot", options = list(title = "This is a histogram"))
+  addTooltip(session, "bins", options = list(title = "This is a slider"))
+  
   output$scatter <- renderPlot({plot(faithful)})
   
-  observeEvent(input$openDefault, ({createAlert(session, "mainAlert", "test", "This is an alert.", "This is only an alert.")}))
+  observeEvent(input$openDefault, ({
+    createAlert(session, "mainAlert", "test", "This is an alert.", "This is only an alert.")
+    addTooltip(session, "test", "This is a tooltip on the alert.")
+  }))
   observeEvent(input$closeDefault, ({closeAlert(session, "test")}))
   observeEvent(input$openDanger, ({createAlert(session, "mainAlert", "testDanger", "This is an alert.", "This is only an alert.", type = "danger")}))
   observeEvent(input$closeDanger, ({closeAlert(session, "testDanger")}))

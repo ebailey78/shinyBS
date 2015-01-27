@@ -43,7 +43,9 @@ shinyUI(fluidPage(
                         plotOutput("scatter")
         )
       ),
-      bsModal(id = "testModal", title = "Test Modal", trigger = "openModal", tags$p("This is a test"), size = "large")
+      bsModal(id = "testModal", title = "Test Modal", trigger = "openModal", tags$p("This is a test"), size = "large"),
+      bsTooltip("openDefault", options = list(title = "This is a tooltip", placement = "top")),
+      bsPopover("typeChange", title = "Change Types", content = "This button will change the styling of the collapse panels. Its pretty cool.")
     )
   )
 ))
