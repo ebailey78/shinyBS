@@ -1,8 +1,13 @@
 shinyBS
 -------
 
-**shinyBS** is a package that adds several additional Twitter Boostrap components to shiny.
-You can install shinyBS from this repository by first installing `devtools`. At the R prompt type:
+**shinyBS** is a package that adds several additional Twitter Boostrap 
+components to shiny. RStudio recently updated shiny to work with Bootstrap3 
+which has completely broken shinyBS. I am in the process of updating shinyBS to
+work with the newest versions of shiny but it may take some time. As I get 
+components working I will add them to this branch. Once I have it completely 
+working I will update the version on CRAN. You can install shinyBS from this 
+branch by first installing `devtools`. At the R prompt type:
 
 ```R
 install.packages("devtools")
@@ -11,25 +16,28 @@ install.packages("devtools")
 After installing `devtools` in R you can install shinyBS by typing at the R prompt: 
 
 ```R
-install_github("shinyBS", "ebailey78")
-```
-
-`shinyBS` was also added to CRAN. You can install the CRAN version with:
-
-```R
-install.packages("shinyBS")
-```
-
-For a quick demonstration of `shinyBS` functionality run the following code at the R prompt:
-
-```R
-library(shinyBS)
-bsDemo()
+devtools::install_github("ebailey78/shinyBS", ref = "shinyBS3")
 ```
 
 ### What's New
 
-#### Version 0.30 (working version)
+#### Version 0.50 (Bootstrap3 Update)
+* Alerts
+    + Removed 'block' option
+    + Defaults to 'info' type
+* Collapse Panels
+    + Now accepts a 'type' argument to change styling of header
+    + The 'multiple' option can no longer be changed from update collapse.
+    + can change style of panels with the ```updateCollapse()``` function
+* bsGlyph
+    + Removed because of added native shiny support
+* bsModal
+    + Removed the href option (depreciated in bootstrap v3.3.0)
+    + Added "size" option
+    + added toggle argument to ```bsToggleModal()``` so you can explicitly tell 
+      the modal to open or close
+
+#### Version 0.30 (depreciated)
 
 * **bsMenus**
     * Completely reworked how navbars are implemented. As a result, all the `bsNav` functions have been depreciated and replaced with functions that start with `bsMenu`.

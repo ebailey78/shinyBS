@@ -1,3 +1,21 @@
+Version 0.50
+--------------------------------------------------------------------------------
+* Updated to work with shiny v0.11
+* Alerts
+    + Removed 'block' option
+    + Defaults to 'info' type
+* Collapse Panels
+    + Now accepts a 'type' argument to change styling of header
+    + The 'multiple' option can no longer be changed from update collapse.
+    + can change style of panels with the ```updateCollapse()``` function
+* bsGlyph
+    + Removed because of added native shiny support
+* bsModal
+    + Removed the href option (depreciated in bootstrap v3.3.0)
+    + Added "size" option
+    + added toggle argument to ```bsToggleModal()``` so you can explicitly tell 
+      the modal to open or close
+
 Version 0.20
 --------------------------------------------------------------------------------
 * pageWithNavBar()
