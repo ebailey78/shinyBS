@@ -39,6 +39,11 @@ devtools::install_github("ebailey78/shinyBS", ref = "shinyBS3")
 * Tooltips and Popovers
     + Added an options argument that allows more access to tooltip options for
       advanced users.
+* Buttons
+    + Simplified underlying code, now all buttons created with ```bsButton``` 
+      function
+* Button Groups
+    + In Progress
 
 #### Version 0.30 (depreciated)
 

@@ -6,6 +6,7 @@
 #
 
 library(shiny)
+library(shinyBS)
 
 shinyUI(fluidPage(
   tags$script(src = "shinyBS.js"),
@@ -27,7 +28,15 @@ shinyUI(fluidPage(
       actionButton("openDist", "Open Distribution Plot"),
       actionButton("closeDist", "Close Distribution Plot"),
       actionButton("typeChange", "Test Type Change"),
-      actionButton("openModal", "Open Modal")
+      actionButton("openModal", "Open Modal", class = "btn-primary"),
+      bsButton("testToggle", "Toggle", style = "primary", type = "toggle"),
+      bsButton("testerButton", "Tester Button"),
+      bsButton("testeeButton", "Testee Button", disabled = TRUE),
+      icon("birthday-cake"),
+      bsButtonGroup("testGroup",
+                    bsButton("testGroup1", "Test 1"),
+                    bsButton("testGroup2", "Test 2"),
+                    bsButton("testGroup3", "Test 3"))
       
     ),
 

@@ -6,6 +6,7 @@
 #
 
 library(shiny)
+library(shinyBS)
 
 shinyServer(function(input, output, session) {
 
@@ -41,6 +42,15 @@ shinyServer(function(input, output, session) {
 
   observe({
     print(input$testModal)
+  })
+  
+  observe({
+    print(input$testToggle)
+  })
+  
+  observe({
+    input$testerButton
+    if(input$testerButton > 0) updateButton(session, "testeeButton", style = "primary", size = "lg", disabled = FALSE, label = "I'm Active", icon = icon("birthday-cake"))
   })
   
 })

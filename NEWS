@@ -18,6 +18,9 @@ Version 0.50
 * Tooltips and Popovers
     + Added an options argument that allows more access to tooltip options for
       advanced users.
+* Buttons
+    + Simplified underlying button code, now all button objects created with 
+      bsButton
 
 Version 0.20
 --------------------------------------------------------------------------------
