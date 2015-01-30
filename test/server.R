@@ -25,6 +25,9 @@ shinyServer(function(input, output, session) {
   addTooltip(session, "distPlot", options = list(title = "This is a histogram"))
   addTooltip(session, "bins", options = list(title = "This is a slider"))
   
+  addTooltip(session, "testSelect", title = "This is a select input")
+  addTooltip(session, "testSelectize2", title = "This is another selectize input")
+  
   output$scatter <- renderPlot({plot(faithful)})
   
   observeEvent(input$openDefault, ({

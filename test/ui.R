@@ -16,6 +16,9 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
+      selectInput("testSelect", "Select", c("Cat", "Dog", "Cow", "Pig"), selectize = FALSE),
+      selectInput("testSelectize", "Select", c("Cat", "Dog", "Cow", "Pig"), selectize = TRUE),
+      selectizeInput("testSelectize2", label = "Select", choices = c("Horse", "Sheep", "Crow", "Elephant")),
       sliderInput("bins",
                   "Number of bins:",
                   min = 1,
@@ -53,7 +56,8 @@ shinyUI(fluidPage(
         )
       ),
       bsModal(id = "testModal", title = "Test Modal", trigger = "openModal", tags$p("This is a test"), size = "large"),
-      bsTooltip("openDefault", options = list(title = "This is a tooltip", placement = "top")),
+      bsTooltip("openDefault", options = list(title = "This is a tooltip", placement = "right")),
+      bsTooltip("testSelectize", title = "This is a selectize input", placement = "right", options = list(container = 'body')),
       bsPopover("typeChange", title = "Change Types", content = "This button will change the styling of the collapse panels. Its pretty cool.")
     )
   )

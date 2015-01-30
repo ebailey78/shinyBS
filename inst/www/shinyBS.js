@@ -269,6 +269,8 @@ shinyBS.getTooltipTarget = function(id) {
   
   if($id.hasClass("js-range-slider")) {
     $id = $id.parent();
+  } else if($id.hasClass("selectized")) {
+    $id = $id.siblings("div.selectize-control")
   }
 
   return $id;
