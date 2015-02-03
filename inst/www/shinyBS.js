@@ -252,8 +252,8 @@ $.extend(dropdownBinding, {
     $(el).attr("data-value", value);
   },
   receiveMessage: function(el, data) {
-    if(data.hasOwnProperty('selected')) {
-      $(el).attr("data-value", data.selected)
+    if(data.hasOwnProperty('value')) {
+      $(el).attr("data-value", data.value);
     }
     if(data.hasOwnProperty('label')) {
       $(el).children("a").html(data.label+"<b class='caret'></b>");
@@ -262,9 +262,13 @@ $.extend(dropdownBinding, {
       $(el).children("ul.dropdown-menu").replaceWith(data.options);
       this.initialize(el);
     }
+    $(el).trigger('change');
   },
   subscribe: function(el, callback) {
     $(el).on("click.dropdownBinding", function(e) {
+      callback();
+    });
+    $(el).on("change.dropdownBinding", function(e) {
       callback();
     });
   },
