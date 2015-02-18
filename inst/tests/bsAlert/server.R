@@ -2,14 +2,14 @@ shinyServer(function(input, output, session) {
   
   for(r in seq(nrow(g))) {
     id <- paste(g[r, 1], g[r, 2], g[r, 3], sep = "_")
-    createAlert(session, g[r, 1], id, type = types[g[r, 2]], title = titles[g[r, 2]], message = messages[g[r, 2]], dismiss = g[r, 3])
+    createAlert(session, g[r, 1], id, style = types[g[r, 2]], title = titles[g[r, 2]], content = messages[g[r, 2]], dismiss = g[r, 3])
   }
   
   observe({
     if(input$but1 > 0) {
       for(r in seq(nrow(g))) {
         id <- paste("post", g[r, 1], g[r, 2], g[r, 3], sep = "_")
-        createAlert(session, g[r, 1], id, type = types[g[r, 2]], title = titles[g[r, 2]], message = messages[g[r, 2]], dismiss = g[r, 3])
+        createAlert(session, g[r, 1], id, style = types[g[r, 2]], title = titles[g[r, 2]], content = messages[g[r, 2]], dismiss = g[r, 3])
       }
     }
   })
@@ -33,11 +33,11 @@ shinyServer(function(input, output, session) {
     closeAlert(session, "text_test")
     x <- as.numeric(input$text1)
     if(is.na(x)) {
-      createAlert(session, "textAlert", "text_test", title = "Text Test", "You must enter numeric input!", type = "info")
+      createAlert(session, "textAlert", "text_test", title = "Text Test", "You must enter numeric input!", style = "info")
     } else if(x > 100) {
-      createAlert(session, "textAlert", "text_test", title = "Text Test", "Congratulations! You entered a number above 100!", type = "success")
+      createAlert(session, "textAlert", "text_test", title = "Text Test", "Congratulations! You entered a number above 100!", style = "success")
     } else {
-      createAlert(session, "textAlert", "text_test", title = "Text Test", "Danger! You have entered a number less than or equal to 100!", type = "danger")
+      createAlert(session, "textAlert", "text_test", title = "Text Test", "Danger! You have entered a number less than or equal to 100!", style = "danger")
     }
     
     

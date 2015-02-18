@@ -1,6 +1,9 @@
 context("Alerts")
 
+devtools::install_github("ebailey78/shinyBS", ref = "shinyBS3-new")
 appDir = file.path(system.file(package = "shinyBS"), "tests", "bsAlert")
+
+shinyapps::deployApp(appDir)
 
 source(file.path(appDir, "global.R"))
 
