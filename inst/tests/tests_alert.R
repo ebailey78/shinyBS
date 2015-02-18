@@ -3,15 +3,15 @@ context("Alerts")
 devtools::install_github("ebailey78/shinyBS", ref = "shinyBS3-new")
 appDir = file.path(system.file(package = "shinyBS"), "tests", "bsAlert")
 
-shinyapps::deployApp(appDir)
+# shinyapps::deployApp(appDir)
 
 source(file.path(appDir, "global.R"))
 
-remoteApp <- runRemoteApp(appDir = appDir, port = 2015, launch.browser = FALSE)
+RSelenium::startServer()
 
-remDr <- RSelenium::remoteDriver()
+remDr <- RSelenium::remoteDriver(port = 2015)
 remDr$open(silent = TRUE)
-remDr$navigate("http:127.0.0.1:2015")
+remDr$navigate("https://ebailey78.shinyapps.io/bsAlert/")
 
 #Convenience Functions
 id <- findElement(remDr, "id")
