@@ -1,3 +1,4 @@
+
 devtools::install_github("ebailey78/shinyBS", ref = "shinyBS3-new")
 
 library(shiny)
