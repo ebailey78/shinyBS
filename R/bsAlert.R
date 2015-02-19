@@ -8,7 +8,7 @@
 #' @param alertId A unique ID that identifies the specific alert being created.
 #' @param title An optional title for the alert. This will appear at the top of the alert in larger font.
 #' @param content The main body of the alert. HTML tags are allowed.
-#' @param style The Bootstrap style to apply (\code{danger}, \code{warning}, \code{info}, or \code{success}.
+#' @param style A Bootstrap style to apply (\code{danger}, \code{warning}, \code{info}, or \code{success}.
 #' @param dismiss \code{logical} indicating whether the alert should be user dismissable.
 #' @param append \code{logical} indicating whether the alert should be appended to the anchor, below any existing alerts.
 #' @inheritParams shiny::updateTextInput

@@ -6,19 +6,33 @@ demoPanel <- function(title, intro, controls, example) {
     fluidRow(style = 'padding-top: 10px;',
       column(8, 
         fluidRow(
-          column(12, class = "intro", HTML(intro))
+          column(12, class = "intro", 
+            bsCollapse(id = paste(gsub(" ", "_", title, fixed = TRUE), "intro", sep = "_"), open = "Introduction",
+              bsCollapsePanel("Introduction", HTML(intro))
+            )
+          )
         ),
         fluidRow(
-          column(4, wellPanel(controls)),
-          column(8, example)
+          column(4, 
+            bsCollapse(id = paste(gsub(" ", "_", title, fixed = TRUE), "controls", sep = "_"), open = "Controls",
+              bsCollapsePanel("Controls", controls)
+            )
+          ),
+          column(8, 
+             bsCollapse(id = paste(gsub(" ", "_", title, fixed = TRUE), "example", sep = "_"), open = "Example",
+                        bsCollapsePanel("Example", example)
+             )
+          )
         )
       ),
       column(4,
         fluidRow(
-          column(12, "ui.R", tags$div(id = paste(gsub(" ", "_", title, fixed = TRUE), "ui", sep = "_"), class = "r code shiny-text-output", ""))
-        ),
-        fluidRow(
-          column(12, "server.R", tags$div(id = paste(gsub(" ", "_", title, fixed = TRUE), "server", sep = "_"), class = "r code shiny-text-output", ""))
+          column(12, 
+            bsCollapse(id = paste(gsub(" ", "_", title, fixed = TRUE), "code", sep = "_"), open = c("UI", "Server"), multiple = TRUE,
+              bsCollapsePanel("UI", tags$pre(tags$div(id = paste(gsub(" ", "_", title, fixed = TRUE), "ui", sep = "_"), class = "r code shiny-text-output", ""))),
+              bsCollapsePanel("Server", tags$pre(tags$div(id = paste(gsub(" ", "_", title, fixed = TRUE), "server", sep = "_"), class = "r code shiny-text-output", "")))
+            )
+          )
         )
       )   
     )
@@ -45,6 +59,16 @@ fluidPage(style = "padding-top: 20px;",
                                  actionButton("bsAlertCreate", "Create Alert")),
               example = bsAlert("bsAlertDemo")
     ),
+    demoPanel("Collapses",
+              intro = "<p>Collapses are a way to reduce clutter in your Shiny app by allowing users to decide which elements they want visible at any given time. This demo makes extensive use of collapses. Each section is wrapped in a collapse element so that it can be hidden or shown with a click.</p>",
+              controls = tagList(checkboxInput("bsCollapseMultiple", "Multiple", value = TRUE),
+                                 selectInput("bsCollapseTextStyle", "'Text' Style", choices = c("default", "warning", "danger", "info", "success"), selected = "default"),
+                                 selectInput("bsCollapseOutputStyle", "'Shiny Outputs' Style", choices = c("default", "warning", "danger", "info", "success"), selected = "default")),
+              example = bsCollapse(id = "collapseExample", multiple = TRUE, open = c("Text", "Shiny Outputs"),
+                          bsCollapsePanel("Text", HTML("You may want more explanation or instructions for your Shiny app than is reasonable to display at all times. Wrap this text in a <code>bsCollapse</code> and the user can hide it when they are done with it and easily bring it back if they need to reference it again.</p>")),
+                          bsCollapsePanel("Shiny Outputs", tagList(tags$span("You can embed Shiny outputs into your collapses."), plotOutput("collapsePlot")))
+                        )
+    ),                          
     tabPanel("Tab 2",
       fluidRow(
         column(12,

@@ -26,7 +26,7 @@ closeAlert(session, alertId)
 
 \item{content}{The main body of the alert. HTML tags are allowed.}
 
-\item{style}{The Bootstrap style to apply (\code{danger}, \code{warning}, \code{info}, or \code{success}.}
+\item{style}{A Bootstrap style to apply (\code{danger}, \code{warning}, \code{info}, or \code{success}.}
 
 \item{dismiss}{\code{logical} indicating whether the alert should be user dismissable.}
 
