@@ -29,7 +29,7 @@ demoPanel <- function(title, intro, controls, example) {
         fluidRow(
           column(12, 
             bsCollapse(id = paste(gsub(" ", "_", title, fixed = TRUE), "code", sep = "_"), open = c("UI", "Server"), multiple = TRUE,
-              bsCollapsePanel("UI", tags$pre(tags$div(id = paste(gsub(" ", "_", title, fixed = TRUE), "ui", sep = "_"), class = "r code shiny-text-output", ""))),
+              bsCollapsePanel("UI", tags$pre(id = paste(gsub(" ", "_", title, fixed = TRUE), "ui", sep = "_"), class = "r code shiny-text-output", "")),
               bsCollapsePanel("Server", tags$pre(tags$div(id = paste(gsub(" ", "_", title, fixed = TRUE), "server", sep = "_"), class = "r code shiny-text-output", "")))
             )
           )
