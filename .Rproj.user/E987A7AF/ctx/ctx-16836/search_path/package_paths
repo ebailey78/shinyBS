@@ -1,8 +1,0 @@
-datasets="C:/Program Files/R/R-3.0.3/library/datasets"
-grDevices="C:/Program Files/R/R-3.0.3/library/grDevices"
-graphics="C:/Program Files/R/R-3.0.3/library/graphics"
-methods="C:/Program Files/R/R-3.0.3/library/methods"
-shiny="C:/Program Files/R/R-3.0.3/library/shiny"
-shinyBS="C:/Program Files/R/R-3.0.3/library/shinyBS"
-stats="C:/Program Files/R/R-3.0.3/library/stats"
-utils="C:/Program Files/R/R-3.0.3/library/utils"
