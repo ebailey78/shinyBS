@@ -7,35 +7,32 @@
 bsCollapse(..., id = NULL, multiple = FALSE, open = NULL)
 }
 \arguments{
-\item{id}{If provided, you can use input$id in your server script to open or
-close \code{bsCollapsePanels} within the \code{bsCollapse}.}
+\item{id}{\bold{Optional} You can use \code{input$id} in your Server logic to
+determine which panels are open, and \code{\link{updateCollapse}} to open/close
+panels.}
 
-\item{multiple}{\code{logical} indication whether multiple \code{bsCollapsePanels}
-within this \code{bsCollapse} can be open at once.}
+\item{multiple}{Can more than one panel be open at a time? Defaults to \code{FALSE}.}
 
-\item{open}{The \code{value} (or, if none was supplied, the title) of the
-\code{bsCollapsePanel} that should be open. If \code{multiple = TRUE}, then
-this can be a vector of \code{value}s or \code{title}s.}
+\item{open}{The \code{value}, (or if none was supplied, the \code{title}) of
+the panel(s) you want open on load.}
 
-\item{\dots}{\code{\link{bsCollapsePanel}} elements to include in the \code{bsCollapse}.}
+\item{\dots}{\code{\link{bsCollapsePanel}} elements to include in the Collapse.}
 }
 \description{
-Create a collapse that contains \code{\link{bsCollapsePanel}} elements.
-See \code{\link{Collapses}}
+\code{bsCollapse} is used in your UI to create a collapse panel group. Use
+\code{\link{bsCollapsePanel}} to populate this object with panels.
+}
+\details{
+See \link{Collapses} for more information about how to use \code{bsCollapse} with the
+rest of the Collapses family.
 }
 \note{
-Run \code{bsDemo()} for a live examples of shinyBS functionality.
-}
-\examples{
-\dontrun{Run bsDemo() for examples}
-}
-\author{
-Eric Bailey
-}
-\references{
-\href{http://getbootstrap.com}{Twitter Bootstrap 3}
+Run \code{example("Collapses", "shinyBS", ask = FALSE)} for an example
+of bsCollapse functionality
 }
 \seealso{
+\href{http://getbootstrap.com}{Twitter Bootstrap 3}
+
 Other Collapses: \code{\link{Collapses}};
   \code{\link{bsCollapsePanel}};
   \code{\link{updateCollapse}}

@@ -1,5 +1,8 @@
-#'@note Run \code{bsDemo()} for a live examples of shinyBS functionality. 
-#'@author Eric Bailey
-#'@references \href{http://getbootstrap.com}{Twitter Bootstrap 3}
-#'@examples \dontrun{Run bsDemo() for examples}
-#'@export
+#'@seealso \href{http://getbootstrap.com}{Twitter Bootstrap 3}
+#'
+#'@note
+#' Run \code{example("<%=family_name %>", "shinyBS", ask = FALSE)} for an example
+#' of <%=item_name %> functionality
+#' 
+#'@family <%=family_name %>
+#'@name <%=item_name %>

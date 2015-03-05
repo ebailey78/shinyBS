@@ -1,15 +1,48 @@
 var shinyBS = {inputBindings: {}};
 
+shinyBS.inputBindings.modal = new Shiny.InputBinding();
+$.extend(shinyBS.inputBindings.modal, {
+  find: function(scope) {
+    return $(scope).find(".sbs-modal");
+  },
+  getValue: function(el) {
+    return $(el).hasClass("in");
+  },
+  subscribe: function(el, callback) {
+    $(el).on("hidden.bs.modal shown.bs.modal", callback)
+  },
+  unsubscribe: function(el) {
+    $(el).off("hidden.bs.modal shown.bs.modal")
+  },
+  receiveMessage: function(el, data) {
+    if(data.hasOwnProperty("toggle")) {
+      if(data.toggle == "show") {
+        $(el).modal("show");
+      } else if(data.toggle == "hide") {
+        $(el).modal("hide");
+      } else {
+        $(el).modal("toggle");
+      }
+    };
+  },
+  initialize: function(el) {
+    $("#" + $(el).attr("data-sbs-trigger")).attr({"data-toggle": "modal", "data-target": "#" + $(el).attr("id")});
+  }
+});
+Shiny.inputBindings.register(shinyBS.inputBindings.modal);
+
 shinyBS.inputBindings.collapse = new Shiny.InputBinding();
 $.extend(shinyBS.inputBindings.collapse, {
   find: function(scope) {
-    return $(scope).find("sbs-panel-group");
+    return $(scope).find(".sbs-panel-group");
   },
   getValue: function(el) {
     return $(el).data("sbs-value");
   },
   receiveMessage: function(el, data) {
     var $el = $(el);
+/* I would think this code should work, but it doesn't for some reason so I am 
+   commenting it out.
     if(data.hasOwnProperty('multiple')) {
       if(data.multiple) {
         $el.find(".collapse").each(function(i) {$(this).collapse({parent: false, toggle: false})});
@@ -17,10 +50,14 @@ $.extend(shinyBS.inputBindings.collapse, {
         $el.find(".collapse").each(function(i) {$(this).collapse({parent: "#"+$el.attr("id"), toggle: false})});
       }
     }
+*/
     if(data.hasOwnProperty('style')) {
-      panels = Object.keys(data.style)
+      var panels = Object.keys(data.style)
       for(var i = 0; i < panels.length; i++) {
-        $el.find("#" + panels[i]).parent().attr("class", "panel panel-" + data.style[panels[i]])
+        var $p = $el.find("div[value='" + panels[i] + "']")
+        $p
+          .removeClass("panel-primary panel-danger panel-warning panel-error panel-info panel-success")
+          .addClass("panel-" + data.style[panels[i]]);
       }
     }
     if(data.hasOwnProperty('open')) {
@@ -28,7 +65,7 @@ $.extend(shinyBS.inputBindings.collapse, {
         data.open = [data.open]
       }
       data.open.forEach(function(value, index, array) {
-        $el.find("#" + value).collapse("show");
+        $el.find("div[value='" + value + "'] > .panel-collapse").collapse("show");
       })
     }
     if(data.hasOwnProperty("close")) {
@@ -36,7 +73,7 @@ $.extend(shinyBS.inputBindings.collapse, {
         data.close = [data.close];
       }
       data.close.forEach(function(value, index, array) {
-        $el.find("#" + value).collapse("hide");
+        $el.find("div[value='" + value + "'] > .panel-collapse").collapse("hide");
       })
     }
   },
@@ -51,6 +88,7 @@ $.extend(shinyBS.inputBindings.collapse, {
       if($(this).find("div.panel-collapse.collapse").hasClass("in")) {
         val.push($(this).attr("value"));
       }
+      $(this).find("div.panel-collapse.collapse").collapse({parent: "#" + $el.attr("id"), toggle: false});
     });
     $el.data("sbs-value", val);
     $panels.on("show.bs.collapse", function(event) {
@@ -68,6 +106,8 @@ $.extend(shinyBS.inputBindings.collapse, {
     });
   }
 })
+Shiny.inputBindings.register(shinyBS.inputBindings.collapse);
+
 
 Shiny.addCustomMessageHandler("bsAlertCreate", function(data) {
 
@@ -112,3 +152,55 @@ Shiny.addCustomMessageHandler("bsAlertCreate", function(data) {
 Shiny.addCustomMessageHandler("bsAlertClose", function(alertId) {
   $("#" + alertId).alert('close');
 });
+
+// The following function refer to tooltips but are used in the creation of 
+// tooltips and popovers because there structure is so similar. type="popover"
+// will create a popover.
+
+shinyBS.addTooltip = function(id, type, opts) {
+  var $id = shinyBS.getTooltipTarget(id);
+  var dopts = {html: true};
+  opts = $.extend(opts, dopts);
+  
+  if(type == "tooltip") {
+    $id.tooltip("destroy");
+    $id.tooltip(opts);
+  } else if(type == "popover") {
+    $id.popover("destroy");
+    $id.popover(opts);
+  }
+  
+}
+
+shinyBS.removeTooltip = function(id, type) {
+  var $id = shinyBS.getTooltipTarget(id);
+  if(type == "tooltip") {
+    $(id).tooltip("destroy");
+  } else if(type == "popover") {
+    $(id).popover("destroy");
+  }
+}
+
+// Makes adjustments to the tooltip and popover targets for specialized 
+// shiny inputs/outputs
+shinyBS.getTooltipTarget = function(id) {
+  
+  var $id = $("#" + id);
+  
+  if($id.hasClass("js-range-slider")) {
+    $id = $id.parent();
+  } else if($id.hasClass("selectized")) {
+    $id = $id.siblings("div.selectize-control")
+  }
+
+  return $id;
+  
+}
+
+Shiny.addCustomMessageHandler("updateTooltipOrPopover", function(data) {
+  if(data.action == "add") {
+    shinyBS.addTooltip(data.id, data.type, data.options);
+  } else if(data.action == "remove") {
+    shinyBS.removeTooltip(data.id, data.type)
+  }
+})
