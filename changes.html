@@ -64,6 +64,7 @@
 		
 			<nav class = "col-xs-3 sbs-sidebar">
 				<ul id = "sidebar" class = "nav nav-stacked fixed">
+					<li><a href = "#v0.50">Version 0.50</a></li>
 					<li>
 						<a href = "#v0.30">Version 0.30</a>
 <!---					<ul class = "nav nav-stacked">
@@ -81,8 +82,49 @@
 			
 			<div class = "col-xs-9">
 				<h1 class = "page-header bs-color"><i class="fa fa-bolt fa-2x"></i> Change Log</h1>
+				<section id = "v0.50" class = "group">
+					<h2><i class = "fa fa-chevron-right bs-color"></i> Version 0.50 (Bootstrap3 Initial Release)</h2>
+					<p>This is the initial release that updates shinyBS to work with Shiny v0.11 and Twitter Bootstrap 3. Shiny's 
+					update to Twitter Bootstrap 3 broke most of the functionality of shinyBS. This is the initial release to get 
+					things working again.</p>
+					<p>This is a partial release in an effort to get what seems to be the most used functionality working again. 
+					There where major changes to Bootstrap with the upgrade to version 3 and some functionality that components of
+					shinyBS relied on have been removed and may not be re-incorporated into shinyBS.</p>
+					<ul>
+						<li><strong>Alerts</strong>
+							<ul>
+								<li><code>type</code> argument has been changed to <code>style</code> for consistency.</li>
+								<li><code>inputId</code> argument has been changed to <code>anchorID</code> for clarity.</li>
+								<li><code>message</code> argument has beend changed to <code>content</code> for consistency.</li>
+							</ul>
+						</li>
+						<li><strong>Collapses</strong>
+							<ul>
+								<li><code>style</code> argument was added to <code>bsCollapsePanel</code> to apply Bootstrap styles.</li>
+							</ul>
+						</li>
+						<li><strong>Tooltips and Popovers</strong>
+							<ul>
+								<li><code>options</code> argument was added to allow advanced users more customization options.</li>
+							</ul>
+						</li>
+						<li><strong>Modals</strong>
+							<ul>
+								<li><code>size</code> argument in <code>bsModal</code> allows different sized modals.</li>
+								<li><code>toggle</code> argument in <code>toggleModal</code> allows you to specify <code>open</code> or <code>closed</code>.
+							</ul>
+						</li>
+						<li><strong>Buttons</strong>
+							<ul>
+								<li><code>bsActionButton</code> and <code>bsToggleButton</code> were replaced by <code>bsButton</code> with a <code>type</code> argument.</li>
+								<li><code>icon</code> argument allows placing of icons in buttons</li>
+								<li><code>...</code> allows additional attributes to be set in the button like <code>actionButton</code>.
+							</ul>
+						</li>
+					</ul>
+				</section>
 				<section id = "v0.30" class = "group">
-					<h2><i class = "fa fa-chevron-right bs-color"></i> Version 0.30 (next release)</h2>
+					<h2><i class = "fa fa-chevron-right bs-color"></i> Version 0.30 (Depreciated/Never Released)</h2>
 					<ul>
 						<li><strong>New Menu System</strong> - Implemented new menu system based on Bootstrap's navbar element.
 							<ul>

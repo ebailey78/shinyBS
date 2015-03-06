@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shinyBS</title>
+	<script>
+	
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-60447924-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/shinyBS.css" rel="stylesheet">
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<script src="../holder/holder.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+  </head>
+  <body>
+
+	<nav class="navbar navbar-shinybs navbar-fixed-top bs-bg-color bs-bg-pattern" role="navigation">
+	  <div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shinybs-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="../index.html">shinyBS</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="shinybs-collapse">
+		  <ul class="nav navbar-nav">
+			<li><a href="../install.html">Install</a></li>
+			<li><a href="../changes.html">Changes</a></li>
+			<li class="active"><a href="../reference.html">Reference</a></li>
+			<li><a href="../examples.html">Examples</a><li>
+			<li><a href="../help.html">Help</a></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class = "container">
+		<div class = "row">
+		
+			<!-- Sidebar navigation -->
+		
+			<nav class = "col-xs-3 sbs-sidebar">
+				<ul id = "sidebar" class = "nav nav-stacked fixed">
+					<li><a href = "#description">Description</a></li>
+					<li><a href = "#details">Details</a></li>
+					<li><a href = "#components">Components</a></li>
+					<li><a href = "#changes">Changes</a></li>
+					<li><a href = "#note">Note</a></li>
+					<li><a href = "#seealso">See Also</a></li>
+					<li><a href = "#examples">Example</a></li>
+				</ul>
+			</nav>
+			
+			<!-- Main Content -->
+			
+			<div class = "col-xs-9">
+				<h1 class = "page-header bs-color"><i class="fa fa-question fa-2x main-icon"></i> Alerts</h1>
+				<section id = "description" class = "group">
+					<h2>Description</h2>
+
+					<p>Alerts allow you to communicate information to the user on the fly. Standard
+					Bootstrap styling options give the user a hint at the type of information
+					contained in the Alert.
+					</p>
+				</section>
+				<section id = "details" class = "group">
+					<h2>Details</h2>
+
+					<p>To create alerts in your Shiny app you must place <code>bsAlert</code> in your ui.
+					This serves as an anchor that tells shinyBS where to place the alerts created
+					with <code>createAlert</code>.
+					</p>
+					<p>Use <code>createAlert</code> in your server script to add alerts to the anchor
+					you created with <code>bsAlert</code> in your ui. You can place <code>createAlert</code>
+					in observers, reactives, or outputs. A common usage may be to have logic that
+					validates a user's inputs. If they are valid produce the requested output, if
+					not use <code>createAlert</code> to give the user info about what they need to
+					change.
+					</p>
+				</section>
+				<section id = "components" class = "group">
+					<h2>Components</h2>
+
+					<p>There are three functions in the Alerts family:
+					</p>
+
+					<dl>
+					<dt><code><a href="../../shinyBS/help/bsAlert">bsAlert</a></code></dt><dd><p>Used in the UI to create an anchor where your
+					Alerts will be displayed.</p>
+					</dd>
+					<dt><code><a href="../../shinyBS/help/createAlert">createAlert</a></code></dt><dd><p>Used in the Server logic to create
+					alerts. This would be used within a reactive context to display error
+					or success messages to the user based on the status of that context.</p>
+					</dd>
+					<dt><code><a href="../../shinyBS/help/closeAlert">closeAlert</a></code></dt><dd><p>Used in the Server logic to close an alert
+					that is already open. By default, Alerts are dismissable by the user,
+					but this offers you a way to close them programmatically.</p>
+					</dd>
+					</dl>
+
+				</section>
+				<section id = "changes" class = "group">
+
+					<h2>Changes</h2>
+
+					<p><code>style</code> was called <code>type</code> in previous versions of shinyBS.
+					</p>
+					<p><code>anchorId</code> was called <code>inputId</code> in previous versions of shinyBS.
+					</p>
+					<p><code>content</code> was called <code>message</code> in previous versions of shinyBS.
+					</p>
+				</section>
+				<section id = "note" class = "group">
+					<h2>Note</h2>
+
+					<p>Run <code>example("Alerts", "shinyBS", ask = FALSE)</code> for an example
+					of Alerts functionality
+					</p>
+
+				</section>
+				<section id = "seealso" class = "group">
+					<h2>See Also</h2>
+
+					<p><a href="http://getbootstrap.com">Twitter Bootstrap 3</a>
+					<p>Other Alerts: <code><a href="../../shinyBS/help/bsAlert">bsAlert</a></code>;
+					<code><a href="../../shinyBS/help/closeAlert">closeAlert</a></code>; <code><a href="../../shinyBS/help/createAlert">createAlert</a></code>
+					</p>
+				</section>
+				<section id = 'examples' class = "group">
+
+					<h2>Example</h2>
+
+<pre>
+
+library(shiny)
+library(shinyBS)
+shinyApp(
+ ui = fluidPage(
+   sidebarLayout(
+     sidebarPanel(textInput("num1", NULL, value = 100),
+       "divided by", textInput("num2", NULL, value = 20),
+       "equals", textOutput("exampleOutput")),
+     mainPanel(
+       bsAlert("alert")
+     )
+   )
+ ),
+ server = function(input, output, session) {
+   output$exampleOutput &lt;- renderText({
+     num1 &lt;- as.numeric(input$num1)
+     num2 &lt;- as.numeric(input$num2)
+
+     if(is.na(num1) | is.na(num2)) {
+       createAlert(session, "alert", "exampleAlert", title = "Oops",
+         content = "Both inputs should be numeric.", append = FALSE)
+     } else if(num2 == 0) {
+       createAlert(session, "alert", "exampleAlert", title = "Oops",
+         content = "You cannot divide by 0.", append = FALSE)
+     } else {
+       closeAlert(session, "exampleAlert")
+       return(num1/num2)
+     }
+
+   })
+ }
+)
+
+</pre>				
+</section>
+				</div>
+				
+			</div>	
+			
+		</div>
+	<footer class = "container" >
+		<p>
+			This project is maintained by <a href="https://github.com/ebailey78">ebailey78</a>
+			and is in no way affiliated with <a href = "http://shiny.rstudio.com">Shiny</a> or <a href = "http://www.rstudio.com">RStudio</a>.
+		</p>
+		<p>
+			<small>
+				Hosted on GitHub Pages
+			</small>
+		</p>
+	</footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+	
+	<script>
+		$('body').scrollspy({
+			target: '.sbs-sidebar',
+			offset: 120
+		});
+	</script>
+	
+  </body>
+</html>

@@ -59,6 +59,8 @@ i.main-icon {
 
 .group {
 	padding-left: 20px;
+	padding-top: 50px;
+	margin-top: -50px;
 }
 
 .group h2 {
