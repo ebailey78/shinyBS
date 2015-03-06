@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\nshinyApp(\n  ui = fluidPage(\n    sidebarLayout(\n      sidebarPanel(\n        sliderInput(\"bins\",\n                    \"Move the slider to see its effect on the button below:\",\n                    min = 1,\n                    max = 50,\n                    value = 1),\n        bsButton(\"actTwo\", label = \"Click me if you dare!\", icon = icon(\"ban\")),\n        tags$p(\"Clicking the first button below changes the disabled state of the second button.\"),\n        bsButton(\"togOne\", label = \"Toggle 'Block Action Button' disabled status\", block = TRUE, type = \"toggle\", value = TRUE),\n        bsButton(\"actOne\", label = \"Block Action Button\", block = TRUE)\n\n      ),\n      mainPanel(\n        textOutput(\"exampleText\")\n      )\n    )  \n  ),\n  server = function(input, output, session) {\n    observeEvent(input$togOne, ({\n      updateButton(session, \"actOne\", disabled = !input$togOne)\n    }))\n    observeEvent(input$bins, ({\n      \n      b <- input$bins\n      disabled = NULL\n      style = \"default\"\n      icon = \"\"\n      \n      if(b < 5) {\n        disabled = TRUE\n        icon <- icon(\"ban\")\n      } else {\n        disabled = FALSE\n      }\n      \n      if(b < 15 | b > 35) {\n        style = \"danger\"\n      } else if(b < 20 | b > 30) {\n        style = \"warning\"\n      } else {\n        style = \"default\"\n        icon = icon(\"check\")\n      }\n      \n      updateButton(session, \"actTwo\", disabled = disabled, style = style, icon = icon)\n      \n    }))\n    \n    output$exampleText <- renderText({\n      input$actTwo\n      b <- isolate(input$bins)\n      txt = \"\"\n      if((b > 5 & b < 15) | b > 35) {\n        txt = \"That was dangerous.\"\n      } else if((b > 5 & b < 20) | b > 30) {\n        txt = \"I warned you about that.\"\n      } else if(b >= 20 &  b <= 30) {\n        txt = \"You have choosen... wisely.\"\n      }\n      return(txt)\n    })\n  }\n)\n\n",
+    "created" : 1425658963242.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "444350789",
+    "id" : "C5108315",
+    "lastKnownWriteTime" : 0,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

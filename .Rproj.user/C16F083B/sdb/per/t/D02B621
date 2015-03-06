@@ -1,0 +1,17 @@
+{
+    "contents" : "#'updateButton\n#'\n#'\\code{updateButton} is used in your Server logic to update the style or state\n#'of a button.\n#'\n#'@inheritParams bsButton\n#'@param session The session object passed to function given to shinyServer.\n#' \n#'@details Because of the way it is coded, \\code{updateButton} may work on buttons not\n#'created by \\code{\\link{bsButton}} such as \\code{\\link{submitButton}}.\n#'\n#'See \\code{\\link{Buttons}} for more information about how to use \\code{updateButton} with the rest of the Buttons family.\n#' \n#'@templateVar item_name updateButton\n#'@templateVar family_name Buttons\n#'@template item_details\n#'@template footer\n#'@export\nupdateButton <- function(session, inputId, label = NULL, icon = NULL, value = NULL, style = NULL,\n                         size = NULL, block = NULL, disabled = NULL) {\n\n  if(!is.null(icon)) icon <- as.character(icon)\n\n  if(!is.null(size)) {\n    size <- switch(size,\n                   \"extra-small\" = \"btn-xs\",\n                   \"small\" = \"btn-sm\",\n                   \"large\" = \"btn-lg\",\n                   \"default\" = \"default\")\n  }\n\n  data <- dropNulls(list(id = inputId, label = label, icon = icon, value = value, style = style,\n                         size = size, block = block, disabled = disabled))\n  \n  session$sendCustomMessage(\"bsButtonUpdate\", data)\n  \n}",
+    "created" : 1425658654368.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3576494676",
+    "id" : "D02B621",
+    "lastKnownWriteTime" : 1425659744,
+    "path" : "C:/R/shinyBS/R/updateButton.R",
+    "project_path" : "R/updateButton.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
