@@ -22,7 +22,7 @@ packages that give users access to this functionality.
 
 I have most of the functionality that I intend to release with shinyBS 0.50 
 working now and am now working primarily on testing and documentation. I hope
-to have the new version on CRAN by the end of February 2015.
+to have the new version on CRAN in the first half of March 2015.
 
 Features that will remain in version 0.5 include:
 
