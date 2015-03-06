@@ -30,15 +30,15 @@ Features that will remain in version 0.5 include:
 * Tooltips
 * Popovers
 * Modal Windows
-* Progress Bars
 * Collapse Panels
 * Button upgrades
-* Button Groups
 
 Features that will not be included in version 0.5 include:
 
 * Navbars and related components
 * Typeaheads
+* Progress Bars
+* Button Groups
 
 Sorry for any inconvenience,
 
