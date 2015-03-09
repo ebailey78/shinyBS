@@ -19,6 +19,7 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/shinyBS.css" rel="stylesheet">
+		<link href = "../css/styles/tomorrow.css" rel = "stylesheet" />
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<script src="../holder/holder.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,6 +28,14 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<script src = "../js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+	<style>
+		pre{
+			background: none;
+		}
+	</style>
 	
   </head>
   <body>
@@ -66,9 +75,14 @@
 				<ul id = "sidebar" class = "nav nav-stacked fixed">
 					<li><a href = "#description">Description</a></li>
 					<li><a href = "#details">Details</a></li>
-					<li><a href = "#components">Components</a></li>
+					<li><a href = "#components">Components</a>
+						<ul class = "nav">
+							<li><a href = "#bsAlert">bsAlert</a></li>
+							<li><a href = "#createAlert">createAlert</a></li>
+							<li><a href = "#closeAlert">closeAlert</a></li>
+						</ul>
+					</li>
 					<li><a href = "#changes">Changes</a></li>
-					<li><a href = "#note">Note</a></li>
 					<li><a href = "#seealso">See Also</a></li>
 					<li><a href = "#examples">Example</a></li>
 				</ul>
@@ -106,21 +120,72 @@
 
 					<p>There are three functions in the Alerts family:
 					</p>
-
-					<dl>
-					<dt><code><a href="bsAlert.html">bsAlert</a></code></dt><dd><p>Used in the UI to create an anchor where your
-					Alerts will be displayed.</p>
-					</dd>
-					<dt><code><a href="createAlert.html">createAlert</a></code></dt><dd><p>Used in the Server logic to create
-					alerts. This would be used within a reactive context to display error
-					or success messages to the user based on the status of that context.</p>
-					</dd>
-					<dt><code><a href="closeAlert.html">closeAlert</a></code></dt><dd><p>Used in the Server logic to close an alert
-					that is already open. By default, Alerts are dismissable by the user,
-					but this offers you a way to close them programmatically.</p>
-					</dd>
-					</dl>
-
+					<section id = "bsAlert" class = "subgroup">
+						<h3>bsAlert</h3>
+						<p>bsAlert creates an anchor point in your UI definition. This anchor point is where alerts created in your Server logic will be displayed.</p>
+						<h4>Usage</h4>
+						<pre><code>bsAlert(anchorId)</code></pre>
+						<h4>Parameters</h4>
+						<dl>
+							<dt><code>anchorId</code></dt>
+							<dd>A unique id the identifies the anchor.</dd>
+						</dl>					
+					</section>
+					<section id = "createAlert" class = "subgroup">
+						<h3>createAlert</h3>
+						<p>createAlert is used within the Server logic of your Shiny app to display an alert to the user.</p>
+						<h4>Usage</h4>
+						<pre><code>createAlert(session, anchorId, alertId = NULL, title = NULL,
+  content = NULL, style = NULL, dismiss = TRUE, append = TRUE)</code></pre>
+						<h4>Parameters</h4>
+						<dl>
+							<dt><code>session</code></dt>
+							<dd>The session object passed to function given to shinyServer.</dd>
+							<dt><code>achorId</code></dt>
+							<dd>The unique identifier of the anchor where the alert should be displayed.</dd>
+							<dt><code>alertId</code></dt>
+							<dd><strong>Optional</strong> A unique identifier for the Alert.</dd>
+							<dt><code>title</code></dt>
+							<dd><strong>Optional</strong> A title for the Alert.</dd>
+							<dt><code>content</code></dt>
+							<dd>The main body of the Alert. HTML tags are allowed.</dd>
+							<dt><code>style</code></dt>
+							<dd>A bootstrap style to apply. Defaults to info.</dd>
+							<dt><code>dismiss</code></dt>
+							<dd><code>logical</code> Should the Alert be user dismissable? Defaults to <code>TRUE</code>.</dd>
+							<dt><code>append</code></dt>
+							<dd><code>logical</code> Should the Alert be appended below existing Alerts? Default to <code>TRUE</code>.</dd>
+							
+						</dl>					
+					</section>
+					<section id = "closeAlert" class = "subgroup">
+						<h3>closeAlert</h3>
+						<p>closeAlert is used within your Server logic to close an alert that you created with createAlert.</p>
+						<h4>Usage</h4>
+						<pre><code>closeAlert(session, alertId)</code></pre>
+						<h4>Parameters</h4>
+						<dl>
+							<dt><code>session</code></dt>
+							<dd>The session object passed to function given to shinyServer.</dd>
+							<dt><code>alertId</code></dt>
+							<dd><strong>Optional</strong> A unique identifier for the Alert.</dd>
+						</dl>
+					</section>
+<!--
+					<section id = "" class = "subgroup">
+						<h3></h3>
+						<p></p>
+						<h4>Usage</h4>
+						<pre><code></code></pre>
+						<h4>Parameters</h4>
+						<dl>
+							<dt><code></code></dt>
+							<dd></dd>
+							<dt><code></code></dt>
+							<dd></dd>
+						</dl>
+					</section>
+-->
 				</section>
 				<section id = "changes" class = "group">
 
@@ -133,23 +198,12 @@
 					<p><code>content</code> was called <code>message</code> in previous versions of shinyBS.
 					</p>
 				</section>
-				<section id = "note" class = "group">
-					<h2>Note</h2>
 
-					<p>Run <code>example("Alerts", "shinyBS", ask = FALSE)</code> for an example
-					of Alerts functionality
-					</p>
-
-				</section>
 				<section id = "seealso" class = "group">
 					<h2>See Also</h2>
 
 					<p><a href="http://getbootstrap.com">Twitter Bootstrap 3</a>
-					<p>Other Alerts: 
-						<code><a href="bsAlert.html">bsAlert</a></code>;
-						<code><a href="closeAlert.html">closeAlert</a></code>; 
-						<code><a href="createAlert.html">createAlert</a></code>
-					</p>
+
 				</section>
 				<section id = 'examples' class = "group">
 
@@ -163,7 +217,7 @@
 						<div class = "tab-content">
 							<div class = "tab-pane active" id = "code" role = "tabpanel">
 
-								<pre>
+								<pre><code class = "R">
 library(shiny)
 library(shinyBS)
 shinyApp(
@@ -195,7 +249,7 @@ shinyApp(
 
    })
  }
-)							</pre>	
+)							</code></pre>	
 
 						</div>
 						
