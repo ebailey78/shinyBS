@@ -1,0 +1,17 @@
+{
+    "contents" : "library(shiny)\nlibrary(shinyBS)\nlibrary(ggplot2)\nlibrary(dplyr)\nshinyApp(\n  ui = fluidPage(\n    sidebarLayout(\n      sidebarPanel(\n        bsCollapse(\n          bsCollapsePanel(\"Filter\",\n                          bsCollapse(multiple = TRUE,\n                            bsCollapsePanel(\"Make/Model\",\n                                            selectInput(\"filterMake\", label = \"\", \n                                                        choices = list(\"audi\", \"chevrolet\"), multiple = TRUE,\n                                                        selected = c(\"audi\", \"chevrolet\"))\n                            ),\n                            bsCollapsePanel(\"Mileage\",\n                                            sliderInput(\"filterMileage\", \"\",\n                                                        min = 0, max = 25, value = c(0, 25), step = 1)\n                            )\n                          )\n          )\n        ),\n        actionButton(\"reset\", \"Reset\", icon = icon(\"undo\"))\n      ),\n      mainPanel(dataTableOutput(\"table\"))\n    )\n  ), \n  server = function(input, output, session) {\n    data <- mpg[, c(\"manufacturer\", \"cty\")]\n    \n    output$table <- renderDataTable(\n      filter(data, manufacturer %in% input$filterMake, cty >= input$filterMileage[1], cty <= input$filterMileage[2])\n    )\n    output$summary <- renderTable( \n      summary(data[, c(input$make, input$mile)])\n    )\n    observe({\n      input$reset\n      updateSelectInput(session, inputId = \"filterMake\", label = \"\", \n                        choices = list(\"audi\", \"chevrolet\"), \n                        selected = c(\"audi\", \"chevrolet\"))\n      updateSliderInput(session, inputId = \"filterMileage\", label = \"\",\n                        min = 0, max = 25, value = c(0, 25), step = 1)\n    })\n    observe({\n      print(input$filterMake)\n      print(input$filterMileage)\n    })\n  }\n)\n",
+    "created" : 1425985787771.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "2840849305",
+    "id" : "2392B5BE",
+    "lastKnownWriteTime" : 1,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,41 @@
+pre{
+	background: none;
+}
+
+.group > h2 {
+
+	font-size: 1.6em;
+	font-weight: bold;
+
+}
+
+#components h3 {
+
+	font-family: monospace;
+	font-size: 1.5em;
+	font-weight: bold;
+	border-bottom: solid #CC6600 2px;
+
+}
+
+#components dt {
+	font-size: 1.2em;
+}
+
+#components dd {
+	padding-left: 10px;
+	margin-bottom: 5px;	
+}
+
+#components dl {
+	margin-bottom: -5px;
+}
+
+#components  dl code {
+	background: none;
+	color: #333;
+}
+
+#components .subgroup > p {
+	margin-left: -20px;
+}
