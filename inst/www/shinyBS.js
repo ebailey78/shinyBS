@@ -102,13 +102,19 @@ $.extend(shinyBS.inputBindings.collapse, {
   },
   initialize: function(el) {
     var $el = $(el);
-    var $panels = $el.find(".panel");
+    var $panels = $el.children(".panel");
     var val = [];
     $panels.each(function(i) {
-      if($(this).find("div.panel-collapse.collapse").hasClass("in")) {
+      if($(this).children("div.panel-collapse.collapse").hasClass("in")) {
         val.push($(this).attr("value"));
       }
-      $(this).find("div.panel-collapse.collapse").collapse({parent: "#" + $el.attr("id"), toggle: false});
+      var $pan = $(this).children("div.panel-collapse.collapse");
+      if($el.attr("data-sbs-multi") == "FALSE") {
+        var par = "#" + $el.attr("id");
+      } else {
+        var par = false;
+      }
+      $pan.collapse({parent: par, toggle: false});
     });
     $el.data("sbs-value", val);
     $panels.on("show.bs.collapse", function(event) {

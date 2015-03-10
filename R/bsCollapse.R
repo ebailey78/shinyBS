@@ -35,7 +35,7 @@ bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
     }
   }
   
-  bsTag <- shiny::tags$div(class = "panel-group sbs-panel-group", id=id, role = "tablist", panels)
+  bsTag <- shiny::tags$div(class = "panel-group sbs-panel-group", "data-sbs-multi" = multiple, id=id, role = "tablist", panels)
   
   htmltools::attachDependencies(bsTag, shinyBSDep)
   
