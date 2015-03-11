@@ -1,2 +1,0 @@
-<dt><code><%=param %></code></dt>
-<dd><%=def %></dd>
