@@ -57,7 +57,7 @@ shinyApp(
                   bsCollapsePanel("Panel 1", "This is a panel with just text ",
                    "and has the default style. You can change the style in ",
                    "the sidebar.", style = "info"),
-                  bsCollapsePanel("Panel 2", "This panel has a generic plot. "
+                  bsCollapsePanel("Panel 2", "This panel has a generic plot. ",
                    "and a 'success' style.", plotOutput("genericPlot"), style = "success")
        )
      )
