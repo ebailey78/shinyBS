@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shinyBS: <%=family %></title>
+  <script>
+	
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-60447924-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/shinyBS.css" rel="stylesheet">
+		<link href = "../css/styles/tomorrow.css" rel = "stylesheet" />
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href = "css/docs.css" rel = "stylesheet" />
+	<script src="../holder/holder.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script src = "../js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+	
+  </head>
+  <body>
+
+	<nav class="navbar navbar-shinybs navbar-fixed-top bs-bg-color bs-bg-pattern" role="navigation">
+	  <div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shinybs-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="../index.html">shinyBS</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="shinybs-collapse">
+		  <ul class="nav navbar-nav">
+			<li><a href="../install.html">Install</a></li>
+			<li><a href="../changes.html">Changes</a></li>
+			<li class="active"><a href="../reference.html">Reference</a></li>
+			<li><a href="../examples.html">Examples</a><li>
+			<li><a href="../help.html">Help</a></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class = "container">
+		<div class = "row">
+		
+			<!-- Sidebar navigation -->
+		
+			<nav class = "col-xs-3 sbs-sidebar">
+				<ul id = "sidebar" class = "nav nav-stacked fixed">
+					<li><a href = "#description">Description</a></li>
+					<li><a href = "#details">Details</a></li>
+					<li><a href = "#components">Components</a>
+						<ul class = "nav">
+              <%=componentnav %>
+						</ul>
+					</li>
+					<li><a href = "#changes">Changes</a></li>
+					<li><a href = "#examples">Example</a></li>
+				</ul>
+			</nav>
+			
+			<!-- Main Content -->
+			
+			<div class = "col-xs-9">
+				<h1 class = "page-header bs-color"><i class="fa fa-question fa-2x main-icon"></i> Alerts</h1>
+				<section id = "description" class = "group">
+					<h2>Description</h2>
+					<p><%=familydescription %></p>
+				</section>
+				<section id = "details" class = "group">
+					<h2>Details</h2>
+          <%=familydetails %>
+				</section>
+				<section id = "components" class = "group">
+					<h2>Components</h2>
+					<%=components %>
+				</section>
+				<section id = "changes" class = "group">
+					<h2>Changes</h2>
+          <%=changes %>
+				</section>
+
+				<section id = 'examples' class = "group">
+
+					<h2>Example</h2>
+					
+					<div role="tabpanel">
+						<ul class = "nav nav-tabs nav-justified" role = "tablist">
+							<li class = "active"><a href = "#code" role = "tab" data-toggle = "tab">Code</a></li>
+							<li><a href = "#app" role = "tab" data-toggle = "tab">App</a></li>
+						</ul>
+						<div class = "tab-content">
+							<div class = "tab-pane active" id = "code" role = "tabpanel">
+
+								<pre><code class = "R">
+<%=example %>
+                </code></pre>	
+
+						</div>
+						
+						<div class = "tab-pane" id = "app" role = "tabpanel">
+							 <iframe src="https://ebailey78.shinyapps.io/<%=family %>/" frameborder = 0 style = "width: 100%; margin-top: 10px; min-height: 400px;"></iframe> 
+						</div>
+					</div>
+		
+				</section>
+				
+			</div>
+				
+			</div>	
+			
+		</div>
+	<footer class = "container" >
+		<p>
+			This project is maintained by <a href="https://github.com/ebailey78">ebailey78</a>
+			and is in no way affiliated with <a href = "http://shiny.rstudio.com">Shiny</a> or <a href = "http://www.rstudio.com">RStudio</a>.
+		</p>
+		<p>
+			<small>
+				Hosted on GitHub Pages
+			</small>
+		</p>
+	</footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+	
+	<script>
+		$('body').scrollspy({
+			target: '.sbs-sidebar',
+			offset: 120
+		});
+	</script>
+	
+  </body>
+</html>
