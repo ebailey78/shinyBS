@@ -39,3 +39,9 @@ pre{
 #components .subgroup > p {
 	margin-left: -20px;
 }
+
+#examples iframe {
+	width: 100%; 
+	margin-top: 10px; 
+	min-height: 600px;
+}
