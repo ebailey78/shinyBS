@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>shinyBS: Alerts</title>
+    <title>shinyBS: Modals</title>
   <script>
 	
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -74,9 +74,8 @@
 					<li><a href = "#details">Details</a></li>
 					<li><a href = "#components">Components</a>
 						<ul class = "nav">
-              <li><a href = '#bsAlert'>bsAlert</a></li>
-<li><a href = '#createAlert'>createAlert</a></li>
-<li><a href = '#closeAlert'>closeAlert</a></li>
+              <li><a href = '#bsModal'>bsModal</a></li>
+<li><a href = '#toggleModal'>toggleModal</a></li>
 						</ul>
 					</li>
 					<li><a href = "#changes">Changes</a></li>
@@ -87,93 +86,69 @@
 			<!-- Main Content -->
 			
 			<div class = "col-xs-9">
-				<h1 class = "page-header bs-color"><i class="fa fa-question fa-2x main-icon"></i> Alerts</h1>
+				<h1 class = "page-header bs-color"><i class="fa fa-question fa-2x main-icon"></i> Modals</h1>
 				<section id = "description" class = "group">
 					<h2>Description</h2>
 					<p>
-Alerts allow you to communicate information to the user on the fly. Standard
-Bootstrap styling options give the user a hint at the type of information
-contained in the Alert.
+Modal windows are similar to popups but are rendered within the
+original window. They can contain any combination of shiny inputs, shiny
+outputs, and html. Possible uses include extra controls that you don't want
+cluttering up the main app display or help pages to explain your apps
+operation.
 </p>
 				</section>
 				<section id = "details" class = "group">
 					<h2>Details</h2>
           
-To create alerts in your Shiny app you must place <code>bsAlert</code> in your ui.
-This serves as an anchor that tells shinyBS where to place the alerts created
-with <code>createAlert</code>.
+Use <code>list("bsModal")</code> in your UI to create a modal window. It works
+like <code>list("Collapses")</code> or <code>list("tabPanel")</code>, any non-named arguments
+will be passed as content for the modal.
 <p>
-Use <code>createAlert</code> in your server script to add alerts to the anchor
-you created with <code>bsAlert</code> in your ui. You can place <code>createAlert</code>
-in observers, reactives, or outputs. A common usage may be to have logic that
-validates a user's inputs. If they are valid produce the requested output, if
-not use <code>createAlert</code> to give the user info about what they need to
-change.
+Create a button or link and assign its <code>inputId</code> as the <code>trigger</code>
+in <code>list("bsModal")</code>.
 
 				</section>
 				<section id = "components" class = "group">
 					<h2>Components</h2>
-					<section id = "bsAlert" class = "subgroup">
-  <h3>bsAlert</h3>
+					<section id = "bsModal" class = "subgroup">
+  <h3>bsModal</h3>
   <p>
-<code>bsAlert</code> creates an anchor point in your UI definition. This anchor point
-is where alerts created in your Server logic will be displayed.
+<code>bsModal</code> is used within the UI to create a modal window.
 </p>
   <h4>Usage</h4>
-  <pre><code>bsAlert(anchorId)
+  <pre><code>bsModal(id, title, trigger, ..., size)
 </code></pre>
   <h4>Parameters</h4>
   <dl>
-    <dt><code>anchorId</code></dt>
-<dd>A unique id the identifies the anchor.</dd>
-  </dl>					
-</section>
-<section id = "createAlert" class = "subgroup">
-  <h3>createAlert</h3>
-  <p>
-<code>createAlert</code> is used within the Server logic of your Shiny app to display
-an alert to the user.
-</p>
-  <h4>Usage</h4>
-  <pre><code>createAlert(session, anchorId, alertId = NULL, title = NULL,
-  content = NULL, style = NULL, dismiss = TRUE, append = TRUE)
-</code></pre>
-  <h4>Parameters</h4>
-  <dl>
-    <dt><code>session</code></dt>
-<dd>The session object passed to function given to shinyServer.</dd>
-<dt><code>anchorId</code></dt>
-<dd>The unique identifier of the anchor where the alert should be
-displayed.</dd>
-<dt><code>alertId</code></dt>
-<dd><strong>Optional</strong> A unique identifier for the Alert.</dd>
+    <dt><code>id</code></dt>
+<dd>A unique identifier for the modal window</dd>
 <dt><code>title</code></dt>
-<dd><strong>Optional</strong> A title for the Alert.</dd>
-<dt><code>content</code></dt>
-<dd>The main body of the Alert. HTML tags are allowed.</dd>
-<dt><code>style</code></dt>
-<dd>A bootstrap style to apply. Defaults to <code>info</code>.</dd>
-<dt><code>dismiss</code></dt>
-<dd><strong>logical</strong> Should the Alert be user dismissable? Defaults to <code>TRUE</code>.</dd>
-<dt><code>append</code></dt>
-<dd><code>logical</code> Should the Alert be appended below existing Alerts? Default to <code>TRUE</code>.</dd>
+<dd>The title to appear at the top of the modal</dd>
+<dt><code>trigger</code></dt>
+<dd>The id of a button or link that will open the modal.</dd>
+<dt><code>size</code></dt>
+<dd><strong>Optional</strong> What size should the modal be? (<code>small</code> or <code>large</code>)</dd>
+<dt><code>...</code></dt>
+<dd>UI elements to include within the modal</dd>
   </dl>					
 </section>
-<section id = "closeAlert" class = "subgroup">
-  <h3>closeAlert</h3>
+<section id = "toggleModal" class = "subgroup">
+  <h3>toggleModal</h3>
   <p>
-<code>closeAlert</code> is used within your Server logic to close an alert that you
-created with <code>list("createAlert")</code>.
+<code>toggleModal</code> is used within your Server logic to open or close a modal
+window.
 </p>
   <h4>Usage</h4>
-  <pre><code>closeAlert(session, alertId)
+  <pre><code>toggleModal(session, modalId, toggle = "toggle")
 </code></pre>
   <h4>Parameters</h4>
   <dl>
     <dt><code>session</code></dt>
 <dd>The session object passed to function given to shinyServer.</dd>
-<dt><code>alertId</code></dt>
-<dd><strong>Optional</strong> A unique identifier for the Alert.</dd>
+<dt><code>modalId</code></dt>
+<dd>The id of the modal window you want to open/close</dd>
+<dt><code>toggle</code></dt>
+<dd>Should the modal window <code>open</code>, <code>close</code>, or <code>toggle</code>?</dd>
   </dl>					
 </section>
 				</section>
@@ -181,13 +156,12 @@ created with <code>list("createAlert")</code>.
 					<h2>Changes</h2>
           
 <p>
-<code>style</code> was called <code>type</code> in previous versions of shinyBS.
+There is now a <code>toggle</code> argument in <code>list("toggleModal")</code> that allows
+you to specify whether you want the modal to open or close.
 </p>
 <p>
-<code>anchorId</code> was called <code>inputId</code> in previous versions of shinyBS.
-</p>
-<p>
-<code>content</code> was called <code>message</code> in previous versions of shinyBS.
+The <code>size</code> argument in <code>list("bsModal")</code> allows you to specify the
+size of the modal window. Either <code>small</code> or <code>large</code>.
 
 				</section>
 
@@ -207,34 +181,54 @@ created with <code>list("createAlert")</code>.
 
 library(shiny)
 library(shinyBS)
+
 shinyApp(
- ui = fluidPage(
+ ui =   fluidPage(
    sidebarLayout(
-     sidebarPanel(textInput("num1", NULL, value = 100),
-       "divided by", textInput("num2", NULL, value = 20),
-       "equals", textOutput("exampleOutput")),
+     sidebarPanel(
+       sliderInput("bins",
+                   "Number of bins:",
+                   min = 1,
+                   max = 50,
+                   value = 30),
+       actionButton("tabBut", "View Table")
+     ),
+
      mainPanel(
-       bsAlert("alert")
+       plotOutput("distPlot"),
+       bsModal("modalExample", "Data Table", "tabBut", size = "large",
+         dataTableOutput("distTable"))
      )
    )
  ),
  server = function(input, output, session) {
-   output$exampleOutput <- renderText({
-     num1 <- as.numeric(input$num1)
-     num2 <- as.numeric(input$num2)
 
-     if(is.na(num1) | is.na(num2)) {
-       createAlert(session, "alert", "exampleAlert", title = "Oops",
-         content = "Both inputs should be numeric.", append = FALSE)
-     } else if(num2 == 0) {
-       createAlert(session, "alert", "exampleAlert", title = "Oops",
-         content = "You cannot divide by 0.", append = FALSE)
-     } else {
-       closeAlert(session, "exampleAlert")
-       return(num1/num2)
-     }
+   output$distPlot <- renderPlot({
+
+     x    <- faithful[, 2]
+     bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+     # draw the histogram with the specified number of bins
+     hist(x, breaks = bins, col = 'darkgray', border = 'white')
 
    })
+
+   output$distTable <- renderDataTable({
+
+     x    <- faithful[, 2]
+     bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+     # draw the histogram with the specified number of bins
+     tab <- hist(x, breaks = bins, plot = FALSE)
+     tab$breaks <- sapply(seq(length(tab$breaks) - 1), function(i) {
+       paste0(signif(tab$breaks[i], 3), "-", signif(tab$breaks[i+1], 3))
+     })
+     tab <- as.data.frame(do.call(cbind, tab))
+     colnames(tab) <- c("Bins", "Counts", "Density")
+     return(tab[, 1:3])
+
+   }, options = list(pageLength=10))
+
  }
 )
 
@@ -243,7 +237,7 @@ shinyApp(
 						</div>
 						
 						<div class = "tab-pane" id = "app" role = "tabpanel">
-							 <iframe src="https://ebailey78.shinyapps.io/Alerts/" frameborder = 0 style = "width: 100%; margin-top: 10px; min-height: 400px;"></iframe> 
+							 <iframe src="https://ebailey78.shinyapps.io/Modals/" frameborder = 0 style = "width: 100%; margin-top: 10px; min-height: 400px;"></iframe> 
 						</div>
 					</div>
 		

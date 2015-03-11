@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>shinyBS: Alerts</title>
+    <title>shinyBS: Collapses</title>
   <script>
 	
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -74,9 +74,9 @@
 					<li><a href = "#details">Details</a></li>
 					<li><a href = "#components">Components</a>
 						<ul class = "nav">
-              <li><a href = '#bsAlert'>bsAlert</a></li>
-<li><a href = '#createAlert'>createAlert</a></li>
-<li><a href = '#closeAlert'>closeAlert</a></li>
+              <li><a href = '#bsCollapse'>bsCollapse</a></li>
+<li><a href = '#bsCollapsePanel'>bsCollapsePanel</a></li>
+<li><a href = '#updateCollapse'>updateCollapse</a></li>
 						</ul>
 					</li>
 					<li><a href = "#changes">Changes</a></li>
@@ -87,93 +87,103 @@
 			<!-- Main Content -->
 			
 			<div class = "col-xs-9">
-				<h1 class = "page-header bs-color"><i class="fa fa-question fa-2x main-icon"></i> Alerts</h1>
+				<h1 class = "page-header bs-color"><i class="fa fa-question fa-2x main-icon"></i> Collapses</h1>
 				<section id = "description" class = "group">
 					<h2>Description</h2>
 					<p>
-Alerts allow you to communicate information to the user on the fly. Standard
-Bootstrap styling options give the user a hint at the type of information
-contained in the Alert.
+Collapse panels allow you to reduce clutter in your Shiny app by making
+panels of information that open and close with a user's click. Any type of
+content can go in a collapse panel. Standard Bootstrap styling options are
+available.
 </p>
 				</section>
 				<section id = "details" class = "group">
 					<h2>Details</h2>
           
-To create alerts in your Shiny app you must place <code>bsAlert</code> in your ui.
-This serves as an anchor that tells shinyBS where to place the alerts created
-with <code>createAlert</code>.
+Collapses are designed to mimic <code>list("tabsetPanel")</code> in their implementation.
+Start with <code>bsCollapse</code> to create a panel group, then fill it with panels
+using <code>bsCollapsePanel</code>.
 <p>
-Use <code>createAlert</code> in your server script to add alerts to the anchor
-you created with <code>bsAlert</code> in your ui. You can place <code>createAlert</code>
-in observers, reactives, or outputs. A common usage may be to have logic that
-validates a user's inputs. If they are valid produce the requested output, if
-not use <code>createAlert</code> to give the user info about what they need to
-change.
+<code>bsCollapse</code> acts as an input, so you can retrieve which panels are open
+from the input object passed to the function in <code>list("shinyServer")</code>.
+</p>
+<p>
+<code>updateCollapse</code> can be used within your server logic to open/close
+collapse panels or to change their style.
 
 				</section>
 				<section id = "components" class = "group">
 					<h2>Components</h2>
-					<section id = "bsAlert" class = "subgroup">
-  <h3>bsAlert</h3>
+					<section id = "bsCollapse" class = "subgroup">
+  <h3>bsCollapse</h3>
   <p>
-<code>bsAlert</code> creates an anchor point in your UI definition. This anchor point
-is where alerts created in your Server logic will be displayed.
+<code>bsCollapse</code> is used in your UI to create a collapse panel group. Use
+<code>list("bsCollapsePanel")</code> to populate this object with panels.
 </p>
   <h4>Usage</h4>
-  <pre><code>bsAlert(anchorId)
+  <pre><code>bsCollapse(..., id = NULL, multiple = FALSE, open = NULL)
 </code></pre>
   <h4>Parameters</h4>
   <dl>
-    <dt><code>anchorId</code></dt>
-<dd>A unique id the identifies the anchor.</dd>
+    <dt><code>id</code></dt>
+<dd><strong>Optional</strong> You can use <code>input$id</code> in your Server logic to
+determine which panels are open, and <code>list("updateCollapse")</code> to open/close
+panels.</dd>
+<dt><code>multiple</code></dt>
+<dd>Can more than one panel be open at a time? Defaults to <code>FALSE</code>.</dd>
+<dt><code>open</code></dt>
+<dd>The <code>value</code>, (or if none was supplied, the <code>title</code>) of
+the panel(s) you want open on load.</dd>
+<dt><code>...</code></dt>
+<dd><code>list("bsCollapsePanel")</code> elements to include in the Collapse.</dd>
   </dl>					
 </section>
-<section id = "createAlert" class = "subgroup">
-  <h3>createAlert</h3>
+<section id = "bsCollapsePanel" class = "subgroup">
+  <h3>bsCollapsePanel</h3>
   <p>
-<code>createAlert</code> is used within the Server logic of your Shiny app to display
-an alert to the user.
+<code>bsCollapsePanel</code> creates individual panels within a <code>list("bsCollapse")</code> object.
 </p>
   <h4>Usage</h4>
-  <pre><code>createAlert(session, anchorId, alertId = NULL, title = NULL,
-  content = NULL, style = NULL, dismiss = TRUE, append = TRUE)
+  <pre><code>bsCollapsePanel(title, ..., value = title, style = NULL)
 </code></pre>
   <h4>Parameters</h4>
   <dl>
-    <dt><code>session</code></dt>
-<dd>The session object passed to function given to shinyServer.</dd>
-<dt><code>anchorId</code></dt>
-<dd>The unique identifier of the anchor where the alert should be
-displayed.</dd>
-<dt><code>alertId</code></dt>
-<dd><strong>Optional</strong> A unique identifier for the Alert.</dd>
-<dt><code>title</code></dt>
-<dd><strong>Optional</strong> A title for the Alert.</dd>
-<dt><code>content</code></dt>
-<dd>The main body of the Alert. HTML tags are allowed.</dd>
+    <dt><code>title</code></dt>
+<dd>The title to display at the top of the panel.</dd>
+<dt><code>value</code></dt>
+<dd><strong>Optional</strong> The value to return when this panel is open. Defaults to <code>title</code>.</dd>
 <dt><code>style</code></dt>
-<dd>A bootstrap style to apply. Defaults to <code>info</code>.</dd>
-<dt><code>dismiss</code></dt>
-<dd><strong>logical</strong> Should the Alert be user dismissable? Defaults to <code>TRUE</code>.</dd>
-<dt><code>append</code></dt>
-<dd><code>logical</code> Should the Alert be appended below existing Alerts? Default to <code>TRUE</code>.</dd>
+<dd><strong>Optional</strong> A Bootstrap style to apply to the panel. (<code>primary</code>, <code>danger</code>, <code>warning</code>, <code>info</code>, or <code>success</code>)</dd>
+<dt><code>...</code></dt>
+<dd>UI elements to include within the panel.</dd>
   </dl>					
 </section>
-<section id = "closeAlert" class = "subgroup">
-  <h3>closeAlert</h3>
+<section id = "updateCollapse" class = "subgroup">
+  <h3>updateCollapse</h3>
   <p>
-<code>closeAlert</code> is used within your Server logic to close an alert that you
-created with <code>list("createAlert")</code>.
+<code>updateCollapse</code> is used within the Server logic of your Shiny app to
+modify a Collapse after load.
 </p>
   <h4>Usage</h4>
-  <pre><code>closeAlert(session, alertId)
+  <pre><code>updateCollapse(session, id, open = NULL, close = NULL, style = NULL)
 </code></pre>
   <h4>Parameters</h4>
   <dl>
     <dt><code>session</code></dt>
 <dd>The session object passed to function given to shinyServer.</dd>
-<dt><code>alertId</code></dt>
-<dd><strong>Optional</strong> A unique identifier for the Alert.</dd>
+<dt><code>id</code></dt>
+<dd>The id of the Collapse object you want to change.</dd>
+<dt><code>open</code></dt>
+<dd>A vector of <code>value</code> (or <code>title</code> if no <code>value</code> was
+provided) values identifying the panels you want to open.</dd>
+<dt><code>close</code></dt>
+<dd>A vector of <code>value</code> (or <code>title</code> if no <code>value</code> was
+provided) values identifying the panels you want to close.</dd>
+<dt><code>style</code></dt>
+<dd>A named list of Bootstrap styles (<code>primary</code>, <code>danger</code>, <code>info</code>,
+<code>warning</code>, <code>success</code>, or <code>default</code>). The names should correspond
+to the <code>value</code> (or <code>title</code> if no <code>value</code> was provided) of the
+<code>list("bsCollapsePanel")</code> you want to change.</dd>
   </dl>					
 </section>
 				</section>
@@ -181,13 +191,8 @@ created with <code>list("createAlert")</code>.
 					<h2>Changes</h2>
           
 <p>
-<code>style</code> was called <code>type</code> in previous versions of shinyBS.
-</p>
-<p>
-<code>anchorId</code> was called <code>inputId</code> in previous versions of shinyBS.
-</p>
-<p>
-<code>content</code> was called <code>message</code> in previous versions of shinyBS.
+<code>style</code> is a new option that wasn't available in previous versions of
+shinyBS.
 
 				</section>
 
@@ -207,34 +212,34 @@ created with <code>list("createAlert")</code>.
 
 library(shiny)
 library(shinyBS)
+
 shinyApp(
  ui = fluidPage(
    sidebarLayout(
-     sidebarPanel(textInput("num1", NULL, value = 100),
-       "divided by", textInput("num2", NULL, value = 20),
-       "equals", textOutput("exampleOutput")),
+     sidebarPanel(HTML("This button will open Panel 1 using <code>updateCollapse</code>."),
+                  actionButton("p1Button", "Push Me!"),
+                  selectInput("styleSelect", "Select style for Panel 1",
+                   c("default", "primary", "danger", "warning", "info", "success"))
+     ),
      mainPanel(
-       bsAlert("alert")
+       bsCollapse(id = "collapseExample", open = "Panel 2",
+                  bsCollapsePanel("Panel 1", "This is a panel with just text ",
+                   "and has the default style. You can change the style in ",
+                   "the sidebar.", style = "info"),
+                  bsCollapsePanel("Panel 2", "This panel has a generic plot. "
+                   "and a 'success' style.", plotOutput("genericPlot"), style = "success")
+       )
      )
    )
  ),
  server = function(input, output, session) {
-   output$exampleOutput <- renderText({
-     num1 <- as.numeric(input$num1)
-     num2 <- as.numeric(input$num2)
-
-     if(is.na(num1) | is.na(num2)) {
-       createAlert(session, "alert", "exampleAlert", title = "Oops",
-         content = "Both inputs should be numeric.", append = FALSE)
-     } else if(num2 == 0) {
-       createAlert(session, "alert", "exampleAlert", title = "Oops",
-         content = "You cannot divide by 0.", append = FALSE)
-     } else {
-       closeAlert(session, "exampleAlert")
-       return(num1/num2)
-     }
-
-   })
+   output$genericPlot <- renderPlot(plot(rnorm(100)))
+   observeEvent(input$p1Button, ({
+     updateCollapse(session, "collapseExample", open = "Panel 1")
+   }))
+   observeEvent(input$styleSelect, ({
+     updateCollapse(session, "collapseExample", style = list("Panel 1" = input$styleSelect))
+   }))
  }
 )
 
@@ -243,7 +248,7 @@ shinyApp(
 						</div>
 						
 						<div class = "tab-pane" id = "app" role = "tabpanel">
-							 <iframe src="https://ebailey78.shinyapps.io/Alerts/" frameborder = 0 style = "width: 100%; margin-top: 10px; min-height: 400px;"></iframe> 
+							 <iframe src="https://ebailey78.shinyapps.io/Collapses/" frameborder = 0 style = "width: 100%; margin-top: 10px; min-height: 400px;"></iframe> 
 						</div>
 					</div>
 		
