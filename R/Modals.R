@@ -35,7 +35,8 @@
 #'library(shinyBS)
 #'
 #'shinyApp(
-#'  ui =   fluidPage(
+#'  ui =   
+#'  fluidPage(
 #'    sidebarLayout(
 #'      sidebarPanel(
 #'        sliderInput("bins",
@@ -53,7 +54,8 @@
 #'      )
 #'    )
 #'  ),
-#'  server = function(input, output, session) {
+#'  server = 
+#'  function(input, output, session) {
 #'    
 #'    output$distPlot <- renderPlot({
 #'      

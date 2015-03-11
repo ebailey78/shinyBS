@@ -33,7 +33,8 @@
 #'library(shinyBS)
 #'
 #'shinyApp(
-#'  ui = fluidPage(
+#'  ui = 
+#'  fluidPage(
 #'    sidebarLayout(
 #'      sidebarPanel(HTML("This button will open Panel 1 using <code>updateCollapse</code>."), 
 #'                   actionButton("p1Button", "Push Me!"),
@@ -51,7 +52,8 @@
 #'      )
 #'    )
 #'  ),
-#'  server = function(input, output, session) {
+#'  server = 
+#'  function(input, output, session) {
 #'    output$genericPlot <- renderPlot(plot(rnorm(100)))  
 #'    observeEvent(input$p1Button, ({
 #'      updateCollapse(session, "collapseExample", open = "Panel 1")
