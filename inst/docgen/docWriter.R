@@ -4,6 +4,10 @@ family <- "Alerts"
 functions <- c("bsAlert", "createAlert", "closeAlert")
 path <- "C:/R/shinyBS"
 
+family <- "Modals"
+functions <- c("bsModal", "toggleModal")
+
+
 createDocPage <- function(con = stdout(), family, functions, path = "C:/R/shinyBS") {
   
   components <- c()
@@ -52,6 +56,8 @@ createDocPage <- function(con = stdout(), family, functions, path = "C:/R/shinyB
       
       arg <- args[[i]]
       item <- unlist(arg[[1]])
+
+      if(is.null(item)) item = "..."
       def <- writeDesc(arg[[2]])
       
       arg <- gsub("<%=param %>", item, template, fixed = TRUE)
@@ -130,4 +136,6 @@ createDocPage <- function(con = stdout(), family, functions, path = "C:/R/shinyB
   writeLines(template, con)
   
 }
+
+createDocPage("test.html", family, functions, path)
   
