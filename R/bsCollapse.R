@@ -25,7 +25,7 @@ bsCollapse <- function(..., id = NULL, multiple = FALSE, open = NULL) {
   }
   
   panels <- list(...)
-  panels <<- panels
+
   for(i in seq(length(panels))) {
     if(getAttribs(panels[[i]])$value %in% open) {
       panels[[i]]$children[[2]] <- addClass(panels[[i]]$children[[2]], "in")
