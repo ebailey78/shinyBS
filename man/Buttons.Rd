@@ -61,7 +61,8 @@ shinyApp(
                      value = 1),
          bsButton("actTwo", label = "Click me if you dare!", icon = icon("ban")),
          tags$p("Clicking the first button below changes the disabled state of the second button."),
-         bsButton("togOne", label = "Toggle 'Block Action Button' disabled status", block = TRUE, type = "toggle", value = TRUE),
+         bsButton("togOne", label = "Toggle 'Block Action Button' disabled status",
+                  block = TRUE, type = "toggle", value = TRUE),
          bsButton("actOne", label = "Block Action Button", block = TRUE)
 
        ),

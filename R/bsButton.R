@@ -21,7 +21,7 @@
 bsButton <- function(inputId, label, icon = NULL, ..., style = "default",
                      size = "default", type = "action", block = FALSE,
                      disabled = FALSE, value = FALSE) {
-  btn <- actionButton(inputId, label, icon, ...)
+  btn <- shiny::actionButton(inputId, label, icon, ...)
   if(type == "toggle") {
     btn <- removeClass(btn, "action-button")
     btn <- addClass(btn, "sbs-toggle-button")

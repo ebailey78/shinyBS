@@ -13,6 +13,6 @@
 #'@export
 removeTooltip <- function(session, id) {
   
-  session$sendCustomMessage(type="updateTooltip", list(action = "remove", type = "tooltip", id = id))
+  session$sendCustomMessage(type="updateTooltipOrPopover", list(action = "remove", type = "tooltip", id = id))
   
 }
