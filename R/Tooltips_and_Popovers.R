@@ -106,8 +106,9 @@ createTooltipOrPopoverOnServer <- function(session, id, type, options) {
 createTooltipOrPopoverOnUI <- function(id, type, options) {
   
   options = paste0("{'", paste(names(options), options, sep = "': '", collapse = "', '"), "'}")
-  
-  bsTag <- shiny::tags$script(paste0("$(document).ready(function() {setTimeout(function() {shinyBS.addTooltip('", id, "', '", type, "', ", options, ")}, 100)});"))
+  print(paste0("createTooltipOrPopoverOnUI", options))
+  bsTag <- shiny::tags$script(HTML(paste0("$(document).ready(function() {setTimeout(function() {shinyBS.addTooltip('", id, "', '", type, "', ", options, ")}, 500)});")))
+  print(bsTag)
   htmltools::attachDependencies(bsTag, shinyBSDep)  
   
 }
@@ -120,7 +121,7 @@ buildTooltipOrPopoverOptionsList <- function(title, placement, trigger, options,
   
   if(!missing(content)) {
     if(is.null(options$content)) {
-      options$content = content
+      options$content = HTML(content)
     }
   }
   

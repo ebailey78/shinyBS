@@ -2,10 +2,10 @@ Package: shinyBS
 Type: Package
 Title: Twitter Bootstrap Components for Shiny
 Version: 0.50
-Date: 2015-01-27
+Date: 2015-03-19
 Author: Eric Bailey
-Maintainer: Eric Bailey <ebailey@idem.in.gov>
-Description: Adds more Twitter Bootstrap components to the shiny interface
+Maintainer: Eric Bailey <eb11307@gmail.com>
+Description: Adds additional Twitter Bootstrap components to Shiny.
 Imports:
     shiny (>= 0.11),
     htmltools
