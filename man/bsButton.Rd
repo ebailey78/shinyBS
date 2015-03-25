@@ -42,8 +42,8 @@ See \link{Buttons} for more information about how to use \code{bsButton} with th
 rest of the Buttons family.
 }
 \note{
-Run \code{example("Buttons", "shinyBS", ask = FALSE)} for an example
-of bsButton functionality
+Run \code{bsExample("Buttons")} for an example
+of \code{bsButton} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

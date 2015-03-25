@@ -21,8 +21,8 @@ from the input object passed to the function in \code{\link{shinyServer}}.
 collapse panels or to change their style.
 }
 \note{
-Run \code{example("Collapses", "shinyBS", ask = FALSE)} for an example
-of Collapses functionality
+Run \code{bsExample("Collapses")} for an example
+of \code{Collapses} functionality.
 }
 \section{Components}{
 
@@ -39,7 +39,7 @@ of Collapses functionality
 shinyBS.
 }
 \examples{
-\donttest{
+\dontrun{
 library(shiny)
 library(shinyBS)
 

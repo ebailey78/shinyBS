@@ -9,7 +9,7 @@ closeAlert(session, alertId)
 \arguments{
 \item{session}{The session object passed to function given to shinyServer.}
 
-\item{alertId}{\bold{Optional} A unique identifier for the Alert.}
+\item{alertId}{The id of the alert to be dismissed.}
 }
 \description{
 \code{closeAlert} is used within your Server logic to close an alert that you
@@ -20,8 +20,8 @@ See \link{Alerts} for more information about how to use \code{closeAlert} with t
 rest of the Alerts family.
 }
 \note{
-Run \code{example("Alerts", "shinyBS", ask = FALSE)} for an example
-of closeAlert functionality
+Run \code{bsExample("Alerts")} for an example
+of \code{closeAlert} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

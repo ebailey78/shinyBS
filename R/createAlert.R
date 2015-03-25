@@ -10,7 +10,7 @@
 #'@param title \bold{Optional} A title for the Alert.
 #'@param content The main body of the Alert. HTML tags are allowed.
 #'@param style A bootstrap style to apply. Defaults to \code{info}.
-#'@param dismiss \bold{logical} Should the Alert be user dismissable? Defaults to \code{TRUE}.
+#'@param dismiss \code{logical} Should the Alert be user dismissable? Defaults to \code{TRUE}.
 #'@param append \code{logical} Should the Alert be appended below existing Alerts? Default to \code{TRUE}.
 #'
 #'@templateVar item_name createAlert

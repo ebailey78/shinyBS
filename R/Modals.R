@@ -30,7 +30,7 @@
 #'size of the modal window. Either \code{small} or \code{large}.
 #'
 #'@examples
-#'\donttest{
+#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
 #'

@@ -24,8 +24,8 @@ the button to \code{style = "success"} to let them know that the button is ready
 to be clicked.
 }
 \note{
-Run \code{example("Buttons", "shinyBS", ask = FALSE)} for an example
-of Buttons functionality
+Run \code{bsExample("Buttons")} for an example
+of \code{Buttons} functionality.
 }
 \section{Components}{
 
@@ -46,7 +46,7 @@ There are two functions in the Buttons family:
 \code{icon} was added to allow placing an icon in the button.
 }
 \examples{
-\donttest{
+\dontrun{
 library(shiny)
 library(shinyBS)
 shinyApp(
@@ -61,7 +61,7 @@ shinyApp(
                      value = 1),
          bsButton("actTwo", label = "Click me if you dare!", icon = icon("ban")),
          tags$p("Clicking the first button below changes the disabled state of the second button."),
-         bsButton("togOne", label = "Toggle 'Block Action Button' disabled status",
+         bsButton("togOne", label = "Toggle button disabled status",
                   block = TRUE, type = "toggle", value = TRUE),
          bsButton("actOne", label = "Block Action Button", block = TRUE)
 
@@ -112,7 +112,7 @@ shinyApp(
        } else if((b > 5 & b < 20) | b > 30) {
          txt = "I warned you about that."
        } else if(b >= 20 &  b <= 30) {
-         txt = "You have choosen... wisely."
+         txt = "You have chosen... wisely."
        }
        return(txt)
      })

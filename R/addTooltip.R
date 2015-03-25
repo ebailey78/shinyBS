@@ -9,7 +9,7 @@
 #'@param placement Where the tooltip should appear relative to its target 
 #'(\code{top}, \code{bottom}, \code{left}, or \code{right}). Defaults to \code{"bottom"}.
 #'@param trigger What action should cause the tooltip to appear? (\code{hover},
-#'\code{focus}, \code{click}, or \code{manual}. Defaults to \code{"hover"}.
+#'\code{focus}, \code{click}, or \code{manual}). Defaults to \code{"hover"}.
 #'@param options A named list of additional options to be set on the tooltip.
 #'
 #'@templateVar item_name addTooltip

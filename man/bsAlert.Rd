@@ -18,8 +18,8 @@ See \link{Alerts} for more information about how to use \code{bsAlert} with the
 rest of the Alerts family.
 }
 \note{
-Run \code{example("Alerts", "shinyBS", ask = FALSE)} for an example
-of bsAlert functionality
+Run \code{bsExample("Alerts")} for an example
+of \code{bsAlert} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

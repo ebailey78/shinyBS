@@ -23,8 +23,8 @@ See \link{Collapses} for more information about how to use \code{bsCollapsePanel
 rest of the Collapses family.
 }
 \note{
-Run \code{example("Collapses", "shinyBS", ask = FALSE)} for an example
-of bsCollapsePanel functionality
+Run \code{bsExample("Collapses")} for an example
+of \code{bsCollapsePanel} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

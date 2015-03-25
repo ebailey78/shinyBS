@@ -21,7 +21,7 @@ displayed.}
 
 \item{style}{A bootstrap style to apply. Defaults to \code{info}.}
 
-\item{dismiss}{\bold{logical} Should the Alert be user dismissable? Defaults to \code{TRUE}.}
+\item{dismiss}{\code{logical} Should the Alert be user dismissable? Defaults to \code{TRUE}.}
 
 \item{append}{\code{logical} Should the Alert be appended below existing Alerts? Default to \code{TRUE}.}
 }
@@ -34,8 +34,8 @@ See \link{Alerts} for more information about how to use \code{createAlert} with 
 rest of the Alerts family.
 }
 \note{
-Run \code{example("Alerts", "shinyBS", ask = FALSE)} for an example
-of createAlert functionality
+Run \code{bsExample("Alerts")} for an example
+of \code{createAlert} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

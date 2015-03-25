@@ -20,8 +20,8 @@ See \link{Tooltips_and_Popovers} for more information about how to use \code{rem
 rest of the Tooltips_and_Popovers family.
 }
 \note{
-Run \code{example("Tooltips_and_Popovers", "shinyBS", ask = FALSE)} for an example
-of removeTooltip functionality
+Run \code{bsExample("Tooltips_and_Popovers")} for an example
+of \code{removeTooltip} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}
@@ -29,6 +29,7 @@ of removeTooltip functionality
 Other Tooltips_and_Popovers: \code{\link{Tooltips_and_Popovers}};
   \code{\link{addPopover}}; \code{\link{addTooltip}};
   \code{\link{bsPopover}}; \code{\link{bsTooltip}};
-  \code{\link{removePopover}}
+  \code{\link{popify}}; \code{\link{removePopover}};
+  \code{\link{tipify}}
 }
 

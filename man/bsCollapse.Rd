@@ -27,8 +27,8 @@ See \link{Collapses} for more information about how to use \code{bsCollapse} wit
 rest of the Collapses family.
 }
 \note{
-Run \code{example("Collapses", "shinyBS", ask = FALSE)} for an example
-of bsCollapse functionality
+Run \code{bsExample("Collapses")} for an example
+of \code{bsCollapse} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

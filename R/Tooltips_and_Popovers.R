@@ -6,12 +6,18 @@
 #'you could add a popover to an output providing further analysis of that output.
 #'
 #'@section Components:
-#'There are six functions in the Tooltips and Popovers family: 
+#'There are eight functions in the Tooltips and Popovers family: 
 #'  \describe{
 #'    \item{\code{\link{bsTooltip}}}{Used in the UI to add a tooltip to an element
 #'    in your UI.}
 #'    \item{\code{\link{bsPopover}}}{Used in the UI to add a popover to an element
 #'    in your UI.}
+#'    \item{\code{\link{tipify}}}{Wrap any UI element in \code{tipify} to add a
+#'    tooltip to the wrapped element. Preferred for elemented created with 
+#'    \code{\link{renderUI}}.}
+#'    \item{\code{\link{popify}}}{Wrap any UI element in \code{popify} to add a
+#'    popover to the wrapped element. Preferred for elements created with 
+#'    \code{\link{renderUI}}.}
 #'    \item{\code{\link{addTooltip}}}{Used in the Server logic to add a tooltip 
 #'    to an element in your UI.}
 #'    \item{\code{\link{addPopover}}}{Used in the Server logic to add a popover 
@@ -26,7 +32,10 @@
 #'You can create tooltips and popovers from either the UI script or within the
 #'Server logic. \code{\link{bsTooltip}} and \code{\link{bsPopover}} are used in
 #'the UI, and \code{\link{addTooltip}} and \code{\link{addPopover}} are used in
-#'the Server logic.
+#'the Server logic. \code{\link{tipify}} and \code{\link{popify}} can be used 
+#'within the UI or from within a \code{\link{renderUI}} in the Server logic. They
+#'also have the added advantage of not requiring that the UI element have an ID
+#'attribute.
 #'
 #'@note
 #'Tooltips and Popovers cannot contain shiny inputs or outputs.
@@ -47,7 +56,7 @@
 #'details.
 #'
 #'@examples
-#'\donttest{
+#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
 #'shinyApp(
@@ -64,7 +73,8 @@
 #'          "right", options = list(container = "body"))
 #'      ),
 #'      mainPanel(
-#'        plotOutput("distPlot")
+#'        plotOutput("distPlot"),
+#'        uiOutput("uiExample")       
 #'      )
 #'    )  
 #'  ),
@@ -79,6 +89,15 @@
 #'      # draw the histogram with the specified number of bins
 #'      hist(x, breaks = bins, col = 'darkgray', border = 'white')
 #'      
+#'    })
+#'    output$uiExample <- renderUI({
+#'      tags$span(
+#'        popify(bsButton("pointlessButton", "Button", style = "primary", size = "large"), 
+#'          "A Pointless Button", 
+#'          "This button is <b>pointless</b>. It does not do <em>anything</em>!"),
+#'        tipify(bsButton("pB2", "Button", style = "inverse", size = "extra-small"),
+#'          "This button is pointless too!")
+#'      )
 #'    })
 #'    addPopover(session, "distPlot", "Data", content = paste0("<p>Waiting time between ",
 #'      "eruptions and the duration of the eruption for the Old Faithful geyser ",
@@ -107,7 +126,7 @@ createTooltipOrPopoverOnUI <- function(id, type, options) {
   
   options = paste0("{'", paste(names(options), options, sep = "': '", collapse = "', '"), "'}")
 
-  bsTag <- shiny::tags$script(HTML(paste0("$(document).ready(function() {setTimeout(function() {shinyBS.addTooltip('", id, "', '", type, "', ", options, ")}, 500)});")))
+  bsTag <- shiny::tags$script(shiny::HTML(paste0("$(document).ready(function() {setTimeout(function() {shinyBS.addTooltip('", id, "', '", type, "', ", options, ")}, 500)});")))
 
   htmltools::attachDependencies(bsTag, shinyBSDep)  
   
@@ -121,7 +140,7 @@ buildTooltipOrPopoverOptionsList <- function(title, placement, trigger, options,
   
   if(!missing(content)) {
     if(is.null(options$content)) {
-      options$content = HTML(content)
+      options$content = shiny::HTML(content)
     }
   }
   

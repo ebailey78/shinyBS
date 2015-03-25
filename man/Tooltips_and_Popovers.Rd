@@ -13,7 +13,10 @@ you could add a popover to an output providing further analysis of that output.
 You can create tooltips and popovers from either the UI script or within the
 Server logic. \code{\link{bsTooltip}} and \code{\link{bsPopover}} are used in
 the UI, and \code{\link{addTooltip}} and \code{\link{addPopover}} are used in
-the Server logic.
+the Server logic. \code{\link{tipify}} and \code{\link{popify}} can be used
+within the UI or from within a \code{\link{renderUI}} in the Server logic. They
+also have the added advantage of not requiring that the UI element have an ID
+attribute.
 }
 \note{
 Tooltips and Popovers cannot contain shiny inputs or outputs.
@@ -27,17 +30,23 @@ Tooltips and popovers may not work on some of the more complex shiny inputs
 or outputs. If you encounter a problem with tooltips or popovers not appearing
 please file a issue on the github page so I can fix it.
 
-Run \code{example("Tooltips_and_Popovers", "shinyBS", ask = FALSE)} for an example
-of Tooltips_and_Popovers functionality
+Run \code{bsExample("Tooltips_and_Popovers")} for an example
+of \code{Tooltips_and_Popovers} functionality.
 }
 \section{Components}{
 
-There are six functions in the Tooltips and Popovers family:
+There are eight functions in the Tooltips and Popovers family:
  \describe{
    \item{\code{\link{bsTooltip}}}{Used in the UI to add a tooltip to an element
    in your UI.}
    \item{\code{\link{bsPopover}}}{Used in the UI to add a popover to an element
    in your UI.}
+   \item{\code{\link{tipify}}}{Wrap any UI element in \code{tipify} to add a
+   tooltip to the wrapped element. Preferred for elemented created with
+   \code{\link{renderUI}}.}
+   \item{\code{\link{popify}}}{Wrap any UI element in \code{popify} to add a
+   popover to the wrapped element. Preferred for elements created with
+   \code{\link{renderUI}}.}
    \item{\code{\link{addTooltip}}}{Used in the Server logic to add a tooltip
    to an element in your UI.}
    \item{\code{\link{addPopover}}}{Used in the Server logic to add a popover
@@ -57,7 +66,7 @@ the \href{http://getbootstrap.com}{Twitter Bootstrap 3 documentation} for more
 details.
 }
 \examples{
-\donttest{
+\dontrun{
 library(shiny)
 library(shinyBS)
 shinyApp(
@@ -74,7 +83,8 @@ shinyApp(
          "right", options = list(container = "body"))
      ),
      mainPanel(
-       plotOutput("distPlot")
+       plotOutput("distPlot"),
+       uiOutput("uiExample")
      )
    )
  ),
@@ -90,6 +100,15 @@ shinyApp(
      hist(x, breaks = bins, col = 'darkgray', border = 'white')
 
    })
+   output$uiExample <- renderUI({
+     tags$span(
+       popify(bsButton("pointlessButton", "Button", style = "primary", size = "large"),
+         "A Pointless Button",
+         "This button is <b>pointless</b>. It does not do <em>anything</em>!"),
+       tipify(bsButton("pB2", "Button", style = "inverse", size = "extra-small"),
+         "This button is pointless too!")
+     )
+   })
    addPopover(session, "distPlot", "Data", content = paste0("<p>Waiting time between ",
      "eruptions and the duration of the eruption for the Old Faithful geyser ",
      "in Yellowstone National Park, Wyoming, USA.</p><p>Azzalini, A. and ",
@@ -104,7 +123,8 @@ shinyApp(
 
 Other Tooltips_and_Popovers: \code{\link{addPopover}};
   \code{\link{addTooltip}}; \code{\link{bsPopover}};
-  \code{\link{bsTooltip}}; \code{\link{removePopover}};
-  \code{\link{removeTooltip}}
+  \code{\link{bsTooltip}}; \code{\link{popify}};
+  \code{\link{removePopover}}; \code{\link{removeTooltip}};
+  \code{\link{tipify}}
 }
 

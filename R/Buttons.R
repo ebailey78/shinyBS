@@ -35,7 +35,7 @@
 #'\code{icon} was added to allow placing an icon in the button.
 #' 
 #'@examples
-#'\donttest{
+#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
 #'shinyApp(
@@ -50,7 +50,7 @@
 #'                      value = 1),
 #'          bsButton("actTwo", label = "Click me if you dare!", icon = icon("ban")),
 #'          tags$p("Clicking the first button below changes the disabled state of the second button."),
-#'          bsButton("togOne", label = "Toggle 'Block Action Button' disabled status", 
+#'          bsButton("togOne", label = "Toggle button disabled status", 
 #'                   block = TRUE, type = "toggle", value = TRUE),
 #'          bsButton("actOne", label = "Block Action Button", block = TRUE)
 #'        
@@ -101,7 +101,7 @@
 #'        } else if((b > 5 & b < 20) | b > 30) {
 #'          txt = "I warned you about that."
 #'        } else if(b >= 20 &  b <= 30) {
-#'          txt = "You have choosen... wisely."
+#'          txt = "You have chosen... wisely."
 #'        }
 #'        return(txt)
 #'      })

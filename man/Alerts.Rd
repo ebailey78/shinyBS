@@ -21,8 +21,8 @@ not use \code{createAlert} to give the user info about what they need to
 change.
 }
 \note{
-Run \code{example("Alerts", "shinyBS", ask = FALSE)} for an example
-of Alerts functionality
+Run \code{bsExample("Alerts")} for an example
+of \code{Alerts} functionality.
 }
 \section{Components}{
 
@@ -48,7 +48,7 @@ There are three functions in the Alerts family:
 \code{content} was called \code{message} in previous versions of shinyBS.
 }
 \examples{
-\donttest{
+\dontrun{
 library(shiny)
 library(shinyBS)
 shinyApp(

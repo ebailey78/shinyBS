@@ -18,7 +18,7 @@ addTooltip(session, id, title, placement = "bottom", trigger = "hover",
 (\code{top}, \code{bottom}, \code{left}, or \code{right}). Defaults to \code{"bottom"}.}
 
 \item{trigger}{What action should cause the tooltip to appear? (\code{hover},
-\code{focus}, \code{click}, or \code{manual}. Defaults to \code{"hover"}.}
+\code{focus}, \code{click}, or \code{manual}). Defaults to \code{"hover"}.}
 
 \item{options}{A named list of additional options to be set on the tooltip.}
 }
@@ -31,15 +31,16 @@ See \link{Tooltips_and_Popovers} for more information about how to use \code{add
 rest of the Tooltips_and_Popovers family.
 }
 \note{
-Run \code{example("Tooltips_and_Popovers", "shinyBS", ask = FALSE)} for an example
-of addTooltip functionality
+Run \code{bsExample("Tooltips_and_Popovers")} for an example
+of \code{addTooltip} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}
 
 Other Tooltips_and_Popovers: \code{\link{Tooltips_and_Popovers}};
   \code{\link{addPopover}}; \code{\link{bsPopover}};
-  \code{\link{bsTooltip}}; \code{\link{removePopover}};
-  \code{\link{removeTooltip}}
+  \code{\link{bsTooltip}}; \code{\link{popify}};
+  \code{\link{removePopover}}; \code{\link{removeTooltip}};
+  \code{\link{tipify}}
 }
 

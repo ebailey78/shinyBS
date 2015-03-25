@@ -22,8 +22,8 @@ See \link{Modals} for more information about how to use \code{toggleModal} with 
 rest of the Modals family.
 }
 \note{
-Run \code{example("Modals", "shinyBS", ask = FALSE)} for an example
-of toggleModal functionality
+Run \code{bsExample("Modals")} for an example
+of \code{toggleModal} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

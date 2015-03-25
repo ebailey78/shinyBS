@@ -41,8 +41,8 @@ created by \code{\link{bsButton}} such as \code{\link{submitButton}}.
 See \code{\link{Buttons}} for more information about how to use \code{updateButton} with the rest of the Buttons family.
 }
 \note{
-Run \code{example("Buttons", "shinyBS", ask = FALSE)} for an example
-of updateButton functionality
+Run \code{bsExample("Buttons")} for an example
+of \code{updateButton} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

@@ -19,8 +19,8 @@ Create a button or link and assign its \code{inputId} as the \code{trigger}
 in \code{\link{bsModal}}.
 }
 \note{
-Run \code{example("Modals", "shinyBS", ask = FALSE)} for an example
-of Modals functionality
+Run \code{bsExample("Modals")} for an example
+of \code{Modals} functionality.
 }
 \section{Components}{
 
@@ -41,7 +41,7 @@ The \code{size} argument in \code{\link{bsModal}} allows you to specify the
 size of the modal window. Either \code{small} or \code{large}.
 }
 \examples{
-\donttest{
+\dontrun{
 library(shiny)
 library(shinyBS)
 

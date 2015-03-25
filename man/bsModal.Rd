@@ -25,8 +25,8 @@ See \link{Modals} for more information about how to use \code{bsModal} with the
 rest of the Modals family.
 }
 \note{
-Run \code{example("Modals", "shinyBS", ask = FALSE)} for an example
-of bsModal functionality
+Run \code{bsExample("Modals")} for an example
+of \code{bsModal} functionality.
 }
 \seealso{
 \href{http://getbootstrap.com}{Twitter Bootstrap 3}

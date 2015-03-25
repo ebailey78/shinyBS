@@ -37,7 +37,7 @@
 #'\code{content} was called \code{message} in previous versions of shinyBS.
 #' 
 #'@examples
-#'\donttest{
+#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
 #'shinyApp(

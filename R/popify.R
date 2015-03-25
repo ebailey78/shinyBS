@@ -1,9 +1,10 @@
-#'bsPopover
+#'popify
 #'
-#'\code{bsPopover} is used within the UI of an app to add a popover to a Shiny
-#'input or output.
+#'\code{popify} can be wrapped around any shiny UI element to add a popover to the
+#'wrapped element. This should be a safer way to add popovers to elements created with
+#'\code{\link{renderUI}}.
 #'
-#'@param id The id of the element to attach the popover to.
+#'@param el A shiny UI element.
 #'@param title The title of the popover.
 #'@param content The main content of the popover.
 #'@param placement Where the popover should appear relative to its target 
@@ -12,15 +13,24 @@
 #'\code{focus}, \code{click}, or \code{manual}). Defaults to \code{"hover"}.
 #'@param options A named list of additional options to be set on the popover.
 #'
-#'@templateVar item_name bsPopover
+#'@templateVar item_name popify
 #'@templateVar family_name Tooltips_and_Popovers
 #'@template item_details
 #'@template footer
 #'@export
-bsPopover <- function(id, title, content, placement="bottom", trigger="hover", options = NULL) {
+popify <- function(el, title, content, placement="bottom", trigger="hover", options = NULL) {
+  
+  id <- el$attribs$id
+  
+  if(is.null(id)) {
+    id <- paste0("tipify", as.integer(runif(1, 1, 10000000)))
+    el <- addAttribs(el, id = id)
+  }
   
   options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
   
-  createTooltipOrPopoverOnUI(id, "popover", options)
+  script <- createTooltipOrPopoverOnUI(id, "popover", options)
+  
+  return(shiny::tagList(el, script))  
   
 }
