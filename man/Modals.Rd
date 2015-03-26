@@ -41,11 +41,10 @@ The \code{size} argument in \code{\link{bsModal}} allows you to specify the
 size of the modal window. Either \code{small} or \code{large}.
 }
 \examples{
-\dontrun{
 library(shiny)
 library(shinyBS)
 
-shinyApp(
+app = shinyApp(
  ui =
  fluidPage(
    sidebarLayout(
@@ -96,6 +95,8 @@ shinyApp(
 
  }
 )
+\dontrun{
+ runApp(app)
 }
 }
 \seealso{

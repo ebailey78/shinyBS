@@ -39,11 +39,10 @@ of \code{Collapses} functionality.
 shinyBS.
 }
 \examples{
-\dontrun{
 library(shiny)
 library(shinyBS)
 
-shinyApp(
+app = shinyApp(
  ui =
  fluidPage(
    sidebarLayout(
@@ -74,6 +73,8 @@ shinyApp(
    }))
  }
 )
+\dontrun{
+ runApp(app)
 }
 }
 \seealso{

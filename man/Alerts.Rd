@@ -48,10 +48,9 @@ There are three functions in the Alerts family:
 \code{content} was called \code{message} in previous versions of shinyBS.
 }
 \examples{
-\dontrun{
 library(shiny)
 library(shinyBS)
-shinyApp(
+app = shinyApp(
  ui =
    fluidPage(
      sidebarLayout(
@@ -83,6 +82,9 @@ shinyApp(
      })
    }
 )
+
+\dontrun{
+ runApp(app)
 }
 }
 \seealso{

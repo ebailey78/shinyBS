@@ -66,10 +66,10 @@ the \href{http://getbootstrap.com}{Twitter Bootstrap 3 documentation} for more
 details.
 }
 \examples{
-\dontrun{
 library(shiny)
 library(shinyBS)
-shinyApp(
+
+app = shinyApp(
  ui =
  fluidPage(
    sidebarLayout(
@@ -116,6 +116,8 @@ shinyApp(
      "Applied Statistics 39, 357-365.</p>"), trigger = 'click')
  }
 )
+\dontrun{
+ runApp(app)
 }
 }
 \seealso{

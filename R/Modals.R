@@ -30,11 +30,10 @@
 #'size of the modal window. Either \code{small} or \code{large}.
 #'
 #'@examples
-#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
 #'
-#'shinyApp(
+#'app = shinyApp(
 #'  ui =   
 #'  fluidPage(
 #'    sidebarLayout(
@@ -85,6 +84,8 @@
 #'    
 #'  }
 #')
+#'\dontrun{
+#'  runApp(app)
 #'}
 #'@templateVar family_name Modals
 #'@templateVar item_name Modals

@@ -35,10 +35,9 @@
 #'\code{icon} was added to allow placing an icon in the button.
 #' 
 #'@examples
-#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
-#'shinyApp(
+#'app = shinyApp(
 #'  ui = 
 #'    fluidPage(
 #'      sidebarLayout(
@@ -107,6 +106,8 @@
 #'      })
 #'    }
 #')
+#'\dontrun{
+#'  runApp(app)
 #'}
 #'@templateVar item_name Buttons
 #'@templateVar family_name Buttons

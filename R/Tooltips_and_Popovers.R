@@ -56,10 +56,10 @@
 #'details.
 #'
 #'@examples
-#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
-#'shinyApp(
+#'
+#'app = shinyApp(
 #'  ui = 
 #'  fluidPage(
 #'    sidebarLayout(
@@ -106,6 +106,8 @@
 #'      "Applied Statistics 39, 357-365.</p>"), trigger = 'click')
 #'  }
 #')
+#'\dontrun{
+#'  runApp(app)
 #'}
 #'@templateVar item_name Tooltips_and_Popovers
 #'@templateVar family_name Tooltips_and_Popovers

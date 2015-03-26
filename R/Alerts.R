@@ -37,10 +37,10 @@
 #'\code{content} was called \code{message} in previous versions of shinyBS.
 #' 
 #'@examples
-#'\dontrun{
+#'
 #'library(shiny)
 #'library(shinyBS)
-#'shinyApp(
+#'app = shinyApp(
 #'  ui = 
 #'    fluidPage(
 #'      sidebarLayout(
@@ -72,6 +72,9 @@
 #'      })    
 #'    }
 #')
+#'
+#'\dontrun{
+#'  runApp(app)
 #'}
 #'@templateVar item_name Alerts
 #'@templateVar family_name Alerts

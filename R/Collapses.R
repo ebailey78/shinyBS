@@ -28,11 +28,10 @@
 #'shinyBS.
 #'
 #'@examples
-#'\dontrun{
 #'library(shiny)
 #'library(shinyBS)
 #'
-#'shinyApp(
+#'app = shinyApp(
 #'  ui = 
 #'  fluidPage(
 #'    sidebarLayout(
@@ -63,6 +62,8 @@
 #'    }))
 #'  }
 #')
+#'\dontrun{
+#'  runApp(app)
 #'}
 #'@templateVar item_name Collapses
 #'@templateVar family_name Collapses

@@ -46,10 +46,9 @@ There are two functions in the Buttons family:
 \code{icon} was added to allow placing an icon in the button.
 }
 \examples{
-\dontrun{
 library(shiny)
 library(shinyBS)
-shinyApp(
+app = shinyApp(
  ui =
    fluidPage(
      sidebarLayout(
@@ -118,6 +117,8 @@ shinyApp(
      })
    }
 )
+\dontrun{
+ runApp(app)
 }
 }
 \seealso{
