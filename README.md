@@ -2,29 +2,19 @@ shinyBS
 -------
 
 **shinyBS** is a package that adds several additional Twitter Boostrap 
-components to shiny. RStudio recently updated shiny to work with Bootstrap3 
-which completely broke the original shinyBS. I am updating shinyBS to
-work with the newest versions of shiny but it is taking some time. 
+components to shiny. In January RStudio updated shiny to work with Bootstrap3 
+which completely broke the original shinyBS. I have updated shinyBS to
+work with the newest versions of shiny. 
 
-Bootstrap has removed some components from version 3 (namely typeaheads 
-and submenus in dropdowns). I originally intended to create work arounds
-to keep these features available in shinyBS, despite the fact that they 
-were removed from Bootstrap. In the interest of avoiding "feature creep"
-I've decided that I am only going to restore those features that are 
-present in the version of Bootstrap supported by Shiny. This will break
-backwards compatibility for some, and I apologize for this. 
+After several rounds of revisions, shinyBS v0.61 was accepted by CRAN on March 31st, 2015 and is available for install with `install.packages()`
 
-Concentrating on getting Bootstrap's core functionality incorporated into
-the newest version of shinyBS will allow me to get a working version back
-on CRAN as quickly as possible. After that is done, I will look at either 
-reincorporating the lost functionality back into shinyBS or creating new	
-packages that give users access to this functionality.
+```R
+install.packages("shinyBS")
+```
 
-I have most of the functionality that I intend to release with shinyBS 0.50 
-working now and am now working primarily on testing and documentation. I hope
-to have the new version on CRAN in the first half of March 2015.
+Not all functionality that was in the previous versions was kept in this new version. Partly because of time constraints and partly because of some functionality being removed from Bootstrap. 
 
-Features that will remain in version 0.5 include:
+Features that remain in shinyBS 0.61 include:
 
 * Alerts
 * Tooltips
@@ -33,13 +23,12 @@ Features that will remain in version 0.5 include:
 * Collapse Panels
 * Button upgrades
 
-Features that will not be included in version 0.5 include:
+Features that are not included in shinyBS 0.61 include:
 
 * Navbars and related components
 * Typeaheads
 * Progress Bars
 * Button Groups
+* Table Formatting
 
-Sorry for any inconvenience,
-
-Eric
+Now that this version has been been accepted by CRAN I will start working on updates and added functionality. If you have a request please open an issue and let me know. Thanks!
