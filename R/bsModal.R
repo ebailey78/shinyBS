@@ -12,7 +12,7 @@
 #'@template item_details
 #'@template footer
 #'@export
-bsModal <- function(id, title, trigger, ..., size) {
+bsModal <- function(id, title, trigger, ..., size, footer = NULL, close.button = TRUE) {
   if(!missing(size)) {
     if(size == "large") {
       size = "modal-lg"
@@ -23,6 +23,15 @@ bsModal <- function(id, title, trigger, ..., size) {
   } else {
     size <- "modal-dialog"
   }
+  
+  if(is.null(footer)) {
+    footer <- tagList()
+  } 
+  
+  if(close.button) {
+    footer <- shiny::tagAppendChild(footer, tagList(shiny::tags$button(type = "button", class = "btn btn-default", "data-dismiss" = "modal", "Close")))
+  }
+  
   bsTag <- shiny::tags$div(class = "modal sbs-modal fade", id = id, tabindex = "-1", "data-sbs-trigger" = trigger,
                  shiny::tags$div(class = size,
                           shiny::tags$div(class = "modal-content",
@@ -32,7 +41,7 @@ bsModal <- function(id, title, trigger, ..., size) {
                                    ),
                                    shiny::tags$div(class = "modal-body", list(...)),
                                    shiny::tags$div(class = "modal-footer",
-                                            shiny::tags$button(type = "button", class = "btn btn-default", "data-dismiss" = "modal", "Close")
+                                      footer
                                    )
                           )
                  )
