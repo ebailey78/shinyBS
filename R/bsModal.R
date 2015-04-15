@@ -7,6 +7,9 @@
 #'@param trigger The id of a button or link that will open the modal.
 #'@param \dots UI elements to include within the modal
 #'@param size \bold{Optional} What size should the modal be? (\code{small} or \code{large})
+#'@param footer A \code{list} of shiny UI elements to be added to the footer of the modal.
+#'@param close.button Should a close button be added to the footer of the modal?
+#'@param width An optional width argument for the modal. Must include units. Only applied if \code{size} is missing. 
 #'@templateVar item_name bsModal
 #'@templateVar family_name Modals
 #'@template item_details
