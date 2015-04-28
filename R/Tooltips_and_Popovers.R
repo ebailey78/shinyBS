@@ -141,9 +141,10 @@ buildTooltipOrPopoverOptionsList <- function(title, placement, trigger, options,
   }
   
   if(!missing(content)) {
+    content <- gsub("'", "&#39;", content, fixed = TRUE)
     if(is.null(options$content)) {
       options$content = shiny::HTML(content)
-    }
+    }    
   }
   
   if(is.null(options$placement)) {
@@ -157,6 +158,7 @@ buildTooltipOrPopoverOptionsList <- function(title, placement, trigger, options,
   
   if(is.null(options$title)) {
     options$title = title
+    options$title <- gsub("'", "&#39;", options$title, fixed = TRUE)  
   }
   
   return(options)
