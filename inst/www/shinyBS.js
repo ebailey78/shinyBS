@@ -1,5 +1,17 @@
 var shinyBS = {inputBindings: {}};
 
+/* Got this from http://stackoverflow.com/a/3955096/3450322 */
+function removeA(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
+
 shinyBS.inputBindings.toggle = new Shiny.InputBinding();
 $.extend(shinyBS.inputBindings.toggle, {
   find: function(scope) {
@@ -119,16 +131,17 @@ $.extend(shinyBS.inputBindings.collapse, {
     $el.data("sbs-value", val);
     $panels.on("show.bs.collapse", function(event) {
       var val = $el.data("sbs-value");
-      val.push($(this).attr("value"));
+      var v = $(this).attr("value");
+      if(val.indexOf(v) == -1) {
+        val.push(v);
+      }
       $el.data("sbs-value", val)
     });
     $panels.on("hide.bs.collapse", function(event) {
       var val = $el.data("sbs-value");
-      var i = val.indexOf($(this).attr("value"))
-      if(i != -1) {
-        val.splice(i, 1);
-        $el.data("sbs-value", val);
-      }
+      var L = val.length;
+      removeA(val, $(this).attr("value"))
+      $el.data("sbs-value", val);
     });
   }
 })
