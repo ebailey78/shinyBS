@@ -25,7 +25,7 @@ addSelectizeTooltip <- function(session, id, choice, title, placement = "bottom"
 addSelectizePopover <- function(session, id, choice, title, content, placement = "bottom", trigger = "hover", options = NULL) {
   
   options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
-  createTooltipOrPopoverOnServer(session, id, choice, "popover", options)
+  createSelectizeTooltipOrPopoverOnServer(session, id, choice, "popover", options)
 }
 
 buildSelectizeTooltipOrPopover <- function(options, type, id, choice){
