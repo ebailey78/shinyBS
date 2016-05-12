@@ -7,14 +7,36 @@
 
 groupInputTooltip <- function(id, choice, title, placement = "bottom", trigger = "hover", options = NULL){
 
-  options = shinyBS:::buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
+  options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
   buildGroupInputTooltipOrPopover(options, "tooltip", id, choice)
 }
 
 groupInputPopover <- function(id, choice, title, content, placement = "bottom", trigger = "hover", options = NULL){
 
-  options = shinyBS:::buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
+  options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
   buildGroupInputTooltipOrPopover(options, "popover", id, choice)
+}
+
+addGroupInputTooltip <- function(session, id, choice, title, placement = "bottom", trigger = "hover", options = NULL) {
+  
+  options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
+  createGroupInputTooltipOrPopoverOnServer(session, id, choice, "tooltip", options)
+}
+
+addGroupInputPopover <- function(session, id, choice, title, content, placement = "bottom", trigger = "hover", options = NULL) {
+  
+  options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
+  createGroupInputTooltipOrPopoverOnServer(session, id, choice, "popover", options)
+}
+
+removeGroupInputTooltip <- function(session, id, choice) {
+  
+  session$sendCustomMessage(type="updateGroupInputTooltipOrPopover", list(action = "remove", type = "tooltip", id = id, choice = choice))
+}
+
+removeGroupInputPopover <- function(session, id, choice) {
+  
+  session$sendCustomMessage(type="updateGroupInputTooltipOrPopover", list(action = "remove", type = "popover", id = id, choice = choice))
 }
 
 buildGroupInputTooltipOrPopover <- function(options, type, id, choice){
@@ -35,5 +57,11 @@ buildGroupInputTooltipOrPopover <- function(options, type, id, choice){
     });
   ")))
   
-  htmltools::attachDependencies(bsTag, shinyBS:::shinyBSDep)
+  htmltools::attachDependencies(bsTag, shinyBSDep)
+}
+
+createGroupInputTooltipOrPopoverOnServer <- function(session, id, choice, type, options){
+
+  data <- list(action = "add", type = type, id = id, choice = choice, options = options)
+  session$sendCustomMessage(type = "updateGroupInputTooltipOrPopover", data)
 }
