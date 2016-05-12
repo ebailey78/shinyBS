@@ -55,6 +55,8 @@ buildSelectizeTooltipOrPopover <- function(options, type, id, choice){
         });
       });
       observer.observe(selectizeParent, { subtree: true, childList: true });
+      
+      selectizeObserverDict['", type, "' + '", id, "' + '", choice, "'] = observer;
     });
   ")))
 
