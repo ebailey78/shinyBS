@@ -253,22 +253,22 @@ Shiny.addCustomMessageHandler("updateSelectizeTooltipOrPopover", function(data) 
     var opts = $.extend(data.options, {html: true});
     
     var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation){
-          $(mutation.addedNodes).filter('div').filter(function(){return(this.getAttribute('data-value') == data.choice);}).each(function() {
-            if(data.type == "tooltip"){
-              $(this).tooltip('destroy');
-              $(this).tooltip(opts);
-            } else if (data.type == "popover") {
-              $(this).popover('destroy');
-              $(this).popover(opts);
-            }
-          });
+      mutations.forEach(function(mutation){
+        $(mutation.addedNodes).filter('div').filter(function(){return(this.getAttribute('data-value') == data.choice);}).each(function() {
+          if(data.type == "tooltip"){
+            $(this).tooltip('destroy');
+            $(this).tooltip(opts);
+          } else if (data.type == "popover") {
+            $(this).popover('destroy');
+            $(this).popover(opts);
+          }
         });
       });
+    });
       
-      observer.observe(selectizeParent, { subtree: true, childList: true });
+    observer.observe(selectizeParent, { subtree: true, childList: true });
       
-      selectizeObserverDict[data.type + data.id + data.choice] = observer;
+    selectizeObserverDict[data.type + data.id + data.choice] = observer;
   } else if(data.action == "remove") {
     
     selectizeObserverDict[data.type + data.id + data.choice].disconnect();
@@ -279,6 +279,38 @@ Shiny.addCustomMessageHandler("updateSelectizeTooltipOrPopover", function(data) 
       } else if (data.type == "popover") {
         $(this).popover('destroy');
       }
+    })
+  }
+})
+
+Shiny.addCustomMessageHandler("updateGroupInputTooltipOrPopover", function(data) {
+  if(data.action == "add") {
+    
+    $("input", $("#" + data.id)).each(function() {
+      if(this.getAttribute("value") == data.choice) {
+        
+		    var opts = $.extend(data.options, {html: true});
+		    
+		    if(data.type == "tooltip") {
+          $(this.parentElement).tooltip("destroy");
+          $(this.parentElement).tooltip(opts);
+		    } else if(data.type == "popover") {
+		      $(this.parentElement).popover("destroy");
+          $(this.parentElement).popover(opts);
+		    }
+      }
+    })
+  } else if(data.action == "remove") {
+    
+    $("input", $("#" + data.id)).each(function() {
+      if(this.getAttribute("value") == data.choice) {
+		  
+		    if(data.type == "tooltip") {
+		      $(this.parentElement).tooltip("destroy");
+	      } else if(data.type == "popover") {
+		      $(this.parentElement).popover("destroy");
+		    }
+	    }
     })
   }
 })
