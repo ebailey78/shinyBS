@@ -19,13 +19,13 @@ groupInputPopover <- function(id, choice, title, content, placement = "bottom", 
 
 addGroupInputTooltip <- function(session, id, choice, title, placement = "bottom", trigger = "hover", options = NULL) {
   
-  options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
+  options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
   createGroupInputTooltipOrPopoverOnServer(session, id, choice, "tooltip", options)
 }
 
 addGroupInputPopover <- function(session, id, choice, title, content, placement = "bottom", trigger = "hover", options = NULL) {
   
-  options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
+  options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
   createGroupInputTooltipOrPopoverOnServer(session, id, choice, "popover", options)
 }
 
