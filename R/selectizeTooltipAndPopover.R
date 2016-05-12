@@ -16,6 +16,18 @@ selectizePopover <- function(id, choice, title, content, placement = "bottom", t
   buildSelectizeTooltipOrPopover(options, "popover", id, choice)
 }
 
+addSelectizeTooltip <- function(session, id, choice, title, placement = "bottom", trigger = "hover", options = NULL) {
+  
+  options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
+  createSelectizeTooltipOrPopoverOnServer(session, id, choice, "tooltip", options)
+}
+
+addSelectizePopover <- function(session, id, choice, title, content, placement = "bottom", trigger = "hover", options = NULL) {
+  
+  options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
+  createTooltipOrPopoverOnServer(session, id, choice, "popover", options)
+}
+
 buildSelectizeTooltipOrPopover <- function(options, type, id, choice){
   
   options = paste0("{'", paste(names(options), options, sep = "': '", collapse = "', '"), "'}")
@@ -37,4 +49,10 @@ buildSelectizeTooltipOrPopover <- function(options, type, id, choice){
   ")))
 
   htmltools::attachDependencies(bsTag, shinyBSDep)
+}
+
+createSelectizeTooltipOrPopoverOnServer <- function(session, id, choice, type, options){
+
+  data <- list(action = "add", type = type, id = id, choice = choice, options = options)
+  session$sendCustomMessage(type = "updateSelectizeTooltipOrPopover", data)
 }
