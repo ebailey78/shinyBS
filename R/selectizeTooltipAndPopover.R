@@ -28,6 +28,16 @@ addSelectizePopover <- function(session, id, choice, title, content, placement =
   createSelectizeTooltipOrPopoverOnServer(session, id, choice, "popover", options)
 }
 
+removeSelectizeTooltip <- function(session, id, choice) {
+  
+  session$sendCustomMessage(type="updateSelectizeTooltipOrPopover", list(action = "remove", type = "tooltip", id = id, choice = choice))
+}
+
+removeSelectizePopover <- function(session, id, choice) {
+  
+  session$sendCustomMessage(type="updateSelectizeTooltipOrPopover", list(action = "remove", type = "popover", id = id, choice = choice))
+}
+
 buildSelectizeTooltipOrPopover <- function(options, type, id, choice){
   
   options = paste0("{'", paste(names(options), options, sep = "': '", collapse = "', '"), "'}")
