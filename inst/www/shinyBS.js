@@ -243,6 +243,39 @@ Shiny.addCustomMessageHandler("updateTooltipOrPopover", function(data) {
   }
 })
 
+Shiny.addCustomMessageHandler("updateSelectizeTooltipOrPopover", function(data) {
+  
+  var selectizeParent = document.getElementById(data.id).parentElement;
+  
+  if(data.action == "add") {
+    var opts = $.extend(data.options, {html: true});
+    
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation){
+          $(mutation.addedNodes).filter('div').filter(function(){return(this.getAttribute('data-value') == data.choice);}).each(function() {
+            if(data.type == "tooltip"){
+              $(this).tooltip('destroy');
+              $(this).tooltip(opts);
+            } else if (data.type == "popover") {
+              $(this).popover('destroy');
+              $(this).popover(opts);
+            }
+          });
+        });
+      });
+      
+      observer.observe(selectizeParent, { subtree: true, childList: true });
+  } else if(data.action == "remove") {
+    $(selectizeParent).filter('div').filter(function(){return(this.getAttribute('data-value') == data.choice);}).each(function() {
+      if(data.type == "tooltip"){
+        $(this).tooltip('destroy');
+      } else if (data.type == "popover") {
+        $(this).popover('destroy');
+      }
+    })
+  }
+})
+
 Shiny.addCustomMessageHandler("bsButtonUpdate", function(data) {
   
   var btn = $("button#" + data.id);
