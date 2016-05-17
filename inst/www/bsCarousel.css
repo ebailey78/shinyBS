@@ -1,0 +1,13 @@
+.carousel-indicators li {
+  border: solid 1px #CCCCCC !important;
+  border: solid 1px rgba(224,224,224,1) !important;
+}
+
+.carousel-indicators .active {
+  background-color: #CCCCCC !important;
+  background-color: rgba(224,224,224,1) !important;
+}
+
+.carousel-control {
+  background-image: none !important;
+}
