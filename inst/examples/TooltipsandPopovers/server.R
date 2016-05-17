@@ -12,6 +12,9 @@ shinyServer(
      hist(x, breaks = bins, col = 'darkgray', border = 'white')
 
    })
+   output$dataTable <- renderDataTable({
+     faithful
+   })
    output$uiExample <- renderUI({
      tags$span(
        popify(bsButton("pointlessButton", "Button", style = "primary", size = "large"),
