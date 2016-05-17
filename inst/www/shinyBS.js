@@ -223,13 +223,15 @@ shinyBS.removeTooltip = function(id, type) {
 // shiny inputs/outputs
 shinyBS.getTooltipTarget = function(id) {
   
-  var $id = $("#" + id);
+  var $id = $("#" + id).closest(".shiny-input-container, .shiny-bound-output, .btn, .shiny-download-link");
   
+/*  
   if($id.hasClass("js-range-slider")) {
     $id = $id.parent();
   } else if($id.hasClass("selectized")) {
     $id = $id.siblings("div.selectize-control")
   }
+*/
 
   return $id;
   
