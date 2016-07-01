@@ -10,9 +10,12 @@
 #'@template item_details
 #'@template footer
 #'@export
-bsAlert <- function(anchorId) {
+bsAlert <- function(anchorId, inline = TRUE) {
   
-  bsTag <- shiny::tags$div(class = "sbs-alert", id = anchorId, " ")
+  class <- "sbs-alert"
+  if(!inline) class = paste(class, "sbs-alert-hover")
+  
+  bsTag <- shiny::tags$div(class = class, id = anchorId, " ")
   htmltools::attachDependencies(bsTag, shinyBSDep)
   
 }
