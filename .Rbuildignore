@@ -1,4 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-README.html
+man-roxygen
+inst\tests
 README.md

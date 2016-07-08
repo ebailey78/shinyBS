@@ -1,0 +1,82 @@
+#'Alerts
+#'
+#'Alerts allow you to communicate information to the user on the fly. Standard
+#'Bootstrap styling options give the user a hint at the type of information
+#'contained in the Alert.
+#'
+#'@section Components:
+#'There are three functions in the Alerts family: 
+#'  \describe{
+#'    \item{\code{\link{bsAlert}}}{Used in the UI to create an anchor where your
+#'      Alerts will be displayed.}
+#'    \item{\code{\link{createAlert}}}{Used in the Server logic to create
+#'      alerts. This would be used within a reactive context to display error 
+#'      or success messages to the user based on the status of that context.}
+#'    \item{\code{\link{closeAlert}}}{Used in the Server logic to close an alert
+#'      that is already open. By default, Alerts are dismissable by the user,
+#'      but this offers you a way to close them programmatically.}
+#'  }
+#'      
+#'@details
+#'To create alerts in your Shiny app you must place \code{bsAlert} in your ui.
+#'This serves as an anchor that tells shinyBS where to place the alerts created
+#'with \code{createAlert}. 
+#'
+#'Use \code{createAlert} in your server script to add alerts to the anchor 
+#'you created with \code{bsAlert} in your ui. You can place \code{createAlert}
+#'in observers, reactives, or outputs. A common usage may be to have logic that
+#'validates a user's inputs. If they are valid produce the requested output, if
+#'not use \code{createAlert} to give the user info about what they need to 
+#'change.
+#'
+#'@section Changes:
+#'\code{style} was called \code{type} in previous versions of shinyBS.
+#'
+#'\code{anchorId} was called \code{inputId} in previous versions of shinyBS.
+#'
+#'\code{content} was called \code{message} in previous versions of shinyBS.
+#' 
+#'@examples
+#'
+#'library(shiny)
+#'library(shinyBS)
+#'app = shinyApp(
+#'  ui = 
+#'    fluidPage(
+#'      sidebarLayout(
+#'        sidebarPanel(textInput("num1", NULL, value = 100), 
+#'          "divided by", textInput("num2", NULL, value = 20), 
+#'          "equals", textOutput("exampleOutput")),
+#'        mainPanel(
+#'          bsAlert("alert")
+#'        )
+#'      )
+#'  ),
+#'  server = 
+#'    function(input, output, session) {
+#'      output$exampleOutput <- renderText({
+#'        num1 <- as.numeric(input$num1)
+#'        num2 <- as.numeric(input$num2)
+#'      
+#'        if(is.na(num1) | is.na(num2)) {
+#'          createAlert(session, "alert", "exampleAlert", title = "Oops", 
+#'            content = "Both inputs should be numeric.", append = FALSE)
+#'        } else if(num2 == 0) {
+#'          createAlert(session, "alert", "exampleAlert", title = "Oops", 
+#'            content = "You cannot divide by 0.", append = FALSE)
+#'        } else {
+#'          closeAlert(session, "exampleAlert")
+#'          return(num1/num2)
+#'        }
+#'      
+#'      })    
+#'    }
+#')
+#'
+#'\dontrun{
+#'  runApp(app)
+#'}
+#'@templateVar item_name Alerts
+#'@templateVar family_name Alerts
+#'@template footer
+NULL

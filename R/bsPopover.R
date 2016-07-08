@@ -1,24 +1,26 @@
-# Add a popover from the ui.R script
-bsPopover <- function(id, title, content, placement="right", trigger="click") {
-
-  sbsHead(tags$script(HTML(paste0("$(document).ready(function() {setTimeout(function() {addPopover('", id, "', '", title, "', '", content, 
-                             "', '", placement, "', '", trigger, "')}, 100);})"))))
+#'bsPopover
+#'
+#'\code{bsPopover} is used within the UI of an app to add a popover to a Shiny
+#'input or output.
+#'
+#'@param id The id of the element to attach the popover to.
+#'@param title The title of the popover.
+#'@param content The main content of the popover.
+#'@param placement Where the popover should appear relative to its target 
+#'(\code{top}, \code{bottom}, \code{left}, or \code{right}). Defaults to \code{"bottom"}.
+#'@param trigger What action should cause the popover to appear? (\code{hover},
+#'\code{focus}, \code{click}, or \code{manual}). Defaults to \code{"hover"}.
+#'@param options A named list of additional options to be set on the popover.
+#'
+#'@templateVar item_name bsPopover
+#'@templateVar family_name Tooltips_and_Popovers
+#'@template item_details
+#'@template footer
+#'@export
+bsPopover <- function(id, title, content, placement="bottom", trigger="hover", options = NULL) {
   
-}
-
-# Used to dynamically create popovers in server.R
-addPopover <- function(session, id, title="", content, placement="right", trigger="click") {
-
-  data <- list(id = id, title = title, content = content, 
-               placement = placement, trigger = trigger)
+  options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options, content)
   
-  session$sendCustomMessage(type="addpopover", data)
-  
-}
-
-#Remove popover
-removePopover <- function(session, id) {
-  
-  session$sendCustomMessage(type="removepopover", id)
+  createTooltipOrPopoverOnUI(id, "popover", options)
   
 }
