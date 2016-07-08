@@ -1,22 +1,21 @@
-# Creates an alert anchor
-bsAlert <- function(inputId) {
+#'bsAlert
+#'
+#'\code{bsAlert} creates an anchor point in your UI definition. This anchor point
+#'is where alerts created in your Server logic will be displayed.
+#'
+#'@param anchorId A unique id the identifies the anchor.
+#'
+#'@templateVar item_name bsAlert
+#'@templateVar family_name Alerts
+#'@template item_details
+#'@template footer
+#'@export
+bsAlert <- function(anchorId, inline = TRUE) {
   
-  sbsHead(tags$div(class="tbs-alert", id = inputId, " "))
-
-}
-
-# Adds and alert to an alert anchor.
-createAlert <- function(session, inputId, alertId = NULL, title=NULL, message=NULL, type=NULL, dismiss=TRUE, block=NULL, append=TRUE) {
+  class <- "sbs-alert"
+  if(!inline) class = paste(class, "sbs-alert-hover")
   
-  data <- dropNulls(list(id=inputId, alertId = alertId, title=title, message=message, type=type, dismiss=dismiss, block=block, append=append))
-
-  session$sendCustomMessage(type="createalert", data)
-  
-}
-
-# Closes and alert
-closeAlert <- function(session, alertId) {
-  
-  session$sendCustomMessage(type="closealert", alertId)
+  bsTag <- shiny::tags$div(class = class, id = anchorId, " ")
+  htmltools::attachDependencies(bsTag, shinyBSDep)
   
 }

@@ -1,27 +1,25 @@
-# Used to create a tooltip from ui.R
-bsTooltip <- function(id, title, placement="bottom", trigger="hover") {
+#'bsTooltip
+#'
+#'\code{bsTooltip} is used within the UI of an app to add a tooltip to a Shiny
+#'input or output.
+#'
+#'@param id The id of the element to attach the tooltip to.
+#'@param title The content of the tooltip.
+#'@param placement Where the tooltip should appear relative to its target 
+#'(\code{top}, \code{bottom}, \code{left}, or \code{right}). Defaults to \code{"bottom"}.
+#'@param trigger What action should cause the tooltip to appear? (\code{hover},
+#'\code{focus}, \code{click}, or \code{manual}). Defaults to \code{"hover"}.
+#'@param options A named list of additional options to be set on the tooltip.
+#'
+#'@templateVar item_name bsTooltip
+#'@templateVar family_name Tooltips_and_Popovers
+#'@template item_details
+#'@template footer
+#'@export
+bsTooltip <- function(id, title, placement="bottom", trigger="hover", options = NULL) {
   
-  if(length(trigger) > 1) trigger = paste(trigger, collapse = " ")
+  options = buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
   
-  sbsHead(tags$script(paste0("$(document).ready(function() {setTimeout(function() {addTooltip('", id, "', '", title, "', '", 
-                             placement, "', '", trigger, "')}, 100)});")))
+  createTooltipOrPopoverOnUI(id, "tooltip", options)
   
 }
-
-# Remove Tooltip from object
-removeTooltip <- function(session, id) {
-  
-  session$sendCustomMessage(type="removetooltip", id)
-  
-}
-
-# Used to dynamically create tooltips in server.R
-addTooltip <- function(session, id, title, placement = "bottom", trigger = "hover") {
-  
-  if(length(trigger) > 1) trigger = paste(trigger, collapse = " ")
-  
-  data <- list(id = id, title = title, placement = placement, trigger = trigger)
-  session$sendCustomMessage(type="addtooltip", data)
-  
-}
-
