@@ -32,3 +32,8 @@ Features that are not included in shinyBS 0.61 include:
 * Table Formatting
 
 Now that this version has been been accepted by CRAN I will start working on updates and added functionality. If you have a request please open an issue and let me know. Thanks!
+
+If you want try the newest features, use this github (not-tested) version, in your RStudio run:
+```
+devtools::install_github("ebailey78/shinyBS")
+```
