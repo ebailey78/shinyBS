@@ -4,8 +4,8 @@
 #'window.
 #'
 #'@param session The session object passed to function given to shinyServer.
-#'@param modalId The id of the modal window you want to open/close
-#'@param toggle Should the modal window \code{open}, \code{close}, or \code{toggle}?
+#'@param modalId The id of the modal window you want to show/hide
+#'@param toggle Should the modal window \code{show}, \code{hide}, or \code{toggle}?
 #'
 #'@templateVar item_name toggleModal
 #'@templateVar family_name Modals
