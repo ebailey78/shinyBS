@@ -199,15 +199,14 @@ shinyBS.addTooltip = function(id, type, opts) {
   var $id = shinyBS.getTooltipTarget(id);
   var dopts = {html: true};
   opts = $.extend(opts, dopts);
-  
+
   if(type == "tooltip") {
     $id.tooltip("destroy");
-    $id.tooltip(opts);
+    setTimeout(function() {$id.tooltip(opts);},200);
   } else if(type == "popover") {
     $id.popover("destroy");
-    $id.popover(opts);
+    setTimeout(function() {$id.popover(opts);},200);
   }
-  
 }
 
 shinyBS.removeTooltip = function(id, type) {
