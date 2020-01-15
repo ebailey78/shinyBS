@@ -1,4 +1,4 @@
-.onAttach <- function(...) {
+.onLoad <- function(...) {
   
   # Create link to javascript and css files for package
   shiny::addResourcePath("sbs", system.file("www", package="shinyBS"))
