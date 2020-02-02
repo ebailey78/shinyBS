@@ -1,0 +1,11 @@
+shinyBS v0.7.0
+==============
+
+* Separated out htmlDependencies to be more modular
+* Added support for bookmarking where possible
+* Added support for inputs/outpus in popovers and tooltips
+* Changed versioning system to semantic versioning
+* Updated maintainer email address
+* Converted online documentation site to pkgdown to make it easier to maintain.
+* added carousels
+* added option to float alerts
