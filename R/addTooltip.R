@@ -11,15 +11,19 @@
 #'@param trigger What action should cause the tooltip to appear? (\code{hover},
 #'\code{focus}, \code{click}, or \code{manual}). Defaults to \code{"hover"}.
 #'@param options A named list of additional options to be set on the tooltip.
+#'@param treatAsJQSel if \code{TRUE}, \code{id} is treated as a general jQuery selector
+#'rather than the id attribute of the element. This allows adding the popover to HTML
+#'elements even if they do not have an id attribute attached to it.
 #'
 #'@templateVar item_name addTooltip
 #'@templateVar family_name Tooltips_and_Popovers
 #'@template item_details
 #'@template footer
 #'@export
-addTooltip <- function(session, id, title, placement = "bottom", trigger = "hover", options = NULL) {
+addTooltip <- function(session, id, title, placement = "bottom", trigger = "hover", 
+                       options = NULL, treatAsJQSel  = FALSE) {
   
   options <- buildTooltipOrPopoverOptionsList(title, placement, trigger, options)
-  createTooltipOrPopoverOnServer(session, id, "tooltip", options)
+  createTooltipOrPopoverOnServer(session, id, "tooltip", options, treatAsJQSel)
   
 }

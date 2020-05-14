@@ -24,6 +24,15 @@ shinyServer(
          "This button is pointless too!")
      )
    })
+   addPopover(session, "#rdb .radio > label:first", 
+              "Add [Popover|Tooltip] to sub elements",
+              content = paste0("You can use arbitrary jQuery selectors to add ",
+                               "popovers/tooltips to elements even if they do not ",
+                               "have an 'id' attribute. Use the ", code("treatAsJQSel"),
+                               " flag to select an element by a jQuery selector rather than an ",
+                               "id. Here we used ", code("#rdb .radio > label:first"), 
+                               " to select the first label of the radio buttons group."),
+              treatAsJQSel = TRUE)
    addPopover(session, "distPlot", "Data", content = paste0("<p>Waiting time between ",
      "eruptions and the duration of the eruption for the Old Faithful geyser ",
      "in Yellowstone National Park, Wyoming, USA.</p><p>Azzalini, A. and ",

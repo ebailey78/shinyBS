@@ -195,8 +195,8 @@ Shiny.addCustomMessageHandler("bsAlertClose", function(alertId) {
 // tooltips and popovers because there structure is so similar. type="popover"
 // will create a popover.
 
-shinyBS.addTooltip = function(id, type, opts) {
-  var $id = shinyBS.getTooltipTarget(id);
+shinyBS.addTooltip = function(id, type, opts, treatAsJQSel) {
+  var $id = shinyBS.getTooltipTarget(id, treatAsJQSel);
   var dopts = {html: true};
   opts = $.extend(opts, dopts);
   
@@ -210,8 +210,9 @@ shinyBS.addTooltip = function(id, type, opts) {
   
 }
 
-shinyBS.removeTooltip = function(id, type) {
-  var $id = shinyBS.getTooltipTarget(id);
+shinyBS.removeTooltip = function(id, type, treatAsJQSel) {
+  var $id = shinyBS.getTooltipTarget(id, treatAsJQSel);
+  console.log($id);
   if(type == "tooltip") {
     $id.tooltip("destroy");
   } else if(type == "popover") {
@@ -221,9 +222,13 @@ shinyBS.removeTooltip = function(id, type) {
 
 // Makes adjustments to the tooltip and popover targets for specialized 
 // shiny inputs/outputs
-shinyBS.getTooltipTarget = function(id) {
-  
-  var $id = $("#" + id).closest(".shiny-input-container, .shiny-bound-output, .btn, .shiny-download-link");
+shinyBS.getTooltipTarget = function(id, treatAsJQSel) {
+  var $id;
+  if(!treatAsJQSel) {
+    $id = $("#" + id).closest(".shiny-input-container, .shiny-bound-output, .btn, .shiny-download-link");
+  } else {
+    $id = $(id);
+  }
   
 /*  
   if($id.hasClass("js-range-slider")) {
@@ -239,9 +244,9 @@ shinyBS.getTooltipTarget = function(id) {
 
 Shiny.addCustomMessageHandler("updateTooltipOrPopover", function(data) {
   if(data.action == "add") {
-    shinyBS.addTooltip(data.id, data.type, data.options);
+    shinyBS.addTooltip(data.id, data.type, data.options, data.treatAsJQSel);
   } else if(data.action == "remove") {
-    shinyBS.removeTooltip(data.id, data.type)
+    shinyBS.removeTooltip(data.id, data.type, data.treatAsJQSel)
   }
 })
 
