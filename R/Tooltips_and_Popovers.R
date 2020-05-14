@@ -117,9 +117,9 @@ NULL
 
 ## These Functions are common to multiple tooltip and popover functions
 # Shared functions with really long names...
-createTooltipOrPopoverOnServer <- function(session, id, type, options) {
+createTooltipOrPopoverOnServer <- function(session, id, type, options, treatAsJQSel) {
 
-  data <- list(action = "add", type = type, id = id, options = options)
+  data <- list(action = "add", type = type, id = id, options = options, treatAsJQSel = treatAsJQSel)
   session$sendCustomMessage(type = "updateTooltipOrPopover", data)
   
 }
