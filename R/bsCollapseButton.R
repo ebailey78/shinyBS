@@ -22,8 +22,11 @@ NULL
 #' @export
 bsCollapseButton <- function(inputId, label, target, icon=NULL, width=NULL, ...)
 {
-  actionButton(inputID=inputId,
-               label=label,
+  actionButton(inputId,
+               label,
+               icon=icon,
+               width=width,
+               ...,
                "data-toggle"="collapse",
                "data-target"=paste0("#", target)
   )
@@ -35,8 +38,11 @@ bsCollapseButton <- function(inputId, label, target, icon=NULL, width=NULL, ...)
 #' @export
 bsCollapseLink <- function(inputId, label, target, icon=NULL, width=NULL, ...)
 {
-  actionLink(inputID=inputId,
-             label=label,
+  actionLink(inputId,
+             label,
+             icon=icon,
+             width=width,
+             ...,
              "data-toggle"="collapse",
              "data-target"=paste0("#", target)
   )
