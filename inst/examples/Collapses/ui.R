@@ -5,20 +5,12 @@ fluidPage(
       sidebarPanel(
          div(
             HTML("This button will open Panel 1 using <code>updateCollapse</code>."),
-            actionButton("p1Button", "Push Me!")
+            actionButton("p1Button", "Push me!")
          ),
          div(
             HTML("This button will toggle Panel 1 <strong>without</strong> using <code>updateCollapse</code>."),
-            actionButton(
-               inputId="p2Button",
-               "Push Me!",
-               class="btn btn-primary",
-               type="button",
-               "data-toggle"="collapse",
-               "data-target"="#panel1",
-               "aria-expanded"="false",
-               "aria-controls"="collapseExample"
-            )
+            bsCollapseButton("p2Button", "Or push me!", "panel1", class="btn-primary"),
+            bsCollapseLink("p2Button", "Or click this link!", "panel1")
          ),
          selectInput("styleSelect", "Select style for Panel 1",
                      c("default", "primary", "danger", "warning", "info", "success"))
