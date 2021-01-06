@@ -4,7 +4,7 @@
 #'
 #'@param title The title to display at the top of the panel.
 #'@param \dots UI elements to include within the panel.
-#'@param value \bold{Optional} HTML id.  Auto-generated if missing.
+#'@param id \bold{Optional} HTML id.  Auto-generated if missing.
 #'@param value \bold{Optional} The value to return when this panel is open. Defaults to \code{title}.
 #'@param style \bold{Optional} A Bootstrap style to apply to the panel. (\code{primary}, \code{danger}, \code{warning}, \code{info}, or \code{success})
 #'

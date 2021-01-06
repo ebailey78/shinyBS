@@ -35,6 +35,7 @@ of \code{bsCollapse} functionality.
 
 Other Collapses: 
 \code{\link{Collapses}},
+\code{\link{bsCollapseButton}()},
 \code{\link{bsCollapsePanel}()},
 \code{\link{updateCollapse}()}
 }
