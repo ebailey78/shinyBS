@@ -6,9 +6,25 @@
 \title{Create a button or link that toggles the state of a
 \code{\link{bsCollapsePanel}}.}
 \usage{
-bsCollapseButton(inputId, label, target, icon = NULL, width = NULL, ...)
+bsCollapseButton(
+  inputId,
+  label,
+  target,
+  parent = NULL,
+  icon = NULL,
+  width = NULL,
+  ...
+)
 
-bsCollapseLink(inputId, label, target, icon = NULL, width = NULL, ...)
+bsCollapseLink(
+  inputId,
+  label,
+  target,
+  parent = NULL,
+  icon = NULL,
+  width = NULL,
+  ...
+)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}
@@ -16,7 +32,9 @@ bsCollapseLink(inputId, label, target, icon = NULL, width = NULL, ...)
 \item{label}{The contents of the button or link--usually a text label, but
 you could also use any other HTML, like an image.}
 
-\item{target}{value HTML id of object to be toggled}
+\item{target}{HTML id of object to be toggled}
+
+\item{parent}{\bold{Optional} HTML id of parent container}
 
 \item{icon}{An optional \code{\link[shiny:icon]{icon()}} to appear on the button.}
 
