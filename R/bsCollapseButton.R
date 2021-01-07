@@ -8,7 +8,8 @@
 #' @template item_details
 #' @template footer
 #'    
-#' @param target value HTML id of object to be toggled 
+#' @param target HTML id of object to be toggled 
+#' @param parent \bold{Optional} HTML id of parent container 
 #' 
 #' @importFrom shiny actionButton
 #' @importFrom shiny actionLink
@@ -20,15 +21,19 @@ NULL
 #'   that will toggle the collapsed state of a
 #'   \code{\link{bsCollapsePanel}} when clicked.
 #' @export
-bsCollapseButton <- function(inputId, label, target, icon=NULL, width=NULL, ...)
+bsCollapseButton <- function(inputId, label, target, parent=NULL, icon=NULL, width=NULL, ...)
 {
+  target = paste0("#", target)
+  if(!is.null(parent)) parent <- paste0("#", parent)
+  
   actionButton(inputId,
                label,
                icon=icon,
                width=width,
                ...,
                "data-toggle"="collapse",
-               "data-target"=paste0("#", target)
+               "data-target"=target,
+               "data-parent"=parent
   )
 }
 
@@ -36,15 +41,23 @@ bsCollapseButton <- function(inputId, label, target, icon=NULL, width=NULL, ...)
 #'   that will toggle the collapsed state of a
 #'   \code{\link{bsCollapsePanel}} when clicked.
 #' @export
-bsCollapseLink <- function(inputId, label, target, icon=NULL, width=NULL, ...)
+bsCollapseLink <- function(inputId, label, target, parent=NULL, icon=NULL, width=NULL, ...)
 {
-  actionLink(inputId,
+  
+  if(!is.null(parent)) 
+    parent <- HTML(paste0("#", parent))
+  
+  tmp <- actionLink(inputId,
              label,
              icon=icon,
              width=width,
              ...,
              "data-toggle"="collapse",
-             "data-target"=paste0("#", target)
+             "data-parent"=parent
   )
+  
+  tmp$attribs$href=paste0('#', target)
+  
+  tmp
 }
 
