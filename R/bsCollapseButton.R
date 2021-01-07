@@ -46,7 +46,7 @@ bsCollapseLink <- function(inputId, label, target, parent=NULL, icon=NULL, width
   
   if(!is.null(parent)) 
     parent <- paste0("#", parent)
-  
+
   tmp <- actionLink(inputId,
              label,
              icon=icon,
