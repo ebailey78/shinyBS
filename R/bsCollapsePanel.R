@@ -4,6 +4,7 @@
 #'
 #'@param title The title to display at the top of the panel.
 #'@param \dots UI elements to include within the panel.
+#'@param id \bold{Optional} HTML id.  Auto-generated if missing.
 #'@param value \bold{Optional} The value to return when this panel is open. Defaults to \code{title}.
 #'@param style \bold{Optional} A Bootstrap style to apply to the panel. (\code{primary}, \code{danger}, \code{warning}, \code{info}, or \code{success})
 #'
@@ -12,11 +13,13 @@
 #'@template item_details
 #'@template footer
 #'@export
-bsCollapsePanel <- function(title, ..., value = title, style = NULL) {
+bsCollapsePanel <- function(title, ..., id, value = title, style = NULL) {
   
   content <- list(...)
   
-  id <- paste0("cpanel", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
+  if(missing(id))
+    id <- paste0("cpanel", sprintf("%07i", as.integer(stats::runif(1, 1, 1000000))))
+  
   if(is.null(value)) {
     value = title
   }
